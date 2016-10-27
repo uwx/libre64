@@ -385,7 +385,9 @@ void init_combiner()
     glUseProgram(program_object);
 
     rotation_matrix_location = glGetUniformLocation(program_object, "rotation_matrix");
-    set_rotation_matrix(rotation_matrix_location, g_settings->rotate);
+#ifdef ANDROID
+	set_rotation_matrix(rotation_matrix_location, g_settings->rotate);
+#endif
 
     texture0_location = glGetUniformLocation(program_object, "texture0");
     texture1_location = glGetUniformLocation(program_object, "texture1");
@@ -409,7 +411,9 @@ void init_combiner()
     check_link(program_object);
     glUseProgram(program_object);
     rotation_matrix_location = glGetUniformLocation(program_object, "rotation_matrix");
-    set_rotation_matrix(rotation_matrix_location, g_settings->rotate);
+#ifdef ANDROID
+	set_rotation_matrix(rotation_matrix_location, g_settings->rotate);
+#endif
 
     texture0_location = glGetUniformLocation(program_object, "texture0");
     texture1_location = glGetUniformLocation(program_object, "texture1");
@@ -546,11 +550,12 @@ void update_uniforms(shader_program_key prog)
         glUniform1i(prog.ditherTex_location, 2);
     }
 
-    rotation_matrix_location = glGetUniformLocation(program_object, "rotation_matrix");
+#ifdef ANDROID
+	rotation_matrix_location = glGetUniformLocation(program_object, "rotation_matrix");
     set_rotation_matrix(rotation_matrix_location, g_settings->rotate);
     rotation_matrix_location = glGetUniformLocation(program_object, "rotation_matrix");
     set_rotation_matrix(rotation_matrix_location, g_settings->rotate);
-
+#endif
     set_lambda();
 }
 

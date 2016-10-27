@@ -128,6 +128,30 @@
     <ResourceCompile Include="Glide64.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\3rdParty\angle\src\common\angle_common.vcxproj">
+      <Project>{7ab4b0c9-d974-3a65-ed87-61816b6917cb}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\angle\src\compiler\preprocessor\preprocessor.vcxproj">
+      <Project>{7642cfd5-f187-3e3f-f8ff-859949b9f13e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\angle\src\compiler\translator\translator.vcxproj">
+      <Project>{6ac42cf5-8088-f4be-7c3d-1bd1bd440fcc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\angle\src\compiler\translator\translator_lib.vcxproj">
+      <Project>{3fff5710-d21b-35ae-d702-74bb256ef228}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\angle\src\image_util\angle_image_util.vcxproj">
+      <Project>{2c440506-61d0-d32c-eb09-ee8639551197}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\angle\src\libANGLE\libANGLE.vcxproj">
+      <Project>{d51f95b2-d343-6b88-7902-c392acc99260}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\angle\src\libEGL\libEGL.vcxproj">
+      <Project>{db126c05-507a-479a-a2db-3d19a74ff2f4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\angle\src\libGLESv2\libGLESv2.vcxproj">
+      <Project>{c62e0ffa-66b1-4457-a5f2-45ad2b24125b}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\3rdParty\png\png.vcxproj">
       <Project>{17836496-31b0-46f2-b1b1-366d7df6f04c}</Project>
     </ProjectReference>

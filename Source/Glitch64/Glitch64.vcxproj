@@ -33,39 +33,32 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Source\3rdParty\angle\include;inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader />
+      <PreprocessorDefinitions>GL_GLEXT_PROTOTYPES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="OGLcombiner.cpp" />
-    <ClCompile Include="OGLEScombiner.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="OGLESgeometry.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="OGLESglitchmain.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="OGLEStextures.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="OGLESwrappers.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="OGLgeometry.cpp" />
-    <ClCompile Include="OGLglitchmain.cpp" />
-    <ClCompile Include="OGLtextures.cpp" />
+    <ClCompile Include="EGLWindow.cpp" />
+    <ClCompile Include="OGLEScombiner.cpp" />
+    <ClCompile Include="OGLESgeometry.cpp" />
+    <ClCompile Include="OGLESglitchmain.cpp" />
+    <ClCompile Include="OGLEStextures.cpp" />
+    <ClCompile Include="OGLESwrappers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EGLWindow.h" />
     <ClInclude Include="glitchmain.h" />
-    <ClInclude Include="OGLESwrappers.h">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="inc\glide.h" />
+    <ClInclude Include="OGLESwrappers.h" />
     <ClInclude Include="opengl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\3rdParty\angle\src\libGLESv2\libGLESv2.vcxproj">
+      <Project>{c62e0ffa-66b1-4457-a5f2-45ad2b24125b}</Project>
+    </ProjectReference>
   </ItemGroup>
 </Project>

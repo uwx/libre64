@@ -51,46 +51,7 @@ typedef const char * (WINAPI * PFNWGLGETEXTENSIONSSTRINGARBPROC)(HDC hdc);
 #include <stdio.h>
 #endif
 
-#if defined(__ANDROID__) || defined(ANDROID)
 #include "OGLESwrappers.h"
-#else
-#include "opengl.h"
-
-extern "C" {
-#ifndef GL_VERSION_1_3
-    extern PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
-    extern PFNGLMULTITEXCOORD2FARBPROC glMultiTexCoord2fARB;
-#endif
-    extern PFNGLATTACHOBJECTARBPROC glAttachObjectARB;
-    extern PFNGLBINDFRAMEBUFFEREXTPROC glBindFramebufferEXT;
-    extern PFNGLBINDRENDERBUFFEREXTPROC glBindRenderbufferEXT;
-    extern PFNGLBLENDFUNCSEPARATEEXTPROC glBlendFuncSeparateEXT;
-    extern PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC glCheckFramebufferStatusEXT;
-    extern PFNGLCOMPILESHADERARBPROC glCompileShaderARB;
-    extern PFNGLCREATEPROGRAMOBJECTARBPROC glCreateProgramObjectARB;
-    extern PFNGLCREATESHADEROBJECTARBPROC glCreateShaderObjectARB;
-    extern PFNGLDELETERENDERBUFFERSEXTPROC glDeleteRenderbuffersEXT;
-    extern PFNGLDELETEFRAMEBUFFERSEXTPROC glDeleteFramebuffersEXT;
-    extern PFNGLFOGCOORDFEXTPROC glFogCoordfEXT;
-    extern PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC glFramebufferRenderbufferEXT;
-    extern PFNGLFRAMEBUFFERTEXTURE2DEXTPROC glFramebufferTexture2DEXT;
-    extern PFNGLGENFRAMEBUFFERSEXTPROC glGenFramebuffersEXT;
-    extern PFNGLGENRENDERBUFFERSEXTPROC glGenRenderbuffersEXT;
-    extern PFNGLGETINFOLOGARBPROC glGetInfoLogARB;
-    extern PFNGLGETOBJECTPARAMETERIVARBPROC glGetObjectParameterivARB;
-    extern PFNGLGETUNIFORMLOCATIONARBPROC glGetUniformLocationARB;
-    extern PFNGLLINKPROGRAMARBPROC glLinkProgramARB;
-    extern PFNGLRENDERBUFFERSTORAGEEXTPROC glRenderbufferStorageEXT;
-    extern PFNGLSECONDARYCOLOR3FPROC glSecondaryColor3f;
-    extern PFNGLSHADERSOURCEARBPROC glShaderSourceARB;
-    extern PFNGLUNIFORM1FARBPROC glUniform1fARB;
-    extern PFNGLUNIFORM1IARBPROC glUniform1iARB;
-    extern PFNGLUNIFORM4FARBPROC glUniform4fARB;
-    extern PFNGLUSEPROGRAMOBJECTARBPROC glUseProgramObjectARB;
-    extern PFNGLGETHANDLEARBPROC glGetHandleARB;
-}
-#endif
-
 #include "glide.h"
 
 void init_geometry();

@@ -23,6 +23,12 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <commctrl.h>
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
+#include <angle/src/libEGL/libEGL.h>
+#include <memory>
+#include <vector>
+#include "EGLWindow.h"
 #else
 #include <stdint.h>
 #include <stdarg.h>
@@ -44,8 +50,180 @@
 #include <IL/il.h>
 #endif
 
+struct ResolutionInfo
+{
+    unsigned int dwW, dwH, dwF;
+
+    ResolutionInfo() : dwW(0), dwH(0), dwF(0) {}
+
+    ResolutionInfo(unsigned int _w, unsigned int _h, unsigned int _f) : dwW(_w), dwH(_h), dwF(_f) {}
+
+    bool operator == (const ResolutionInfo & _other) const
+    {
+        if (dwW != _other.dwW)
+            return false;
+        if (dwH != _other.dwH)
+            return false;
+        if (dwF != _other.dwF)
+            return false;
+        return true;
+    }
+
+    bool operator != (const ResolutionInfo & _other) const
+    {
+        return !(operator==(_other));
+    }
+
+    void toString(char * _str) const
+    {
+        if (dwF > 0)
+            sprintf(_str, "%ix%i 32bpp %iHz", dwW, dwH, dwF);
+        else
+            sprintf(_str, "%ix%i 32bpp", dwW, dwH);
+    }
+};
+
+class FullScreenResolutions
+{
+public:
+    FullScreenResolutions() : dwNumResolutions(0), aResolutions(0), aResolutionsStr(0) {}
+    ~FullScreenResolutions();
+
+    void getResolution(FxU32 _idx, FxU32 * _width, FxU32 * _height, FxU32 * _frequency = 0)
+    {
+        WriteTrace(TraceResolution, TraceDebug, "_idx: %d", _idx);
+        if (dwNumResolutions == 0)
+        {
+            init();
+        }
+        if (_idx >= dwNumResolutions)
+        {
+            WriteTrace(TraceGlitch, TraceError, "NumResolutions = %d", dwNumResolutions);
+            _idx = 0;
+        }
+        *_width = (FxU32)aResolutions[_idx].dwW;
+        *_height = (FxU32)aResolutions[_idx].dwH;
+        if (_frequency != 0)
+        {
+            *_frequency = (FxU32)aResolutions[_idx].dwF;
+        }
+    }
+    
+    int getCurrentResolutions(void)
+    {
+        if (dwNumResolutions == 0)
+        {
+            init();
+        }
+        return currentResolutions;
+    }
+
+    char ** getResolutionsList(int32_t * Size)
+    {
+        if (dwNumResolutions == 0)
+        {
+            init();
+        }
+        *Size = (int32_t)dwNumResolutions;
+        return aResolutionsStr;
+    }
+
+    bool changeDisplaySettings(FxU32 _resolution);
+
+private:
+    void init();
+    unsigned int dwNumResolutions;
+    ResolutionInfo * aResolutions;
+    char ** aResolutionsStr;
+    int currentResolutions;
+};
+
+FullScreenResolutions::~FullScreenResolutions()
+{
+    for (unsigned int i = 0; i < dwNumResolutions; i++)
+    {
+        delete[] aResolutionsStr[i];
+    }
+    delete[] aResolutionsStr;
+    delete[] aResolutions;
+}
+
+void FullScreenResolutions::init()
+{
+    WriteTrace(TraceGlitch, TraceDebug, "executing");
+#ifdef _WIN32
+    currentResolutions = -1;
+    DEVMODE enumMode , currentMode;
+    int iModeNum = 0;
+    memset(&enumMode, 0, sizeof(DEVMODE));
+
+    EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &currentMode);
+
+    ResolutionInfo prevInfo;
+    while (EnumDisplaySettings(NULL, iModeNum++, &enumMode) != 0)
+    {
+        ResolutionInfo curInfo(enumMode.dmPelsWidth, enumMode.dmPelsHeight, enumMode.dmDisplayFrequency);
+        if (enumMode.dmBitsPerPel == 32 && curInfo != prevInfo)
+        {
+            dwNumResolutions++;
+            prevInfo = curInfo;
+        }
+    }
+
+    aResolutions = new ResolutionInfo[dwNumResolutions];
+    aResolutionsStr = new char*[dwNumResolutions];
+    iModeNum = 0;
+    int current = 0;
+    char smode[256];
+    memset(&enumMode, 0, sizeof(DEVMODE));
+    memset(&prevInfo, 0, sizeof(ResolutionInfo));
+    while (EnumDisplaySettings(NULL, iModeNum++, &enumMode) != 0)
+    {
+        ResolutionInfo curInfo(enumMode.dmPelsWidth, enumMode.dmPelsHeight, enumMode.dmDisplayFrequency);
+        if (enumMode.dmBitsPerPel == 32 && curInfo != prevInfo)
+        {
+            if (enumMode.dmPelsHeight == currentMode.dmPelsHeight && enumMode.dmPelsWidth == currentMode.dmPelsWidth)
+            {
+                currentResolutions = current;
+            }
+            aResolutions[current] = curInfo;
+            curInfo.toString(smode);
+            aResolutionsStr[current] = new char[strlen(smode) + 1];
+            strcpy(aResolutionsStr[current], smode);
+            prevInfo = curInfo;
+            current++;
+        }
+    }
+#endif
+}
+
+bool FullScreenResolutions::changeDisplaySettings(FxU32 _resolution)
+{
+#ifdef _WIN32
+    FxU32 width, height, frequency;
+    getResolution(_resolution, &width, &height, &frequency);
+    ResolutionInfo info(width, height, frequency);
+    DEVMODE enumMode;
+    int iModeNum = 0;
+    memset(&enumMode, 0, sizeof(DEVMODE));
+    while (EnumDisplaySettings(NULL, iModeNum++, &enumMode) != 0)
+    {
+        ResolutionInfo curInfo(enumMode.dmPelsWidth, enumMode.dmPelsHeight, enumMode.dmDisplayFrequency);
+        if (enumMode.dmBitsPerPel == 32 && curInfo == info) {
+            bool bRes = ChangeDisplaySettings(&enumMode, CDS_FULLSCREEN) == DISP_CHANGE_SUCCESSFUL;
+            WriteTrace(TraceGlitch, TraceDebug, "width=%d, height=%d, freq=%d %s\r\n", enumMode.dmPelsWidth, enumMode.dmPelsHeight, enumMode.dmDisplayFrequency, bRes ? "Success" : "Failed");
+            return bRes;
+        }
+    }
+    return false;
+#else // _WIN32
+    return false;
+#endif // _WIN32
+}
+
 extern void(*renderCallback)(int);
 
+FullScreenResolutions g_FullScreenResolutions;
 wrapper_config config = { 0, 0, 0 };
 int screen_width, screen_height;
 
@@ -380,11 +558,20 @@ int isWglExtensionSupported(const char *extension)
 
 #define GrPixelFormat_t int
 
+#ifdef ANDROID
 FX_ENTRY GrContext_t FX_CALL grSstWinOpenExt(GrScreenRefresh_t refresh_rate, GrColorFormat_t color_format, GrOriginLocation_t origin_location, GrPixelFormat_t pixelformat, int nColBuffers, int nAuxBuffers)
 {
     WriteTrace(TraceGlitch, TraceDebug, "refresh_rate: %d, color_format: %d, origin_location: %d, nColBuffers: %d, nAuxBuffers: %d", refresh_rate, color_format, origin_location, nColBuffers, nAuxBuffers);
-    return grSstWinOpen(refresh_rate, color_format, origin_location, nColBuffers, nAuxBuffers);
+	return grSstWinOpen(refresh_rate, color_format, origin_location, nColBuffers, nAuxBuffers);
 }
+#else
+FX_ENTRY GrContext_t FX_CALL grSstWinOpenExt( HWND hWnd, GrScreenResolution_t screen_resolution, GrScreenRefresh_t refresh_rate, GrColorFormat_t color_format, GrOriginLocation_t origin_location, GrPixelFormat_t /*pixelformat*/, int nColBuffers, int nAuxBuffers)
+{
+	WriteTrace(TraceGlitch, TraceDebug, "hWnd: %d, screen_resolution: %d, refresh_rate: %d, color_format: %d, origin_location: %d, nColBuffers: %d, nAuxBuffers: %d", hWnd, screen_resolution, refresh_rate, color_format, origin_location, nColBuffers, nAuxBuffers);
+    return grSstWinOpen(hWnd, screen_resolution, refresh_rate, color_format, origin_location, nColBuffers, nAuxBuffers);
+    return false;
+}
+#endif
 
 #ifdef _WIN32
 # include <fcntl.h>
@@ -393,7 +580,18 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpenExt(GrScreenRefresh_t refresh_rate, GrC
 # endif
 #endif
 
+std::unique_ptr<EGLWindow> mEGLWindow;
+
+void SwapBuffers(void)
+{
+    mEGLWindow->swap();
+}
+
+#ifdef _WIN32
+FX_ENTRY GrContext_t FX_CALL grSstWinOpen( HWND hWnd, GrScreenResolution_t screen_resolution, GrScreenRefresh_t refresh_rate, GrColorFormat_t color_format, GrOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
+#else
 FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrScreenRefresh_t refresh_rate, GrColorFormat_t color_format, GrOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
+#endif
 {
     static int show_warning = 1;
 
@@ -405,8 +603,187 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrScreenRefresh_t refresh_rate, GrCol
     color_texture = free_texture++;
     depth_texture = free_texture++;
 
+#ifdef _WIN32
+    WriteTrace(TraceGlitch, TraceDebug, "hWnd: %d, screen_resolution: %d, refresh_rate: %d, color_format: %d, origin_location: %d, nColBuffers: %d, nAuxBuffers: %d", hWnd, screen_resolution&~0x80000000, refresh_rate, color_format, origin_location, nColBuffers, nAuxBuffers);
+
+    if ((HWND)hWnd == NULL) hWnd = GetActiveWindow();
+    hwnd_win = (HWND)hWnd;
+
+    g_width = g_height = 0;
+    if (screen_resolution & 0x80000000)
+    {
+        switch (screen_resolution & ~0x80000000)
+        {
+        case GR_RESOLUTION_320x200:
+            g_width = 320;
+            g_height = 200;
+            break;
+        case GR_RESOLUTION_320x240:
+            g_width = 320;
+            g_height = 240;
+            break;
+        case GR_RESOLUTION_400x256:
+            g_width = 400;
+            g_height = 256;
+            break;
+        case GR_RESOLUTION_512x384:
+            g_width = 512;
+            g_height = 384;
+            break;
+        case GR_RESOLUTION_640x200:
+            g_width = 640;
+            g_height = 200;
+            break;
+        case GR_RESOLUTION_640x350:
+            g_width = 640;
+            g_height = 350;
+            break;
+        case GR_RESOLUTION_640x400:
+            g_width = 640;
+            g_height = 400;
+            break;
+        case GR_RESOLUTION_640x480:
+            g_width = 640;
+            g_height = 480;
+            break;
+        case GR_RESOLUTION_800x600:
+            g_width = 800;
+            g_height = 600;
+            break;
+        case GR_RESOLUTION_960x720:
+            g_width = 960;
+            g_height = 720;
+            break;
+        case GR_RESOLUTION_856x480:
+            g_width = 856;
+            g_height = 480;
+            break;
+        case GR_RESOLUTION_512x256:
+            g_width = 512;
+            g_height = 256;
+            break;
+        case GR_RESOLUTION_1024x768:
+            g_width = 1024;
+            g_height = 768;
+            break;
+        case GR_RESOLUTION_1280x1024:
+            g_width = 1280;
+            g_height = 1024;
+            break;
+        case GR_RESOLUTION_1600x1200:
+            g_width = 1600;
+            g_height = 1200;
+            break;
+        case GR_RESOLUTION_400x300:
+            g_width = 400;
+            g_height = 300;
+            break;
+        case GR_RESOLUTION_1152x864:
+            g_width = 1152;
+            g_height = 864;
+            break;
+        case GR_RESOLUTION_1280x960:
+            g_width = 1280;
+            g_height = 960;
+            break;
+        case GR_RESOLUTION_1600x1024:
+            g_width = 1600;
+            g_height = 1024;
+            break;
+        case GR_RESOLUTION_1792x1344:
+            g_width = 1792;
+            g_height = 1344;
+            break;
+        case GR_RESOLUTION_1856x1392:
+            g_width = 1856;
+            g_height = 1392;
+            break;
+        case GR_RESOLUTION_1920x1440:
+            g_width = 1920;
+            g_height = 1440;
+            break;
+        case GR_RESOLUTION_2048x1536:
+            g_width = 2048;
+            g_height = 1536;
+            break;
+        case GR_RESOLUTION_2048x2048:
+            g_width = 2048;
+            g_height = 2048;
+            break;
+        default:
+            WriteTrace(TraceGlitch, TraceWarning, "unknown SstWinOpen resolution : %x", screen_resolution);
+        }
+    }
+
+    if (screen_resolution & 0x80000000)
+    {
+        RECT clientRect, toolbarRect, statusbarRect;
+        ZeroMemory(&windowedRect, sizeof(RECT));
+        ZeroMemory(&clientRect, sizeof(RECT));
+        ZeroMemory(&toolbarRect, sizeof(RECT));
+        ZeroMemory(&statusbarRect, sizeof(RECT));
+        HWND hToolBar = FindWindowEx(hwnd_win, NULL, REBARCLASSNAME, NULL);
+        HWND hStatusBar = FindWindowEx(hwnd_win, NULL, STATUSCLASSNAME, NULL);
+        if (hStatusBar == NULL) hStatusBar = FindWindowEx(hwnd_win, NULL, "msctls_statusbar32", NULL); // 1964
+        if (hToolBar != NULL) GetWindowRect(hToolBar, &toolbarRect);
+        if (hStatusBar != NULL) GetWindowRect(hStatusBar, &statusbarRect);
+        viewport_offset = statusbarRect.bottom - statusbarRect.top;
+        GetWindowRect(hwnd_win, &windowedRect);
+        GetClientRect(hwnd_win, &clientRect);
+        windowedRect.right += (g_width - (clientRect.right - clientRect.left));
+        windowedRect.bottom += (g_height + (toolbarRect.bottom - toolbarRect.top) + (statusbarRect.bottom - statusbarRect.top) - (clientRect.bottom - clientRect.top));
+        SetWindowPos(hwnd_win, NULL, 0, 0, windowedRect.right - windowedRect.left,
+            windowedRect.bottom - windowedRect.top, SWP_NOACTIVATE | SWP_NOZORDER | SWP_NOMOVE);
+
+        TMU_SIZE = (config.vram_size - g_width * g_height * 4 * 3) / 2; // XXX - what about windows desktop usage?
+
+        fullscreen = 0;
+    }
+    else
+    {
+        {
+            FxU32 _width, _height;
+            g_FullScreenResolutions.getResolution(screen_resolution, &_width, &_height);
+            g_width = _width;
+            g_height = _height;
+        }
+        ZeroMemory(&windowedRect, sizeof(RECT));
+        GetWindowRect(hwnd_win, &windowedRect);
+
+        windowedExStyle = GetWindowLong(hwnd_win, GWL_EXSTYLE);
+        windowedStyle = GetWindowLong(hwnd_win, GWL_STYLE);
+
+        // primary monitor only
+        if (!g_FullScreenResolutions.changeDisplaySettings(screen_resolution))
+        {
+            WriteTrace(TraceGlitch, TraceWarning, "can't change to fullscreen mode");
+        }
+
+        windowedMenu = GetMenu(hwnd_win);
+        if (windowedMenu) SetMenu(hwnd_win, NULL);
+
+        HWND hStatusBar = FindWindowEx(hwnd_win, NULL, "msctls_statusbar32", NULL); // 1964
+        if (hStatusBar) ShowWindow(hStatusBar, SW_HIDE);
+
+        SetWindowLong(hwnd_win, GWL_STYLE, 0);
+        SetWindowLong(hwnd_win, GWL_EXSTYLE, WS_EX_APPWINDOW | WS_EX_TOPMOST);
+        SetWindowPos(hwnd_win, NULL, 0, 0, g_width, g_height, SWP_NOACTIVATE | SWP_NOZORDER | SWP_SHOWWINDOW);
+
+        viewport_offset = 0;
+        fullscreen = 1;
+    }
+    
+    mEGLWindow.reset(new EGLWindow(2, 0, EGLPlatformParameters(EGL_PLATFORM_ANGLE_TYPE_DEFAULT_ANGLE)));
+    mEGLWindow->initializeGL(hwnd_win);
+
+    // save screen resolution for hwfbe, after resolution enumeration
+    screen_width = g_width;
+    screen_height = g_height;
+
+#else
     WriteTrace(TraceGlitch, TraceDebug, "refresh_rate: %d, color_format: %d, origin_location: %d, nColBuffers: %d, nAuxBuffers: %d", refresh_rate, color_format, origin_location, nColBuffers, nAuxBuffers);
     WriteTrace(TraceGlitch, TraceDebug, "g_width: %d, g_height: %d fullscreen: %d", g_width, g_height, fullscreen);
+#endif
 
     //viewport_offset = ((screen_resolution>>2) > 20) ? screen_resolution >> 2 : 20;
     // ZIGGY viewport_offset is WIN32 specific, with SDL just set it to zero
@@ -542,9 +919,9 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrScreenRefresh_t refresh_rate, GrCol
 #endif
 
 #ifdef _WIN32
-    glViewport(0, viewport_offset, width, height);
-    viewport_width = width;
-    viewport_height = height;
+    glViewport(0, viewport_offset, g_width, g_height);
+    viewport_width = g_width;
+    viewport_height = g_height;
     nvidia_viewport_hack = 1;
 #else
     glViewport(0, viewport_offset, g_width, g_height);
@@ -1087,7 +1464,11 @@ grGet(FxU32 pname, FxU32 plength, FxI32 *params)
         if (plength < 4 || params == NULL) return 0;
         if (!nbTextureUnits)
         {
+#ifdef ANDROID
             grSstWinOpen(0, GR_COLORFORMAT_ARGB, GR_ORIGIN_UPPER_LEFT, 2, 1);
+#else
+            grSstWinOpen((unsigned long)NULL, GR_RESOLUTION_640x480 | 0x80000000, 0, GR_COLORFORMAT_ARGB, GR_ORIGIN_UPPER_LEFT, 2, 1);
+#endif
             grSstWinClose(0);
         }
 #ifdef VOODOO1
@@ -1620,7 +2001,11 @@ grBufferSwap(FxU32 swap_interval)
         return;
     }
 
+#ifdef ANDROID
     Android_JNI_SwapWindow();
+#else
+    SwapBuffers();
+#endif
     for (i = 0; i < nb_fb; i++)
         fbs[i].buff_clear = 1;
 
@@ -1957,23 +2342,25 @@ FxI32 src_stride, void *src_data)
     return FXTRUE;
 }
 
+int GetCurrentResIndex(void)
+{
+    return g_FullScreenResolutions.getCurrentResolutions();
+}
+
 /* wrapper-specific glide extensions */
 
 FX_ENTRY char ** FX_CALL
 grQueryResolutionsExt(int32_t * Size)
 {
     WriteTrace(TraceGlitch, TraceDebug, "-");
-    return 0;
- }
+    return g_FullScreenResolutions.getResolutionsList(Size);
+}
 
 FX_ENTRY GrScreenResolution_t FX_CALL grWrapperFullScreenResolutionExt(FxU32* width, FxU32* height)
 {
     WriteTrace(TraceGlitch, TraceDebug, "-");
-    return 0;
-    /*
-      g_FullScreenResolutions.getResolution(config.res, width, height);
-      return config.res;
-      */
+    g_FullScreenResolutions.getResolution(config.res, width, height);
+    return config.res;
 }
 
 FX_ENTRY FxBool FX_CALL grKeyPressedExt(FxU32 key)
@@ -1981,9 +2368,16 @@ FX_ENTRY FxBool FX_CALL grKeyPressedExt(FxU32 key)
     return 0;
 }
 
+#ifdef ANDROID
 FX_ENTRY void FX_CALL grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
 {
     WriteTrace(TraceGlitch, TraceDebug, "-");
+#else
+FX_ENTRY void FX_CALL grConfigWrapperExt(FxI32 resolution, FxI32 vram, FxBool fbo, FxBool aniso)
+{
+    WriteTrace(TraceGlitch, TraceDebug, "-");
+    config.res = resolution;
+#endif
     config.vram_size = vram;
     config.fbo = fbo;
     config.anisofilter = aniso;
