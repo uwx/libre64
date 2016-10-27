@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7642CFD5-F187-3E3F-F8FF-859949B9F13E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>preprocessor</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)PropertySheets\Platform.$(Configuration).props" />
+  </ImportGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4702;4100;4127;4718;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ExpressionParser.y" />
+    <None Include="Tokenizer.l" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DiagnosticsBase.h" />
+    <ClInclude Include="DirectiveHandlerBase.h" />
+    <ClInclude Include="DirectiveParser.h" />
+    <ClInclude Include="ExpressionParser.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Lexer.h" />
+    <ClInclude Include="Macro.h" />
+    <ClInclude Include="MacroExpander.h" />
+    <ClInclude Include="Preprocessor.h" />
+    <ClInclude Include="SourceLocation.h" />
+    <ClInclude Include="Token.h" />
+    <ClInclude Include="Tokenizer.h" />
+    <ClInclude Include="numeric_lex.h" />
+    <ClInclude Include="pp_utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DiagnosticsBase.cpp" />
+    <ClCompile Include="DirectiveHandlerBase.cpp" />
+    <ClCompile Include="DirectiveParser.cpp" />
+    <ClCompile Include="ExpressionParser.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Lexer.cpp" />
+    <ClCompile Include="Macro.cpp" />
+    <ClCompile Include="MacroExpander.cpp" />
+    <ClCompile Include="Preprocessor.cpp" />
+    <ClCompile Include="Token.cpp" />
+    <ClCompile Include="Tokenizer.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

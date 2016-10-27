@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3FFF5710-D21B-35AE-D702-74BB256EF228}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>translator_lib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)PropertySheets\Platform.$(Configuration).props" />
+  </ImportGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\3rdParty\angle\src;$(SolutionDir)Source\3rdParty\angle\include;$(SolutionDir)Source\3rdParty\angle\src\common\third_party\numerics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4702;4100;4127;4718;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PreprocessorDefinitions>NOMINMAX;ANGLE_TRANSLATOR_STATIC;ANGLE_STANDALONE_BUILD;ANGLE_ENABLE_ESSL;ANGLE_ENABLE_GLSL;ANGLE_ENABLE_HLSL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\EGL\egl.h" />
+    <ClInclude Include="..\..\..\include\EGL\eglext.h" />
+    <ClInclude Include="..\..\..\include\EGL\eglplatform.h" />
+    <ClInclude Include="..\..\..\include\GLES2\gl2.h" />
+    <ClInclude Include="..\..\..\include\GLES2\gl2ext.h" />
+    <ClInclude Include="..\..\..\include\GLES2\gl2platform.h" />
+    <ClInclude Include="..\..\..\include\GLES3\gl3.h" />
+    <ClInclude Include="..\..\..\include\GLES3\gl3platform.h" />
+    <ClInclude Include="..\..\..\include\GLES3\gl31.h" />
+    <ClInclude Include="..\..\..\include\GLES3\gl32.h" />
+    <ClInclude Include="..\..\..\include\GLSLANG\ShaderLang.h" />
+    <ClInclude Include="..\..\..\include\GLSLANG\ShaderVars.h" />
+    <ClInclude Include="..\..\..\include\KHR\khrplatform.h" />
+    <ClInclude Include="..\..\..\include\angle_gl.h" />
+    <ClInclude Include="BaseTypes.h" />
+    <ClInclude Include="BuiltInFunctionEmulator.h" />
+    <ClInclude Include="Cache.h" />
+    <ClInclude Include="CallDAG.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Compiler.h" />
+    <ClInclude Include="ConstantUnion.h" />
+    <ClInclude Include="DeferGlobalInitializers.h" />
+    <ClInclude Include="Diagnostics.h" />
+    <ClInclude Include="DirectiveHandler.h" />
+    <ClInclude Include="EmulateGLFragColorBroadcast.h" />
+    <ClInclude Include="EmulatePrecision.h" />
+    <ClInclude Include="ExpandIntegerPowExpressions.h" />
+    <ClInclude Include="ExtensionBehavior.h" />
+    <ClInclude Include="FlagStd140Structs.h" />
+    <ClInclude Include="ForLoopUnroll.h" />
+    <ClInclude Include="HashNames.h" />
+    <ClInclude Include="InfoSink.h" />
+    <ClInclude Include="Initialize.h" />
+    <ClInclude Include="InitializeDll.h" />
+    <ClInclude Include="InitializeGlobals.h" />
+    <ClInclude Include="InitializeParseContext.h" />
+    <ClInclude Include="InitializeVariables.h" />
+    <ClInclude Include="IntermNode.h" />
+    <ClInclude Include="Intermediate.h" />
+    <ClInclude Include="LoopInfo.h" />
+    <ClInclude Include="NodeSearch.h" />
+    <ClInclude Include="Operator.h" />
+    <ClInclude Include="ParseContext.h" />
+    <ClInclude Include="PoolAlloc.h" />
+    <ClInclude Include="Pragma.h" />
+    <ClInclude Include="PruneEmptyDeclarations.h" />
+    <ClInclude Include="RecordConstantPrecision.h" />
+    <ClInclude Include="RegenerateStructNames.h" />
+    <ClInclude Include="RemovePow.h" />
+    <ClInclude Include="RewriteDoWhile.h" />
+    <ClInclude Include="RenameFunction.h" />
+    <ClInclude Include="ScalarizeVecAndMatConstructorArgs.h" />
+    <ClInclude Include="SearchSymbol.h" />
+    <ClInclude Include="SymbolTable.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="UnfoldShortCircuitAST.h" />
+    <ClInclude Include="ValidateGlobalInitializer.h" />
+    <ClInclude Include="ValidateLimitations.h" />
+    <ClInclude Include="ValidateMaxParameters.h" />
+    <ClInclude Include="ValidateOutputs.h" />
+    <ClInclude Include="ValidateSwitch.h" />
+    <ClInclude Include="VariableInfo.h" />
+    <ClInclude Include="VariablePacker.h" />
+    <ClInclude Include="blocklayout.h" />
+    <ClInclude Include="depgraph\DependencyGraph.h" />
+    <ClInclude Include="depgraph\DependencyGraphBuilder.h" />
+    <ClInclude Include="depgraph\DependencyGraphOutput.h" />
+    <ClInclude Include="glslang.h" />
+    <ClInclude Include="glslang_tab.h" />
+    <ClInclude Include="length_limits.h" />
+    <ClInclude Include="timing\RestrictFragmentShaderTiming.h" />
+    <ClInclude Include="timing\RestrictVertexShaderTiming.h" />
+    <ClInclude Include="util.h" />
+    <ClInclude Include="..\..\third_party\compiler\ArrayBoundsClamper.h" />
+    <ClInclude Include="OutputESSL.h" />
+    <ClInclude Include="TranslatorESSL.h" />
+    <ClInclude Include="BuiltInFunctionEmulatorGLSL.h" />
+    <ClInclude Include="ExtensionGLSL.h" />
+    <ClInclude Include="OutputGLSL.h" />
+    <ClInclude Include="OutputGLSLBase.h" />
+    <ClInclude Include="TranslatorGLSL.h" />
+    <ClInclude Include="VersionGLSL.h" />
+    <ClInclude Include="AddDefaultReturnStatements.h" />
+    <ClInclude Include="ArrayReturnValueToOutParameter.h" />
+    <ClInclude Include="ASTMetadataHLSL.h" />
+    <ClInclude Include="blocklayoutHLSL.h" />
+    <ClInclude Include="BuiltInFunctionEmulatorHLSL.h" />
+    <ClInclude Include="IntermNodePatternMatcher.h" />
+    <ClInclude Include="OutputHLSL.h" />
+    <ClInclude Include="RemoveDynamicIndexing.h" />
+    <ClInclude Include="RemoveSwitchFallThrough.h" />
+    <ClInclude Include="RewriteElseBlocks.h" />
+    <ClInclude Include="SeparateArrayInitialization.h" />
+    <ClInclude Include="SeparateDeclarations.h" />
+    <ClInclude Include="SeparateExpressionsReturningArrays.h" />
+    <ClInclude Include="SimplifyLoopConditions.h" />
+    <ClInclude Include="SplitSequenceOperator.h" />
+    <ClInclude Include="StructureHLSL.h" />
+    <ClInclude Include="TextureFunctionHLSL.h" />
+    <ClInclude Include="TranslatorHLSL.h" />
+    <ClInclude Include="UnfoldShortCircuitToIf.h" />
+    <ClInclude Include="UniformHLSL.h" />
+    <ClInclude Include="UtilsHLSL.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BuiltInFunctionEmulator.cpp" />
+    <ClCompile Include="Cache.cpp" />
+    <ClCompile Include="CallDAG.cpp" />
+    <ClCompile Include="CodeGen.cpp" />
+    <ClCompile Include="Compiler.cpp" />
+    <ClCompile Include="DeferGlobalInitializers.cpp" />
+    <ClCompile Include="Diagnostics.cpp" />
+    <ClCompile Include="DirectiveHandler.cpp" />
+    <ClCompile Include="EmulateGLFragColorBroadcast.cpp" />
+    <ClCompile Include="EmulatePrecision.cpp" />
+    <ClCompile Include="ExpandIntegerPowExpressions.cpp" />
+    <ClCompile Include="FlagStd140Structs.cpp" />
+    <ClCompile Include="ForLoopUnroll.cpp" />
+    <ClCompile Include="InfoSink.cpp" />
+    <ClCompile Include="Initialize.cpp" />
+    <ClCompile Include="InitializeDll.cpp" />
+    <ClCompile Include="InitializeParseContext.cpp" />
+    <ClCompile Include="InitializeVariables.cpp" />
+    <ClCompile Include="IntermNode.cpp" />
+    <ClCompile Include="IntermTraverse.cpp" />
+    <ClCompile Include="Intermediate.cpp" />
+    <ClCompile Include="LoopInfo.cpp" />
+    <ClCompile Include="Operator.cpp" />
+    <ClCompile Include="ParseContext.cpp" />
+    <ClCompile Include="PoolAlloc.cpp" />
+    <ClCompile Include="PruneEmptyDeclarations.cpp" />
+    <ClCompile Include="RecordConstantPrecision.cpp" />
+    <ClCompile Include="RegenerateStructNames.cpp" />
+    <ClCompile Include="RemovePow.cpp" />
+    <ClCompile Include="RewriteDoWhile.cpp" />
+    <ClCompile Include="ScalarizeVecAndMatConstructorArgs.cpp" />
+    <ClCompile Include="SearchSymbol.cpp" />
+    <ClCompile Include="SymbolTable.cpp" />
+    <ClCompile Include="Types.cpp" />
+    <ClCompile Include="UnfoldShortCircuitAST.cpp" />
+    <ClCompile Include="ValidateGlobalInitializer.cpp" />
+    <ClCompile Include="ValidateLimitations.cpp" />
+    <ClCompile Include="ValidateMaxParameters.cpp" />
+    <ClCompile Include="ValidateOutputs.cpp" />
+    <ClCompile Include="ValidateSwitch.cpp" />
+    <ClCompile Include="VariableInfo.cpp" />
+    <ClCompile Include="VariablePacker.cpp" />
+    <ClCompile Include="blocklayout.cpp" />
+    <ClCompile Include="depgraph\DependencyGraph.cpp" />
+    <ClCompile Include="depgraph\DependencyGraphBuilder.cpp" />
+    <ClCompile Include="depgraph\DependencyGraphOutput.cpp" />
+    <ClCompile Include="depgraph\DependencyGraphTraverse.cpp" />
+    <ClCompile Include="glslang_lex.cpp" />
+    <ClCompile Include="glslang_tab.cpp" />
+    <ClCompile Include="intermOut.cpp" />
+    <ClCompile Include="timing\RestrictFragmentShaderTiming.cpp" />
+    <ClCompile Include="timing\RestrictVertexShaderTiming.cpp" />
+    <ClCompile Include="util.cpp" />
+    <ClCompile Include="..\..\third_party\compiler\ArrayBoundsClamper.cpp" />
+    <ClCompile Include="OutputESSL.cpp" />
+    <ClCompile Include="TranslatorESSL.cpp" />
+    <ClCompile Include="BuiltInFunctionEmulatorGLSL.cpp" />
+    <ClCompile Include="ExtensionGLSL.cpp" />
+    <ClCompile Include="OutputGLSL.cpp" />
+    <ClCompile Include="OutputGLSLBase.cpp" />
+    <ClCompile Include="TranslatorGLSL.cpp" />
+    <ClCompile Include="VersionGLSL.cpp" />
+    <ClCompile Include="AddDefaultReturnStatements.cpp" />
+    <ClCompile Include="ArrayReturnValueToOutParameter.cpp" />
+    <ClCompile Include="ASTMetadataHLSL.cpp" />
+    <ClCompile Include="blocklayoutHLSL.cpp" />
+    <ClCompile Include="BuiltInFunctionEmulatorHLSL.cpp" />
+    <ClCompile Include="IntermNodePatternMatcher.cpp" />
+    <ClCompile Include="OutputHLSL.cpp" />
+    <ClCompile Include="RemoveDynamicIndexing.cpp" />
+    <ClCompile Include="RemoveSwitchFallThrough.cpp" />
+    <ClCompile Include="RewriteElseBlocks.cpp" />
+    <ClCompile Include="SeparateArrayInitialization.cpp" />
+    <ClCompile Include="SeparateDeclarations.cpp" />
+    <ClCompile Include="SeparateExpressionsReturningArrays.cpp" />
+    <ClCompile Include="SimplifyLoopConditions.cpp" />
+    <ClCompile Include="SplitSequenceOperator.cpp" />
+    <ClCompile Include="StructureHLSL.cpp" />
+    <ClCompile Include="TextureFunctionHLSL.cpp" />
+    <ClCompile Include="TranslatorHLSL.cpp" />
+    <ClCompile Include="UnfoldShortCircuitToIf.cpp" />
+    <ClCompile Include="UniformHLSL.cpp" />
+    <ClCompile Include="UtilsHLSL.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

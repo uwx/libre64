@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="image_util">
+      <UniqueIdentifier>{4BBB1057-0E58-1FF3-45F8-B62CB14DBFB6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="copyimage.cpp">
+      <Filter>image_util</Filter>
+    </ClCompile>
+    <ClInclude Include="copyimage.h">
+      <Filter>image_util</Filter>
+    </ClInclude>
+    <None Include="copyimage.inl">
+      <Filter>image_util</Filter>
+    </None>
+    <ClInclude Include="generatemip.h">
+      <Filter>image_util</Filter>
+    </ClInclude>
+    <None Include="generatemip.inl">
+      <Filter>image_util</Filter>
+    </None>
+    <ClCompile Include="imageformats.cpp">
+      <Filter>image_util</Filter>
+    </ClCompile>
+    <ClInclude Include="imageformats.h">
+      <Filter>image_util</Filter>
+    </ClInclude>
+    <ClCompile Include="loadimage.cpp">
+      <Filter>image_util</Filter>
+    </ClCompile>
+    <ClInclude Include="loadimage.h">
+      <Filter>image_util</Filter>
+    </ClInclude>
+    <None Include="loadimage.inl">
+      <Filter>image_util</Filter>
+    </None>
+    <ClCompile Include="loadimage_etc.cpp">
+      <Filter>image_util</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

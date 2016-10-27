@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C62E0FFA-66B1-4457-A5F2-45AD2B24125B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libGLESv2</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)PropertySheets\Platform.$(Configuration).props" />
+  </ImportGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>.\;..\;..\..\include;..\common\third_party\numerics;$(SolutionDir)Source;$(SolutionDir)Source\3rdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ANGLE_PLATFORM_WINDOWS;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4702;4100;4127;4718;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>d3d9.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\3rdParty\directx\lib</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="entry_points_egl.cpp" />
+    <ClCompile Include="entry_points_egl_ext.cpp" />
+    <ClCompile Include="entry_points_gles_2_0.cpp" />
+    <ClCompile Include="entry_points_gles_2_0_ext.cpp" />
+    <ClCompile Include="entry_points_gles_3_0.cpp" />
+    <ClCompile Include="entry_points_gles_3_1.cpp" />
+    <ClCompile Include="global_state.cpp" />
+    <ClCompile Include="libGLESv2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="entry_points_egl.h" />
+    <ClInclude Include="entry_points_egl_ext.h" />
+    <ClInclude Include="entry_points_gles_2_0.h" />
+    <ClInclude Include="entry_points_gles_2_0_ext.h" />
+    <ClInclude Include="entry_points_gles_3_0.h" />
+    <ClInclude Include="entry_points_gles_3_1.h" />
+    <ClInclude Include="global_state.h" />
+  </ItemGroup>
+</Project>
