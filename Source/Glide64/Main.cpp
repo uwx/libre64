@@ -1798,10 +1798,145 @@ set
 input:    none
 output:   none
 *******************************************************************/
+#define GL_GLEXT_PROTOTYPES
+#include <GLES2/gl2.h>
+
+#define SHADER_SOURCE(...) #__VA_ARGS__
+GLuint CompileProgram(const std::string &vsSource, const std::string &fsSource);
+
+GLuint CreateSimpleTexture2D()
+{
+    // Use tightly packed data
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // Generate a texture object
+    GLuint texture;
+    glGenTextures(1, &texture);
+
+    // Bind the texture object
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    // Load the texture: 2x2 Image, 3 bytes per pixel (R, G, B)
+    const size_t width = 2;
+    const size_t height = 2;
+    GLubyte pixels[width * height * 3] =
+    {
+        255,   0,   0, // Red
+        0, 255,   0, // Green
+        0,   0, 255, // Blue
+        255, 255,   0, // Yellow
+    };
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+
+    // Set the filtering mode
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    return texture;
+}
+
+extern int g_width, g_height;
+
+void SimpleTexture2DSample_draw()
+{
+    static GLuint mProgram = -1;
+    static GLint mPositionLoc = -1;
+    static GLint mTexCoordLoc = -1;
+    static GLint mSamplerLoc = -1;
+    static GLuint mTexture = -1;
+
+    if (mProgram == -1)
+    {
+        const std::string vs = SHADER_SOURCE
+        (
+            attribute vec4 a_position;
+        attribute vec2 a_texCoord;
+        varying vec2 v_texCoord;
+        void main()
+        {
+            gl_Position = a_position;
+            v_texCoord = a_texCoord;
+        }
+        );
+
+        const std::string fs = SHADER_SOURCE
+        (
+            precision mediump float;
+        varying vec2 v_texCoord;
+        uniform sampler2D s_texture;
+        void main()
+        {
+            gl_FragColor = texture2D(s_texture, v_texCoord);
+        }
+        );
+
+        mProgram = CompileProgram(vs, fs);
+        if (!mProgram)
+        {
+            return;
+        }
+
+        // Get the attribute locations
+        mPositionLoc = glGetAttribLocation(mProgram, "a_position");
+        mTexCoordLoc = glGetAttribLocation(mProgram, "a_texCoord");
+
+        // Get the sampler location
+        mSamplerLoc = glGetUniformLocation(mProgram, "s_texture");
+
+        // Load the texture
+        mTexture = CreateSimpleTexture2D();
+
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    }
+    GLfloat vertices[] =
+    {
+        -0.5f,  0.5f, 0.0f,  // Position 0
+        0.0f,  0.0f,        // TexCoord 0
+        -0.5f, -0.5f, 0.0f,  // Position 1
+        0.0f,  1.0f,        // TexCoord 1
+        0.5f, -0.5f, 0.0f,  // Position 2
+        1.0f,  1.0f,        // TexCoord 2
+        0.5f,  0.5f, 0.0f,  // Position 3
+        1.0f,  0.0f         // TexCoord 3
+    };
+    GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
+
+    // Set the viewport
+    glViewport(0, 0, g_width, g_height);
+
+    // Clear the color buffer
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Use the program object
+    glUseProgram(mProgram);
+
+    // Load the vertex position
+    glVertexAttribPointer(mPositionLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), vertices);
+    // Load the texture coordinate
+    glVertexAttribPointer(mTexCoordLoc, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), vertices + 3);
+
+    glEnableVertexAttribArray(mPositionLoc);
+    glEnableVertexAttribArray(mTexCoordLoc);
+
+    // Bind the texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, mTexture);
+
+    // Set the texture sampler to texture unit to 0
+    glUniform1i(mSamplerLoc, 0);
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+}
+
+
 uint32_t update_screen_count = 0;
 void SwapBuffers(void);
 void CALL UpdateScreen(void)
 {
+    SimpleTexture2DSample_draw();
+    SwapBuffers();
+    return;
+
     WriteTrace(TraceGlide64, TraceDebug, "Origin: %08x, Old origin: %08x, width: %d", *gfx.VI_ORIGIN_REG, rdp.vi_org_reg, *gfx.VI_WIDTH_REG);
 
     uint32_t width = (*gfx.VI_WIDTH_REG) << 1;
@@ -2082,7 +2217,7 @@ void newSwapBuffers()
                 message = strcat(buf, "FB READ ALWAYS: ON");
             else
                 message = strcat(buf, "FB READ ALWAYS: OFF");
-            hotkey_info.hk_ref--;
+            //hotkey_info.hk_ref--;
         }
         if (hotkey_info.hk_motionblur)
         {
@@ -2090,7 +2225,7 @@ void newSwapBuffers()
                 message = strcat(buf, "  MOTION BLUR: ON");
             else
                 message = strcat(buf, "  MOTION BLUR: OFF");
-            hotkey_info.hk_motionblur--;
+            //hotkey_info.hk_motionblur--;
         }
         if (hotkey_info.hk_filtering)
         {
@@ -2106,7 +2241,7 @@ void newSwapBuffers()
                 message = strcat(buf, "  FILTERING MODE: FORCE POINT-SAMPLED");
                 break;
             }
-            hotkey_info.hk_filtering--;
+            //hotkey_info.hk_filtering--;
         }
         output(120.0f, 0.0f, 1, message, 0);
     }

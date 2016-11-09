@@ -569,7 +569,6 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpenExt( HWND hWnd, GrScreenResolution_t sc
 {
 	WriteTrace(TraceGlitch, TraceDebug, "hWnd: %d, screen_resolution: %d, refresh_rate: %d, color_format: %d, origin_location: %d, nColBuffers: %d, nAuxBuffers: %d", hWnd, screen_resolution, refresh_rate, color_format, origin_location, nColBuffers, nAuxBuffers);
     return grSstWinOpen(hWnd, screen_resolution, refresh_rate, color_format, origin_location, nColBuffers, nAuxBuffers);
-    return false;
 }
 #endif
 
@@ -774,6 +773,15 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrScreenRefresh_t refresh_rate, GrCol
     }
     
     mEGLWindow.reset(new EGLWindow(2, 0, EGLPlatformParameters(EGL_PLATFORM_ANGLE_TYPE_DEFAULT_ANGLE)));
+    mEGLWindow->setConfigRedBits(8);
+    mEGLWindow->setConfigGreenBits(8);
+    mEGLWindow->setConfigBlueBits(8);
+    mEGLWindow->setConfigAlphaBits(8);
+    mEGLWindow->setConfigDepthBits(24);
+    mEGLWindow->setConfigStencilBits(8);
+
+    // Disable vsync
+    mEGLWindow->setSwapInterval(0);
     mEGLWindow->initializeGL(hwnd_win);
 
     // save screen resolution for hwfbe, after resolution enumeration
@@ -918,16 +926,9 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrScreenRefresh_t refresh_rate, GrCol
     glCompressedTexImage2DARB = (PFNGLCOMPRESSEDTEXIMAGE2DPROC)wglGetProcAddress("glCompressedTexImage2DARB");
 #endif
 
-#ifdef _WIN32
     glViewport(0, viewport_offset, g_width, g_height);
     viewport_width = g_width;
     viewport_height = g_height;
-    nvidia_viewport_hack = 1;
-#else
-    glViewport(0, viewport_offset, g_width, g_height);
-    viewport_width = g_width;
-    viewport_height = g_height;
-#endif // _WIN32
 
     //   void do_benchmarks();
     //   do_benchmarks();
@@ -1437,9 +1438,11 @@ grGetProcAddress(char *procName)
         return (GrProc)grAuxBufferExt;
     if (!strcmp(procName, "grWrapperFullScreenResolutionExt"))
         return (GrProc)grWrapperFullScreenResolutionExt;
-    if (!strcmp(procName, "grConfigWrapperExt"))
+#ifdef tofix
+	if (!strcmp(procName, "grConfigWrapperExt"))
         return (GrProc)grConfigWrapperExt;
-    if (!strcmp(procName, "grKeyPressedExt"))
+#endif
+	if (!strcmp(procName, "grKeyPressedExt"))
         return (GrProc)grKeyPressedExt;
     if (!strcmp(procName, "grQueryResolutionsExt"))
         return (GrProc)grQueryResolutionsExt;
@@ -1780,7 +1783,9 @@ FX_ENTRY void FX_CALL grFramebufferCopyExt(int x, int y, int w, int h,
             glActiveTexture(texture_unit);
             glBindTexture(GL_TEXTURE_2D, depth_texture);
             glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+#ifdef tofix
             set_depth_shader();
+#endif
             glEnable(GL_DEPTH_TEST);
             glDepthFunc(GL_ALWAYS);
             glDisable(GL_CULL_FACE);
@@ -1927,7 +1932,9 @@ grAuxBufferExt(GrBuffer_t buffer)
         invtex[0] = 0;
         invtex[1] = 0;
         need_to_compile = 0;
+#ifdef tofix
         set_depth_shader();
+#endif
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_ALWAYS);

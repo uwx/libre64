@@ -581,6 +581,141 @@ uint32_t ucode5_texshiftcount = 0;
 uint16_t ucode5_texshift = 0;
 int depth_buffer_fog;
 
+#define GL_GLEXT_PROTOTYPES
+#include <GLES2/gl2.h>
+
+VERTEX gTriangleVertices[] = {
+    { 0.0f, 0.5f, 0.0f, 1.0f },
+    { -0.5f, -0.5f, 0.0f, 1.0f },
+    { 0.5f, -0.5f, 0.0f, 1.0f },
+};
+
+void vbo_enable();
+void vbo_draw();
+
+#define SHADER_SOURCE(...) #__VA_ARGS__
+
+GLuint CompileShader(GLenum type, const std::string &source)
+{
+    GLuint shader = glCreateShader(type);
+
+    const char *sourceArray[1] = { source.c_str() };
+    glShaderSource(shader, 1, sourceArray, NULL);
+    glCompileShader(shader);
+
+    GLint compileResult;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &compileResult);
+
+    if (compileResult == 0)
+    {
+        GLint infoLogLength;
+        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
+
+        std::vector<GLchar> infoLog(infoLogLength);
+        glGetShaderInfoLog(shader, (GLsizei)infoLog.size(), NULL, infoLog.data());
+
+        std::wstring errorMessage = std::wstring(L"Shader compilation failed: ");
+        errorMessage += std::wstring(infoLog.begin(), infoLog.end());
+
+        return -1;
+    }
+
+    return shader;
+}
+GLuint CompileProgram(const std::string &vsSource, const std::string &fsSource)
+{
+    GLuint program = glCreateProgram();
+
+    if (program == 0)
+    {
+        return -1;
+    }
+
+    GLuint vs = CompileShader(GL_VERTEX_SHADER, vsSource);
+    GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fsSource);
+
+    if (vs == 0 || fs == 0)
+    {
+        glDeleteShader(fs);
+        glDeleteShader(vs);
+        glDeleteProgram(program);
+        return 0;
+    }
+
+    glAttachShader(program, vs);
+    glDeleteShader(vs);
+
+    glAttachShader(program, fs);
+    glDeleteShader(fs);
+
+    glLinkProgram(program);
+
+    GLint linkStatus;
+    glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
+
+    if (linkStatus == 0)
+    {
+        GLint infoLogLength;
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
+
+        std::vector<GLchar> infoLog(infoLogLength);
+        glGetProgramInfoLog(program, (GLsizei)infoLog.size(), NULL, infoLog.data());
+
+        std::wstring errorMessage = std::wstring(L"Program link failed: ");
+        errorMessage += std::wstring(infoLog.begin(), infoLog.end());
+
+        return -1;
+    }
+
+    return program;
+}
+
+void renderFrame()
+{
+    /*static GLuint mProgram = -1;
+    if (mProgram == -1)
+    {
+        const std::string vs = SHADER_SOURCE
+        (
+            attribute vec4 vPosition;
+            void main()
+            {
+                gl_Position = vPosition;
+            }
+        );
+
+        const std::string fs = SHADER_SOURCE
+        (
+            precision mediump float;
+            void main()
+            {
+                gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+            }
+        );
+
+        mProgram = CompileProgram(vs, fs);
+        if (!mProgram)
+        {
+            return;
+        }
+
+    }*/
+
+    static float grey = 0.0f;
+    /*grey += 0.01f;
+    if (grey > 1.0f) {
+        grey = 0.0f;
+    }*/
+    glClearColor(grey, grey, grey, 1.0f);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
+    // Use the program object
+    /*glUseProgram(mProgram);
+    vbo_enable();
+    grDrawTriangle(&gTriangleVertices[0], &gTriangleVertices[1], &gTriangleVertices[2]);
+    vbo_draw();*/
+}
+
 EXPORT void CALL ProcessDList(void)
 {
 #ifdef _WIN32
@@ -588,6 +723,7 @@ EXPORT void CALL ProcessDList(void)
 #endif
     no_dlist = false;
     update_screen_count = 0;
+
     ChangeSize();
 
 #ifdef ALTTAB_FIX
@@ -702,7 +838,13 @@ EXPORT void CALL ProcessDList(void)
 #ifdef CATCH_EXCEPTIONS
     try {
 #endif
-        if (g_settings->ucode == ucode_Turbo3d)
+        if (false)
+        {
+            renderFrame();
+            *gfx.MI_INTR_REG |= 0x20;
+            gfx.CheckInterrupts();
+        }
+        else if (g_settings->ucode == ucode_Turbo3d)
         {
             Turbo3D();
         }

@@ -29,6 +29,13 @@ public:
 
     ~EGLWindow();
 
+    void setConfigRedBits(int bits) { mRedBits = bits; }
+    void setConfigGreenBits(int bits) { mGreenBits = bits; }
+    void setConfigBlueBits(int bits) { mBlueBits = bits; }
+    void setConfigAlphaBits(int bits) { mAlphaBits = bits; }
+    void setConfigDepthBits(int bits) { mDepthBits = bits; }
+    void setConfigStencilBits(int bits) { mStencilBits = bits; }
+    void setSwapInterval(EGLint swapInterval) { mSwapInterval = swapInterval; }
     void swap();
 
     bool initializeGL(void * hwnd);
