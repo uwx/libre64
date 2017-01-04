@@ -1077,10 +1077,20 @@ void ReleaseGfx()
 #ifdef _WIN32
 CriticalSection * g_ProcessDListCS = NULL;
 
+bool AngleDllMainProcessAttach(void);
+void AngleDllMainProcessDetach(void);
+void AngleDllMainThreadAttach(void);
+void AngleDllMainThreadDetach(void);
+
 extern "C" int WINAPI DllMain(HINSTANCE hinst, DWORD fdwReason, LPVOID /*lpReserved*/)
 {
-    if (fdwReason == DLL_PROCESS_ATTACH)
+    switch (fdwReason)
     {
+    case DLL_PROCESS_ATTACH:
+        if (!AngleDllMainProcessAttach())
+        {
+            return false;
+        }
         hinstDLL = hinst;
         SetupTrace();
         if (g_ProcessDListCS == NULL)
@@ -1088,14 +1098,21 @@ extern "C" int WINAPI DllMain(HINSTANCE hinst, DWORD fdwReason, LPVOID /*lpReser
             g_ProcessDListCS = new CriticalSection();
         }
         ConfigInit(hinst);
-    }
-    else if (fdwReason == DLL_PROCESS_DETACH)
-    {
+        break;
+    case DLL_THREAD_ATTACH:
+        AngleDllMainThreadAttach();
+        break;
+    case DLL_THREAD_DETACH:
+        AngleDllMainThreadDetach();
+        break;
+    case DLL_PROCESS_DETACH:
         if (g_ProcessDListCS)
         {
             delete g_ProcessDListCS;
         }
         ConfigCleanup();
+        AngleDllMainProcessDetach();
+        break;
     }
     return TRUE;
 }

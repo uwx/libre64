@@ -45,6 +45,9 @@
       <PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">RDP_LOGGING;RDP_ERROR_LOG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader />
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>D3D11.lib;%(AdditionalDependencies);$(DelayImplib)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Gfx_1.3.h" />
