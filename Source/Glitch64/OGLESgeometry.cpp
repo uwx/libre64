@@ -101,10 +101,10 @@ void vbo_enable()
 
     vertex_buffer_enabled = true;
     glEnableVertexAttribArray(POSITION_ATTR);
-    glVertexAttribPointer(POSITION_ATTR, 4, GL_FLOAT, false, VERTEX_SIZE, &vertex_buffer[0].x); //Position
+    glVertexAttribPointer(POSITION_ATTR, 4, GL_FLOAT, GL_FALSE, VERTEX_SIZE, &vertex_buffer[0].x); //Position
 
     glEnableVertexAttribArray(COLOUR_ATTR);
-    glVertexAttribPointer(COLOUR_ATTR, 4, GL_UNSIGNED_BYTE, true, VERTEX_SIZE, &vertex_buffer[0].b); //Colour
+    glVertexAttribPointer(COLOUR_ATTR, 4, GL_UNSIGNED_BYTE, GL_TRUE, VERTEX_SIZE, &vertex_buffer[0].b); //Colour
 
     glEnableVertexAttribArray(TEXCOORD_0_ATTR);
     glVertexAttribPointer(TEXCOORD_0_ATTR, 2, GL_FLOAT, false, VERTEX_SIZE, &vertex_buffer[0].coord[2]); //Tex0
@@ -394,7 +394,7 @@ FX_ENTRY void FX_CALL
 grDrawTriangle(const void *a, const void *b, const void *c)
 {
     WriteTrace(TraceGlitch, TraceDebug, "start");
-
+    vbo_enable();
     if (nvidia_viewport_hack && !render_to_texture)
     {
         glViewport(0, viewport_offset, viewport_width, viewport_height);

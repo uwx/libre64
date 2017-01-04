@@ -92,21 +92,7 @@ int64 perf_cur;
 int64 perf_next;
 #endif
 
-#ifdef FPS
-HighResTimeStamp fps_last;
-HighResTimeStamp fps_next;
-float      fps = 0.0f;
-uint32_t   fps_count = 0;
-
-uint32_t   vi_count = 0;
-float      vi = 0.0f;
-
 uint32_t   region = 0;
-
-float      ntsc_percent = 0.0f;
-float      pal_percent = 0.0f;
-
-#endif
 
 // Resolutions, MUST be in the correct order (SST1VID.H)
 uint32_t resolutions[0x18][2] = {
@@ -282,7 +268,7 @@ void ConfigWrapper()
 #else
         g_settings->wrpResolution, g_settings->wrpVRAM * 1024 * 1024, g_settings->wrpFBO, g_settings->wrpAnisotropic
 #endif
-        );
+    );
 }
 
 void UseUnregisteredSetting(int /*SettingID*/)
@@ -291,9 +277,7 @@ void UseUnregisteredSetting(int /*SettingID*/)
     DebugBreak();
 #endif
 }
-#ifdef ANDROID
 extern int g_width, g_height;
-#endif
 
 void ReadSettings()
 {
@@ -310,12 +294,9 @@ void ReadSettings()
 #endif
     g_settings->vsync = GetSetting(Set_vsync);
     g_settings->ssformat = (uint8_t)GetSetting(Set_ssformat);
-    g_settings->show_fps = (uint8_t)GetSetting(Set_ShowFps);
     g_settings->clock = GetSetting(Set_clock);
     g_settings->clock_24_hr = GetSetting(Set_clock_24_hr);
-#ifdef ANDROID
     g_settings->rotate = GetSetting(Set_Rotate);
-#endif
     g_settings->advanced_options = Set_basic_mode ? !GetSystemSetting(Set_basic_mode) : 0;
     g_settings->texenh_options = GetSetting(Set_texenh_options);
     g_settings->use_hotkeys = GetSetting(Set_hotkeys);
@@ -447,6 +428,8 @@ void ReadSpecialSettings(const char * name)
         g_settings->hacks |= hack_GoldenEye;
     else if (strstr(name, (const char *)"PUZZLE LEAGUE"))
         g_settings->hacks |= hack_PPL;
+	else if (strstr(name, (const char *)"WIN BACK") || strstr(name, (const char *)"OPERATION WINBACK"))
+		g_settings->hacks |= hack_Winback;
 
     g_settings->alt_tex_size = GetSetting(Set_alt_tex_size);
     g_settings->use_sts1_only = GetSetting(Set_use_sts1_only);
@@ -540,12 +523,9 @@ void WriteSettings(void)
 #endif
     SetSetting(Set_ssformat, g_settings->ssformat);
     SetSetting(Set_vsync, g_settings->vsync);
-    SetSetting(Set_ShowFps, g_settings->show_fps);
     SetSetting(Set_clock, g_settings->clock);
     SetSetting(Set_clock_24_hr, g_settings->clock_24_hr);
-#ifdef ANDROID
     SetSetting(Set_Rotate, g_settings->rotate);
-#endif
     //SetSetting(Set_advanced_options,g_settings->advanced_options);
     SetSetting(Set_texenh_options, g_settings->texenh_options);
 
@@ -1097,20 +1077,10 @@ void ReleaseGfx()
 #ifdef _WIN32
 CriticalSection * g_ProcessDListCS = NULL;
 
-bool AngleDllMainProcessAttach(void);
-void AngleDllMainProcessDetach(void);
-void AngleDllMainThreadAttach(void);
-void AngleDllMainThreadDetach(void);
-
 extern "C" int WINAPI DllMain(HINSTANCE hinst, DWORD fdwReason, LPVOID /*lpReserved*/)
 {
-    switch (fdwReason)
+    if (fdwReason == DLL_PROCESS_ATTACH)
     {
-    case DLL_PROCESS_ATTACH:
-        if (!AngleDllMainProcessAttach())
-        {
-            return false;
-        }
         hinstDLL = hinst;
         SetupTrace();
         if (g_ProcessDListCS == NULL)
@@ -1118,21 +1088,14 @@ extern "C" int WINAPI DllMain(HINSTANCE hinst, DWORD fdwReason, LPVOID /*lpReser
             g_ProcessDListCS = new CriticalSection();
         }
         ConfigInit(hinst);
-        break;
-    case DLL_THREAD_ATTACH:
-        AngleDllMainThreadAttach();
-        break;
-    case DLL_THREAD_DETACH:
-        AngleDllMainThreadDetach();
-        break;
-    case DLL_PROCESS_DETACH:
+    }
+    else if (fdwReason == DLL_PROCESS_DETACH)
+    {
         if (g_ProcessDListCS)
         {
             delete g_ProcessDListCS;
         }
         ConfigCleanup();
-        AngleDllMainProcessDetach();
-        break;
     }
     return TRUE;
 }
@@ -1413,10 +1376,6 @@ int CALL InitiateGFX(GFX_INFO Gfx_Info)
     g_settings->res_data_org = g_settings->res_data;
 #endif
 
-#ifdef FPS
-    fps_last.SetToNow();
-#endif
-
     debug_init();    // Initialize debugger
 
     gfx = Gfx_Info;
@@ -1434,7 +1393,7 @@ int CALL InitiateGFX(GFX_INFO Gfx_Info)
 #else
         g_settings->wrpResolution, g_settings->wrpVRAM * 1024 * 1024, g_settings->wrpFBO, g_settings->wrpAnisotropic
 #endif
-        );
+    );
 
     grGlideInit();
     grSstSelect(0);
@@ -1495,7 +1454,6 @@ void CALL PluginLoaded(void)
 #endif
     general_setting(Set_vsync, "vsync", 1);
     general_setting(Set_ssformat, "ssformat", 1);
-    general_setting(Set_ShowFps, "show_fps", 0);
     general_setting(Set_clock, "clock", 0);
     general_setting(Set_clock_24_hr, "clock_24_hr", 0);
     general_setting(Set_texenh_options, "texenh_options", 0);
@@ -1504,9 +1462,9 @@ void CALL PluginLoaded(void)
 #ifndef ANDROID
     general_setting(Set_wrpFBO, "wrpFBO", 0);
 #else
-    general_setting(Set_Rotate, "rotate", 0);
     general_setting(Set_wrpFBO, "wrpFBO", 1);
 #endif
+    general_setting(Set_Rotate, "rotate", 0);
     general_setting(Set_wrpAnisotropic, "wrpAnisotropic", 0);
     general_setting(Set_autodetect_ucode, "autodetect_ucode", 1);
     general_setting(Set_ucode, "ucode", 2);
@@ -1798,145 +1756,9 @@ set
 input:    none
 output:   none
 *******************************************************************/
-#define GL_GLEXT_PROTOTYPES
-#include <GLES2/gl2.h>
-
-#define SHADER_SOURCE(...) #__VA_ARGS__
-GLuint CompileProgram(const std::string &vsSource, const std::string &fsSource);
-
-GLuint CreateSimpleTexture2D()
-{
-    // Use tightly packed data
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    // Generate a texture object
-    GLuint texture;
-    glGenTextures(1, &texture);
-
-    // Bind the texture object
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    // Load the texture: 2x2 Image, 3 bytes per pixel (R, G, B)
-    const size_t width = 2;
-    const size_t height = 2;
-    GLubyte pixels[width * height * 3] =
-    {
-        255,   0,   0, // Red
-        0, 255,   0, // Green
-        0,   0, 255, // Blue
-        255, 255,   0, // Yellow
-    };
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
-
-    // Set the filtering mode
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    return texture;
-}
-
-extern int g_width, g_height;
-
-void SimpleTexture2DSample_draw()
-{
-    static GLuint mProgram = -1;
-    static GLint mPositionLoc = -1;
-    static GLint mTexCoordLoc = -1;
-    static GLint mSamplerLoc = -1;
-    static GLuint mTexture = -1;
-
-    if (mProgram == -1)
-    {
-        const std::string vs = SHADER_SOURCE
-        (
-            attribute vec4 a_position;
-        attribute vec2 a_texCoord;
-        varying vec2 v_texCoord;
-        void main()
-        {
-            gl_Position = a_position;
-            v_texCoord = a_texCoord;
-        }
-        );
-
-        const std::string fs = SHADER_SOURCE
-        (
-            precision mediump float;
-        varying vec2 v_texCoord;
-        uniform sampler2D s_texture;
-        void main()
-        {
-            gl_FragColor = texture2D(s_texture, v_texCoord);
-        }
-        );
-
-        mProgram = CompileProgram(vs, fs);
-        if (!mProgram)
-        {
-            return;
-        }
-
-        // Get the attribute locations
-        mPositionLoc = glGetAttribLocation(mProgram, "a_position");
-        mTexCoordLoc = glGetAttribLocation(mProgram, "a_texCoord");
-
-        // Get the sampler location
-        mSamplerLoc = glGetUniformLocation(mProgram, "s_texture");
-
-        // Load the texture
-        mTexture = CreateSimpleTexture2D();
-
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    }
-    GLfloat vertices[] =
-    {
-        -0.5f,  0.5f, 0.0f,  // Position 0
-        0.0f,  0.0f,        // TexCoord 0
-        -0.5f, -0.5f, 0.0f,  // Position 1
-        0.0f,  1.0f,        // TexCoord 1
-        0.5f, -0.5f, 0.0f,  // Position 2
-        1.0f,  1.0f,        // TexCoord 2
-        0.5f,  0.5f, 0.0f,  // Position 3
-        1.0f,  0.0f         // TexCoord 3
-    };
-    GLushort indices[] = { 0, 1, 2, 0, 2, 3 };
-
-    // Set the viewport
-    glViewport(0, 0, g_width, g_height);
-
-    // Clear the color buffer
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    // Use the program object
-    glUseProgram(mProgram);
-
-    // Load the vertex position
-    glVertexAttribPointer(mPositionLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), vertices);
-    // Load the texture coordinate
-    glVertexAttribPointer(mTexCoordLoc, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), vertices + 3);
-
-    glEnableVertexAttribArray(mPositionLoc);
-    glEnableVertexAttribArray(mTexCoordLoc);
-
-    // Bind the texture
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, mTexture);
-
-    // Set the texture sampler to texture unit to 0
-    glUniform1i(mSamplerLoc, 0);
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
-}
-
-
 uint32_t update_screen_count = 0;
-void SwapBuffers(void);
 void CALL UpdateScreen(void)
 {
-    SimpleTexture2DSample_draw();
-    SwapBuffers();
-    return;
-
     WriteTrace(TraceGlide64, TraceDebug, "Origin: %08x, Old origin: %08x, width: %d", *gfx.VI_ORIGIN_REG, rdp.vi_org_reg, *gfx.VI_WIDTH_REG);
 
     uint32_t width = (*gfx.VI_WIDTH_REG) << 1;
@@ -1944,25 +1766,6 @@ void CALL UpdateScreen(void)
     {
         update_screen_count++;
     }
-#ifdef FPS
-    // vertical interrupt has occurred, increment counter
-    vi_count++;
-
-    // Check frames per second
-    fps_next.SetToNow();
-    double diff_secs = (double)(fps_next.GetMicroSeconds() - fps_last.GetMicroSeconds()) / 1000000;
-    if (diff_secs > 0.5f)
-    {
-        fps = (float)(fps_count / diff_secs);
-        vi = (float)(vi_count / diff_secs);
-        ntsc_percent = vi / 0.6f;
-        pal_percent = vi / 0.5f;
-        fps_last = fps_next;
-        fps_count = 0;
-        vi_count = 0;
-    }
-#endif
-    //*
     uint32_t limit = (g_settings->hacks&hack_Lego) ? 15 : 30;
     if ((g_settings->frame_buffer&fb_cpu_write_hack) && (update_screen_count > limit) && (rdp.last_bg == 0))
     {
@@ -1973,8 +1776,6 @@ void CALL UpdateScreen(void)
         UpdateScreen();
         return;
     }
-    //*/
-    //*
     if (no_dlist)
     {
         if (*gfx.VI_ORIGIN_REG > width)
@@ -1988,9 +1789,8 @@ void CALL UpdateScreen(void)
         }
         return;
     }
-    //*/
-    //if (g_settings->swapmode == 0)
-    newSwapBuffers();
+    if (g_settings->swapmode == 0)
+        newSwapBuffers();
 }
 
 static void DrawWholeFrameBufferToScreen()
@@ -2144,50 +1944,19 @@ void newSwapBuffers()
     grDepthMask(FXFALSE);
     grCullMode(GR_CULL_DISABLE);
 
-    if ((g_settings->show_fps & 0xF) || g_settings->clock)
-        set_message_combiner();
-#ifdef FPS
-    float y = 0;//(float)g_settings->res_y;
-    if (g_settings->show_fps & 0x0F)
-    {
-        if (g_settings->show_fps & 4)
-        {
-            if (region)   // PAL
-                output(0, y, 1, "%d%% ", (int)pal_percent);
-            else
-                output(0, y, 1, "%d%% ", (int)ntsc_percent);
-            y += 16;
-        }
-        if (g_settings->show_fps & 2)
-        {
-            output(0, y, 1, "VI/s: %.02f ", vi);
-            y += 16;
-        }
-        if (g_settings->show_fps & 1)
-            output(0, y, 1, "FPS: %.02f ", fps);
-    }
-#endif
-
     if (g_settings->clock)
     {
+        set_message_combiner();
         if (g_settings->clock_24_hr)
         {
-            output(956.0f, 0, 1, CDateTime().Format("%H:%M:%S").c_str(), 0);
+            output(956.0f, 0, 1, CDateTime().SetToNow().Format("%H:%M:%S").c_str(), 0);
         }
         else
         {
-            output(930.0f, 0, 1, CDateTime().Format("%I:%M:%S %p").c_str(), 0);
+            output(930.0f, 0, 1, CDateTime().SetToNow().Format("%I:%M:%S %p").c_str(), 0);
         }
     }
     //hotkeys
-    //if (CheckKeyPressed(G64_VK_BACK, 0x0001))
-    //{
-    //hotkey_info.hk_filtering = 100;
-    //if (g_settings->filtering < 2)
-    //g_settings->filtering++;
-    //else
-    //g_settings->filtering = 0;
-    //}
     if ((abs((int)(frame_count - curframe)) > 3) && CheckKeyPressed(G64_VK_ALT, 0x8000))  //alt +
     {
         if (CheckKeyPressed(G64_VK_B, 0x8000))  //b
@@ -2205,7 +1974,7 @@ void newSwapBuffers()
             g_settings->frame_buffer ^= fb_ref;
         }
     }
-    if (g_settings->buff_clear && (hotkey_info.hk_ref || hotkey_info.hk_motionblur || hotkey_info.hk_filtering))
+    if (hotkey_info.hk_ref || hotkey_info.hk_motionblur || hotkey_info.hk_filtering)
     {
         set_message_combiner();
         char buf[256];
@@ -2217,7 +1986,7 @@ void newSwapBuffers()
                 message = strcat(buf, "FB READ ALWAYS: ON");
             else
                 message = strcat(buf, "FB READ ALWAYS: OFF");
-            //hotkey_info.hk_ref--;
+            hotkey_info.hk_ref--;
         }
         if (hotkey_info.hk_motionblur)
         {
@@ -2225,7 +1994,7 @@ void newSwapBuffers()
                 message = strcat(buf, "  MOTION BLUR: ON");
             else
                 message = strcat(buf, "  MOTION BLUR: OFF");
-            //hotkey_info.hk_motionblur--;
+            hotkey_info.hk_motionblur--;
         }
         if (hotkey_info.hk_filtering)
         {
@@ -2241,7 +2010,7 @@ void newSwapBuffers()
                 message = strcat(buf, "  FILTERING MODE: FORCE POINT-SAMPLED");
                 break;
             }
-            //hotkey_info.hk_filtering--;
+            hotkey_info.hk_filtering--;
         }
         output(120.0f, 0.0f, 1, message, 0);
     }
@@ -2392,7 +2161,6 @@ void newSwapBuffers()
         grAuxBufferExt(GR_BUFFER_AUXBUFFER);
     WriteTrace(TraceGlide64, TraceDebug, "BUFFER SWAPPED");
     grBufferSwap(g_settings->vsync);
-    fps_count++;
     if (*gfx.VI_STATUS_REG & 0x08) //gamma correction is used
     {
         if (!voodoo.gamma_correction)

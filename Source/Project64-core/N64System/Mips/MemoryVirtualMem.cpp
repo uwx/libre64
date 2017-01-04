@@ -48,7 +48,10 @@ CMipsMemoryVM::CMipsMemoryVM(bool SavesReadOnly) :
     m_TLB_WriteMap(NULL),
     m_RDRAM(NULL),
     m_DMEM(NULL),
-    m_IMEM(NULL)
+    m_IMEM(NULL),
+    m_DDRomMapped(false),
+    m_DDRom(NULL),
+    m_DDRomSize(0)
 {
     g_Settings->RegisterChangeCB(Game_RDRamSize, this, (CSettings::SettingChangedFunc)RdramChanged);
 }
@@ -108,7 +111,7 @@ void CMipsMemoryVM::Reset(bool /*EraseMemory*/)
 void CMipsMemoryVM::ReserveMemory()
 {
     m_Reserve1 = (uint8_t *)AllocateAddressSpace(0x20000000);
-    if (g_Settings->LoadBool(Debugger_Enabled))
+    if (g_Settings->LoadBool(Debugger_Enabled) && g_Settings->LoadBool(Setting_PreAllocSyncMem))
     {
         m_Reserve2 = (uint8_t *)AllocateAddressSpace(0x20000000);
     }

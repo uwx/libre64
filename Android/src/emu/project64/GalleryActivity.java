@@ -11,8 +11,14 @@
 package emu.project64;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import emu.project64.R;
 import emu.project64.dialog.ProgressDialog;
@@ -25,18 +31,21 @@ import emu.project64.inAppPurchase.IabHelper.IabAsyncInProgressException;
 import emu.project64.inAppPurchase.IabResult;
 import emu.project64.inAppPurchase.Inventory;
 import emu.project64.inAppPurchase.Purchase;
+import emu.project64.jni.LanguageStringID;
 import emu.project64.jni.NativeExports;
 import emu.project64.jni.SettingsID;
 import emu.project64.jni.SystemEvent;
 import emu.project64.jni.UISettingID;
 import emu.project64.settings.GameSettingsActivity;
 import emu.project64.settings.SettingsActivity;
+import emu.project64.util.Strings;
 import emu.project64.util.Utility;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -90,12 +99,17 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
     // The IAB helper object
     IabHelper mIabHelper;
     private boolean mHasSaveSupport = false;
+    private boolean mPj64Supporter = false;
 
     // Provides purchase notification while this app is running
     IabBroadcastReceiver mBroadcastReceiver;
 
     public static final int GAME_DIR_REQUEST_CODE = 1;
     static final String SKU_SAVESUPPORT = "save_support";
+    static final String SKU_PJ64SUPPORTOR_2 = "supportproject64_2";
+    static final String SKU_PJ64SUPPORTOR_5 = "supportproject64_5";
+    static final String SKU_PJ64SUPPORTOR_8 = "supportproject64_8";
+    static final String SKU_PJ64SUPPORTOR_10 = "supportproject64_10";
 
     // (arbitrary) request code for the purchase flow
     static final int RC_REQUEST = 10001;
@@ -124,6 +138,13 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
         super.onCreate( savedInstanceState );
         mActiveGalleryActivity = this;
 
+        String FirstRun = NativeExports.UISettingsLoadString(UISettingID.SupportWindow_FirstRun.getValue());
+        if (FirstRun.length() == 0)
+        {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+            NativeExports.UISettingsSaveString(UISettingID.SupportWindow_FirstRun.getValue(), format.format(new Date()));
+        }
+
         mIabHelper = new IabHelper(this, "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnfHFIq+X0oIvV+bwcvdqQv5GmpWLL6Bw8xE6MLFzXzUGUIUZBwQS6Cz5IC0UM76ujPDPqQPeGy/8oq/bswB5pHCz2iS4ySGalzFfYfeIDklOe+R1pLEqmHuwsR5o4b8rLePLGmUI7hA0kozOTb0i+epANV3Pj63i5XFZLA7RMi5I+YysoE9Fob6kCx0kb02AATacF0OXI9paE1izvsHhZcOIrT4TRMbGlZjBVE/pcJtoBDh33QKz/JBOXWvwnh+efqhVsq/UfA6jYI+U4Z4tsnWhem8DB6Kqj5EhClC6qCPmkBFiOabyKaqhI/urBtYOwxkW9erwtA6OcDoHm5J/JwIDAQAB");
 
         // enable debug logging (for a production application, you should set this to false).
@@ -142,6 +163,7 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
                     Log.d("GalleryActivity", "Problem setting up in-app billing: " + result);
                     // complain("Problem setting up in-app billing: " + result);
                     mHasSaveSupport = true;
+                    mPj64Supporter = true;
                     return;
                 }
                 // Have we been disposed of in the meantime? If so, quit.
@@ -202,7 +224,7 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
         // Configure the navigation drawer
         mDrawerLayout = (DrawerLayout) findViewById( R.id.drawerLayout );
         mDrawerToggle = new ActionBarDrawerToggle( this, mDrawerLayout, toolbar, 0, 0 );
-        mDrawerLayout.setDrawerListener( mDrawerToggle );
+        mDrawerLayout.addDrawerListener( mDrawerToggle );
 
         // Configure the list in the navigation drawer
         mDrawerList = (MenuListView) findViewById( R.id.drawerNavigation );
@@ -215,7 +237,16 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
             {
                 GalleryActivity.this.onOptionsItemSelected( menuItem );
             }
-        } );
+        });
+        UpdateLanguage();
+    }
+
+    void UpdateLanguage()
+    {
+        Strings.SetMenuTitle(mDrawerList.getMenu(), R.id.menuItem_settings, LanguageStringID.ANDROID_SETTINGS);
+        Strings.SetMenuTitle(mDrawerList.getMenu(), R.id.menuItem_forum, LanguageStringID.ANDROID_FORUM);
+        Strings.SetMenuTitle(mDrawerList.getMenu(), R.id.menuItem_reportBug, LanguageStringID.ANDROID_REPORT_BUG);
+        Strings.SetMenuTitle(mDrawerList.getMenu(), R.id.menuItem_about, LanguageStringID.ANDROID_ABOUT);
     }
 
     // Enables or disables the "please wait" screen.
@@ -255,11 +286,62 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
              * verifyDeveloperPayload().
              */
 
-            Purchase SaveSupportPurchase = inventory.getPurchase(SKU_SAVESUPPORT);
-            Log.d("GalleryActivity", "Purchased save support " + (SaveSupportPurchase!= null ? "Yes" : "No"));
-            if (SaveSupportPurchase != null)
+            /*IabHelper.OnConsumeFinishedListener listener = new IabHelper.OnConsumeFinishedListener()
             {
-                mHasSaveSupport = true;
+                @Override
+                public
+                void onConsumeFinished(Purchase purchase, IabResult result)
+                {
+                    Log.d("GalleryActivity", "SKU_SAVESUPPORT consumed");
+                }
+            };
+            try {
+                mIabHelper.consumeAsync(inventory.getPurchase(SKU_SAVESUPPORT), listener);
+            } catch (IabAsyncInProgressException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }*/
+            Purchase ItemPurchase = inventory.getPurchase(SKU_SAVESUPPORT);
+            Log.d("GalleryActivity", "Purchased SKU_SAVESUPPORT " + (ItemPurchase!= null ? "Yes" : "No"));
+            if (ItemPurchase != null)
+            {
+                mPj64Supporter = true;
+            }
+            if (!mPj64Supporter)
+            {
+                ItemPurchase = inventory.getPurchase(SKU_PJ64SUPPORTOR_2);
+                Log.d("GalleryActivity", "Purchased SKU_PJ64SUPPORTOR_2 " + (ItemPurchase != null ? "Yes" : "No"));
+                if (ItemPurchase != null)
+                {
+                    mPj64Supporter = true;
+                }
+            }
+            if (!mPj64Supporter)
+            {
+                ItemPurchase = inventory.getPurchase(SKU_PJ64SUPPORTOR_5);
+                Log.d("GalleryActivity", "Purchased SKU_PJ64SUPPORTOR_5 " + (ItemPurchase != null ? "Yes" : "No"));
+                if (ItemPurchase != null)
+                {
+                    mPj64Supporter = true;
+                }
+            }
+            if (!mPj64Supporter)
+            {
+                ItemPurchase = inventory.getPurchase(SKU_PJ64SUPPORTOR_8);
+                Log.d("GalleryActivity", "Purchased SKU_PJ64SUPPORTOR_8 " + (ItemPurchase != null ? "Yes" : "No"));
+                if (ItemPurchase != null)
+                {
+                    mPj64Supporter = true;
+                }
+            }
+            if (!mPj64Supporter)
+            {
+                ItemPurchase = inventory.getPurchase(SKU_PJ64SUPPORTOR_10);
+                Log.d("GalleryActivity", "Purchased SKU_PJ64SUPPORTOR_10 " + (ItemPurchase != null ? "Yes" : "No"));
+                if (ItemPurchase != null)
+                {
+                    mPj64Supporter = true;
+                }
             }
 
             setWaitScreen(false);
@@ -279,6 +361,7 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
                 Log.e("GalleryActivity", "**** Purcahse Error: " + result);
                 alert("Save Support Upgrade failed\n\n" + result.getMessage());
                 setWaitScreen(false);
+                ShowSupportWindow();
                 return;
             }
 
@@ -290,6 +373,18 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
                 Log.d("GalleryActivity", "Purchase is save support. Congratulating user.");
                 alert("Thank you for upgrading to have save support!");
                 mHasSaveSupport = true;
+                setWaitScreen(false);
+            }
+
+            if (purchase.getSku().equals(SKU_PJ64SUPPORTOR_2) ||
+                purchase.getSku().equals(SKU_PJ64SUPPORTOR_5) ||
+                purchase.getSku().equals(SKU_PJ64SUPPORTOR_8) ||
+                purchase.getSku().equals(SKU_PJ64SUPPORTOR_10))
+            {
+                // bought the premium upgrade!
+                Log.d("GalleryActivity", "Purchase is project64 support. Congratulating user.");
+                alert("Thank you for supporting Project64!");
+                mPj64Supporter = true;
                 setWaitScreen(false);
             }
         }
@@ -336,6 +431,7 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
     public boolean onCreateOptionsMenu( Menu menu )
     {
         getMenuInflater().inflate( R.menu.gallery_activity, menu );
+        Strings.SetMenuTitle(menu, R.id.menuItem_gameDir, LanguageStringID.ANDROID_GAMEDIR);
 
         return super.onCreateOptionsMenu( menu );
     }
@@ -404,8 +500,11 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
         return false;
     }
 
-    private void StartGameMenu (File GameSaveDir, boolean ShowSettings)
+    private void StartGameMenu (boolean ShowSettings)
     {
+        File InstantSaveDir = new File(NativeExports.SettingsLoadString(SettingsID.Directory_InstantSave.getValue()));
+        final File GameSaveDir = new File(InstantSaveDir,NativeExports.SettingsLoadString(SettingsID.Game_UniqueSaveDir.getValue()));
+
         class Item
         {
             public final String text;
@@ -423,15 +522,15 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
         }
 
         List<Item>menuItemLst = new ArrayList<Item>();
-        if (mHasSaveSupport)
-        {
-            menuItemLst.add(new Item("Resume from Native save", R.drawable.ic_controller));
-            menuItemLst.add(new Item("Resume from Auto save", R.drawable.ic_play));
-        }
-        else
+        if (ShouldShowSupportWindow())
         {
             menuItemLst.add(new Item("Resume from Native save", R.drawable.ic_lock));
             menuItemLst.add(new Item("Resume from Auto save", R.drawable.ic_lock));
+        }
+        else
+        {
+            menuItemLst.add(new Item("Resume from Native save", R.drawable.ic_controller));
+            menuItemLst.add(new Item("Resume from Auto save", R.drawable.ic_play));
         }
         menuItemLst.add(new Item("Restart", R.drawable.ic_refresh));
         if (ShowSettings && !NativeExports.SettingsLoadBool(SettingsID.UserInterface_BasicMode.getValue()))
@@ -508,31 +607,9 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
             @Override
             public void onClick(DialogInterface dialog, int item)
             {
-                if ((item == 0 || item == 1) && !mHasSaveSupport)
+                if ((item == 0 || item == 1) && ShouldShowSupportWindow())
                 {
-                    AlertDialog.Builder ResetPrompt = new AlertDialog.Builder(finalContext);
-                    ResetPrompt
-                    .setTitle(getText(R.string.GetSaveSupport_title))
-                    .setMessage(getText(R.string.GetSaveSupport_message))
-                    .setPositiveButton(R.string.GetSaveSupport_OkButton, new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int id)
-                        {
-                            setWaitScreen(true);
-                            //Purchase save support
-                            try
-                            {
-                                String payload = NativeExports.appVersion();
-                                mIabHelper.launchPurchaseFlow(finalActivity, SKU_SAVESUPPORT, RC_REQUEST, mPurchaseFinishedListener, payload);
-                            }
-                            catch (IabAsyncInProgressException e)
-                            {
-                                setWaitScreen(false);
-                            }
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel, this)
-                    .show();
+                    ShowSupportWindow();
                     return;
                 }
                 if (item == 0)
@@ -562,6 +639,7 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
                                 currentFile.delete();
                             }
                             SaveDir.delete();
+                            NativeExports.UISettingsSaveDword(UISettingID.Game_RunCount.getValue(), 0);
                             launchGameActivity();
                         }
                     })
@@ -581,14 +659,14 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
     public void onGalleryItemClick( GalleryItem item )
     {
         NativeExports.LoadGame(item.romFile.getAbsolutePath());
-        File InstantSaveDir = new File(NativeExports.SettingsLoadString(SettingsID.Directory_InstantSave.getValue()));
-        final File GameSaveDir = new File(InstantSaveDir,NativeExports.SettingsLoadString(SettingsID.Game_UniqueSaveDir.getValue()));
-        if (GameSaveDir.exists() && !mHasSaveSupport)
+        if (ShouldShowSupportWindow())
         {
-            StartGameMenu(GameSaveDir, false);
+            ShowSupportWindow();
         }
         else
         {
+            File InstantSaveDir = new File(NativeExports.SettingsLoadString(SettingsID.Directory_InstantSave.getValue()));
+            final File GameSaveDir = new File(InstantSaveDir,NativeExports.SettingsLoadString(SettingsID.Game_UniqueSaveDir.getValue()));
             if (HasAutoSave(GameSaveDir))
             {
                 NativeExports.SettingsSaveDword(SettingsID.Game_CurrentSaveState.getValue(), 0);
@@ -601,10 +679,15 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
     public boolean onGalleryItemLongClick( GalleryItem item )
     {
         NativeExports.LoadGame(item.romFile.getAbsolutePath());
-        File InstantSaveDir = new File(NativeExports.SettingsLoadString(SettingsID.Directory_InstantSave.getValue()));
-        final File GameSaveDir = new File(InstantSaveDir,NativeExports.SettingsLoadString(SettingsID.Game_UniqueSaveDir.getValue()));
-
-        StartGameMenu(GameSaveDir, true);
+        if (ShouldShowSupportWindow())
+        {
+            ShowSupportWindow();
+        }
+        else
+        {
+            StartGameMenu(true);
+        }
+        Log.d("GalleryActivity", "onGalleryItemLongClick 4");
         return true;
     }
 
@@ -615,10 +698,7 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
 
         if (requestCode == RC_SETTINGS)
         {
-            File InstantSaveDir = new File(NativeExports.SettingsLoadString(SettingsID.Directory_InstantSave.getValue()));
-            final File GameSaveDir = new File(InstantSaveDir,NativeExports.SettingsLoadString(SettingsID.Game_UniqueSaveDir.getValue()));
-
-            StartGameMenu(GameSaveDir, true);
+            StartGameMenu(true);
             return;
         }
         // Check which request we're responding to
@@ -654,11 +734,12 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
 
         if (mRecentItems.size() > 0)
         {
-            items.add( new GalleryItem( this, getString( R.string.galleryRecentlyPlayed ) ) );
+            items.add( new GalleryItem( this, Strings.GetString(LanguageStringID.ANDROID_GALLERY_RECENTLYPLAYED)));
             items.addAll( mRecentItems );
 
-            items.add( new GalleryItem( this, getString( R.string.galleryLibrary ) ) );
+            items.add( new GalleryItem( this, Strings.GetString(LanguageStringID.ANDROID_GALLERY_LIBRARY)));
         }
+        Collections.sort( mGalleryItems, new GalleryItem.NameComparator() );
         items.addAll( mGalleryItems );
 
         mGridView.setAdapter( new GalleryItem.Adapter( this, items ) );
@@ -728,6 +809,96 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
         }
     }
 
+    public void PurcahseProject64Support(Activity activity, String sku)
+    {
+        setWaitScreen(true);
+        //Purchase save support
+        try
+        {
+            String payload = NativeExports.appVersion();
+            mIabHelper.launchPurchaseFlow(activity, sku, RC_REQUEST, mPurchaseFinishedListener, payload);
+        }
+        catch (IabAsyncInProgressException e)
+        {
+            setWaitScreen(false);
+        }
+    }
+
+    private boolean ShouldShowSupportWindow()
+    {
+        Log.d("GalleryActivity", "ShowSupportWindow mHasSaveSupport = " + mHasSaveSupport);
+        if (mHasSaveSupport)
+        {
+            return false;
+        }
+
+        Log.d("GalleryActivity", "ShowSupportWindow mPj64Supporter = " + mPj64Supporter);
+        if (mPj64Supporter)
+        {
+            return false;
+        }
+
+        int RunCount = NativeExports.UISettingsLoadDword(UISettingID.SupportWindow_RunCount.getValue());
+        Log.d("GalleryActivity", "ShowSupportWindow RunCount = " + RunCount);
+        if (RunCount == -1)
+        {
+            return false;
+        }
+
+        RunCount = NativeExports.UISettingsLoadDword(UISettingID.Game_RunCount.getValue());
+        Log.d("GalleryActivity", "ShowSupportWindow Game_RunCount = " + RunCount);
+        if (RunCount < 5)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public void ShowSupportWindow()
+    {
+        final Context context = this;
+        final Activity activity = this;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getText(R.string.GetSaveSupport_title));
+        builder.setMessage(getText(R.string.GetSaveSupport_message));
+        builder.setNeutralButton("Not now", null);
+        builder.setNegativeButton("Support Project64", null);
+        builder.setCancelable(false);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.dismiss();
+                StartGameMenu(false);
+            }
+        });
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                setWaitScreen(true);
+                //Purchase save support
+                try
+                {
+                    String payload = NativeExports.appVersion();
+                    mIabHelper.launchPurchaseFlow(activity, SKU_SAVESUPPORT, RC_REQUEST, mPurchaseFinishedListener, payload);
+                }
+                catch (IabAsyncInProgressException e)
+                {
+                    setWaitScreen(false);
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(false);
+    }
+
     public void launchGameActivity()
     {
         // Launch the game activity
@@ -735,6 +906,15 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
 
         Intent intent = isXperiaPlay ? new Intent( this, GameActivityXperiaPlay.class ) : new Intent( this, GameActivity.class );
         this.startActivity( intent );
+    }
+
+    public static void LanguageChanged()
+    {
+        if (mActiveGalleryActivity != null)
+        {
+            mActiveGalleryActivity.finish();
+            mActiveGalleryActivity.startActivity( mActiveGalleryActivity.getIntent() );
+        }
     }
 
     public static void RomListReset ()
@@ -776,7 +956,7 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
         }
     }
 
-    public static void RomListLoadDone()
+    private static void refreshRecentRoms()
     {
         mRecentItems = new ArrayList<GalleryItem>();
 
@@ -794,11 +974,15 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
                 if (RecentFile.equals(mGalleryItems.get(z).romFile.getAbsolutePath()))
                 {
                     mRecentItems.add(mGalleryItems.get(z));
-                       break;
+                    break;
                 }
             }
         }
+    }
 
+    public static void RomListLoadDone()
+    {
+        refreshRecentRoms();
         if (mActiveGalleryActivity != null && mActiveGalleryActivity.mProgress != null)
         {
             Handler h = new Handler(Looper.getMainLooper());
@@ -811,5 +995,18 @@ public class GalleryActivity extends AppCompatActivity implements IabBroadcastLi
                 }
             });
         }
+    }
+
+    public static void RecentRomsUpdated()
+    {
+        refreshRecentRoms();
+        Handler h = new Handler(Looper.getMainLooper());
+        h.post(new Runnable()
+        {
+            public void run()
+            {
+                mActiveGalleryActivity.refreshGrid();
+            }
+        });
     }
 }

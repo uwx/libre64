@@ -121,6 +121,7 @@ void CSettings::AddHowToHandleSetting(const char * BaseDirectory)
 #endif
     AddHandler(Setting_CurrentLanguage, new CSettingTypeApplication("", "Current Language", ""));
     AddHandler(Setting_EnableDisk, new CSettingTypeTempBool(false));
+    AddHandler(Setting_PreAllocSyncMem, new CSettingTypeApplication("", "PreAllocSyncMem", true));
     AddHandler(Setting_LanguageDirDefault, new CSettingTypeRelativePath("Lang", ""));
     AddHandler(Setting_LanguageDir, new CSettingTypeApplicationPath("Lang Directory", "Directory", Setting_LanguageDirDefault));
 
@@ -150,11 +151,7 @@ void CSettings::AddHowToHandleSetting(const char * BaseDirectory)
     AddHandler(Rdb_ScreenHertz, new CSettingTypeRomDatabase("ScreenHertz", 0));
     AddHandler(Rdb_FuncLookupMode, new CSettingTypeRomDatabase("FuncFind", FuncFind_PhysicalLookup));
     AddHandler(Rdb_RegCache, new CSettingTypeRDBYesNo("Reg Cache", true));
-#ifdef ANDROID
-    AddHandler(Rdb_BlockLinking, new CSettingTypeRDBOnOff("Linking", false));
-#else
     AddHandler(Rdb_BlockLinking, new CSettingTypeRDBOnOff("Linking", true));
-#endif
     AddHandler(Rdb_SMM_Cache, new CSettingTypeRomDatabase("SMM-Cache", true));
     AddHandler(Rdb_SMM_StoreInstruc, new CSettingTypeRomDatabase("SMM-StoreInstr", false));
     AddHandler(Rdb_SMM_PIDMA, new CSettingTypeRomDatabase("SMM-PI DMA", true));
@@ -313,7 +310,7 @@ void CSettings::AddHowToHandleSetting(const char * BaseDirectory)
     AddHandler(Debugger_DebugLanguage, new CSettingTypeApplication("Debugger", "Debug Language", false));
     AddHandler(Debugger_ShowDivByZero, new CSettingTypeApplication("Debugger", "Show Div by zero", false));
     AddHandler(Debugger_AppLogFlush, new CSettingTypeApplication("Logging", "Log Auto Flush", (uint32_t)false));
-    AddHandler(Debugger_GenerateLogFiles, new CSettingTypeApplication("Debugger", "Generate Log Files", false));
+    AddHandler(Debugger_RecordRecompilerAsm, new CSettingTypeApplication("Debugger", "Record Recompiler Asm", false));
 
     //Logging
     AddHandler(Debugger_TraceMD5, new CSettingTypeApplication("Logging", "MD5", (uint32_t)g_ModuleLogLevel[TraceMD5]));
@@ -606,10 +603,10 @@ void CSettings::RegisterSetting(CSettings * _this, SettingID ID, SettingID Defau
             }
             else
             {
-                SettingID RdbSetting = (SettingID)_this->m_NextAutoSettingId;
+                SettingID AutoRdbSetting = (SettingID)_this->m_NextAutoSettingId;
                 _this->m_NextAutoSettingId += 1;
-                _this->AddHandler(RdbSetting, new CSettingTypeRomDatabaseSetting(Category, DefaultStr, DefaultID, true));
-                _this->AddHandler(ID, new CSettingTypeApplication(Category, DefaultStr, RdbSetting));
+                _this->AddHandler(AutoRdbSetting, new CSettingTypeRomDatabaseSetting(Category, DefaultStr, DefaultID, true));
+                _this->AddHandler(ID, new CSettingTypeApplication(Category, DefaultStr, AutoRdbSetting));
             }
             break;
         default:
@@ -1250,10 +1247,10 @@ void CSettings::UnregisterChangeCB(SettingID Type, void * Data, SettingChangedFu
                 {
                     if (item->Next)
                     {
-                        SettingID Type = Callback->first;
+                        SettingID CallbackType = Callback->first;
                         SETTING_CHANGED_CB * Next = item->Next;
                         m_Callback.erase(Callback);
-                        m_Callback.insert(SETTING_CALLBACK::value_type(Type, Next));
+                        m_Callback.insert(SETTING_CALLBACK::value_type(CallbackType, Next));
                     }
                     else
                     {

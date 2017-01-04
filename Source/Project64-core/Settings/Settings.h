@@ -56,6 +56,7 @@ enum SettingID
     Setting_LanguageDirDefault,
     Setting_CurrentLanguage,
     Setting_EnableDisk,
+    Setting_PreAllocSyncMem,
 
     //RDB Settings
     Rdb_GoodName,
@@ -213,7 +214,7 @@ enum SettingID
     Debugger_ShowUnhandledMemory,
     Debugger_ShowPifErrors,
     Debugger_ShowDivByZero,
-    Debugger_GenerateLogFiles,
+    Debugger_RecordRecompilerAsm,
     Debugger_DisableGameFixes,
     Debugger_AppLogLevel,
     Debugger_AppLogFlush,

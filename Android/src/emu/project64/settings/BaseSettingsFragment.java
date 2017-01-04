@@ -113,6 +113,10 @@ public abstract class BaseSettingsFragment extends PreferenceFragmentCompat
         {
             loadFragment(new VideoFragment());
         }
+        else if (preference.getKey().equals("settings_game_list"))
+        {
+            loadFragment(new GameListFragment());
+        }
         else if (preference.getKey().equals("settings_audio"))
         {
             loadFragment(new AudioFragment());
@@ -124,6 +128,10 @@ public abstract class BaseSettingsFragment extends PreferenceFragmentCompat
         else if (preference.getKey().equals("logging_core"))
         {
             loadFragment(new LoggingProject64Core());
+        }
+        else if (preference.getKey().equals("logging_audio"))
+        {
+            loadFragment(new LoggingAudio());
         }
         else if (preference.getKey().equals("settings_reset"))
         {

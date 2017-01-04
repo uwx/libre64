@@ -87,7 +87,6 @@ extern PFNGLGETINFOLOGARBPROC glGetInfoLogARB;
 extern PFNGLGETOBJECTPARAMETERIVARBPROC glGetObjectParameterivARB;
 extern PFNGLSECONDARYCOLOR3FPROC glSecondaryColor3f;
 #endif
-void check_compile(GLuint shader);
 void check_link(GLuint program);
 void vbo_enable();
 void vbo_disable();
@@ -103,8 +102,6 @@ extern int w_buffer_mode;
 extern int nbTextureUnits;
 extern int g_width, g_height, widtho, heighto;
 extern int tex0_width, tex0_height, tex1_width, tex1_height;
-extern float texture_env_color[4];
-extern int fog_enabled;
 extern float lambda;
 extern int need_lambda[2];
 extern float lambda_color[2][4];

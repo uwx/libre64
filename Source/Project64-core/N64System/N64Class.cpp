@@ -241,9 +241,9 @@ void CN64System::ExternalEvent(SystemEvent action)
     }
 }
 
-bool CN64System::RunFileImage(const char * FileLoc)
+bool CN64System::LoadFileImage(const char * FileLoc)
 {
-    WriteTrace(TraceN64System, TraceDebug, "FileLoc: %s", FileLoc);
+    WriteTrace(TraceN64System, TraceDebug, "Start (FileLoc: %s)", FileLoc);
     CloseSystem();
     g_Settings->SaveBool(Setting_EnableDisk, false);
     g_Settings->SaveDword(Game_CurrentSaveState, g_Settings->LoadDefaultDword(Game_CurrentSaveState));
@@ -282,6 +282,11 @@ bool CN64System::RunFileImage(const char * FileLoc)
             g_DDRom->LoadN64ImageIPL(FileLoc);
             g_Settings->SaveString(File_DiskIPLPath, FileLoc);
         }
+        else if (g_DDRom != NULL)
+        {
+            delete g_DDRom;
+            g_DDRom = NULL;
+        }
 
         if (g_DDRom != NULL)
         {
@@ -294,33 +299,6 @@ bool CN64System::RunFileImage(const char * FileLoc)
         g_Settings->SaveBool(GameRunning_LoadingInProgress, false);
 
         WriteTrace(TraceN64System, TraceDebug, "Finished Loading (GoodName: %s)", g_Settings->LoadStringVal(Game_GoodName).c_str());
-
-        g_BaseSystem = new CN64System(g_Plugins, false, false);
-        if (g_BaseSystem)
-        {
-            if (g_Settings->LoadBool(Setting_AutoStart) != 0)
-            {
-                WriteTrace(TraceN64System, TraceDebug, "Automattically starting rom");
-                g_BaseSystem->StartEmulation(true);
-            }
-            else
-            {
-                bool bSetActive = true;
-                if (g_BaseSystem->m_SyncCPU != NULL)
-                {
-                    bSetActive = g_BaseSystem->m_SyncCPU->SetActiveSystem(true);
-                }
-
-                if (bSetActive)
-                {
-                    bSetActive = g_BaseSystem->SetActiveSystem(true);
-                }
-            }
-        }
-        else
-        {
-            WriteTrace(TraceN64System, TraceError, "Failed to create CN64System");
-        }
     }
     else
     {
@@ -329,9 +307,40 @@ bool CN64System::RunFileImage(const char * FileLoc)
         delete g_Rom;
         g_Rom = NULL;
         g_Settings->SaveBool(GameRunning_LoadingInProgress, false);
+        WriteTrace(TraceN64System, TraceDebug, "Done (res: false)");
         return false;
     }
+    WriteTrace(TraceN64System, TraceDebug, "Done (res: true)");
     return true;
+}
+
+bool CN64System::RunFileImage(const char * FileLoc)
+{
+    if (!LoadFileImage(FileLoc))
+    {
+        return false;
+    }
+    if (g_Settings->LoadBool(Setting_AutoStart) != 0)
+    {
+        WriteTrace(TraceN64System, TraceDebug, "Automattically starting rom");
+        RunLoadedImage();
+    }
+    return true;
+}
+
+void CN64System::RunLoadedImage(void)
+{
+    WriteTrace(TraceN64System, TraceDebug, "Start");
+    g_BaseSystem = new CN64System(g_Plugins, false, false);
+    if (g_BaseSystem)
+    {
+        g_BaseSystem->StartEmulation(true);
+    }
+    else
+    {
+        WriteTrace(TraceN64System, TraceError, "Failed to create CN64System");
+    }
+    WriteTrace(TraceN64System, TraceDebug, "Done");
 }
 
 bool CN64System::RunFileImageIPL(const char * FileLoc)
@@ -498,15 +507,14 @@ void CN64System::StartEmulation2(bool NewThread)
         g_Settings->SaveDword(Game_CurrentSaveState, g_Settings->LoadDefaultDword(Game_CurrentSaveState));
 
         WriteTrace(TraceN64System, TraceDebug, "Setting system as active");
-        bool bSetActive = true;
-        if (m_SyncCPU)
+        bool bSetActive = SetActiveSystem();
+        if (bSetActive && m_SyncCPU)
         {
             bSetActive = m_SyncCPU->SetActiveSystem();
-        }
-
-        if (bSetActive)
-        {
-            bSetActive = SetActiveSystem();
+            if (bSetActive)
+            {
+                bSetActive = SetActiveSystem();
+            }
         }
 
         WriteTrace(TraceN64System, TraceDebug, "Setting system as active");
@@ -679,7 +687,7 @@ void CN64System::Reset(bool bInitReg, bool ClearMenory)
         m_Plugins->RomClosed();
         m_Plugins->RomOpened();
     }
-    if (m_SyncCPU)
+    if (m_SyncCPU && m_SyncCPU->m_MMU_VM.Rdram() != NULL)
     {
         m_SyncCPU->Reset(bInitReg, ClearMenory);
     }
@@ -888,6 +896,14 @@ void CN64System::InitRegisters(bool bPostPif, CMipsMemoryVM & MMU)
             case CIC_NUS_6106:
                 m_Reg.m_GPR[5].DW = 0xFFFFFFFFE067221F;
                 m_Reg.m_GPR[14].DW = 0x000000005CD2B70F;
+                break;
+            case CIC_NUS_6101:
+            case CIC_NUS_6104:
+            case CIC_NUS_5167:
+            case CIC_NUS_8303:
+            case CIC_NUS_DDUS:
+            default:
+                //no specific values
                 break;
             }
             m_Reg.m_GPR[20].DW = 0x0000000000000001;
@@ -1518,11 +1534,6 @@ bool CN64System::SaveState()
         SaveFile.DirectoryCreate();
     }
 
-    //delete any old save
-    ExtraInfo.Delete();
-    SaveFile.Delete();
-    ZipFile.Delete();
-
     //Open the file
     if (g_Settings->LoadDword(Game_FuncLookupMode) == FuncFind_ChangeMemory)
     {
@@ -1538,6 +1549,7 @@ bool CN64System::SaveState()
     uint32_t NextViTimer = m_SystemTimer.GetTimer(CSystemTimer::ViTimer);
     if (g_Settings->LoadDword(Setting_AutoZipInstantSave))
     {
+        ZipFile.Delete();
         zipFile file = zipOpen(ZipFile, 0);
         zipOpenNewFileInZip(file, SaveFile.GetNameExtension().c_str(), NULL, NULL, 0, NULL, 0, NULL, Z_DEFLATED, Z_DEFAULT_COMPRESSION);
         zipWriteInFileInZip(file, &SaveID_0, sizeof(SaveID_0));
@@ -1579,6 +1591,8 @@ bool CN64System::SaveState()
     }
     else
     {
+        ExtraInfo.Delete();
+        SaveFile.Delete();
         CFile hSaveFile(SaveFile, CFileBase::modeWrite | CFileBase::modeCreate);
         if (!hSaveFile.IsOpen())
         {
@@ -1627,7 +1641,10 @@ bool CN64System::SaveState()
     m_Reg.MI_INTR_REG = MiInterReg;
     g_Settings->SaveString(GameRunning_InstantSaveFile, "");
     g_Settings->SaveDword(Game_LastSaveTime, (uint32_t)time(NULL));
-
+    if (g_Settings->LoadDword(Setting_AutoZipInstantSave))
+    {
+        SaveFile = ZipFile;
+    }
     g_Notify->DisplayMessage(5, stdstr_f("%s %s", g_Lang->GetString(MSG_SAVED_STATE).c_str(), stdstr(SaveFile.GetNameExtension()).c_str()).c_str());
     WriteTrace(TraceN64System, TraceDebug, "Done");
     return true;
@@ -1662,6 +1679,10 @@ bool CN64System::LoadState()
     CPath ZipFileName;
     ZipFileName = (const std::string &)FileName + ".zip";
 
+    if (g_Settings->LoadDword(Setting_AutoZipInstantSave))
+    {
+        FileName = ZipFileName;
+    }
     if ((g_Settings->LoadDword(Setting_AutoZipInstantSave) && ZipFileName.Exists()) || FileName.Exists())
     {
         if (LoadState(FileName))
@@ -1669,6 +1690,7 @@ bool CN64System::LoadState()
             return true;
         }
     }
+    CPath NewFileName = FileName;
 
     //Use old file Name
     if (g_Settings->LoadDword(Game_CurrentSaveState) != 0)
@@ -1681,6 +1703,17 @@ bool CN64System::LoadState()
     }
     bool Result = LoadState(FileName);
     WriteTrace(TraceN64System, TraceDebug, "Done (res: %s)", Result ? "True" : "False");
+    if (Result == false)
+    {
+        if (g_Settings->LoadDword(Setting_AutoZipInstantSave))
+        {
+            Result = LoadState(ZipFileName);
+        }
+        else
+        {
+            Result = LoadState(NewFileName);
+        }
+    }
     return Result;
 }
 
@@ -1709,7 +1742,6 @@ bool CN64System::LoadState(const char * FileName)
         {
             port = unzGoToFirstFile(file);
         }
-        uint32_t Value;
         while (port == UNZ_OK)
         {
             unz_file_info info;
@@ -1845,7 +1877,7 @@ bool CN64System::LoadState(const char * FileName)
 
         CPath ExtraInfo(SaveFile);
         ExtraInfo.SetExtension(".dat");
-        CFile hExtraInfo(ExtraInfo, CFileBase::modeWrite | CFileBase::modeCreate);
+        CFile hExtraInfo(ExtraInfo, CFileBase::modeRead);
         if (hExtraInfo.IsOpen())
         {
             m_SystemTimer.LoadData(hExtraInfo);
@@ -1899,7 +1931,7 @@ bool CN64System::LoadState(const char * FileName)
     WriteTrace(TraceN64System, TraceDebug, "8");
     m_FPS.Reset(true);
     WriteTrace(TraceN64System, TraceDebug, "9");
-    if (bLogX86Code())
+    if (bRecordRecompilerAsm())
     {
         Stop_Recompiler_Log();
         Start_Recompiler_Log();

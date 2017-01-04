@@ -69,7 +69,7 @@ public class GameLifecycleHandler implements View.OnKeyListener, SurfaceHolder.C
     private GameOverlay mOverlay;
 
     // Input resources
-    private final ArrayList<AbstractController> mControllers;
+    private ArrayList<AbstractController> mControllers;
     private VisibleTouchMap mTouchscreenMap;
     private KeyProvider mKeyProvider;
     private Controller mMogaController;
@@ -326,25 +326,15 @@ public class GameLifecycleHandler implements View.OnKeyListener, SurfaceHolder.C
 
     public void onSettingDone ()
     {
-        float touchscreenScale = ((float)NativeExports.UISettingsLoadDword(UISettingID.TouchScreen_ButtonScale.getValue())) / 100.0f;
-        boolean recreateTouchScreenControls = false;
-        if (touchscreenScale != mtouchscreenScale)
-        {
-            mtouchscreenScale = touchscreenScale;
-            recreateTouchScreenControls = true;
-        }
+        mtouchscreenScale = ((float)NativeExports.UISettingsLoadDword(UISettingID.TouchScreen_ButtonScale.getValue())) / 100.0f;
+        mlayout = NativeExports.UISettingsLoadString(UISettingID.TouchScreen_Layout.getValue());
+        mControllers = new ArrayList<AbstractController>();
+        CreateTouchScreenControls();
 
-        String layout = NativeExports.UISettingsLoadString(UISettingID.TouchScreen_Layout.getValue());
-        if (layout != mlayout)
-        {
-            mlayout = layout;
-            recreateTouchScreenControls = true;
-        }
+        // Initialize user interface devices
+        View inputSource = mIsXperiaPlay ? new NativeXperiaTouchpad(mActivity) : mOverlay;
+        initControllers(inputSource);
 
-        if (recreateTouchScreenControls)
-        {
-            CreateTouchScreenControls();
-        }
     }
 
     private void CreateTouchScreenControls()
