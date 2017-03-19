@@ -22,6 +22,13 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#include <commctrl.h>
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
+#include <angle/src/libEGL/libEGL.h>
+#include <memory>
+#include <vector>
+#include "EGLWindow.h"
 #else
 #include <stdint.h>
 #include <stdarg.h>
@@ -380,6 +387,13 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpenExt(GrColorFormat_t color_format, GrOri
 # endif
 #endif
 
+std::unique_ptr<EGLWindow> mEGLWindow;
+
+void SwapBuffers(void)
+{
+    mEGLWindow->swap();
+}
+
 FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrColorFormat_t color_format, GrOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
 {
     static int show_warning = 1;
@@ -528,15 +542,11 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrColorFormat_t color_format, GrOrigi
     glCompressedTexImage2DARB = (PFNGLCOMPRESSEDTEXIMAGE2DPROC)wglGetProcAddress("glCompressedTexImage2DARB");
 #endif
 
+glViewport(0, g_viewport_offset, g_width, g_height);
+viewport_width = g_width;
+viewport_height = g_height;
 #ifdef _WIN32
-    glViewport(0, g_viewport_offset, width, height);
-    viewport_width = width;
-    viewport_height = height;
     nvidia_viewport_hack = 1;
-#else
-    glViewport(0, g_viewport_offset, g_width, g_height);
-    viewport_width = g_width;
-    viewport_height = g_height;
 #endif // _WIN32
 
     //   void do_benchmarks();
@@ -1934,14 +1944,6 @@ FxI32 src_stride, void *src_data)
 }
 
 /* wrapper-specific glide extensions */
-
-FX_ENTRY char ** FX_CALL
-grQueryResolutionsExt(int32_t * Size)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "-");
-    return 0;
-}
-
 FX_ENTRY FxBool FX_CALL grKeyPressedExt(FxU32 key)
 {
     return 0;
