@@ -212,11 +212,14 @@ protected:
     static void * GetAddressOf(int32_t value, ...);
     static void SetJump8(uint8_t * Loc, uint8_t * JumpLoc);
     static void SetJump20(uint32_t * Loc, uint32_t * JumpLoc);
+    static void FlushPopArmReg(void);
 
     static CArmRegInfo m_RegWorkingSet;
 
 protected:
     static const char * ArmRegName(ArmReg Reg);
+    static uint32_t PushPopRegisterSize(uint16_t Registers);
+    static std::string PushPopRegisterList(uint16_t Registers);
 
 private:
     friend class CArmRegInfo;
@@ -239,11 +242,13 @@ private:
     static void AddCode16(uint16_t value);
     static void AddCode32(uint32_t value);
 
-    static bool mInItBlock;
-    static int mItBlockInstruction;
-    static ArmCompareType mItBlockCompareType;
-    static ArmItMask mItBlockMask;
-    static ArmReg mLastStoreReg;
+    static bool m_InItBlock;
+    static int m_ItBlockInstruction;
+    static ArmCompareType m_ItBlockCompareType;
+    static ArmItMask m_ItBlockMask;
+    static ArmReg m_LastStoreReg;
+    static uint16_t m_PopRegisters;
+    static uint16_t m_PushRegisters;
 };
 
 #define AddressOf(Addr) CArmOps::GetAddressOf(5,(Addr))

@@ -18,11 +18,13 @@
 #include <Project64-core/N64System/Recompiler/Arm/ArmRegInfo.h>
 
 CArmRegInfo CArmOps::m_RegWorkingSet;
-bool CArmOps::mInItBlock = false;
-int CArmOps::mItBlockInstruction = 0;
-CArmOps::ArmCompareType CArmOps::mItBlockCompareType;
-CArmOps::ArmItMask CArmOps::mItBlockMask;
-CArmOps::ArmReg CArmOps::mLastStoreReg;
+bool CArmOps::m_InItBlock = false;
+int CArmOps::m_ItBlockInstruction = 0;
+CArmOps::ArmCompareType CArmOps::m_ItBlockCompareType;
+CArmOps::ArmItMask CArmOps::m_ItBlockMask;
+CArmOps::ArmReg CArmOps::m_LastStoreReg;
+uint16_t CArmOps::m_PopRegisters = 0;
+uint16_t CArmOps::m_PushRegisters = 0;
 
 /**************************************************************************
 * Logging Functions                                                       *
@@ -73,6 +75,10 @@ void CArmOps::AddArmRegToArmReg(ArmReg DestReg, ArmReg SourceReg1, ArmReg Source
 
 void CArmOps::AddConstToArmReg(ArmReg DestReg, uint32_t Const)
 {
+    if (DestReg == m_LastStoreReg)
+    {
+        ArmNop();
+    }
     PreOpCheck(false,__FILE__,__LINE__);
 
     AddConstToArmReg(DestReg, DestReg, Const);
@@ -80,6 +86,10 @@ void CArmOps::AddConstToArmReg(ArmReg DestReg, uint32_t Const)
 
 void CArmOps::AndConstToArmReg(ArmReg DestReg, ArmReg SourceReg, uint32_t Const)
 {
+    if (DestReg == m_LastStoreReg)
+    {
+        ArmNop();
+    }
     PreOpCheck(false,__FILE__,__LINE__);
 
     if (CanThumbCompressConst(Const))
@@ -319,14 +329,14 @@ void CArmOps::MoveArmRegToVariable(ArmReg Reg, void * Variable, const char * Var
 
 void CArmOps::MoveConstToArmReg(ArmReg Reg, uint16_t value, const char * comment)
 {
-    if (Reg == mLastStoreReg)
+    if (Reg == m_LastStoreReg)
     {
         ArmNop();
     }
     PreOpCheck(true,__FILE__,__LINE__);
     if ((value & 0xFF00) == 0 && Reg <= 7)
     {
-        CPU_Message("      mov%s\t%s, #0x%X\t; %s", mInItBlock ? ArmCurrentItCondition() : "s", ArmRegName(Reg), (uint32_t)value, comment != NULL ? comment : stdstr_f("0x%X", (uint32_t)value).c_str());
+        CPU_Message("      mov%s\t%s, #0x%X\t; %s", m_InItBlock ? ArmCurrentItCondition() : "s", ArmRegName(Reg), (uint32_t)value, comment != NULL ? comment : stdstr_f("0x%X", (uint32_t)value).c_str());
         ArmThumbOpcode op = { 0 };
         op.Imm8.imm8 = value;
         op.Imm8.rdn = Reg;
@@ -335,7 +345,7 @@ void CArmOps::MoveConstToArmReg(ArmReg Reg, uint16_t value, const char * comment
     }
     else if (CanThumbCompressConst(value))
     {
-        CPU_Message("      mov%s.w\t%s, #0x%X\t; %s", mInItBlock ? ArmCurrentItCondition() : "", ArmRegName(Reg), (uint32_t)value, comment != NULL ? comment : stdstr_f("0x%X", (uint32_t)value).c_str());
+        CPU_Message("      mov%s.w\t%s, #0x%X\t; %s", m_InItBlock ? ArmCurrentItCondition() : "", ArmRegName(Reg), (uint32_t)value, comment != NULL ? comment : stdstr_f("0x%X", (uint32_t)value).c_str());
         uint16_t CompressedValue = ThumbCompressConst(value);
         Arm32Opcode op = { 0 };
         op.imm8_3_1.rn = 0xF;
@@ -352,7 +362,7 @@ void CArmOps::MoveConstToArmReg(ArmReg Reg, uint16_t value, const char * comment
     }
     else
     {
-        CPU_Message("      movw%s\t%s, #0x%X\t; %s", mInItBlock ? ArmCurrentItCondition() : "", ArmRegName(Reg), (uint32_t)value, comment != NULL ? comment : stdstr_f("0x%X", (uint32_t)value).c_str());
+        CPU_Message("      movw%s\t%s, #0x%X\t; %s", m_InItBlock ? ArmCurrentItCondition() : "", ArmRegName(Reg), (uint32_t)value, comment != NULL ? comment : stdstr_f("0x%X", (uint32_t)value).c_str());
 
         Arm32Opcode op = { 0 };
         op.imm16.opcode = ArmMOV_IMM16;
@@ -366,7 +376,7 @@ void CArmOps::MoveConstToArmReg(ArmReg Reg, uint16_t value, const char * comment
         AddCode32(op.Hex);
     }
 
-    if (mInItBlock)
+    if (m_InItBlock)
     {
         ProgressItBlock();
     }
@@ -392,6 +402,10 @@ void CArmOps::MoveConstToArmRegTop(ArmReg DestReg, uint16_t Const, const char * 
 
 void CArmOps::CompareArmRegToConst(ArmReg Reg, uint32_t value)
 {
+    if (Reg == m_LastStoreReg)
+    {
+        ArmNop();
+    }
     PreOpCheck(false,__FILE__,__LINE__);
 
     if (Reg <= 0x7 && (value & 0xFFFFFF00) == 0)
@@ -466,10 +480,10 @@ void CArmOps::IfBlock(ArmItMask mask, ArmCompareType CompareType)
     PreOpCheck(false,__FILE__,__LINE__);
 
     CPU_Message("      it%s\t%s", ArmItMaskName(mask), ArmCompareSuffix(CompareType));
-    mInItBlock = true;
-    mItBlockInstruction = 0;
-    mItBlockCompareType = CompareType;
-    mItBlockMask = mask;
+    m_InItBlock = true;
+    m_ItBlockInstruction = 0;
+    m_ItBlockCompareType = CompareType;
+    m_ItBlockMask = mask;
 
     uint8_t computed_mask = 0;
     switch (mask)
@@ -836,6 +850,21 @@ void CArmOps::MulF32(ArmFpuSingle DestReg, ArmFpuSingle SourceReg1, ArmFpuSingle
 
 void CArmOps::PushArmReg(uint16_t Registers)
 {
+    if (m_PopRegisters != 0)
+    {
+        if (Registers == m_PopRegisters)
+        {
+            CPU_Message("%s: Ignoring Push/Pop", __FUNCTION__);
+            m_PopRegisters = 0;
+            PreOpCheck(false, __FILE__, __LINE__);
+            return;
+        }
+        ArmNop();
+    }
+    if (m_PushRegisters != 0)
+    {
+        g_Notify->BreakPoint(__FILE__, __LINE__);
+    }
     PreOpCheck(false,__FILE__,__LINE__);
 
     if (Registers == 0)
@@ -844,22 +873,17 @@ void CArmOps::PushArmReg(uint16_t Registers)
     }
     if ((Registers & ArmPushPop_SP) != 0) { g_Notify->BreakPoint(__FILE__,__LINE__); }
     if ((Registers & ArmPushPop_PC) != 0) { g_Notify->BreakPoint(__FILE__,__LINE__); }
+    if ((Registers & ArmPushPop_LR) == 0)
+    {
+        m_PushRegisters = Registers;
+    }
 
-    std::string pushed;
-    if ((Registers & ArmPushPop_R0) != 0) { pushed += pushed.length() > 0 ? ", r0" : "r0"; }
-    if ((Registers & ArmPushPop_R1) != 0) { pushed += pushed.length() > 0 ? ", r1" : "r1"; }
-    if ((Registers & ArmPushPop_R2) != 0) { pushed += pushed.length() > 0 ? ", r2" : "r2"; }
-    if ((Registers & ArmPushPop_R3) != 0) { pushed += pushed.length() > 0 ? ", r3" : "r3"; }
-    if ((Registers & ArmPushPop_R4) != 0) { pushed += pushed.length() > 0 ? ", r4" : "r4"; }
-    if ((Registers & ArmPushPop_R5) != 0) { pushed += pushed.length() > 0 ? ", r5" : "r5"; }
-    if ((Registers & ArmPushPop_R6) != 0) { pushed += pushed.length() > 0 ? ", r6" : "r6"; }
-    if ((Registers & ArmPushPop_R7) != 0) { pushed += pushed.length() > 0 ? ", r7" : "r7"; }
-    if ((Registers & ArmPushPop_R8) != 0) { pushed += pushed.length() > 0 ? ", r8" : "r8"; }
-    if ((Registers & ArmPushPop_R9) != 0) { pushed += pushed.length() > 0 ? ", r9" : "r9"; }
-    if ((Registers & ArmPushPop_R10) != 0) { pushed += pushed.length() > 0 ? ", r10" : "r10"; }
-    if ((Registers & ArmPushPop_R11) != 0) { pushed += pushed.length() > 0 ? ", fp" : "fp"; }
-    if ((Registers & ArmPushPop_R12) != 0) { pushed += pushed.length() > 0 ? ", ip" : "ip"; }
-    if ((Registers & ArmPushPop_LR) != 0) { pushed += pushed.length() > 0 ? ", lr" : "lr"; }
+    std::string pushed = PushPopRegisterList(Registers);
+    if ((PushPopRegisterSize(Registers) % 8) != 0)
+    {
+        WriteTrace(TraceRecompiler, TraceError, "pushed: %s", pushed.c_str());
+        g_Notify->BreakPoint(__FILE__, __LINE__);
+    }
 
     if ((Registers & ArmPushPop_R8) != 0 ||
         (Registers & ArmPushPop_R9) != 0 ||
@@ -890,56 +914,120 @@ void CArmOps::PushArmReg(uint16_t Registers)
 
 void CArmOps::PopArmReg(uint16_t Registers)
 {
-    PreOpCheck(false, __FILE__, __LINE__);
-    
     if (Registers == 0)
     {
         return;
     }
+    if (m_PopRegisters != 0)
+    {
+        g_Notify->BreakPoint(__FILE__, __LINE__);
+    }
+    if (m_PushRegisters == 0 && (Registers & ArmPushPop_PC) == 0)
+    {
+        CPU_Message("%s: Setting m_PushRegisters: %X Registers: %X", __FUNCTION__, m_PushRegisters, Registers);
+        g_Notify->BreakPoint(__FILE__, __LINE__);
+    }
+    if (m_PushRegisters != Registers && (Registers & ArmPushPop_PC) == 0)
+    {
+        CPU_Message("%s: Setting m_PushRegisters: %X Registers: %X", __FUNCTION__, m_PushRegisters, Registers);
+        g_Notify->BreakPoint(__FILE__, __LINE__);
+    }
     if ((Registers & ArmPushPop_SP) != 0) { g_Notify->BreakPoint(__FILE__,__LINE__); }
     if ((Registers & ArmPushPop_LR) != 0) { g_Notify->BreakPoint(__FILE__,__LINE__); }
 
-    std::string pushed;
-    if ((Registers & ArmPushPop_R0) != 0) { pushed += pushed.length() > 0 ? ", r0" : "r0"; }
-    if ((Registers & ArmPushPop_R1) != 0) { pushed += pushed.length() > 0 ? ", r1" : "r1"; }
-    if ((Registers & ArmPushPop_R2) != 0) { pushed += pushed.length() > 0 ? ", r2" : "r2"; }
-    if ((Registers & ArmPushPop_R3) != 0) { pushed += pushed.length() > 0 ? ", r3" : "r3"; }
-    if ((Registers & ArmPushPop_R4) != 0) { pushed += pushed.length() > 0 ? ", r4" : "r4"; }
-    if ((Registers & ArmPushPop_R5) != 0) { pushed += pushed.length() > 0 ? ", r5" : "r5"; }
-    if ((Registers & ArmPushPop_R6) != 0) { pushed += pushed.length() > 0 ? ", r6" : "r6"; }
-    if ((Registers & ArmPushPop_R7) != 0) { pushed += pushed.length() > 0 ? ", r7" : "r7"; }
-    if ((Registers & ArmPushPop_R8) != 0) { pushed += pushed.length() > 0 ? ", r8" : "r8"; }
-    if ((Registers & ArmPushPop_R9) != 0) { pushed += pushed.length() > 0 ? ", r9" : "r9"; }
-    if ((Registers & ArmPushPop_R10) != 0) { pushed += pushed.length() > 0 ? ", r10" : "r10"; }
-    if ((Registers & ArmPushPop_R11) != 0) { pushed += pushed.length() > 0 ? ", fp" : "fp"; }
-    if ((Registers & ArmPushPop_R12) != 0) { pushed += pushed.length() > 0 ? ", ip" : "ip"; }
-    if ((Registers & ArmPushPop_PC) != 0) { pushed += pushed.length() > 0 ? ", pc" : "pc"; }
+    PreOpCheck(false, __FILE__, __LINE__);
+    m_PopRegisters = Registers;
+    if ((m_PopRegisters & ArmPushPop_PC) != 0)
+    {
+        FlushPopArmReg();
+    }
+}
 
-    if ((Registers & ArmPushPop_R8) != 0 ||
-        (Registers & ArmPushPop_R9) != 0 ||
-        (Registers & ArmPushPop_R10) != 0 ||
-        (Registers & ArmPushPop_R11) != 0 ||
-        (Registers & ArmPushPop_R12) != 0)
+void CArmOps::FlushPopArmReg(void)
+{
+    if (m_PopRegisters == 0)
+    {
+        return;
+    }
+    std::string pushed = PushPopRegisterList(m_PopRegisters);
+    if ((PushPopRegisterSize(m_PopRegisters) % 8) != 0)
+    {
+        WriteTrace(TraceRecompiler, TraceError, "pop: %s", pushed.c_str());
+        g_Notify->BreakPoint(__FILE__, __LINE__);
+    }
+    if ((m_PopRegisters & ArmPushPop_R8) != 0 ||
+        (m_PopRegisters & ArmPushPop_R9) != 0 ||
+        (m_PopRegisters & ArmPushPop_R10) != 0 ||
+        (m_PopRegisters & ArmPushPop_R11) != 0 ||
+        (m_PopRegisters & ArmPushPop_R12) != 0)
     {
         CPU_Message("%X      pop\t{%s}", (int32_t)*g_RecompPos, pushed.c_str());
 
-        Arm32Opcode op = {0};
-        op.PushPop.register_list = Registers;
+        Arm32Opcode op = { 0 };
+        op.PushPop.register_list = m_PopRegisters;
         op.PushPop.opcode = 0xE8BD;
         AddCode32(op.Hex);
     }
     else
     {
         CPU_Message("      pop\t%s", pushed.c_str());
-        bool pc = (Registers & ArmPushPop_PC) != 0;
-        Registers &= Registers & ~ArmPushPop_PC;
+        bool pc = (m_PopRegisters & ArmPushPop_PC) != 0;
+        m_PopRegisters &= ~ArmPushPop_PC;
 
-        ArmThumbOpcode op = {0};
-        op.Pop.register_list = (uint8_t)Registers;
+        ArmThumbOpcode op = { 0 };
+        op.Pop.register_list = (uint8_t)m_PopRegisters;
         op.Pop.p = pc ? 1 : 0;
         op.Pop.opcode = ArmPOP;
         AddCode16(op.Hex);
     }
+    m_PopRegisters = 0;
+    m_PushRegisters = 0;
+}
+
+uint32_t CArmOps::PushPopRegisterSize(uint16_t Registers)
+{
+    static uint32_t RegisterList[] =
+    {
+        ArmPushPop_R0, ArmPushPop_R1, ArmPushPop_R2, ArmPushPop_R3, ArmPushPop_R4,
+        ArmPushPop_R5, ArmPushPop_R6, ArmPushPop_R7, ArmPushPop_R8, ArmPushPop_R9,
+        ArmPushPop_R10, ArmPushPop_R11, ArmPushPop_R12, ArmPushPop_LR, ArmPushPop_PC
+    };
+    uint32_t size = 0;
+    for (uint32_t i = 0; i < (sizeof(RegisterList) / sizeof(RegisterList[0])); i++)
+    {
+        if ((Registers & RegisterList[i]) != 0)
+        {
+            size += 4; 
+        }
+    }
+    return size;
+}
+
+std::string CArmOps::PushPopRegisterList(uint16_t Registers)
+{
+    static uint32_t PushPopRegisterList[] =
+    {
+        ArmPushPop_R0, ArmPushPop_R1, ArmPushPop_R2, ArmPushPop_R3, ArmPushPop_R4,
+        ArmPushPop_R5, ArmPushPop_R6, ArmPushPop_R7, ArmPushPop_R8, ArmPushPop_R9,
+        ArmPushPop_R10, ArmPushPop_R11, ArmPushPop_R12, ArmPushPop_LR, ArmPushPop_PC
+    };
+
+    static ArmReg RegisterList[] =
+    {
+        Arm_R0, Arm_R1, Arm_R2, Arm_R3, Arm_R4,
+        Arm_R5, Arm_R6, Arm_R7, Arm_R8, Arm_R9,
+        Arm_R10, Arm_R11, Arm_R12, ArmRegLR, ArmRegPC,
+    };
+
+    std::string RegisterResult;
+    for (uint32_t i = 0; i < (sizeof(PushPopRegisterList) / sizeof(PushPopRegisterList[0])); i++)
+    {
+        if ((Registers & PushPopRegisterList[i]) != 0)
+        {
+            RegisterResult += stdstr_f("%s%s", RegisterResult.length() > 0 ? ", " : "", ArmRegName(RegisterList[i]));
+        }
+    }
+    return RegisterResult;
 }
 
 void CArmOps::ShiftRightSignImmed(ArmReg DestReg, ArmReg SourceReg, uint32_t shift)
@@ -1086,7 +1174,7 @@ void CArmOps::StoreArmRegToArmRegPointer(ArmReg DestReg, ArmReg RegPointer, uint
         op.Imm5.opcode = ArmSTR_ThumbImm;
         AddCode16(op.Hex);
     }
-    mLastStoreReg = DestReg;
+    m_LastStoreReg = DestReg;
 }
 
 void CArmOps::StoreArmRegToArmRegPointer(ArmReg DestReg, ArmReg RegPointer, ArmReg RegPointer2, uint8_t shift)
@@ -1404,6 +1492,10 @@ uint16_t CArmOps::ThumbCompressConst (uint32_t value)
 
 void CArmOps::SetJump8(uint8_t * Loc, uint8_t * JumpLoc)
 {
+    if (m_PopRegisters != 0)
+    {
+        g_Notify->BreakPoint(__FILE__, __LINE__);
+    }
     if (Loc == NULL || JumpLoc == NULL)
     {
         g_Notify->BreakPoint(__FILE__, __LINE__);
@@ -1438,6 +1530,10 @@ void CArmOps::SetJump8(uint8_t * Loc, uint8_t * JumpLoc)
 
 void CArmOps::SetJump20(uint32_t * Loc, uint32_t * JumpLoc)
 {
+    if (m_PopRegisters != 0)
+    {
+        g_Notify->BreakPoint(__FILE__, __LINE__);
+    }
     if (Loc == NULL || JumpLoc == NULL)
     {
         g_Notify->BreakPoint(__FILE__, __LINE__);
@@ -1463,7 +1559,7 @@ void CArmOps::SetJump20(uint32_t * Loc, uint32_t * JumpLoc)
         else
         {
             op.Branch20.imm11 = (immediate & 0x7FF);
-            op.Branch20.imm6 = (immediate >> 11) & 0x37;
+            op.Branch20.imm6 = (immediate >> 11) & 0x3F;
             op.Branch20.J1 = (immediate >> 17) & 0x1;
             op.Branch20.J2 = (immediate >> 18) & 0x1;
             op.Branch20.S = (immediate >> 19) & 0x1;
@@ -1498,11 +1594,12 @@ void * CArmOps::GetAddressOf(int value, ...)
 
 void CArmOps::PreOpCheck(bool AllowedInItBlock, const char * FileName, uint32_t LineNumber)
 {
-    if (!AllowedInItBlock && mInItBlock)
+    if (!AllowedInItBlock && m_InItBlock)
     { 
         g_Notify->BreakPoint(FileName, LineNumber);
     }
-    mLastStoreReg = Arm_Unknown;
+    FlushPopArmReg();
+    m_LastStoreReg = Arm_Unknown;
 }
 
 void CArmOps::BreakPointNotification(const char * FileName, uint32_t LineNumber)
@@ -1571,7 +1668,7 @@ const char * CArmOps::ArmRegName(ArmReg Reg)
     case Arm_R9: return "r9";
     case Arm_R10: return "r10";
     case Arm_R11: return "r11";
-    case Arm_R12: return "ip";
+    case Arm_R12: return "r12";
     case ArmRegSP: return "sp";
     case ArmRegLR: return "lr";
     case ArmRegPC: return "pc";
@@ -1650,17 +1747,17 @@ const char * CArmOps::ArmItMaskName(ArmItMask mask)
 
 const char * CArmOps::ArmCurrentItCondition()
 {
-    if (mItBlockInstruction == 0)
+    if (m_ItBlockInstruction == 0)
     {
-        return ArmCompareSuffix(mItBlockCompareType);
+        return ArmCompareSuffix(m_ItBlockCompareType);
     }
-    if (mItBlockInstruction == 1 && mItBlockMask == ItMask_T)
+    if (m_ItBlockInstruction == 1 && m_ItBlockMask == ItMask_T)
     {
-        return ArmCompareSuffix(mItBlockCompareType);
+        return ArmCompareSuffix(m_ItBlockCompareType);
     }
-    if (mItBlockInstruction == 1 && mItBlockMask == ItMask_E)
+    if (m_ItBlockInstruction == 1 && m_ItBlockMask == ItMask_E)
     {
-        return ArmCompareSuffix(ArmCompareInverseType(mItBlockCompareType));
+        return ArmCompareSuffix(ArmCompareInverseType(m_ItBlockCompareType));
     }
     g_Notify->BreakPoint(__FILE__, __LINE__);
     return "";
@@ -1669,32 +1766,32 @@ const char * CArmOps::ArmCurrentItCondition()
 void CArmOps::ProgressItBlock ( void )
 {
     bool itBlockDone = false;
-    mItBlockInstruction += 1;
-    if (mItBlockInstruction == 1)
+    m_ItBlockInstruction += 1;
+    if (m_ItBlockInstruction == 1)
     {
-        if (mItBlockMask == ItMask_None)
+        if (m_ItBlockMask == ItMask_None)
         {
             itBlockDone = true;
         }
     }
-    else if (mItBlockInstruction == 2)
+    else if (m_ItBlockInstruction == 2)
     {
-        if (mItBlockMask == ItMask_T || mItBlockMask == ItMask_E)
+        if (m_ItBlockMask == ItMask_T || m_ItBlockMask == ItMask_E)
         {
             itBlockDone = true;
         }
     }
-    else if (mItBlockInstruction == 3)
+    else if (m_ItBlockInstruction == 3)
     {
-        if (mItBlockMask == ItMask_TT || mItBlockMask == ItMask_ET || mItBlockMask == ItMask_TE || mItBlockMask == ItMask_EE)
+        if (m_ItBlockMask == ItMask_TT || m_ItBlockMask == ItMask_ET || m_ItBlockMask == ItMask_TE || m_ItBlockMask == ItMask_EE)
         {
             itBlockDone = true;
         }
     }
-    else if (mItBlockInstruction == 4)
+    else if (m_ItBlockInstruction == 4)
     {
-        if (mItBlockMask == ItMask_TTT || mItBlockMask == ItMask_ETT || mItBlockMask == ItMask_TET || mItBlockMask == ItMask_EET ||
-            mItBlockMask == ItMask_TTE || mItBlockMask == ItMask_ETE || mItBlockMask == ItMask_TEE || mItBlockMask == ItMask_EEE)
+        if (m_ItBlockMask == ItMask_TTT || m_ItBlockMask == ItMask_ETT || m_ItBlockMask == ItMask_TET || m_ItBlockMask == ItMask_EET ||
+            m_ItBlockMask == ItMask_TTE || m_ItBlockMask == ItMask_ETE || m_ItBlockMask == ItMask_TEE || m_ItBlockMask == ItMask_EEE)
         {
             itBlockDone = true;
         }
@@ -1706,8 +1803,8 @@ void CArmOps::ProgressItBlock ( void )
 
     if (itBlockDone)
     {
-        mInItBlock = false;
-        mItBlockInstruction = 0;
+        m_InItBlock = false;
+        m_ItBlockInstruction = 0;
     }
 }
 

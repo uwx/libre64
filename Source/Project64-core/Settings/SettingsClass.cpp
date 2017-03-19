@@ -122,6 +122,7 @@ void CSettings::AddHowToHandleSetting(const char * BaseDirectory)
     AddHandler(Setting_CurrentLanguage, new CSettingTypeApplication("", "Current Language", ""));
     AddHandler(Setting_EnableDisk, new CSettingTypeTempBool(false));
     AddHandler(Setting_PreAllocSyncMem, new CSettingTypeApplication("", "PreAllocSyncMem", true));
+    AddHandler(Setting_ReducedSyncMem, new CSettingTypeApplication("", "ReducedSyncMem", false));
     AddHandler(Setting_LanguageDirDefault, new CSettingTypeRelativePath("Lang", ""));
     AddHandler(Setting_LanguageDir, new CSettingTypeApplicationPath("Lang Directory", "Directory", Setting_LanguageDirDefault));
 
@@ -170,7 +171,7 @@ void CSettings::AddHowToHandleSetting(const char * BaseDirectory)
     AddHandler(Game_File, new CSettingTypeTempString(""));
     AddHandler(Game_UniqueSaveDir, new CSettingTypeTempString(""));
     AddHandler(Game_GameName, new CSettingTypeTempString(""));
-    AddHandler(Game_GoodName, new CSettingTypeGame("Good Name", Rdb_GoodName));
+    AddHandler(Cfg_GoodName, new CSettingTypeGame("Good Name", ""));
     AddHandler(Game_TempLoaded, new CSettingTypeTempBool(false));
     AddHandler(Game_SystemType, new CSettingTypeTempNumber(SYSTEM_NTSC));
     AddHandler(Game_EditPlugin_Gfx, new CSettingTypeGame("Plugin-Gfx", Default_None));

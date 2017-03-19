@@ -60,7 +60,6 @@ float lambda_color[2][4];
 int need_to_compile;
 
 static GLuint g_program_object_default = 0;
-static GLuint rotation_matrix_location;
 static int constant_color_location;
 static int ccolor0_location;
 static int ccolor1_location;
@@ -241,7 +240,7 @@ void check_link(GLuint program)
     }
 }
 
-void set_rotation_matrix(GLuint loc, int rotate)
+void set_rotation_matrix(GLuint loc, CSettings::ScreenRotate_t rotate)
 {
     GLfloat mat[16];
 
@@ -252,13 +251,13 @@ void set_rotation_matrix(GLuint loc, int rotate)
      * (0, 0, 0, 1)
      */
 
-    //mat[0] =  cos(angle);
-    //mat[1] =  sin(angle);
+    mat[0] = 1;
+    mat[1] = 0;
     mat[2] = 0;
     mat[3] = 0;
 
-    //mat[4] = -sin(angle);
-    //mat[5] =  cos(angle);
+    mat[4] = 0;
+    mat[5] = 1;
     mat[6] = 0;
     mat[7] = 0;
 
@@ -273,35 +272,27 @@ void set_rotation_matrix(GLuint loc, int rotate)
     mat[15] = 1;
 
     /* now set the actual rotation */
-    if (1 == rotate) // 90 degree
+    if (rotate == CSettings::Rotate_90)
     {
         mat[0] = 0;
         mat[1] = 1;
         mat[4] = -1;
         mat[5] = 0;
     }
-    else if (2 == rotate) // 180 degree
+    else if (rotate == CSettings::Rotate_180)
     {
         mat[0] = -1;
         mat[1] = 0;
         mat[4] = 0;
         mat[5] = -1;
     }
-    else if (3 == rotate) // 270 degree
+    else if (rotate == CSettings::Rotate_270)
     {
         mat[0] = 0;
         mat[1] = -1;
         mat[4] = 1;
         mat[5] = 0;
     }
-    else /* 0 degree, also fallback if input is wrong) */
-    {
-        mat[0] = 1;
-        mat[1] = 0;
-        mat[4] = 0;
-        mat[5] = 1;
-    }
-
     glUniformMatrix4fv(loc, 1, GL_FALSE, mat);
 }
 
@@ -322,7 +313,6 @@ void init_combiner()
 
     int texture0_location;
     int texture1_location;
-    int log_length;
 
     // default shader
     std::string fragment_shader = g_fragment_shader_header;
@@ -349,7 +339,7 @@ void init_combiner()
     check_link(g_program_object_default);
     glUseProgram(g_program_object_default);
     int rotation_matrix_location = glGetUniformLocation(g_program_object_default, "rotation_matrix");
-    set_rotation_matrix(rotation_matrix_location, g_settings->rotate);
+    set_rotation_matrix(rotation_matrix_location, g_settings->rotate());
 
     texture0_location = glGetUniformLocation(g_program_object_default, "texture0");
     texture1_location = glGetUniformLocation(g_program_object_default, "texture1");
@@ -484,7 +474,7 @@ void update_uniforms(GLuint program_object, const shader_program_key & prog)
     }
 
     GLuint rotation_matrix_location = glGetUniformLocation(program_object, "rotation_matrix");
-    set_rotation_matrix(rotation_matrix_location, g_settings->rotate);
+    set_rotation_matrix(rotation_matrix_location, g_settings->rotate());
     set_lambda();
 }
 
@@ -498,7 +488,7 @@ void compile_shader()
 {
     need_to_compile = 0;
 
-    for (int i = 0; i < g_shader_programs.size(); i++)
+    for (size_t i = 0; i < g_shader_programs.size(); i++)
     {
         shader_program_key & prog = g_shader_programs[i];
         if (prog.color_combiner == color_combiner_key &&
@@ -612,12 +602,57 @@ void free_combiners()
         glDeleteProgram(g_program_object_default);
         g_program_object_default = 0;
     }
-    for (int i = 0; i < g_shader_programs.size(); i++)
+    for (size_t i = 0; i < g_shader_programs.size(); i++)
     {
         glDeleteProgram(g_shader_programs[i].program_object);
         g_shader_programs[i].program_object = 0;
     }
     g_shader_programs.clear();
+
+    g_alpha_ref = 0;
+    g_alpha_func = 0;
+    g_alpha_test = 0;
+
+    memset(g_texture_env_color, 0, sizeof(g_texture_env_color));
+    memset(g_ccolor0, 0, sizeof(g_ccolor0));
+    memset(g_ccolor1, 0, sizeof(g_ccolor1));
+    memset(g_chroma_color, 0, sizeof(g_chroma_color));
+    g_fog_enabled = 0;
+    g_chroma_enabled = false;
+    chroma_other_color = 0;
+    chroma_other_alpha = 0;
+    dither_enabled = 0;
+    blackandwhite0 = 0;
+    blackandwhite1 = 0;
+
+    fogStart = 0.0f;
+    fogEnd = 0.0f;
+    for (int i = 0; i < (sizeof(fogColor) / sizeof(fogColor[0])); i++)
+    {
+        fogColor[i] = 0.0f;
+    }
+    memset(need_lambda, 0, sizeof(need_lambda));
+    for (int i = 0; i < (sizeof(lambda_color) / sizeof(lambda_color[0])); i++)
+    {
+        for (int z = 0; z < (sizeof(lambda_color[i]) / sizeof(lambda_color[i][0])); z++)
+        {
+            lambda_color[i][z] = 0.0f;
+        }
+    }
+    need_to_compile = 0;
+
+    g_program_object_default = 0;
+    constant_color_location = 0;
+    ccolor0_location = 0;
+    ccolor1_location = 0;
+    first_color = 1;
+    first_alpha = 1;
+    first_texture0 = 1;
+    first_texture1 = 1;
+    tex0_combiner_ext = 0;
+    tex1_combiner_ext = 0;
+    c_combiner_ext = 0;
+    a_combiner_ext = 0;
 }
 
 void set_copy_shader()
@@ -1524,12 +1559,6 @@ GrAlphaBlendFnc_t alpha_sf, GrAlphaBlendFnc_t alpha_df
     }
     glEnable(GL_BLEND);
     glBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
-    /*
-      if (blend_func_separate_support)
-      glBlendFuncSeparateEXT(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
-      else
-      glBlendFunc(sfactorRGB, dfactorRGB);
-      */
 }
 
 FX_ENTRY void FX_CALL
@@ -1697,7 +1726,7 @@ grChromakeyValue(GrColor_t value)
         g_chroma_color[2], g_chroma_color[3]);
 }
 
-static void setPattern()
+void setPattern()
 {
     int i;
     GLubyte stip[32 * 4];
@@ -1730,15 +1759,6 @@ static void setPattern()
     glTexImage2D(GL_TEXTURE_2D, 0, 4, 32, 32, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-}
-
-FX_ENTRY void FX_CALL
-grStipplePattern(
-GrStipplePattern_t stipple)
-{
-    WriteTrace(TraceResolution, TraceDebug, "value: %x", stipple);
-    srand(stipple);
-    setPattern();
 }
 
 FX_ENTRY void FX_CALL

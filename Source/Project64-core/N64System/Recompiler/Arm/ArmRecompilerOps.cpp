@@ -38,7 +38,9 @@ void CArmRecompilerOps::PreCompileOpcode(void)
         CPU_Message("  %X %s", m_CompilePC, R4300iOpcodeName(m_Opcode.Hex, m_CompilePC));
     }
 
-    /*m_RegWorkingSet.BeforeCallDirect();
+    /*FlushPopArmReg();
+    ArmNop();
+    m_RegWorkingSet.BeforeCallDirect();
 
     MoveConstToArmReg(Arm_R1,m_CompilePC);
     MoveConstToArmReg(Arm_R2,(uint32_t)&TestValue, "TestValue");
@@ -4716,7 +4718,7 @@ void CArmRecompilerOps::UnknownOpcode()
 
 void CArmRecompilerOps::EnterCodeBlock()
 {
-    PushArmReg(ArmPushPop_R3 | ArmPushPop_R4 | ArmPushPop_R5 | ArmPushPop_R6 | ArmPushPop_R7 | ArmPushPop_R8 | ArmPushPop_R9 | ArmPushPop_R10 | ArmPushPop_R11 | ArmPushPop_R12 | ArmPushPop_LR);
+    PushArmReg(ArmPushPop_R2 | ArmPushPop_R3 | ArmPushPop_R4 | ArmPushPop_R5 | ArmPushPop_R6 | ArmPushPop_R7 | ArmPushPop_R8 | ArmPushPop_R9 | ArmPushPop_R10 | ArmPushPop_R11 | ArmPushPop_R12 | ArmPushPop_LR);
 }
 
 void CArmRecompilerOps::ExitCodeBlock()
@@ -4726,7 +4728,7 @@ void CArmRecompilerOps::ExitCodeBlock()
         MoveConstToArmReg(Arm_R0, (uint32_t)g_BaseSystem, "g_BaseSystem");
         CallFunction(AddressOf(&CN64System::SyncSystem), "CN64System::SyncSystem");
     }
-    PopArmReg(ArmPushPop_R3 | ArmPushPop_R4 | ArmPushPop_R5 | ArmPushPop_R6 | ArmPushPop_R7 | ArmPushPop_R8 | ArmPushPop_R9 | ArmPushPop_R10 | ArmPushPop_R11 | ArmPushPop_R12 | ArmPushPop_PC);
+    PopArmReg(ArmPushPop_R2 | ArmPushPop_R3 | ArmPushPop_R4 | ArmPushPop_R5 | ArmPushPop_R6 | ArmPushPop_R7 | ArmPushPop_R8 | ArmPushPop_R9 | ArmPushPop_R10 | ArmPushPop_R11 | ArmPushPop_R12 | ArmPushPop_PC);
 }
 
 void CArmRecompilerOps::CompileExitCode()
@@ -5949,6 +5951,7 @@ void CArmRecompilerOps::UpdateCounters(CRegInfo & RegSet, bool CheckTimer, bool 
         MoveConstToArmReg(Arm_R0, (uint32_t)g_SystemTimer, "g_SystemTimer");
         CallFunction(AddressOf(&CSystemTimer::TimerDone), "CSystemTimer::TimerDone");
         RegSet.AfterCallDirect();
+        FlushPopArmReg();
 
         CPU_Message("");
         CPU_Message("      $Continue_From_Timer_Test:");
@@ -6264,6 +6267,7 @@ void CArmRecompilerOps::SW_Const(uint32_t Value, uint32_t VAddr)
                 StoreArmRegToArmRegPointer(TempValueReg, VariableReg, 0);
                 CallFunction((void *)g_Plugins->Gfx()->ViStatusChanged, "ViStatusChanged");
                 m_RegWorkingSet.AfterCallDirect();
+                FlushPopArmReg();
                 CPU_Message("");
                 CPU_Message("      Continue:");
                 SetJump8(Jump, *g_RecompPos);
@@ -6286,6 +6290,7 @@ void CArmRecompilerOps::SW_Const(uint32_t Value, uint32_t VAddr)
                 m_RegWorkingSet.BeforeCallDirect();
                 CallFunction((void *)g_Plugins->Gfx()->ViWidthChanged, "ViWidthChanged");
                 m_RegWorkingSet.AfterCallDirect();
+                FlushPopArmReg();
                 CPU_Message("");
                 CPU_Message("      Continue:");
                 SetJump8(Jump, *g_RecompPos);
@@ -6683,6 +6688,7 @@ void CArmRecompilerOps::SW_Register(ArmReg Reg, uint32_t VAddr)
                 m_RegWorkingSet.BeforeCallDirect();
                 CallFunction((void *)g_Plugins->Gfx()->ViStatusChanged, "ViStatusChanged");
                 m_RegWorkingSet.AfterCallDirect();
+                FlushPopArmReg();
                 CPU_Message("");
                 CPU_Message("      Continue:");
                 SetJump8(Jump, *g_RecompPos);
@@ -6706,6 +6712,7 @@ void CArmRecompilerOps::SW_Register(ArmReg Reg, uint32_t VAddr)
                 m_RegWorkingSet.BeforeCallDirect();
                 CallFunction((void *)g_Plugins->Gfx()->ViWidthChanged, "ViWidthChanged");
                 m_RegWorkingSet.AfterCallDirect();
+                FlushPopArmReg();
                 CPU_Message("");
                 CPU_Message("      Continue:");
                 SetJump8(Jump, *g_RecompPos);
