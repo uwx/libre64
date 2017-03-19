@@ -1069,9 +1069,7 @@ void CALL PluginLoaded(void)
     WriteTrace(TraceInterface, TraceDebug, "Done");
 }
 
-#ifdef ANDROID
 void vbo_disable(void);
-#endif
 
 /******************************************************************
 Function: RomClosed
@@ -1083,9 +1081,7 @@ void CALL RomClosed(void)
 {
     WriteTrace(TraceGlide64, TraceDebug, "-");
 
-#ifdef ANDROID
     vbo_disable();
-#endif
     rdp.window_changed = TRUE;
     g_romopen = FALSE;
     if (evoodoo)
