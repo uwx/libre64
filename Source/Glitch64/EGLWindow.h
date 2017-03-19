@@ -1,4 +1,5 @@
 #pragma once
+#ifdef _WIN32
 
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
@@ -61,3 +62,5 @@ private:
     bool mNoError;
     EGLint mSwapInterval;
 };
+
+#endif

@@ -1,15 +1,4 @@
-#ifndef MAIN_H
-#define MAIN_H
-
-#ifndef _WIN32
-//#define VPDEBUG
-#endif
-#ifdef VPDEBUG
-void dump_tex(int id);
-void dump_start();
-void dump_stop();
-extern int dumping;
-#endif
+#pragma once
 
 #include <Glide64/trace.h>
 
@@ -220,5 +209,3 @@ FX_ENTRY void FX_CALL
     GrColor_t     value);
 
 void CHECK_FRAMEBUFFER_STATUS(void);
-
-#endif
