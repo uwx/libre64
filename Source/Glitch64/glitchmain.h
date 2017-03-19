@@ -126,11 +126,7 @@ void ExitFullScreen();
 void grConfigWrapperExt(FxI32,FxBool,FxBool);
 uint32_t grWrapperFullScreenResolutionExt(uint32_t * width, uint32_t * height);
 char ** grQueryResolutionsExt(int32_t*);
-FX_ENTRY FxBool FX_CALL grKeyPressedExt(FxU32 key);
 FX_ENTRY void FX_CALL grGetGammaTableExt(FxU32, FxU32*, FxU32*, FxU32*);
-
-int getFullScreenWidth();
-int getFullScreenHeight();
 
 // ZIGGY framebuffer copy extension
 // allow to copy the depth or color buffer from back/front to front/back

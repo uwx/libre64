@@ -1060,8 +1060,6 @@ grGetProcAddress(char *procName)
         return (GrProc)grAuxBufferExt;
     if (!strcmp(procName, "grConfigWrapperExt"))
         return (GrProc)grConfigWrapperExt;
-    if (!strcmp(procName, "grKeyPressedExt"))
-        return (GrProc)grKeyPressedExt;
     if (!strcmp(procName, "grQueryResolutionsExt"))
         return (GrProc)grQueryResolutionsExt;
     if (!strcmp(procName, "grGetGammaTableExt"))
@@ -1923,11 +1921,6 @@ FxI32 src_stride, void *src_data)
 }
 
 /* wrapper-specific glide extensions */
-FX_ENTRY FxBool FX_CALL grKeyPressedExt(FxU32 key)
-{
-    return 0;
-}
-
 void grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
 {
     WriteTrace(TraceGlitch, TraceDebug, "-");
