@@ -55,20 +55,6 @@
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SettingsID.h" />
     <ClInclude Include="trace.h" />
-    <ClInclude Include="turbo3D.h" />
-    <ClInclude Include="ucode.h" />
-    <ClInclude Include="ucode00.h" />
-    <ClInclude Include="ucode01.h" />
-    <ClInclude Include="ucode02.h" />
-    <ClInclude Include="ucode03.h" />
-    <ClInclude Include="ucode04.h" />
-    <ClInclude Include="ucode05.h" />
-    <ClInclude Include="ucode06.h" />
-    <ClInclude Include="ucode07.h" />
-    <ClInclude Include="ucode08.h" />
-    <ClInclude Include="ucode09.h" />
-    <ClInclude Include="ucode09rdp.h" />
-    <ClInclude Include="ucodeFB.h" />
     <ClInclude Include="CRC.h" />
     <ClInclude Include="MiClWr16b.h" />
     <ClInclude Include="MiClWr32b.h" />
@@ -115,6 +101,20 @@
     <ClCompile Include="rdp.cpp" />
     <ClCompile Include="TexBuffer.cpp" />
     <ClCompile Include="trace.cpp" />
+    <ClCompile Include="turbo3D.cpp" />
+    <ClCompile Include="ucode.cpp" />
+    <ClCompile Include="ucode00.cpp" />
+    <ClCompile Include="ucode01.cpp" />
+    <ClCompile Include="ucode02.cpp" />
+    <ClCompile Include="ucode03.cpp" />
+    <ClCompile Include="ucode04.cpp" />
+    <ClCompile Include="ucode05.cpp" />
+    <ClCompile Include="ucode06.cpp" />
+    <ClCompile Include="ucode07.cpp" />
+    <ClCompile Include="ucode08.cpp" />
+    <ClCompile Include="ucode09.cpp" />
+    <ClCompile Include="ucode09rdp.cpp" />
+    <ClCompile Include="ucodeFB.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>

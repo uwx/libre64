@@ -22,48 +22,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="turbo3D.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode00.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode01.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode02.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode03.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode04.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode05.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode06.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode07.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode08.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode09.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucode09rdp.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="ucodeFB.h">
-      <Filter>ucode</Filter>
-    </ClInclude>
     <ClInclude Include="CRC.h">
       <Filter>Texture</Filter>
     </ClInclude>
@@ -156,6 +114,48 @@
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="ScreenResolution.cpp" />
     <ClCompile Include="Android.cpp" />
+    <ClCompile Include="turbo3D.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode00.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode01.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode02.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode03.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode04.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode05.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode06.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode07.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode08.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode09.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucode09rdp.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
+    <ClCompile Include="ucodeFB.cpp">
+      <Filter>ucode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="gpl.txt">
