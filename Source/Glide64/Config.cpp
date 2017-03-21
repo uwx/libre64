@@ -795,7 +795,8 @@ void CALL DllConfig(HWND hParent)
         if (evoodoo)// && fullscreen && !ev_fullscreen)
         {
             ReleaseGfx();
-            rdp_reset();
+            rdp.free();
+            rdp.init();
         }
         if (g_ghq_use)
         {
@@ -825,9 +826,14 @@ void CloseConfig()
         }
         // re-init evoodoo graphics to resize window
         if (evoodoo)// && !ev_fullscreen)
+        {
             InitGfx();
+        }
         else
-            rdp_reset();
+        {
+            rdp.free();
+            rdp.init();
+        }
     }
 }
 

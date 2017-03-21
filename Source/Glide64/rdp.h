@@ -378,7 +378,9 @@ class CRDP
 public:
     CRDP();
     ~CRDP();
-    void Reset();
+
+    bool init();
+    void free();
 
     // Clipping
     int clip;     // clipping flags
@@ -607,9 +609,6 @@ extern uint32_t   offset_textures;
 extern uint32_t   offset_texbuf1;
 
 extern bool	g_ucode_error_report;
-
-// RDP functions
-void rdp_reset();
 
 extern const char *ACmp[];
 extern const char *Mode0[];

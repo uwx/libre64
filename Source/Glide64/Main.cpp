@@ -461,7 +461,7 @@ int InitGfx()
 
     WriteTrace(TraceGlide64, TraceDebug, "-");
 
-    rdp_reset();
+    rdp.init();
 
     // Initialize Glide
     grGlideInit();
@@ -715,6 +715,8 @@ int InitGfx()
 void ReleaseGfx()
 {
     WriteTrace(TraceGlide64, TraceDebug, "-");
+
+    rdp.free();
 
     // Restore gamma settings
     if (voodoo.gamma_correction)
@@ -1084,10 +1086,7 @@ void CALL RomClosed(void)
     vbo_disable();
     rdp.window_changed = TRUE;
     g_romopen = FALSE;
-    if (evoodoo)
-    {
-        ReleaseGfx();
-    }
+    ReleaseGfx();
 }
 
 static void CheckDRAMSize()
@@ -1124,7 +1123,6 @@ void CALL RomOpen(void)
     no_dlist = true;
     g_romopen = TRUE;
     g_ucode_error_report = TRUE;	// allowed to report ucode errors
-    rdp_reset();
 
     // Get the country code & translate to NTSC(0) or PAL(1)
     uint16_t code = ((uint16_t*)gfx.HEADER)[0x1F ^ 1];
@@ -1175,16 +1173,10 @@ void CALL RomOpen(void)
     {
         grGlideInit();
     }
-    const char *extensions = grGetString(GR_EXTENSION);
+    evoodoo = 1;
     grGlideShutdown();
 
-    if (strstr(extensions, "EVOODOO"))
-        evoodoo = 1;
-    else
-        evoodoo = 0;
-
-    if (evoodoo)
-        InitGfx();
+    InitGfx();
 }
 
 /******************************************************************

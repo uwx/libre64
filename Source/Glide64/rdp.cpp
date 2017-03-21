@@ -177,11 +177,21 @@ static CSettings::ucode_t g_old_ucode = CSettings::uCode_Unsupported;
 CRDP::CRDP() :
     vtx1(NULL)
 {
-
+    free();
 }
 
-void CRDP::Reset()
+bool CRDP::init()
 {
+    if (vtx1 != NULL)
+    {
+        return true;
+    }
+    return true;
+}
+
+void CRDP::free()
+{
+    reset = 1;
     vtx1 = new VERTEX[256];
     memset(vtx1, 0, sizeof(VERTEX) * 256);
     vtx2 = new VERTEX[256];
@@ -236,12 +246,6 @@ CRDP::~CRDP()
 
     delete[] vtx;
     delete[] frame_buffers;
-}
-
-void rdp_reset()
-{
-    reset = 1;
-    rdp.Reset();
 }
 
 void microcheck()
@@ -690,7 +694,7 @@ EXPORT void CALL ProcessDList(void)
         if (g_fullscreen)
         {
             ReleaseGfx ();
-            rdp_reset();
+            rdp.reset();
             if (g_ghq_use)
             {
                 ext_ghq_shutdown();
