@@ -36,12 +36,23 @@
 // * Do NOT send me the whole project or file that you modified.  Take out your modified code sections, and tell me where to put them.  If people sent the whole thing, I would have many different versions, but no idea how to combine them all.
 //
 //****************************************************************
-
-typedef void(*rdp_instr)();
-
 // RDP graphic instructions pointer table
+#include <Glide64/rdp.h>
+#include <Glide64/Gfx_1.3.h>
+#include <Glide64/trace.h>
+#include <Glide64/ucode.h>
+#include "ucode00.h"
+#include "ucode01.h"
+#include "ucode02.h"
+#include "ucode03.h"
+#include "ucode04.h"
+#include "ucode05.h"
+#include "ucode06.h"
+#include "ucode07.h"
+#include "ucode08.h"
+#include "ucode09.h"
 
-static rdp_instr gfx_instruction[10][256] =
+rdp_instr gfx_instruction[10][256] =
 {
     {
         // uCode 0 - RSP SW 2.0X

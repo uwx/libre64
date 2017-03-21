@@ -36,12 +36,17 @@
 // * Do NOT send me the whole project or file that you modified.  Take out your modified code sections, and tell me where to put them.  If people sent the whole thing, I would have many different versions, but no idea how to combine them all.
 //
 //****************************************************************
+#include <Glide64/rdp.h>
+#include <Glide64/Gfx_1.3.h>
+#include <Glide64/trace.h>
+#include <Glide64/ucode.h>
+#include "ucode00.h"
 
 //
 // vertex - loads vertices
 //
 
-static void uc1_vertex()
+void uc1_vertex()
 {
     int v0 = (rdp.cmd0 >> 17) & 0x7F;     // Current vertex
     int n = (rdp.cmd0 >> 10) & 0x3F;    // Number to copy
@@ -52,7 +57,7 @@ static void uc1_vertex()
 // tri1 - renders a triangle
 //
 
-static void uc1_tri1()
+void uc1_tri1()
 {
     if (rdp.skip_drawing)
     {
@@ -73,7 +78,7 @@ static void uc1_tri1()
     rsp_tri1(v);
 }
 
-static void uc1_tri2()
+void uc1_tri2()
 {
     if (rdp.skip_drawing)
     {
@@ -102,7 +107,7 @@ static void uc1_tri2()
     rsp_tri2(v);
 }
 
-static void uc1_line3d()
+void uc1_line3d()
 {
     if (!g_settings->force_quad3d() && ((rdp.cmd1 & 0xFF000000) == 0) && ((rdp.cmd0 & 0x00FFFFFF) == 0))
     {
@@ -144,14 +149,14 @@ static void uc1_line3d()
 
 uint32_t branch_dl = 0;
 
-static void uc1_rdphalf_1()
+void uc1_rdphalf_1()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc1:rdphalf_1");
     branch_dl = rdp.cmd1;
     rdphalf_1();
 }
 
-static void uc1_branch_z()
+void uc1_branch_z()
 {
     uint32_t addr = segoffset(branch_dl);
     WriteTrace(TraceRDP, TraceDebug, "uc1:branch_less_z, addr: %08lx", addr);

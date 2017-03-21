@@ -40,6 +40,15 @@
 // Creation 13 August 2003               Gonetz
 //
 //****************************************************************
+#include <Glide64/rdp.h>
+#include <Glide64/Gfx_1.3.h>
+#include <Glide64/trace.h>
+#include <Glide64/ucode.h>
+#include "ucode00.h"
+#include "ucode01.h"
+#include "ucode02.h"
+#include "ucode05.h"
+#include "ucode06.h"
 
 static void fb_uc0_moveword()
 {
@@ -444,7 +453,7 @@ static void fb_setcolorimage()
 
 // RDP graphic instructions pointer table used in DetectFrameBufferUsage
 
-static rdp_instr gfx_instruction_lite[9][256] =
+rdp_instr gfx_instruction_lite[9][256] =
 {
     {
         // uCode 0 - RSP SW 2.0X

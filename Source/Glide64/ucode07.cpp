@@ -42,10 +42,15 @@
 // Oct 2003 Modified by Gonetz (Gonetz@ngs.ru)
 // Bugs fixed with help from glN64 sources. Thanks, Orkin!
 //****************************************************************
+#include <Glide64/rdp.h>
+#include <Glide64/Gfx_1.3.h>
+#include <Glide64/trace.h>
+#include <Glide64/ucode.h>
+#include "3dmath.h"
 
 uint32_t pd_col_addr = 0;
 
-static void uc7_colorbase()
+void uc7_colorbase()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc7_colorbase");
     pd_col_addr = segoffset(rdp.cmd1);
@@ -63,7 +68,7 @@ typedef struct
     short s;
 } vtx_uc7;
 
-static void uc7_vertex()
+void uc7_vertex()
 {
     if (rdp.update & UPDATE_MULT_MAT)
     {

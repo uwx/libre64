@@ -36,10 +36,19 @@
 // * Do NOT send me the whole project or file that you modified.  Take out your modified code sections, and tell me where to put them.  If people sent the whole thing, I would have many different versions, but no idea how to combine them all.
 //
 //****************************************************************
+#include <Glide64/rdp.h>
+#include <Glide64/Gfx_1.3.h>
+#include <Glide64/trace.h>
+#include <Glide64/ucode.h>
+#include "Combine.h"
+#include "Util.h"
+#include "TexCache.h"
+#include "TexBuffer.h"
+#include "ucode06.h"
 
 // STANDARD DRAWIMAGE - draws a 2d image based on the following structure
 
-static float set_sprite_combine_mode()
+float set_sprite_combine_mode()
 {
     if (rdp.cycle_mode == 2)
     {
@@ -114,25 +123,6 @@ static float set_sprite_combine_mode()
 }
 
 void uc6_sprite2d();
-
-typedef struct DRAWIMAGE_t {
-    float frameX;
-    float frameY;
-    uint16_t frameW;
-    uint16_t frameH;
-    uint16_t imageX;
-    uint16_t imageY;
-    uint16_t imageW;
-    uint16_t imageH;
-    uint32_t imagePtr;
-    uint8_t imageFmt;
-    uint8_t imageSiz;
-    uint16_t imagePal;
-    uint8_t flipX;
-    uint8_t flipY;
-    float scaleX;
-    float scaleY;
-} DRAWIMAGE;
 
 typedef struct DRAWOBJECT_t {
     float objX;
@@ -586,7 +576,7 @@ void DrawImage(DRAWIMAGE & d)
     rdp.bg_image_height = 0xFFFF;
 }
 
-void DrawHiresImage(DRAWIMAGE & d, int screensize = FALSE)
+void DrawHiresImage(DRAWIMAGE & d, int screensize)
 {
     TBUFF_COLOR_IMAGE *tbuff_tex = rdp.tbuff_tex;
     if (rdp.motionblur)
@@ -751,12 +741,12 @@ static void uc6_bg(bool bg_1cyc)
     }
 }
 
-static void uc6_bg_1cyc()
+void uc6_bg_1cyc()
 {
     uc6_bg(true);
 }
 
-static void uc6_bg_copy()
+void uc6_bg_copy()
 {
     uc6_bg(false);
 }
@@ -1012,7 +1002,7 @@ static void uc6_init_tile(const DRAWOBJECT & d)
     rdp.tiles[0].lr_t = (d.imageH > 0) ? d.imageH - 1 : 0;
 }
 
-static void uc6_obj_rectangle()
+void uc6_obj_rectangle()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc6:obj_rectangle ");
     DRAWOBJECT d;
@@ -1081,7 +1071,7 @@ static void uc6_obj_rectangle()
     uc6_draw_polygons(v);
 }
 
-static void uc6_obj_sprite()
+void uc6_obj_sprite()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc6:obj_sprite ");
     DRAWOBJECT d;
@@ -1142,7 +1132,7 @@ static void uc6_obj_sprite()
     uc6_draw_polygons(v);
 }
 
-static void uc6_obj_movemem()
+void uc6_obj_movemem()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc6:obj_movemem");
 
@@ -1173,12 +1163,12 @@ static void uc6_obj_movemem()
     }
 }
 
-static void uc6_select_dl()
+void uc6_select_dl()
 {
     WriteTrace(TraceRDP, TraceWarning, "uc6:select_dl");
 }
 
-static void uc6_obj_rendermode()
+void uc6_obj_rendermode()
 {
     WriteTrace(TraceRDP, TraceWarning, "uc6:obj_rendermode");
 }
@@ -1242,7 +1232,7 @@ static void uc6_DrawYUVImageToFrameBuffer(uint16_t ul_x, uint16_t ul_y, uint16_t
     }
 }
 
-static void uc6_obj_rectangle_r()
+void uc6_obj_rectangle_r()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc6:obj_rectangle_r ");
     DRAWOBJECT d;
@@ -1313,7 +1303,7 @@ static void uc6_obj_rectangle_r()
     uc6_draw_polygons(v);
 }
 
-static void uc6_obj_loadtxtr()
+void uc6_obj_loadtxtr()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc6:obj_loadtxtr ");
     rdp.s2dex_tex_loaded = TRUE;
@@ -1377,7 +1367,7 @@ static void uc6_obj_loadtxtr()
     }
 }
 
-static void uc6_obj_ldtx_sprite()
+void uc6_obj_ldtx_sprite()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc6:obj_ldtx_sprite");
 
@@ -1387,7 +1377,7 @@ static void uc6_obj_ldtx_sprite()
     uc6_obj_sprite();
 }
 
-static void uc6_obj_ldtx_rect()
+void uc6_obj_ldtx_rect()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc6:obj_ldtx_rect");
 
@@ -1397,7 +1387,7 @@ static void uc6_obj_ldtx_rect()
     uc6_obj_rectangle();
 }
 
-static void uc6_ldtx_rect_r()
+void uc6_ldtx_rect_r()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc6:ldtx_rect_r");
 
@@ -1407,7 +1397,7 @@ static void uc6_ldtx_rect_r()
     uc6_obj_rectangle_r();
 }
 
-static void uc6_loaducode()
+void uc6_loaducode()
 {
     WriteTrace(TraceRDP, TraceWarning, "uc6:load_ucode");
 

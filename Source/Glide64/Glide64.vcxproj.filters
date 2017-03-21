@@ -89,6 +89,48 @@
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SettingsID.h" />
     <ClInclude Include="ScreenResolution.h" />
+    <ClInclude Include="turbo3D.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode00.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode01.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode02.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode03.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode04.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode05.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode06.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode07.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode08.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode09.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucode09rdp.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
+    <ClInclude Include="ucodeFB.h">
+      <Filter>ucode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CRC.cpp">

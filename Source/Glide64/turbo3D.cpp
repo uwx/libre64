@@ -40,7 +40,12 @@
 // Created by Gonetz, 2008
 //
 //****************************************************************
-
+#include <Glide64/rdp.h>
+#include <Glide64/Gfx_1.3.h>
+#include <Glide64/trace.h>
+#include <Glide64/ucode.h>
+#include "ucode00.h"
+#include "util.h"
 /******************Turbo3D microcode*************************/
 
 struct t3dGlobState {
@@ -240,7 +245,7 @@ static void t3dLoadObject(uint32_t pstate, uint32_t pvtx, uint32_t ptri)
     }
 }
 
-static void Turbo3D()
+void Turbo3D()
 {
     WriteTrace(TraceRDP, TraceDebug, "Start Turbo3D microcode");
     g_settings->SetUcode(CSettings::ucode_Fast3D);

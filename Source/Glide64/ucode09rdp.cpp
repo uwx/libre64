@@ -40,6 +40,10 @@
 // December 2008 Created by Gonetz (Gonetz@ngs.ru)
 //
 //****************************************************************
+#include <Glide64/rdp.h>
+#include <Glide64/Gfx_1.3.h>
+#include <Glide64/trace.h>
+#include <Glide64/ucode.h>
 
 void uc9_rpdcmd()
 {

@@ -36,12 +36,17 @@
 // * Do NOT send me the whole project or file that you modified.  Take out your modified code sections, and tell me where to put them.  If people sent the whole thing, I would have many different versions, but no idea how to combine them all.
 //
 //****************************************************************
+#include <Glide64/rdp.h>
+#include <Glide64/Gfx_1.3.h>
+#include <Glide64/trace.h>
+#include <Glide64/ucode.h>
+#include "ucode00.h"
 
 //
 // vertex - loads vertices
 //
 
-static void uc3_vertex()
+void uc3_vertex()
 {
     int v0 = ((rdp.cmd0 >> 16) & 0xFF) / 5;      // Current vertex
     int n = (uint16_t)((rdp.cmd0 & 0xFFFF) + 1) / 0x210;    // Number to copy
@@ -59,7 +64,7 @@ static void uc3_vertex()
 // tri1 - renders a triangle
 //
 
-static void uc3_tri1()
+void uc3_tri1()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc3:tri1 #%d - %d, %d, %d - %08lx - %08lx", rdp.tri_n,
         ((rdp.cmd1 >> 16) & 0xFF) / 5,
@@ -75,7 +80,7 @@ static void uc3_tri1()
     rsp_tri1(v);
 }
 
-static void uc3_tri2()
+void uc3_tri2()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc3:tri2 #%d, #%d - %d, %d, %d - %d, %d, %d", rdp.tri_n, rdp.tri_n + 1,
         ((rdp.cmd0 >> 16) & 0xFF) / 5,
@@ -97,7 +102,7 @@ static void uc3_tri2()
     rsp_tri2(v);
 }
 
-static void uc3_quad3d()
+void uc3_quad3d()
 {
     WriteTrace(TraceRDP, TraceDebug, "uc3:quad3d #%d, #%d", rdp.tri_n, rdp.tri_n + 1);
 

@@ -81,6 +81,20 @@
     <ClInclude Include="GlideExtensions.h" />
     <ClInclude Include="rdp.h" />
     <ClInclude Include="TexBuffer.h" />
+    <ClInclude Include="turbo3D.h" />
+    <ClInclude Include="ucode.h" />
+    <ClInclude Include="ucode00.h" />
+    <ClInclude Include="ucode01.h" />
+    <ClInclude Include="ucode02.h" />
+    <ClInclude Include="ucode03.h" />
+    <ClInclude Include="ucode04.h" />
+    <ClInclude Include="ucode05.h" />
+    <ClInclude Include="ucode06.h" />
+    <ClInclude Include="ucode07.h" />
+    <ClInclude Include="ucode08.h" />
+    <ClInclude Include="ucode09.h" />
+    <ClInclude Include="ucode09rdp.h" />
+    <ClInclude Include="ucodeFB.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Version.h" />
   </ItemGroup>
