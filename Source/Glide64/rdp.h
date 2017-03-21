@@ -373,7 +373,35 @@ typedef struct
 
 #define NUMTEXBUF 92
 
-struct RDP_Base{
+class CRDP
+{
+public:
+    CRDP();
+    ~CRDP();
+    void Reset();
+
+    // Clipping
+    int clip;     // clipping flags
+    VERTEX *vtx1; //[256] copy vertex buffer #1 (used for clipping)
+    VERTEX *vtx2; //[256] copy vertex buffer #2
+    VERTEX *vtxbuf;   // current vertex buffer (reset to vtx, used to determine current vertex buffer)
+    VERTEX *vtxbuf2;
+    int n_global;   // Used to pass the number of vertices from clip_z to clip_tri
+    int vtx_buffer;
+
+    CACHE_LUT *cache[MAX_TMU]; //[MAX_CACHE]
+    CACHE_LUT *cur_cache[MAX_TMU];
+    uint32_t   cur_cache_n[MAX_TMU];
+    int     n_cached[MAX_TMU];
+
+    // Vertices
+    VERTEX *vtx; //[MAX_VTX]
+    int v0, vn;
+
+    COLOR_IMAGE *frame_buffers; //[NUMTEXBUF+2]
+    TEXTURE_BUFFER texbufs[2];
+
+    char RomName[21];
     float vi_width;
     float vi_height;
 
@@ -403,7 +431,7 @@ struct RDP_Base{
     // Segments
     uint32_t segment[16];  // Segment pointer
 
-    // Marks the end of DList execution (done in uc?:enddl)
+                           // Marks the end of DList execution (done in uc?:enddl)
     int halt;
 
     // Next command
@@ -507,9 +535,9 @@ struct RDP_Base{
 
     uint8_t uncombined;  // which is uncombined: 0x01=color 0x02=alpha 0x03=both
 
-    //  float YUV_C0, YUV_C1, YUV_C2, YUV_C3, YUV_C4; //YUV textures conversion coefficients
+                         //  float YUV_C0, YUV_C1, YUV_C2, YUV_C3, YUV_C4; //YUV textures conversion coefficients
 
-    // What needs updating
+                         // What needs updating
     uint32_t update;
     uint32_t flags;
 
@@ -553,7 +581,7 @@ struct RDP_Base{
     uint8_t  acc_tex_buf;
     int skip_drawing; //rendering is not required. used for frame buffer emulation
 
-    //fog related slots. Added by Gonetz
+                      //fog related slots. Added by Gonetz
     float fog_multiplier, fog_offset;
     enum {
         fog_disabled,
@@ -564,41 +592,11 @@ struct RDP_Base{
     fog_mode;
 };
 
-struct RDP : public RDP_Base
-{
-    // Clipping
-    int clip;     // clipping flags
-    VERTEX *vtx1; //[256] copy vertex buffer #1 (used for clipping)
-    VERTEX *vtx2; //[256] copy vertex buffer #2
-    VERTEX *vtxbuf;   // current vertex buffer (reset to vtx, used to determine current vertex buffer)
-    VERTEX *vtxbuf2;
-    int n_global;   // Used to pass the number of vertices from clip_z to clip_tri
-    int vtx_buffer;
-
-    CACHE_LUT *cache[MAX_TMU]; //[MAX_CACHE]
-    CACHE_LUT *cur_cache[MAX_TMU];
-    uint32_t   cur_cache_n[MAX_TMU];
-    int     n_cached[MAX_TMU];
-
-    // Vertices
-    VERTEX *vtx; //[MAX_VTX]
-    int v0, vn;
-
-    COLOR_IMAGE *frame_buffers; //[NUMTEXBUF+2]
-    TEXTURE_BUFFER texbufs[2];
-
-    char RomName[21];
-
-    RDP();
-    ~RDP();
-    void Reset();
-};
-
 void SetWireframeCol();
 void ChangeSize();
 void GoToFullScreen();
 
-extern RDP rdp;
+extern CRDP rdp;
 extern VOODOO voodoo;
 
 extern GrTexInfo  fontTex;

@@ -98,7 +98,7 @@ uint32_t   region = 0;
 
 unsigned int BMASK = 0x7FFFFF;
 // Reality display processor structure
-RDP rdp;
+CRDP rdp;
 
 CSettings * g_settings = NULL;
 

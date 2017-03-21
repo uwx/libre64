@@ -174,9 +174,34 @@ void microcheck();
 static int reset = 0;
 static CSettings::ucode_t g_old_ucode = CSettings::uCode_Unsupported;
 
-void RDP::Reset()
+CRDP::CRDP() :
+    vtx1(NULL)
 {
-    memset(this, 0, sizeof(RDP_Base));
+
+}
+
+void CRDP::Reset()
+{
+    vtx1 = new VERTEX[256];
+    memset(vtx1, 0, sizeof(VERTEX) * 256);
+    vtx2 = new VERTEX[256];
+    memset(vtx2, 0, sizeof(VERTEX) * 256);
+    vtxbuf = vtxbuf2 = 0;
+    vtx_buffer = n_global = 0;
+
+    for (int i = 0; i < MAX_TMU; i++)
+    {
+        cache[i] = new CACHE_LUT[MAX_CACHE];
+        cur_cache[i] = 0;
+        cur_cache_n[i] = 0;
+    };
+
+    vtx = new VERTEX[MAX_VTX];
+    memset(vtx, 0, sizeof(VERTEX)*MAX_VTX);
+    v0 = vn = 0;
+
+    frame_buffers = new COLOR_IMAGE[NUMTEXBUF + 2];
+
     // set all vertex numbers
     for (int i = 0; i < MAX_VTX; i++)
     {
@@ -198,34 +223,11 @@ void RDP::Reset()
     cycle_mode = 2;
     allow_combine = 1;
     rdp.update = UPDATE_SCISSOR | UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
-    fog_mode = RDP::fog_enabled;
+    fog_mode = CRDP::fog_enabled;
     maincimg[0].addr = maincimg[1].addr = last_drawn_ci_addr = 0x7FFFFFFF;
 }
 
-RDP::RDP()
-{
-    vtx1 = new VERTEX[256];
-    memset(vtx1, 0, sizeof(VERTEX) * 256);
-    vtx2 = new VERTEX[256];
-    memset(vtx2, 0, sizeof(VERTEX) * 256);
-    vtxbuf = vtxbuf2 = 0;
-    vtx_buffer = n_global = 0;
-
-    for (int i = 0; i < MAX_TMU; i++)
-    {
-        cache[i] = new CACHE_LUT[MAX_CACHE];
-        cur_cache[i] = 0;
-        cur_cache_n[i] = 0;
-    };
-
-    vtx = new VERTEX[MAX_VTX];
-    memset(vtx, 0, sizeof(VERTEX)*MAX_VTX);
-    v0 = vn = 0;
-
-    frame_buffers = new COLOR_IMAGE[NUMTEXBUF + 2];
-}
-
-RDP::~RDP()
+CRDP::~CRDP()
 {
     delete[] vtx1;
     delete[] vtx2;
@@ -1347,10 +1349,10 @@ void rdp_texrect()
         apply_shade_mods(&vptr[i]);
     }
 
-    if (rdp.fog_mode >= RDP::fog_blend)
+    if (rdp.fog_mode >= CRDP::fog_blend)
     {
         float fog;
-        if (rdp.fog_mode == RDP::fog_blend)
+        if (rdp.fog_mode == CRDP::fog_blend)
             fog = 1.0f / maxval(1, rdp.fog_color & 0xFF);
         else
             fog = 1.0f / maxval(1, (~rdp.fog_color) & 0xFF);
