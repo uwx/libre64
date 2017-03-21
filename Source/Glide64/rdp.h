@@ -384,8 +384,14 @@ public:
 
     // Clipping
     int clip;     // clipping flags
-    VERTEX *vtx1; //[256] copy vertex buffer #1 (used for clipping)
-    VERTEX *vtx2; //[256] copy vertex buffer #2
+    inline VERTEX * vtx1(void) const { return m_vtx1; }
+    inline VERTEX * vtx2(void) const { return m_vtx2; }
+
+private:
+    VERTEX * m_vtx1; //[256] copy vertex buffer #1 (used for clipping)
+    VERTEX * m_vtx2; //[256] copy vertex buffer #2
+
+public:
     VERTEX *vtxbuf;   // current vertex buffer (reset to vtx, used to determine current vertex buffer)
     VERTEX *vtxbuf2;
     int n_global;   // Used to pass the number of vertices from clip_z to clip_tri

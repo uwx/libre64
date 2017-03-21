@@ -175,27 +175,49 @@ static int reset = 0;
 static CSettings::ucode_t g_old_ucode = CSettings::uCode_Unsupported;
 
 CRDP::CRDP() :
-    vtx1(NULL)
+    m_vtx1(NULL),
+    m_vtx2(NULL)
 {
     free();
 }
 
 bool CRDP::init()
 {
-    if (vtx1 != NULL)
+    if (m_vtx1 != NULL)
     {
         return true;
     }
+    m_vtx1 = new VERTEX[256];
+    if (m_vtx1 == NULL)
+    {
+        free();
+        return false;
+    }
+    memset(m_vtx1, 0, sizeof(VERTEX) * 256);
+    m_vtx2 = new VERTEX[256];
+    if (m_vtx2 == NULL)
+    {
+        free();
+        return false;
+    }
+    memset(m_vtx2, 0, sizeof(VERTEX) * 256);
     return true;
 }
 
 void CRDP::free()
 {
+    if (m_vtx1)
+    {
+        delete m_vtx1;
+        m_vtx1 = NULL;
+    }
+    if (m_vtx2)
+    {
+        delete m_vtx2;
+        m_vtx2 = NULL;
+    }
+
     reset = 1;
-    vtx1 = new VERTEX[256];
-    memset(vtx1, 0, sizeof(VERTEX) * 256);
-    vtx2 = new VERTEX[256];
-    memset(vtx2, 0, sizeof(VERTEX) * 256);
     vtxbuf = vtxbuf2 = 0;
     vtx_buffer = n_global = 0;
 
@@ -223,7 +245,7 @@ void CRDP::free()
     scissor_o.lr_x = 320;
     scissor_o.lr_y = 240;
 
-    vi_org_reg = *gfx.VI_ORIGIN_REG;
+    //vi_org_reg = *gfx.VI_ORIGIN_REG;
     view_scale[2] = 32.0f * 511.0f;
     view_trans[2] = 32.0f * 511.0f;
     clip_ratio = 1.0f;
@@ -239,8 +261,7 @@ void CRDP::free()
 
 CRDP::~CRDP()
 {
-    delete[] vtx1;
-    delete[] vtx2;
+    free();
     for (int i = 0; i < MAX_TMU; i++)
         delete[] cache[i];
 

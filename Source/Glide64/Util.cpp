@@ -63,8 +63,8 @@ void util_init()
 {
     for (int i = 0; i < 32; i++)
     {
-        vtx_list1[i] = &rdp.vtx1[i];
-        vtx_list2[i] = &rdp.vtx2[i];
+        vtx_list1[i] = &rdp.vtx1()[i];
+        vtx_list2[i] = &rdp.vtx2()[i];
     }
 }
 
@@ -492,8 +492,8 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
             right_256 = (cur_256 + 1) << 8;
 
             // Set vertex buffers
-            rdp.vtxbuf = rdp.vtx1;  // copy from v to rdp.vtx1
-            rdp.vtxbuf2 = rdp.vtx2;
+            rdp.vtxbuf = rdp.vtx1();  // copy from v to rdp.vtx1
+            rdp.vtxbuf2 = rdp.vtx2();
             rdp.vtx_buffer = 0;
             rdp.n_global = 3;
             index = 0;
@@ -564,8 +564,8 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
             }
             rdp.n_global = index;
 
-            rdp.vtxbuf = rdp.vtx2;  // now vtx1 holds the value, & vtx2 is the destination
-            rdp.vtxbuf2 = rdp.vtx1;
+            rdp.vtxbuf = rdp.vtx2();  // now vtx1 holds the value, & vtx2 is the destination
+            rdp.vtxbuf2 = rdp.vtx1();
             rdp.vtx_buffer ^= 1;
             index = 0;
 
@@ -639,8 +639,8 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
     else
     {
         // Set vertex buffers
-        rdp.vtxbuf = rdp.vtx1;  // copy from v to rdp.vtx1
-        rdp.vtxbuf2 = rdp.vtx2;
+        rdp.vtxbuf = rdp.vtx1();  // copy from v to rdp.vtx1
+        rdp.vtxbuf2 = rdp.vtx2();
         rdp.vtx_buffer = 0;
         rdp.n_global = 3;
 

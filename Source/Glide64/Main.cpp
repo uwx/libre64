@@ -461,8 +461,6 @@ int InitGfx()
 
     WriteTrace(TraceGlide64, TraceDebug, "-");
 
-    rdp.init();
-
     // Initialize Glide
     grGlideInit();
 
@@ -1016,6 +1014,10 @@ int CALL InitiateGFX(GFX_INFO Gfx_Info)
 
     gfx = Gfx_Info;
 
+    if (!rdp.init())
+    {
+        return false;
+    }
     util_init();
     math_init();
     TexCacheInit();

@@ -770,8 +770,8 @@ static void draw_split_triangle(VERTEX **vtx)
         right_256 = (cur_256 + 1) << 8;
 
         // Set vertex buffers
-        rdp.vtxbuf = rdp.vtx1;  // copy from v to rdp.vtx1
-        rdp.vtxbuf2 = rdp.vtx2;
+        rdp.vtxbuf = rdp.vtx1();  // copy from v to rdp.vtx1
+        rdp.vtxbuf2 = rdp.vtx2();
         rdp.vtx_buffer = 0;
         rdp.n_global = 3;
         index = 0;
@@ -836,8 +836,8 @@ static void draw_split_triangle(VERTEX **vtx)
         }
         rdp.n_global = index;
 
-        rdp.vtxbuf = rdp.vtx2;  // now vtx1 holds the value, & vtx2 is the destination
-        rdp.vtxbuf2 = rdp.vtx1;
+        rdp.vtxbuf = rdp.vtx2();  // now vtx1 holds the value, & vtx2 is the destination
+        rdp.vtxbuf2 = rdp.vtx1();
         rdp.vtx_buffer ^= 1;
         index = 0;
 
@@ -923,16 +923,16 @@ static void uc6_draw_polygons(VERTEX v[4])
     }
     else
     {
-        rdp.vtxbuf = rdp.vtx1;      // copy from v to rdp.vtx1
-        rdp.vtxbuf2 = rdp.vtx2;
+        rdp.vtxbuf = rdp.vtx1();      // copy from v to rdp.vtx1
+        rdp.vtxbuf2 = rdp.vtx2();
         rdp.vtx_buffer = 0;
         rdp.n_global = 3;
         memcpy(rdp.vtxbuf, v, sizeof(VERTEX) * 3);
         do_triangle_stuff_2();
         rdp.tri_n++;
 
-        rdp.vtxbuf = rdp.vtx1;      // copy from v to rdp.vtx1
-        rdp.vtxbuf2 = rdp.vtx2;
+        rdp.vtxbuf = rdp.vtx1();      // copy from v to rdp.vtx1
+        rdp.vtxbuf2 = rdp.vtx2();
         rdp.vtx_buffer = 0;
         rdp.n_global = 3;
         memcpy(rdp.vtxbuf, v + 1, sizeof(VERTEX) * 3);
@@ -1632,16 +1632,16 @@ void uc6_sprite2d()
             }
             else
             {
-                rdp.vtxbuf = rdp.vtx1;        // copy from v to rdp.vtx1
-                rdp.vtxbuf2 = rdp.vtx2;
+                rdp.vtxbuf = rdp.vtx1();        // copy from v to rdp.vtx1
+                rdp.vtxbuf2 = rdp.vtx2();
                 rdp.vtx_buffer = 0;
                 rdp.n_global = 3;
                 memcpy(rdp.vtxbuf, v, sizeof(VERTEX) * 3);
                 do_triangle_stuff_2();
                 rdp.tri_n++;
 
-                rdp.vtxbuf = rdp.vtx1;        // copy from v to rdp.vtx1
-                rdp.vtxbuf2 = rdp.vtx2;
+                rdp.vtxbuf = rdp.vtx1();        // copy from v to rdp.vtx1
+                rdp.vtxbuf2 = rdp.vtx2();
                 rdp.vtx_buffer = 0;
                 rdp.n_global = 3;
                 memcpy(rdp.vtxbuf, v + 1, sizeof(VERTEX) * 3);
