@@ -514,10 +514,10 @@ void DrawImage(DRAWIMAGE & d)
             ful_v = (float)nul_v - cb_v;
             flr_v = (float)nlr_v - cb_v;
 
-            ful_u *= rdp.cur_cache[0]->c_scl_x;
-            ful_v *= rdp.cur_cache[0]->c_scl_y;
-            flr_u *= rdp.cur_cache[0]->c_scl_x;
-            flr_v *= rdp.cur_cache[0]->c_scl_y;
+            ful_u *= rdp.cur_cache(0)->c_scl_x;
+            ful_v *= rdp.cur_cache(0)->c_scl_y;
+            flr_u *= rdp.cur_cache(0)->c_scl_x;
+            flr_v *= rdp.cur_cache(0)->c_scl_y;
 
             ful_x = nul_x * rdp.scale_x + rdp.offset_x;
             flr_x = nlr_x * rdp.scale_x + rdp.offset_x;
@@ -792,7 +792,7 @@ static void draw_split_triangle(VERTEX **vtx)
                 {
                     vtxbuf[index] = *v2;
                     vtxbuf[index].u0 -= left_256;
-                    vtxbuf[index++].v0 += rdp.cur_cache[0]->c_scl_y * (cur_256 * rdp.cur_cache[0]->splitheight);
+                    vtxbuf[index++].v0 += rdp.cur_cache(0)->c_scl_y * (cur_256 * rdp.cur_cache(0)->splitheight);
                 }
                 else      // First is in, second is out, save intersection
                 {
@@ -803,7 +803,7 @@ static void draw_split_triangle(VERTEX **vtx)
                     vtxbuf[index].q = 1;
                     vtxbuf[index].u0 = 0.5f;
                     vtxbuf[index].v0 = v1->v0 + (v2->v0 - v1->v0) * percent +
-                        rdp.cur_cache[0]->c_scl_y * cur_256 * rdp.cur_cache[0]->splitheight;
+                        rdp.cur_cache(0)->c_scl_y * cur_256 * rdp.cur_cache(0)->splitheight;
                     vtxbuf[index].b = (uint8_t)(v1->b + (v2->b - v1->b) * percent);
                     vtxbuf[index].g = (uint8_t)(v1->g + (v2->g - v1->g) * percent);
                     vtxbuf[index].r = (uint8_t)(v1->r + (v2->r - v1->r) * percent);
@@ -822,7 +822,7 @@ static void draw_split_triangle(VERTEX **vtx)
                     vtxbuf[index].q = 1;
                     vtxbuf[index].u0 = 0.5f;
                     vtxbuf[index].v0 = v2->v0 + (v1->v0 - v2->v0) * percent +
-                        rdp.cur_cache[0]->c_scl_y * cur_256 * rdp.cur_cache[0]->splitheight;
+                        rdp.cur_cache(0)->c_scl_y * cur_256 * rdp.cur_cache(0)->splitheight;
                     vtxbuf[index].b = (uint8_t)(v2->b + (v1->b - v2->b) * percent);
                     vtxbuf[index].g = (uint8_t)(v2->g + (v1->g - v2->g) * percent);
                     vtxbuf[index].r = (uint8_t)(v2->r + (v1->r - v2->r) * percent);
@@ -831,7 +831,7 @@ static void draw_split_triangle(VERTEX **vtx)
                     // Save the in point
                     vtxbuf[index] = *v2;
                     vtxbuf[index].u0 -= left_256;
-                    vtxbuf[index++].v0 += rdp.cur_cache[0]->c_scl_y * (cur_256 * rdp.cur_cache[0]->splitheight);
+                    vtxbuf[index++].v0 += rdp.cur_cache(0)->c_scl_y * (cur_256 * rdp.cur_cache(0)->splitheight);
                 }
             }
         }
@@ -909,7 +909,7 @@ static void uc6_draw_polygons(VERTEX v[4])
     AddOffset(v, 4);
 
     // Set vertex buffers
-    if (rdp.cur_cache[0] && rdp.cur_cache[0]->splits > 1)
+    if (rdp.cur_cache(0) && rdp.cur_cache(0)->splits > 1)
     {
         VERTEX *vptr[3];
         int i;
@@ -1030,15 +1030,15 @@ void uc6_obj_rectangle()
     float ul_y = d.objY;
     float lr_y = d.objY + d.imageH / d.scaleH;
     float ul_u, lr_u, ul_v, lr_v;
-    if (rdp.cur_cache[0]->splits > 1)
+    if (rdp.cur_cache(0)->splits > 1)
     {
         lr_u = (float)(d.imageW - 1);
         lr_v = (float)(d.imageH - 1);
     }
     else
     {
-        lr_u = 255.0f*rdp.cur_cache[0]->scale_x;
-        lr_v = 255.0f*rdp.cur_cache[0]->scale_y;
+        lr_u = 255.0f*rdp.cur_cache(0)->scale_x;
+        lr_v = 255.0f*rdp.cur_cache(0)->scale_y;
     }
 
     if (d.imageFlags & 0x01) //flipS
@@ -1087,15 +1087,15 @@ void uc6_obj_sprite()
     float ul_y = d.objY;
     float lr_y = d.objY + d.imageH / d.scaleH;
     float ul_u, lr_u, ul_v, lr_v;
-    if (rdp.cur_cache[0]->splits > 1)
+    if (rdp.cur_cache(0)->splits > 1)
     {
         lr_u = (float)(d.imageW - 1);
         lr_v = (float)(d.imageH - 1);
     }
     else
     {
-        lr_u = 255.0f*rdp.cur_cache[0]->scale_x;
-        lr_v = 255.0f*rdp.cur_cache[0]->scale_y;
+        lr_u = 255.0f*rdp.cur_cache(0)->scale_x;
+        lr_v = 255.0f*rdp.cur_cache(0)->scale_y;
     }
 
     if (d.imageFlags & 0x01) //flipS
@@ -1114,7 +1114,7 @@ void uc6_obj_sprite()
         ul_v = 0.5f;
 
     // Make the vertices
-    //    WriteTrace(TraceRDP, TraceDebug, "scale_x: %f, scale_y: %f", rdp.cur_cache[0]->scale_x, rdp.cur_cache[0]->scale_y);
+    //    WriteTrace(TraceRDP, TraceDebug, "scale_x: %f, scale_y: %f", rdp.cur_cache(0)->scale_x, rdp.cur_cache(0)->scale_y);
 
     VERTEX v[4] = {
         { ul_x, ul_y, Z, 1, ul_u, ul_v },
@@ -1260,15 +1260,15 @@ void uc6_obj_rectangle_r()
     float ul_y = d.objY / mat_2d.BaseScaleY;
     float lr_y = (d.objY + d.imageH / d.scaleH) / mat_2d.BaseScaleY;
     float ul_u, lr_u, ul_v, lr_v;
-    if (rdp.cur_cache[0]->splits > 1)
+    if (rdp.cur_cache(0)->splits > 1)
     {
         lr_u = (float)(d.imageW - 1);
         lr_v = (float)(d.imageH - 1);
     }
     else
     {
-        lr_u = 255.0f*rdp.cur_cache[0]->scale_x;
-        lr_v = 255.0f*rdp.cur_cache[0]->scale_y;
+        lr_u = 255.0f*rdp.cur_cache(0)->scale_x;
+        lr_v = 255.0f*rdp.cur_cache(0)->scale_y;
     }
 
     if (d.imageFlags & 0x01) //flipS
@@ -1587,15 +1587,15 @@ void uc6_sprite2d()
             }
 
             float lr_u, lr_v;
-            if (rdp.cur_cache[0]->splits > 1)
+            if (rdp.cur_cache(0)->splits > 1)
             {
                 lr_u = (float)(d.imageW - 1);
                 lr_v = (float)(d.imageH - 1);
             }
             else
             {
-                lr_u = 255.0f*rdp.cur_cache[0]->scale_x;
-                lr_v = 255.0f*rdp.cur_cache[0]->scale_y;
+                lr_u = 255.0f*rdp.cur_cache(0)->scale_x;
+                lr_v = 255.0f*rdp.cur_cache(0)->scale_y;
             }
 
             // Make the vertices
@@ -1618,7 +1618,7 @@ void uc6_sprite2d()
             AddOffset(v, 4);
 
             // Set vertex buffers
-            if (rdp.cur_cache[0]->splits > 1)
+            if (rdp.cur_cache(0)->splits > 1)
             {
                 VERTEX *vptr[3];
                 int i;

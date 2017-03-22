@@ -371,7 +371,7 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
             v->u1 = v->u0 = v->ou;
             v->v1 = v->v0 = v->ov;
 
-            if (rdp.tex >= 1 && rdp.cur_cache[0])
+            if (rdp.tex >= 1 && rdp.cur_cache(0))
             {
                 if (rdp.aTBuffTex[0])
                 {
@@ -408,14 +408,14 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
                 {
                     v->u0 -= rdp.tiles[rdp.cur_tile].f_ul_s;
                     v->v0 -= rdp.tiles[rdp.cur_tile].f_ul_t;
-                    v->u0 = rdp.cur_cache[0]->c_off + rdp.cur_cache[0]->c_scl_x * v->u0;
-                    v->v0 = rdp.cur_cache[0]->c_off + rdp.cur_cache[0]->c_scl_y * v->v0;
+                    v->u0 = rdp.cur_cache(0)->c_off + rdp.cur_cache(0)->c_scl_x * v->u0;
+                    v->v0 = rdp.cur_cache(0)->c_off + rdp.cur_cache(0)->c_scl_y * v->v0;
                 }
                 v->u0_w = v->u0 / v->w;
                 v->v0_w = v->v0 / v->w;
             }
 
-            if (rdp.tex >= 2 && rdp.cur_cache[1])
+            if (rdp.tex >= 2 && rdp.cur_cache(1))
             {
                 if (rdp.aTBuffTex[1])
                 {
@@ -449,8 +449,8 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
                 {
                     v->u1 -= rdp.tiles[rdp.cur_tile + 1].f_ul_s;
                     v->v1 -= rdp.tiles[rdp.cur_tile + 1].f_ul_t;
-                    v->u1 = rdp.cur_cache[1]->c_off + rdp.cur_cache[1]->c_scl_x * v->u1;
-                    v->v1 = rdp.cur_cache[1]->c_off + rdp.cur_cache[1]->c_scl_y * v->v1;
+                    v->u1 = rdp.cur_cache(1)->c_off + rdp.cur_cache(1)->c_scl_x * v->u1;
+                    v->v1 = rdp.cur_cache(1)->c_off + rdp.cur_cache(1)->c_scl_y * v->v1;
                 }
 
                 v->u1_w = v->u1 / v->w;
@@ -474,7 +474,7 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
 
     vtx[0]->not_zclipped = vtx[1]->not_zclipped = vtx[2]->not_zclipped = 1;
 
-    if (rdp.cur_cache[0] && (rdp.tex & 1) && (rdp.cur_cache[0]->splits > 1) && !rdp.aTBuffTex[0] && rdp.clip() == 0)
+    if (rdp.cur_cache(0) && (rdp.tex & 1) && (rdp.cur_cache(0)->splits > 1) && !rdp.aTBuffTex[0] && rdp.clip() == 0)
     {
         int index, i, j, min_256, max_256, cur_256, left_256, right_256;
         float percent;
@@ -513,7 +513,7 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
                     {
                         vtxbuf[index] = *v2;
                         vtxbuf[index].u0 -= left_256;
-                        vtxbuf[index++].v0 += cur_256 * rdp.cur_cache[0]->splitheight;
+                        vtxbuf[index++].v0 += cur_256 * rdp.cur_cache(0)->splitheight;
                     }
                     else      // First is in, second is out, save intersection
                     {
@@ -525,7 +525,7 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
                         vtxbuf[index].f = v1->f + (v2->f - v1->f) * percent;
                         vtxbuf[index].u0 = 0.5f;
                         vtxbuf[index].v0 = v1->v0 + (v2->v0 - v1->v0) * percent +
-                            cur_256 * rdp.cur_cache[0]->splitheight;
+                            cur_256 * rdp.cur_cache(0)->splitheight;
                         vtxbuf[index].u1 = v1->u1 + (v2->u1 - v1->u1) * percent;
                         vtxbuf[index].v1 = v1->v1 + (v2->v1 - v1->v1) * percent;
                         vtxbuf[index].b = (uint8_t)(v1->b + (v2->b - v1->b) * percent);
@@ -547,7 +547,7 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
                         vtxbuf[index].f = v2->f + (v1->f - v2->f) * percent;
                         vtxbuf[index].u0 = 0.5f;
                         vtxbuf[index].v0 = v2->v0 + (v1->v0 - v2->v0) * percent +
-                            cur_256 * rdp.cur_cache[0]->splitheight;
+                            cur_256 * rdp.cur_cache(0)->splitheight;
                         vtxbuf[index].u1 = v2->u1 + (v1->u1 - v2->u1) * percent;
                         vtxbuf[index].v1 = v2->v1 + (v1->v1 - v2->v1) * percent;
                         vtxbuf[index].b = (uint8_t)(v2->b + (v1->b - v2->b) * percent);
@@ -558,7 +558,7 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
                         // Save the in point
                         vtxbuf[index] = *v2;
                         vtxbuf[index].u0 -= left_256;
-                        vtxbuf[index++].v0 += cur_256 * rdp.cur_cache[0]->splitheight;
+                        vtxbuf[index++].v0 += cur_256 * rdp.cur_cache(0)->splitheight;
                     }
                 }
             }

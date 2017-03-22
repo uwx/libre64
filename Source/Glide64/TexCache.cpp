@@ -107,9 +107,11 @@ void AddToList(NODE **list, uint32_t crc, uintptr_t data, int tmu, int number)
     node->number = number;
     node->pNext = *list;
     *list = node;
-    rdp.n_cached[tmu] ++;
+    rdp.SetNCached(tmu, rdp.n_cached(tmu) + 1);
     if (voodoo.tex_UMA)
-        rdp.n_cached[tmu ^ 1] = rdp.n_cached[tmu];
+    {
+        rdp.SetNCached(tmu ^ 1, rdp.n_cached(tmu));
+    }
 }
 
 void DeleteList(NODE **list)
@@ -136,9 +138,9 @@ void TexCacheInit()
 void ClearCache()
 {
     voodoo.tmem_ptr[0] = offset_textures;
-    rdp.n_cached[0] = 0;
+    rdp.SetNCached(0,0);
     voodoo.tmem_ptr[1] = voodoo.tex_UMA ? offset_textures : offset_texbuf1;
-    rdp.n_cached[1] = 0;
+    rdp.SetNCached(1, 0);
 
     for (int i = 0; i < 65536; i++)
     {
@@ -799,9 +801,9 @@ void TexCache()
             WriteTrace(TraceRDP, TraceDebug, " | |- Hires tex T0 found in cache.");
             if (GfxInitDone)
             {
-                rdp.cur_cache[0] = aTBuff[0]->cache;
-                rdp.cur_cache[0]->last_used = frame_count;
-                rdp.cur_cache[0]->uses = rdp.debug_n;
+                rdp.SetCurCache(0, aTBuff[0]->cache);
+                rdp.cur_cache(0)->last_used = frame_count;
+                rdp.cur_cache(0)->uses = rdp.debug_n;
             }
         }
         else if (tex_found[0][tmu_0] != -1)
@@ -809,11 +811,11 @@ void TexCache()
             WriteTrace(TraceRDP, TraceDebug, " | |- T0 found in cache.");
             if (GfxInitDone)
             {
-                CACHE_LUT *cache = voodoo.tex_UMA ? &rdp.cache[0][tex_found[0][0]] : &rdp.cache[tmu_0][tex_found[0][tmu_0]];
-                rdp.cur_cache_n[0] = tex_found[0][tmu_0];
-                rdp.cur_cache[0] = cache;
-                rdp.cur_cache[0]->last_used = frame_count;
-                rdp.cur_cache[0]->uses = rdp.debug_n;
+                CACHE_LUT *cache = voodoo.tex_UMA ? &rdp.cache(0)[tex_found[0][0]] : &rdp.cache(tmu_0)[tex_found[0][tmu_0]];
+                rdp.SetCurCacheN(0, tex_found[0][tmu_0]);
+                rdp.SetCurCache(0,cache);
+                rdp.cur_cache(0)->last_used = frame_count;
+                rdp.cur_cache(0)->uses = rdp.debug_n;
                 grTexSource(tmu_0,
                     (voodoo.tex_min_addr[tmu_0] + cache->tmem_addr),
                     GR_MIPMAPLEVELMASK_BOTH,
@@ -830,9 +832,9 @@ void TexCache()
             WriteTrace(TraceRDP, TraceDebug, " | |- Hires tex T1 found in cache.");
             if (GfxInitDone)
             {
-                rdp.cur_cache[1] = aTBuff[1]->cache;
-                rdp.cur_cache[1]->last_used = frame_count;
-                rdp.cur_cache[1]->uses = rdp.debug_n;
+                rdp.SetCurCache(1, aTBuff[1]->cache);
+                rdp.cur_cache(1)->last_used = frame_count;
+                rdp.cur_cache(1)->uses = rdp.debug_n;
             }
         }
         else if (tex_found[1][tmu_1] != -1)
@@ -840,11 +842,11 @@ void TexCache()
             WriteTrace(TraceRDP, TraceDebug, " | |- T1 found in cache.");
             if (GfxInitDone)
             {
-                CACHE_LUT *cache = voodoo.tex_UMA ? &rdp.cache[0][tex_found[1][0]] : &rdp.cache[tmu_1][tex_found[1][tmu_1]];
-                rdp.cur_cache_n[1] = tex_found[1][tmu_1];
-                rdp.cur_cache[1] = cache;
-                rdp.cur_cache[1]->last_used = frame_count;
-                rdp.cur_cache[1]->uses = rdp.debug_n;
+                CACHE_LUT *cache = voodoo.tex_UMA ? &rdp.cache(0)[tex_found[1][0]] : &rdp.cache(tmu_1)[tex_found[1][tmu_1]];
+                rdp.SetCurCacheN(1,tex_found[1][tmu_1]);
+                rdp.SetCurCache(1,cache);
+                rdp.cur_cache(1)->last_used = frame_count;
+                rdp.cur_cache(1)->uses = rdp.debug_n;
                 grTexSource(tmu_1,
                     (voodoo.tex_min_addr[tmu_1] + cache->tmem_addr),
                     GR_MIPMAPLEVELMASK_BOTH,
@@ -880,7 +882,7 @@ void TexCache()
                 grTexFilterMode(tmu, filter, filter);
             }
 
-            if (rdp.cur_cache[i])
+            if (rdp.cur_cache(i))
             {
                 uint32_t mode_s, mode_t;
                 int clamp_s, clamp_t;
@@ -897,9 +899,9 @@ void TexCache()
                         rdp.tiles[tile].lr_t - rdp.tiles[tile].ul_t < 256;
                 }
 
-                if (rdp.cur_cache[i]->f_mirror_s)
+                if (rdp.cur_cache(i)->f_mirror_s)
                     mode_s = GR_TEXTURECLAMP_MIRROR_EXT;
-                else if (rdp.cur_cache[i]->f_wrap_s)
+                else if (rdp.cur_cache(i)->f_wrap_s)
                     mode_s = GR_TEXTURECLAMP_WRAP;
                 else if (clamp_s)
                     mode_s = GR_TEXTURECLAMP_CLAMP;
@@ -911,9 +913,9 @@ void TexCache()
                         mode_s = GR_TEXTURECLAMP_WRAP;
                 }
 
-                if (rdp.cur_cache[i]->f_mirror_t)
+                if (rdp.cur_cache(i)->f_mirror_t)
                     mode_t = GR_TEXTURECLAMP_MIRROR_EXT;
-                else if (rdp.cur_cache[i]->f_wrap_t)
+                else if (rdp.cur_cache(i)->f_wrap_t)
                     mode_t = GR_TEXTURECLAMP_WRAP;
                 else if (clamp_t)
                     mode_t = GR_TEXTURECLAMP_CLAMP;
@@ -986,7 +988,7 @@ void LoadTex(int id, int tmu)
         return;
 
     // Clear the cache if it's full
-    if (rdp.n_cached[tmu] >= MAX_CACHE)
+    if (rdp.n_cached(tmu) >= MAX_CACHE)
     {
         WriteTrace(TraceRDP, TraceDebug, "Cache count reached, clearing...");
         ClearCache();
@@ -995,10 +997,10 @@ void LoadTex(int id, int tmu)
     }
 
     // Get this cache object
-    cache = voodoo.tex_UMA ? &rdp.cache[0][rdp.n_cached[0]] : &rdp.cache[tmu][rdp.n_cached[tmu]];
+    cache = voodoo.tex_UMA ? &rdp.cache(0)[rdp.n_cached(0)] : &rdp.cache(tmu)[rdp.n_cached(tmu)];
     memset(cache, 0, sizeof(*cache));
-    rdp.cur_cache[id] = cache;
-    rdp.cur_cache_n[id] = rdp.n_cached[tmu];
+    rdp.SetCurCache(id,cache);
+    rdp.SetCurCacheN(id,rdp.n_cached(tmu));
 
     //!Hackalert
     //GoldenEye water texture. It has CI format in fact, but the game set it to RGBA
@@ -1031,7 +1033,7 @@ void LoadTex(int id, int tmu)
     cache->ricecrc = texinfo[id].ricecrc;
 
     // Add this cache to the list
-    AddToList(&cachelut[cache->crc >> 16], cache->crc, uintptr_t(cache), tmu, rdp.n_cached[tmu]);
+    AddToList(&cachelut[cache->crc >> 16], cache->crc, uintptr_t(cache), tmu, rdp.n_cached(tmu));
 
     // temporary
     cache->t_info.format = GR_TEXFMT_ARGB_1555;

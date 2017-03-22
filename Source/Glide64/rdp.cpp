@@ -181,6 +181,14 @@ CRDP::CRDP() :
     free();
 }
 
+CRDP::~CRDP()
+{
+    free();
+
+    delete[] vtx;
+    delete[] frame_buffers;
+}
+
 bool CRDP::init()
 {
     if (m_vtx1 != NULL)
@@ -201,6 +209,16 @@ bool CRDP::init()
         return false;
     }
     memset(m_vtx2, 0, sizeof(VERTEX) * 256);
+
+    for (int i = 0; i < MAX_TMU; i++)
+    {
+        m_cache[i] = new CACHE_LUT[MAX_CACHE];
+        if (m_cache[i] == NULL)
+        {
+            free();
+            return false;
+        }
+    };
     return true;
 }
 
@@ -220,17 +238,19 @@ void CRDP::free()
     m_vtxbuf = NULL;
     m_vtxbuf2 = NULL;
 
-
+    for (int i = 0; i < MAX_TMU; i++)
+    {
+        if (m_cache[i] != NULL)
+        {
+            delete m_cache[i];
+            m_cache[i] = NULL;
+        }
+        m_cur_cache[i] = 0;
+        m_cur_cache_n[i] = 0;
+    }
 
     reset = 1;
     vtx_buffer = n_global = 0;
-
-    for (int i = 0; i < MAX_TMU; i++)
-    {
-        cache[i] = new CACHE_LUT[MAX_CACHE];
-        cur_cache[i] = 0;
-        cur_cache_n[i] = 0;
-    };
 
     vtx = new VERTEX[MAX_VTX];
     memset(vtx, 0, sizeof(VERTEX)*MAX_VTX);
@@ -261,16 +281,6 @@ void CRDP::free()
     rdp.update = UPDATE_SCISSOR | UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
     fog_mode = CRDP::fog_enabled;
     maincimg[0].addr = maincimg[1].addr = last_drawn_ci_addr = 0x7FFFFFFF;
-}
-
-CRDP::~CRDP()
-{
-    free();
-    for (int i = 0; i < MAX_TMU; i++)
-        delete[] cache[i];
-
-    delete[] vtx;
-    delete[] frame_buffers;
 }
 
 void microcheck()
@@ -1031,7 +1041,7 @@ void rdp_texrect()
     //hack for Zelda MM. it removes black texrects which cover all geometry in "Link meets Zelda" cut scene
     if (g_settings->hacks(CSettings::hack_Zelda) && rdp.timg.addr >= rdp.cimg && rdp.timg.addr < rdp.ci_end)
     {
-        WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect. texaddr: %08lx, cimg: %08lx, cimg_end: %08lx", rdp.cur_cache[0]->addr, rdp.cimg, rdp.cimg + rdp.ci_width*rdp.ci_height * 2);
+        WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect. texaddr: %08lx, cimg: %08lx, cimg_end: %08lx", rdp.cur_cache(0)->addr, rdp.cimg, rdp.cimg + rdp.ci_width*rdp.ci_height * 2);
         rdp.tri_n += 2;
         return;
     }
@@ -1069,7 +1079,7 @@ void rdp_texrect()
 
     rdp.texrecting = 0;
 
-    if (!rdp.cur_cache[0])
+    if (!rdp.cur_cache(0))
     {
         rdp.cur_tile = prev_tile;
         rdp.tri_n += 2;
@@ -1107,7 +1117,7 @@ void rdp_texrect()
 
     if (((rdp.cmd0 >> 24) & 0xFF) == 0xE5) //texrectflip
     {
-        if (rdp.cur_cache[0]->is_hires_tex)
+        if (rdp.cur_cache(0)->is_hires_tex)
         {
             off_size_x = (float)((lr_y - ul_y) * dsdx);
             off_size_y = (float)((lr_x - ul_x) * dtdy);
@@ -1120,7 +1130,7 @@ void rdp_texrect()
     }
     else
     {
-        if (rdp.cur_cache[0]->is_hires_tex)
+        if (rdp.cur_cache(0)->is_hires_tex)
         {
             off_size_x = (float)((lr_x - ul_x) * dsdx);
             off_size_y = (float)((lr_y - ul_y) * dtdy);
@@ -1141,7 +1151,7 @@ void rdp_texrect()
     //calculate texture coordinates
     for (int i = 0; i < 2; i++)
     {
-        if (rdp.cur_cache[i] && (rdp.tex & (i + 1)))
+        if (rdp.cur_cache(i) && (rdp.tex & (i + 1)))
         {
             float sx = 1, sy = 1;
             int x_i = off_x_i, y_i = off_y_i;
@@ -1219,10 +1229,10 @@ void rdp_texrect()
                 texUV[i].lr_u = texUV[i].ul_u + off_size_x * sx;
                 texUV[i].lr_v = texUV[i].ul_v + off_size_y * sy;
 
-                texUV[i].ul_u = rdp.cur_cache[i]->c_off + rdp.cur_cache[i]->c_scl_x * texUV[i].ul_u;
-                texUV[i].lr_u = rdp.cur_cache[i]->c_off + rdp.cur_cache[i]->c_scl_x * texUV[i].lr_u;
-                texUV[i].ul_v = rdp.cur_cache[i]->c_off + rdp.cur_cache[i]->c_scl_y * texUV[i].ul_v;
-                texUV[i].lr_v = rdp.cur_cache[i]->c_off + rdp.cur_cache[i]->c_scl_y * texUV[i].lr_v;
+                texUV[i].ul_u = rdp.cur_cache(i)->c_off + rdp.cur_cache(i)->c_scl_x * texUV[i].ul_u;
+                texUV[i].lr_u = rdp.cur_cache(i)->c_off + rdp.cur_cache(i)->c_scl_x * texUV[i].lr_u;
+                texUV[i].ul_v = rdp.cur_cache(i)->c_off + rdp.cur_cache(i)->c_scl_y * texUV[i].ul_v;
+                texUV[i].lr_v = rdp.cur_cache(i)->c_off + rdp.cur_cache(i)->c_scl_y * texUV[i].lr_v;
             }
         }
         else
@@ -1267,7 +1277,7 @@ void rdp_texrect()
     //          for (int j =0; j < 4; j++)
     //            WriteTrace(TraceRDP, TraceDebug, "v[%d]  u0: %f, v0: %f, u1: %f, v1: %f", j, vstd[j].u0, vstd[j].v0, vstd[j].u1, vstd[j].v1);
 
-    if (!rdp.aTBuffTex[0] && rdp.cur_cache[0]->splits != 1)
+    if (!rdp.aTBuffTex[0] && rdp.cur_cache(0)->splits != 1)
     {
         // ** LARGE TEXTURE HANDLING **
         // *VERY* simple algebra for texrects
@@ -1292,7 +1302,7 @@ void rdp_texrect()
         end_u_256 = (int)max_u >> 8;
         //WriteTrace(TraceRDP, TraceDebug, " min_u: %f, max_u: %f start: %d, end: %d", min_u, max_u, start_u_256, end_u_256);
 
-        int splitheight = rdp.cur_cache[0]->splitheight;
+        int splitheight = rdp.cur_cache(0)->splitheight;
 
         int num_verts_line = 2 + ((end_u_256 - start_u_256) << 1);
         n_vertices = num_verts_line << 1;
@@ -3732,7 +3742,7 @@ void lle_triangle(uint32_t w1, uint32_t w2, int shade, int texture, int zbuffer,
         v->q = 1.0f / v->w;
         v->u1 = v->u0 = v->ou;
         v->v1 = v->v0 = v->ov;
-        if (rdp.tex >= 1 && rdp.cur_cache[0])
+        if (rdp.tex >= 1 && rdp.cur_cache(0))
         {
             if (rdp.tiles[rdp.cur_tile].shift_s)
             {
@@ -3751,13 +3761,13 @@ void lle_triangle(uint32_t w1, uint32_t w2, int shade, int texture, int zbuffer,
 
             v->u0 -= rdp.tiles[rdp.cur_tile].f_ul_s;
             v->v0 -= rdp.tiles[rdp.cur_tile].f_ul_t;
-            v->u0 = rdp.cur_cache[0]->c_off + rdp.cur_cache[0]->c_scl_x * v->u0;
-            v->v0 = rdp.cur_cache[0]->c_off + rdp.cur_cache[0]->c_scl_y * v->v0;
+            v->u0 = rdp.cur_cache(0)->c_off + rdp.cur_cache(0)->c_scl_x * v->u0;
+            v->v0 = rdp.cur_cache(0)->c_off + rdp.cur_cache(0)->c_scl_y * v->v0;
             v->u0 /= v->w;
             v->v0 /= v->w;
         }
 
-        if (rdp.tex >= 2 && rdp.cur_cache[1])
+        if (rdp.tex >= 2 && rdp.cur_cache(1))
         {
             if (rdp.tiles[rdp.cur_tile + 1].shift_s)
             {
@@ -3776,8 +3786,8 @@ void lle_triangle(uint32_t w1, uint32_t w2, int shade, int texture, int zbuffer,
 
             v->u1 -= rdp.tiles[rdp.cur_tile + 1].f_ul_s;
             v->v1 -= rdp.tiles[rdp.cur_tile + 1].f_ul_t;
-            v->u1 = rdp.cur_cache[1]->c_off + rdp.cur_cache[1]->c_scl_x * v->u1;
-            v->v1 = rdp.cur_cache[1]->c_off + rdp.cur_cache[1]->c_scl_y * v->v1;
+            v->u1 = rdp.cur_cache(1)->c_off + rdp.cur_cache(1)->c_scl_x * v->u1;
+            v->v1 = rdp.cur_cache(1)->c_off + rdp.cur_cache(1)->c_scl_y * v->v1;
             v->u1 /= v->w;
             v->v1 /= v->w;
         }

@@ -107,7 +107,7 @@ void calc_linear(VERTEX *v)
     else if (y < -1.0f)
         y = -1.0f;
 
-    if (rdp.cur_cache[0])
+    if (rdp.cur_cache(0))
     {
         // scale >> 6 is size to map to
         v->ou = (acosf(-x) / 3.141592654f) * (rdp.tiles[rdp.cur_tile].org_s_scale >> 6);

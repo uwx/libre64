@@ -48,11 +48,13 @@ extern uint32_t frame_count; // frame counter
 //GlideHQ support
 #include "Ext_TxFilter.h"
 
-#define MAX_CACHE   1024*4
-#define MAX_TRI_CACHE 768 // this is actually # of vertices, not triangles
-#define MAX_VTX     256
-
-#define MAX_TMU     2
+enum
+{
+    MAX_CACHE = 1024 * 4,
+    MAX_TRI_CACHE = 768, // this is actually # of vertices, not triangles
+    MAX_VTX = 256,
+    MAX_TMU = 2,
+};
 
 #define MAXCMD 0x100000
 const unsigned int maxCMDMask = MAXCMD - 1;
@@ -375,7 +377,7 @@ typedef struct
 
 class CRDP
 {
-public:
+public:    
     CRDP();
     ~CRDP();
 
@@ -388,10 +390,16 @@ public:
     inline VERTEX * vtx2(void) const { return m_vtx2; }
     inline VERTEX * vtxbuf(void) const { return m_vtxbuf; }
     inline VERTEX * vtxbuf2(void) const { return m_vtxbuf2; }
+    inline CACHE_LUT * cache(int tmu) const { return m_cache[tmu]; }
+    inline CACHE_LUT * cur_cache(int tmu) const { return m_cur_cache[tmu]; }
+    inline int n_cached(int tmu) const { return m_n_cached[tmu]; }
 
     inline void SetClip(int value) { m_clip = value; }
     inline void SetVTxbuf(VERTEX * value) { m_vtxbuf = value; }
     inline void SetVTxbuf2(VERTEX * value) { m_vtxbuf2 = value; }
+    inline void SetNCached(int tmu, int value) { m_n_cached[tmu] = value; }
+    inline void SetCurCache(int tmu, CACHE_LUT * value) { m_cur_cache[tmu] = value; }
+    inline void SetCurCacheN(int tmu, uint32_t value) { m_cur_cache_n[tmu] = value; }
 
 private:
     int m_clip; // clipping flags
@@ -404,10 +412,12 @@ public:
     int n_global;   // Used to pass the number of vertices from clip_z to clip_tri
     int vtx_buffer;
 
-    CACHE_LUT *cache[MAX_TMU]; //[MAX_CACHE]
-    CACHE_LUT *cur_cache[MAX_TMU];
-    uint32_t   cur_cache_n[MAX_TMU];
-    int     n_cached[MAX_TMU];
+private:
+    CACHE_LUT * m_cache[MAX_TMU];
+    CACHE_LUT * m_cur_cache[MAX_TMU];
+    uint32_t m_cur_cache_n[MAX_TMU];
+    int m_n_cached[MAX_TMU];
+public:
 
     // Vertices
     VERTEX *vtx; //[MAX_VTX]
