@@ -386,17 +386,21 @@ public:
     inline int clip(void) const { return m_clip; }
     inline VERTEX * vtx1(void) const { return m_vtx1; }
     inline VERTEX * vtx2(void) const { return m_vtx2; }
+    inline VERTEX * vtxbuf(void) const { return m_vtxbuf; }
+    inline VERTEX * vtxbuf2(void) const { return m_vtxbuf2; }
 
     inline void SetClip(int value) { m_clip = value; }
+    inline void SetVTxbuf(VERTEX * value) { m_vtxbuf = value; }
+    inline void SetVTxbuf2(VERTEX * value) { m_vtxbuf2 = value; }
 
 private:
-    int m_clip;     // clipping flags
+    int m_clip; // clipping flags
     VERTEX * m_vtx1; //[256] copy vertex buffer #1 (used for clipping)
     VERTEX * m_vtx2; //[256] copy vertex buffer #2
+    VERTEX * m_vtxbuf; // current vertex buffer (reset to vtx, used to determine current vertex buffer)
+    VERTEX * m_vtxbuf2;
 
 public:
-    VERTEX *vtxbuf;   // current vertex buffer (reset to vtx, used to determine current vertex buffer)
-    VERTEX *vtxbuf2;
     int n_global;   // Used to pass the number of vertices from clip_z to clip_tri
     int vtx_buffer;
 

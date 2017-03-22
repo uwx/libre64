@@ -770,13 +770,14 @@ static void draw_split_triangle(VERTEX **vtx)
         right_256 = (cur_256 + 1) << 8;
 
         // Set vertex buffers
-        rdp.vtxbuf = rdp.vtx1();  // copy from v to rdp.vtx1
-        rdp.vtxbuf2 = rdp.vtx2();
+        rdp.SetVTxbuf(rdp.vtx1());  // copy from v to rdp.vtx1
+        rdp.SetVTxbuf2(rdp.vtx2());
         rdp.vtx_buffer = 0;
         rdp.n_global = 3;
         index = 0;
 
         // ** Left plane **
+        VERTEX * vtxbuf = rdp.vtxbuf();
         for (i = 0; i < 3; i++)
         {
             j = i + 1;
@@ -789,24 +790,24 @@ static void draw_split_triangle(VERTEX **vtx)
             {
                 if (v2->u0 >= left_256)   // Both are in, save the last one
                 {
-                    rdp.vtxbuf[index] = *v2;
-                    rdp.vtxbuf[index].u0 -= left_256;
-                    rdp.vtxbuf[index++].v0 += rdp.cur_cache[0]->c_scl_y * (cur_256 * rdp.cur_cache[0]->splitheight);
+                    vtxbuf[index] = *v2;
+                    vtxbuf[index].u0 -= left_256;
+                    vtxbuf[index++].v0 += rdp.cur_cache[0]->c_scl_y * (cur_256 * rdp.cur_cache[0]->splitheight);
                 }
                 else      // First is in, second is out, save intersection
                 {
                     percent = (left_256 - v1->u0) / (v2->u0 - v1->u0);
-                    rdp.vtxbuf[index].x = v1->x + (v2->x - v1->x) * percent;
-                    rdp.vtxbuf[index].y = v1->y + (v2->y - v1->y) * percent;
-                    rdp.vtxbuf[index].z = 1;
-                    rdp.vtxbuf[index].q = 1;
-                    rdp.vtxbuf[index].u0 = 0.5f;
-                    rdp.vtxbuf[index].v0 = v1->v0 + (v2->v0 - v1->v0) * percent +
+                    vtxbuf[index].x = v1->x + (v2->x - v1->x) * percent;
+                    vtxbuf[index].y = v1->y + (v2->y - v1->y) * percent;
+                    vtxbuf[index].z = 1;
+                    vtxbuf[index].q = 1;
+                    vtxbuf[index].u0 = 0.5f;
+                    vtxbuf[index].v0 = v1->v0 + (v2->v0 - v1->v0) * percent +
                         rdp.cur_cache[0]->c_scl_y * cur_256 * rdp.cur_cache[0]->splitheight;
-                    rdp.vtxbuf[index].b = (uint8_t)(v1->b + (v2->b - v1->b) * percent);
-                    rdp.vtxbuf[index].g = (uint8_t)(v1->g + (v2->g - v1->g) * percent);
-                    rdp.vtxbuf[index].r = (uint8_t)(v1->r + (v2->r - v1->r) * percent);
-                    rdp.vtxbuf[index++].a = (uint8_t)(v1->a + (v2->a - v1->a) * percent);
+                    vtxbuf[index].b = (uint8_t)(v1->b + (v2->b - v1->b) * percent);
+                    vtxbuf[index].g = (uint8_t)(v1->g + (v2->g - v1->g) * percent);
+                    vtxbuf[index].r = (uint8_t)(v1->r + (v2->r - v1->r) * percent);
+                    vtxbuf[index++].a = (uint8_t)(v1->a + (v2->a - v1->a) * percent);
                 }
             }
             else
@@ -815,29 +816,30 @@ static void draw_split_triangle(VERTEX **vtx)
                 if (v2->u0 >= left_256) // First is out, second is in, save intersection & in point
                 {
                     percent = (left_256 - v2->u0) / (v1->u0 - v2->u0);
-                    rdp.vtxbuf[index].x = v2->x + (v1->x - v2->x) * percent;
-                    rdp.vtxbuf[index].y = v2->y + (v1->y - v2->y) * percent;
-                    rdp.vtxbuf[index].z = 1;
-                    rdp.vtxbuf[index].q = 1;
-                    rdp.vtxbuf[index].u0 = 0.5f;
-                    rdp.vtxbuf[index].v0 = v2->v0 + (v1->v0 - v2->v0) * percent +
+                    vtxbuf[index].x = v2->x + (v1->x - v2->x) * percent;
+                    vtxbuf[index].y = v2->y + (v1->y - v2->y) * percent;
+                    vtxbuf[index].z = 1;
+                    vtxbuf[index].q = 1;
+                    vtxbuf[index].u0 = 0.5f;
+                    vtxbuf[index].v0 = v2->v0 + (v1->v0 - v2->v0) * percent +
                         rdp.cur_cache[0]->c_scl_y * cur_256 * rdp.cur_cache[0]->splitheight;
-                    rdp.vtxbuf[index].b = (uint8_t)(v2->b + (v1->b - v2->b) * percent);
-                    rdp.vtxbuf[index].g = (uint8_t)(v2->g + (v1->g - v2->g) * percent);
-                    rdp.vtxbuf[index].r = (uint8_t)(v2->r + (v1->r - v2->r) * percent);
-                    rdp.vtxbuf[index++].a = (uint8_t)(v2->a + (v1->a - v2->a) * percent);
+                    vtxbuf[index].b = (uint8_t)(v2->b + (v1->b - v2->b) * percent);
+                    vtxbuf[index].g = (uint8_t)(v2->g + (v1->g - v2->g) * percent);
+                    vtxbuf[index].r = (uint8_t)(v2->r + (v1->r - v2->r) * percent);
+                    vtxbuf[index++].a = (uint8_t)(v2->a + (v1->a - v2->a) * percent);
 
                     // Save the in point
-                    rdp.vtxbuf[index] = *v2;
-                    rdp.vtxbuf[index].u0 -= left_256;
-                    rdp.vtxbuf[index++].v0 += rdp.cur_cache[0]->c_scl_y * (cur_256 * rdp.cur_cache[0]->splitheight);
+                    vtxbuf[index] = *v2;
+                    vtxbuf[index].u0 -= left_256;
+                    vtxbuf[index++].v0 += rdp.cur_cache[0]->c_scl_y * (cur_256 * rdp.cur_cache[0]->splitheight);
                 }
             }
         }
         rdp.n_global = index;
 
-        rdp.vtxbuf = rdp.vtx2();  // now vtx1 holds the value, & vtx2 is the destination
-        rdp.vtxbuf2 = rdp.vtx1();
+        rdp.SetVTxbuf(rdp.vtx2());  // now vtx1 holds the value, & vtx2 is the destination
+        rdp.SetVTxbuf2(rdp.vtx1());
+        vtxbuf = rdp.vtxbuf();
         rdp.vtx_buffer ^= 1;
         index = 0;
 
@@ -846,29 +848,29 @@ static void draw_split_triangle(VERTEX **vtx)
             j = i + 1;
             if (j == rdp.n_global) j = 0;
 
-            VERTEX *v1 = &rdp.vtxbuf2[i];
-            VERTEX *v2 = &rdp.vtxbuf2[j];
+            VERTEX *v1 = &rdp.vtxbuf2()[i];
+            VERTEX *v2 = &rdp.vtxbuf2()[j];
 
             // ** Right plane **
             if (v1->u0 <= 256.0f)
             {
                 if (v2->u0 <= 256.0f)   // Both are in, save the last one
                 {
-                    rdp.vtxbuf[index++] = *v2;
+                    vtxbuf[index++] = *v2;
                 }
                 else      // First is in, second is out, save intersection
                 {
                     percent = (right_256 - v1->u0) / (v2->u0 - v1->u0);
-                    rdp.vtxbuf[index].x = v1->x + (v2->x - v1->x) * percent;
-                    rdp.vtxbuf[index].y = v1->y + (v2->y - v1->y) * percent;
-                    rdp.vtxbuf[index].z = 1;
-                    rdp.vtxbuf[index].q = 1;
-                    rdp.vtxbuf[index].u0 = 255.5f;
-                    rdp.vtxbuf[index].v0 = v1->v0 + (v2->v0 - v1->v0) * percent;
-                    rdp.vtxbuf[index].b = (uint8_t)(v1->b + (v2->b - v1->b) * percent);
-                    rdp.vtxbuf[index].g = (uint8_t)(v1->g + (v2->g - v1->g) * percent);
-                    rdp.vtxbuf[index].r = (uint8_t)(v1->r + (v2->r - v1->r) * percent);
-                    rdp.vtxbuf[index++].a = (uint8_t)(v1->a + (v2->a - v1->a) * percent);
+                    vtxbuf[index].x = v1->x + (v2->x - v1->x) * percent;
+                    vtxbuf[index].y = v1->y + (v2->y - v1->y) * percent;
+                    vtxbuf[index].z = 1;
+                    vtxbuf[index].q = 1;
+                    vtxbuf[index].u0 = 255.5f;
+                    vtxbuf[index].v0 = v1->v0 + (v2->v0 - v1->v0) * percent;
+                    vtxbuf[index].b = (uint8_t)(v1->b + (v2->b - v1->b) * percent);
+                    vtxbuf[index].g = (uint8_t)(v1->g + (v2->g - v1->g) * percent);
+                    vtxbuf[index].r = (uint8_t)(v1->r + (v2->r - v1->r) * percent);
+                    vtxbuf[index++].a = (uint8_t)(v1->a + (v2->a - v1->a) * percent);
                 }
             }
             else
@@ -877,19 +879,19 @@ static void draw_split_triangle(VERTEX **vtx)
                 if (v2->u0 <= 256.0f) // First is out, second is in, save intersection & in point
                 {
                     percent = (right_256 - v2->u0) / (v1->u0 - v2->u0);
-                    rdp.vtxbuf[index].x = v2->x + (v1->x - v2->x) * percent;
-                    rdp.vtxbuf[index].y = v2->y + (v1->y - v2->y) * percent;
-                    rdp.vtxbuf[index].z = 1;
-                    rdp.vtxbuf[index].q = 1;
-                    rdp.vtxbuf[index].u0 = 255.5f;
-                    rdp.vtxbuf[index].v0 = v2->v0 + (v1->v0 - v2->v0) * percent;
-                    rdp.vtxbuf[index].b = (uint8_t)(v2->b + (v1->b - v2->b) * percent);
-                    rdp.vtxbuf[index].g = (uint8_t)(v2->g + (v1->g - v2->g) * percent);
-                    rdp.vtxbuf[index].r = (uint8_t)(v2->r + (v1->r - v2->r) * percent);
-                    rdp.vtxbuf[index++].a = (uint8_t)(v2->a + (v1->a - v2->a) * percent);
+                    vtxbuf[index].x = v2->x + (v1->x - v2->x) * percent;
+                    vtxbuf[index].y = v2->y + (v1->y - v2->y) * percent;
+                    vtxbuf[index].z = 1;
+                    vtxbuf[index].q = 1;
+                    vtxbuf[index].u0 = 255.5f;
+                    vtxbuf[index].v0 = v2->v0 + (v1->v0 - v2->v0) * percent;
+                    vtxbuf[index].b = (uint8_t)(v2->b + (v1->b - v2->b) * percent);
+                    vtxbuf[index].g = (uint8_t)(v2->g + (v1->g - v2->g) * percent);
+                    vtxbuf[index].r = (uint8_t)(v2->r + (v1->r - v2->r) * percent);
+                    vtxbuf[index++].a = (uint8_t)(v2->a + (v1->a - v2->a) * percent);
 
                     // Save the in point
-                    rdp.vtxbuf[index++] = *v2;
+                    vtxbuf[index++] = *v2;
                 }
             }
         }
@@ -923,19 +925,19 @@ static void uc6_draw_polygons(VERTEX v[4])
     }
     else
     {
-        rdp.vtxbuf = rdp.vtx1();      // copy from v to rdp.vtx1
-        rdp.vtxbuf2 = rdp.vtx2();
+        rdp.SetVTxbuf(rdp.vtx1());      // copy from v to rdp.vtx1
+        rdp.SetVTxbuf2(rdp.vtx2());
         rdp.vtx_buffer = 0;
         rdp.n_global = 3;
-        memcpy(rdp.vtxbuf, v, sizeof(VERTEX) * 3);
+        memcpy(rdp.vtxbuf(), v, sizeof(VERTEX) * 3);
         do_triangle_stuff_2();
         rdp.tri_n++;
 
-        rdp.vtxbuf = rdp.vtx1();      // copy from v to rdp.vtx1
-        rdp.vtxbuf2 = rdp.vtx2();
+        rdp.SetVTxbuf(rdp.vtx1());      // copy from v to rdp.vtx1
+        rdp.SetVTxbuf2(rdp.vtx2());
         rdp.vtx_buffer = 0;
         rdp.n_global = 3;
-        memcpy(rdp.vtxbuf, v + 1, sizeof(VERTEX) * 3);
+        memcpy(rdp.vtxbuf(), v + 1, sizeof(VERTEX) * 3);
         do_triangle_stuff_2();
         rdp.tri_n++;
     }
@@ -1632,19 +1634,19 @@ void uc6_sprite2d()
             }
             else
             {
-                rdp.vtxbuf = rdp.vtx1();        // copy from v to rdp.vtx1
-                rdp.vtxbuf2 = rdp.vtx2();
+                rdp.SetVTxbuf(rdp.vtx1());        // copy from v to rdp.vtx1
+                rdp.SetVTxbuf2(rdp.vtx2());
                 rdp.vtx_buffer = 0;
                 rdp.n_global = 3;
-                memcpy(rdp.vtxbuf, v, sizeof(VERTEX) * 3);
+                memcpy(rdp.vtxbuf(), v, sizeof(VERTEX) * 3);
                 do_triangle_stuff_2();
                 rdp.tri_n++;
 
-                rdp.vtxbuf = rdp.vtx1();        // copy from v to rdp.vtx1
-                rdp.vtxbuf2 = rdp.vtx2();
+                rdp.SetVTxbuf(rdp.vtx1());        // copy from v to rdp.vtx1
+                rdp.SetVTxbuf2(rdp.vtx2());
                 rdp.vtx_buffer = 0;
                 rdp.n_global = 3;
-                memcpy(rdp.vtxbuf, v + 1, sizeof(VERTEX) * 3);
+                memcpy(rdp.vtxbuf(), v + 1, sizeof(VERTEX) * 3);
                 do_triangle_stuff_2();
                 rdp.tri_n++;
             }

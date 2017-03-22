@@ -217,11 +217,12 @@ void CRDP::free()
         m_vtx2 = NULL;
     }
     m_clip = 0;
+    m_vtxbuf = NULL;
+    m_vtxbuf2 = NULL;
 
 
 
     reset = 1;
-    vtxbuf = vtxbuf2 = 0;
     vtx_buffer = n_global = 0;
 
     for (int i = 0; i < MAX_TMU; i++)
