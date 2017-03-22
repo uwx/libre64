@@ -466,16 +466,18 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
             apply_shade_mods(v);
     } //for
 
-    rdp.clip = 0;
+    rdp.SetClip(0);
 
     if ((vtx[0]->scr_off & 16) ||
         (vtx[1]->scr_off & 16) ||
         (vtx[2]->scr_off & 16))
-        rdp.clip |= CLIP_WMIN;
+    {
+        rdp.SetClip(rdp.clip() | CLIP_WMIN);
+    }
 
     vtx[0]->not_zclipped = vtx[1]->not_zclipped = vtx[2]->not_zclipped = 1;
 
-    if (rdp.cur_cache[0] && (rdp.tex & 1) && (rdp.cur_cache[0]->splits > 1) && !rdp.aTBuffTex[0] && !rdp.clip)
+    if (rdp.cur_cache[0] && (rdp.tex & 1) && (rdp.cur_cache[0]->splits > 1) && !rdp.aTBuffTex[0] && rdp.clip() == 0)
     {
         int index, i, j, min_256, max_256, cur_256, left_256, right_256;
         float percent;
@@ -747,8 +749,10 @@ void do_triangle_stuff(uint16_t linew, int old_interpolate) // what else?? do th
 {
     int i;
 
-    if (rdp.clip & CLIP_WMIN)
+    if ((rdp.clip() & CLIP_WMIN) != 0)
+    {
         clip_w(old_interpolate);
+    }
 
     float maxZ = (rdp.zsrc != 1) ? rdp.view_trans[2] + rdp.view_scale[2] : rdp.prim_depth;
 
@@ -790,25 +794,27 @@ void do_triangle_stuff(uint16_t linew, int old_interpolate) // what else?? do th
             rdp.vtxbuf[i].z = rdp.prim_depth;
 
         // Don't remove clipping, or it will freeze
-        if (rdp.vtxbuf[i].x > rdp.clip_max_x) rdp.clip |= CLIP_XMAX;
-        if (rdp.vtxbuf[i].x < rdp.clip_min_x) rdp.clip |= CLIP_XMIN;
-        if (rdp.vtxbuf[i].y > rdp.clip_max_y) rdp.clip |= CLIP_YMAX;
-        if (rdp.vtxbuf[i].y < rdp.clip_min_y) rdp.clip |= CLIP_YMIN;
-        if (rdp.vtxbuf[i].z > maxZ)           rdp.clip |= CLIP_ZMAX;
-        if (rdp.vtxbuf[i].z < 0.0f)           rdp.clip |= CLIP_ZMIN;
+        if (rdp.vtxbuf[i].x > rdp.clip_max_x) { rdp.SetClip(rdp.clip() | CLIP_XMAX); }
+        if (rdp.vtxbuf[i].x < rdp.clip_min_x) { rdp.SetClip(rdp.clip() | CLIP_XMIN); }
+        if (rdp.vtxbuf[i].y > rdp.clip_max_y) { rdp.SetClip(rdp.clip() | CLIP_YMAX); }
+        if (rdp.vtxbuf[i].y < rdp.clip_min_y) { rdp.SetClip(rdp.clip() | CLIP_YMIN); }
+        if (rdp.vtxbuf[i].z > maxZ) { rdp.SetClip(rdp.clip() | CLIP_ZMAX); }
+        if (rdp.vtxbuf[i].z < 0.0f) { rdp.SetClip(rdp.clip() | CLIP_ZMIN); }
         no_clip &= rdp.vtxbuf[i].screen_translated;
     }
     if (no_clip)
-        rdp.clip = 0;
+    {
+        rdp.SetClip(0);
+    }
     else
     {
         if (!g_settings->clip_zmin())
         {
-            rdp.clip &= ~CLIP_ZMIN;
+            rdp.SetClip(rdp.clip() & ~CLIP_ZMIN);
         }         
         if (!g_settings->clip_zmax())
         {
-            rdp.clip &= ~CLIP_ZMAX;
+            rdp.SetClip(rdp.clip() & ~CLIP_ZMAX);
         }
     }
     render_tri(linew, old_interpolate);
@@ -816,17 +822,17 @@ void do_triangle_stuff(uint16_t linew, int old_interpolate) // what else?? do th
 
 void do_triangle_stuff_2(uint16_t linew)
 {
-    rdp.clip = 0;
+    rdp.SetClip(0);
 
     for (int i = 0; i < rdp.n_global; i++)
     {
         // Don't remove clipping, or it will freeze
-        if (rdp.vtxbuf[i].x > rdp.clip_max_x) rdp.clip |= CLIP_XMAX;
-        if (rdp.vtxbuf[i].x < rdp.clip_min_x) rdp.clip |= CLIP_XMIN;
-        if (rdp.vtxbuf[i].y > rdp.clip_max_y) rdp.clip |= CLIP_YMAX;
-        if (rdp.vtxbuf[i].y < rdp.clip_min_y) rdp.clip |= CLIP_YMIN;
+        if (rdp.vtxbuf[i].x > rdp.clip_max_x) { rdp.SetClip(rdp.clip() | CLIP_XMAX); }
+        if (rdp.vtxbuf[i].x < rdp.clip_min_x) { rdp.SetClip(rdp.clip() | CLIP_XMIN); }
+        if (rdp.vtxbuf[i].y > rdp.clip_max_y) { rdp.SetClip(rdp.clip() | CLIP_YMAX); }
+        if (rdp.vtxbuf[i].y < rdp.clip_min_y) { rdp.SetClip(rdp.clip() | CLIP_YMIN); }
     }
-
+  
     render_tri(linew, TRUE);
 }
 
@@ -835,7 +841,6 @@ __inline uint8_t real_to_char(double x)
     return (uint8_t)(((int)floor(x + 0.5)) & 0xFF);
 }
 
-//*
 static void InterpolateColors2(VERTEX & va, VERTEX & vb, VERTEX & res, float percent)
 {
     float w = 1.0f / (va.oow + (vb.oow - va.oow) * percent);
@@ -1073,7 +1078,7 @@ void clip_tri(int interpolate_colors)
     float percent;
 
     // Check which clipping is needed
-    if (rdp.clip & CLIP_XMAX) // right of the screen
+    if ((rdp.clip() & CLIP_XMAX) != 0) // right of the screen
     {
         // Swap vertex buffers
         VERTEX *tmp = rdp.vtxbuf2;
@@ -1137,7 +1142,7 @@ void clip_tri(int interpolate_colors)
         }
         n = index;
     }
-    if (rdp.clip & CLIP_XMIN) // left of the screen
+    if ((rdp.clip() & CLIP_XMIN) != 0)// left of the screen
     {
         // Swap vertex buffers
         VERTEX *tmp = rdp.vtxbuf2;
@@ -1201,7 +1206,7 @@ void clip_tri(int interpolate_colors)
         }
         n = index;
     }
-    if (rdp.clip & CLIP_YMAX) // top of the screen
+    if ((rdp.clip() & CLIP_YMAX) != 0) // top of the screen
     {
         // Swap vertex buffers
         VERTEX *tmp = rdp.vtxbuf2;
@@ -1265,7 +1270,7 @@ void clip_tri(int interpolate_colors)
         }
         n = index;
     }
-    if (rdp.clip & CLIP_YMIN) // bottom of the screen
+    if ((rdp.clip() & CLIP_YMIN) != 0) // bottom of the screen
     {
         // Swap vertex buffers
         VERTEX *tmp = rdp.vtxbuf2;
@@ -1329,7 +1334,7 @@ void clip_tri(int interpolate_colors)
         }
         n = index;
     }
-    if (rdp.clip & CLIP_ZMAX) // far plane
+    if ((rdp.clip() & CLIP_ZMAX) != 0) // far plane
     {
         // Swap vertex buffers
         VERTEX *tmp = rdp.vtxbuf2;
@@ -1465,8 +1470,10 @@ void clip_tri(int interpolate_colors)
 
 static void render_tri(uint16_t linew, int old_interpolate)
 {
-    if (rdp.clip)
+    if (rdp.clip())
+    {
         clip_tri(old_interpolate);
+    }
     int n = rdp.n_global;
     if (n < 3)
     {
@@ -1475,7 +1482,7 @@ static void render_tri(uint16_t linew, int old_interpolate)
     }
     int i, j;
     //*
-    if ((rdp.clip & CLIP_ZMIN) && (rdp.othermode_l & 0x00000030))
+    if ((rdp.clip() & CLIP_ZMIN) != 0 && (rdp.othermode_l & 0x00000030) != 0)
     {
         int to_render = FALSE;
         for (i = 0; i < n; i++)
@@ -1492,8 +1499,8 @@ static void render_tri(uint16_t linew, int old_interpolate)
             return;
         }
     }
-    //*/
-    if (rdp.clip && !old_interpolate)
+
+    if (rdp.clip() != 0 && !old_interpolate)
     {
         for (i = 0; i < n; i++)
         {

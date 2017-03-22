@@ -216,6 +216,9 @@ void CRDP::free()
         delete m_vtx2;
         m_vtx2 = NULL;
     }
+    m_clip = 0;
+
+
 
     reset = 1;
     vtxbuf = vtxbuf2 = 0;

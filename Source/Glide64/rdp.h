@@ -383,11 +383,14 @@ public:
     void free();
 
     // Clipping
-    int clip;     // clipping flags
+    inline int clip(void) const { return m_clip; }
     inline VERTEX * vtx1(void) const { return m_vtx1; }
     inline VERTEX * vtx2(void) const { return m_vtx2; }
 
+    inline void SetClip(int value) { m_clip = value; }
+
 private:
+    int m_clip;     // clipping flags
     VERTEX * m_vtx1; //[256] copy vertex buffer #1 (used for clipping)
     VERTEX * m_vtx2; //[256] copy vertex buffer #2
 
