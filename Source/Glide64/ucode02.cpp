@@ -209,7 +209,7 @@ void uc2_vertex()
             v.g = ((uint8_t*)gfx.RDRAM)[(addr + i + 13) ^ 3];
             v.b = ((uint8_t*)gfx.RDRAM)[(addr + i + 14) ^ 3];
         }
-        WriteTrace(TraceRDP, TraceVerbose, "v%d - x: %f, y: %f, z: %f, w: %f, u: %f, v: %f, f: %f, z_w: %f, r=%d, g=%d, b=%d, a=%d", i >> 4, v.x, v.y, v.z, v.w, v.ou*rdp.tiles[rdp.cur_tile].s_scale, v.ov*rdp.tiles[rdp.cur_tile].t_scale, v.f, v.z_w, v.r, v.g, v.b, v.a);
+        WriteTrace(TraceRDP, TraceVerbose, "v%d - x: %f, y: %f, z: %f, w: %f, u: %f, v: %f, f: %f, z_w: %f, r=%d, g=%d, b=%d, a=%d", i >> 4, v.x, v.y, v.z, v.w, v.ou*rdp.tiles(rdp.cur_tile).s_scale, v.ov*rdp.tiles(rdp.cur_tile).t_scale, v.f, v.z_w, v.r, v.g, v.b, v.a);
     }
     rdp.geom_mode = geom_mode;
 }
@@ -329,7 +329,7 @@ void uc2_quad()
         ((rdp.cmd1 >> 9) & 0x7F),
         ((rdp.cmd1 >> 1) & 0x7F));
 
-    VERTEX *vtx[6] = 
+    VERTEX *vtx[6] =
     {
         &rdp.vtx((rdp.cmd0 >> 17) & 0x7F),
         &rdp.vtx((rdp.cmd0 >> 9) & 0x7F),
@@ -354,7 +354,7 @@ void uc2_line3d()
             (rdp.cmd0 >> 17) & 0x7F,
             (rdp.cmd0 >> 9) & 0x7F);
 
-        VERTEX *vtx[3] = 
+        VERTEX *vtx[3] =
         {
             &rdp.vtx((rdp.cmd0 >> 17) & 0x7F),
             &rdp.vtx((rdp.cmd0 >> 9) & 0x7F),

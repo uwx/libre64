@@ -62,7 +62,7 @@ uint8_t *texture_buffer = tex1;
 
 extern bool g_ghq_use;
 
-typedef struct TEXINFO_t 
+typedef struct TEXINFO_t
 {
     int real_image_width, real_image_height;	// FOR ALIGNMENT PURPOSES ONLY!!!
     int tile_width, tile_height;
@@ -78,7 +78,7 @@ typedef struct TEXINFO_t
 TEXINFO texinfo[2];
 int tex_found[2][MAX_TMU];
 
-typedef struct HIRESTEX_t 
+typedef struct HIRESTEX_t
 {
     int width, height;
     uint16_t format;
@@ -138,7 +138,7 @@ void TexCacheInit()
 void ClearCache()
 {
     voodoo.tmem_ptr[0] = offset_textures;
-    rdp.SetNCached(0,0);
+    rdp.SetNCached(0, 0);
     voodoo.tmem_ptr[1] = voodoo.tex_UMA ? offset_textures : offset_texbuf1;
     rdp.SetNCached(1, 0);
 
@@ -196,11 +196,11 @@ void GetTexInfo(int id, int tile)
     int wid_64, line, bpl;
 
     // Get width and height
-    tile_width = rdp.tiles[tile].lr_s - rdp.tiles[tile].ul_s + 1;
-    tile_height = rdp.tiles[tile].lr_t - rdp.tiles[tile].ul_t + 1;
+    tile_width = rdp.tiles(tile).lr_s - rdp.tiles(tile).ul_s + 1;
+    tile_height = rdp.tiles(tile).lr_t - rdp.tiles(tile).ul_t + 1;
 
-    mask_width = (rdp.tiles[tile].mask_s == 0) ? (tile_width) : (1 << rdp.tiles[tile].mask_s);
-    mask_height = (rdp.tiles[tile].mask_t == 0) ? (tile_height) : (1 << rdp.tiles[tile].mask_t);
+    mask_width = (rdp.tiles(tile).mask_s == 0) ? (tile_width) : (1 << rdp.tiles(tile).mask_s);
+    mask_height = (rdp.tiles(tile).mask_t == 0) ? (tile_height) : (1 << rdp.tiles(tile).mask_t);
 
     if (g_settings->alt_tex_size())
     {
@@ -209,32 +209,32 @@ void GetTexInfo(int id, int tile)
         //  textures.
 
         // Get the width/height to load
-        if ((rdp.tiles[tile].clamp_s && tile_width <= 256) || (mask_width > 256))
+        if ((rdp.tiles(tile).clamp_s && tile_width <= 256) || (mask_width > 256))
         {
             // loading width
             width = minval(mask_width, tile_width);
             // actual width
-            rdp.tiles[tile].width = tile_width;
+            rdp.tiles(tile).width = tile_width;
         }
         else
         {
             // wrap all the way
             width = minval(mask_width, tile_width);	// changed from mask_width only
-            rdp.tiles[tile].width = width;
+            rdp.tiles(tile).width = width;
         }
 
-        if ((rdp.tiles[tile].clamp_t && tile_height <= 256) || (mask_height > 256))
+        if ((rdp.tiles(tile).clamp_t && tile_height <= 256) || (mask_height > 256))
         {
             // loading height
             height = minval(mask_height, tile_height);
             // actual height
-            rdp.tiles[tile].height = tile_height;
+            rdp.tiles(tile).height = tile_height;
         }
         else
         {
             // wrap all the way
             height = minval(mask_height, tile_height);
-            rdp.tiles[tile].height = height;
+            rdp.tiles(tile).height = height;
         }
     }
     else
@@ -250,52 +250,52 @@ void GetTexInfo(int id, int tile)
         }
 
         // Get the width/height to load
-        if ((rdp.tiles[tile].clamp_s && tile_width <= 256))//|| (mask_width > 256))
+        if ((rdp.tiles(tile).clamp_s && tile_width <= 256))//|| (mask_width > 256))
         {
             // loading width
             width = minval(mask_width, tile_width);
             // actual width
-            rdp.tiles[tile].width = tile_width;
+            rdp.tiles(tile).width = tile_width;
         }
         else
         {
             // wrap all the way
             width = mask_width;
-            rdp.tiles[tile].width = mask_width;
+            rdp.tiles(tile).width = mask_width;
         }
 
-        if ((rdp.tiles[tile].clamp_t && tile_height <= 256) || (mask_height > 256))
+        if ((rdp.tiles(tile).clamp_t && tile_height <= 256) || (mask_height > 256))
         {
             // loading height
             height = minval(mask_height, tile_height);
             // actual height
-            rdp.tiles[tile].height = tile_height;
+            rdp.tiles(tile).height = tile_height;
         }
         else
         {
             // wrap all the way
             height = mask_height;
-            rdp.tiles[tile].height = mask_height;
+            rdp.tiles(tile).height = mask_height;
         }
     }
 
     // without any large texture fixing-up; for alignment
-    int real_image_width = rdp.tiles[tile].width;
-    int real_image_height = rdp.tiles[tile].height;
+    int real_image_width = rdp.tiles(tile).width;
+    int real_image_height = rdp.tiles(tile).height;
     int crc_height = height;
-    if (rdp.timg.set_by == 1)
+    if (rdp.timg().set_by == 1)
         crc_height = tile_height;
 
-    bpl = width << rdp.tiles[tile].size >> 1;
+    bpl = width << rdp.tiles(tile).size >> 1;
 
     // ** COMMENT THIS TO DISABLE LARGE TEXTURES
 #ifdef LARGE_TEXTURE_HANDLING
     if (!voodoo.sup_large_tex && width > 256)
     {
         info->splits = ((width - 1) >> 8) + 1;
-        info->splitheight = rdp.tiles[tile].height;
-        rdp.tiles[tile].height *= info->splits;
-        rdp.tiles[tile].width = 256;
+        info->splitheight = rdp.tiles(tile).height;
+        rdp.tiles(tile).height *= info->splits;
+        rdp.tiles(tile).width = 256;
         width = 256;
     }
     else
@@ -306,19 +306,19 @@ void GetTexInfo(int id, int tile)
     }
 
     WriteTrace(TraceRDP, TraceDebug, " | | |-+ Texture approved:");
-    WriteTrace(TraceRDP, TraceDebug, " | | | |- tmem: %08lx", rdp.tiles[tile].t_mem);
+    WriteTrace(TraceRDP, TraceDebug, " | | | |- tmem: %08lx", rdp.tiles(tile).t_mem);
     WriteTrace(TraceRDP, TraceDebug, " | | | |- load width: %d", width);
     WriteTrace(TraceRDP, TraceDebug, " | | | |- load height: %d", height);
-    WriteTrace(TraceRDP, TraceDebug, " | | | |- actual width: %d", rdp.tiles[tile].width);
-    WriteTrace(TraceRDP, TraceDebug, " | | | |- actual height: %d", rdp.tiles[tile].height);
-    WriteTrace(TraceRDP, TraceDebug, " | | | |- size: %d", rdp.tiles[tile].size);
-    WriteTrace(TraceRDP, TraceDebug, " | | | +- format: %d", rdp.tiles[tile].format);
+    WriteTrace(TraceRDP, TraceDebug, " | | | |- actual width: %d", rdp.tiles(tile).width);
+    WriteTrace(TraceRDP, TraceDebug, " | | | |- actual height: %d", rdp.tiles(tile).height);
+    WriteTrace(TraceRDP, TraceDebug, " | | | |- size: %d", rdp.tiles(tile).size);
+    WriteTrace(TraceRDP, TraceDebug, " | | | +- format: %d", rdp.tiles(tile).format);
     WriteTrace(TraceRDP, TraceDebug, " | | |- Calculating CRC... ");
 
     // ** CRC CHECK
 
-    wid_64 = width << (rdp.tiles[tile].size) >> 1;
-    if (rdp.tiles[tile].size == 3)
+    wid_64 = width << (rdp.tiles(tile).size) >> 1;
+    if (rdp.tiles(tile).size == 3)
     {
         if (wid_64 & 15) wid_64 += 16;
         wid_64 &= 0xFFFFFFF0;
@@ -330,20 +330,20 @@ void GetTexInfo(int id, int tile)
     wid_64 = wid_64 >> 3;
 
     // Texture too big for tmem & needs to wrap? (trees in mm)
-    if (rdp.tiles[tile].t_mem + minval(height, tile_height) * (rdp.tiles[tile].line << 3) > 4096)
+    if (rdp.tiles(tile).t_mem + minval(height, tile_height) * (rdp.tiles(tile).line << 3) > 4096)
     {
         WriteTrace(TraceRDP, TraceDebug, "TEXTURE WRAPS TMEM!!! ");
 
         // calculate the y value that intersects at 4096 bytes
-        int y = (4096 - rdp.tiles[tile].t_mem) / (rdp.tiles[tile].line << 3);
+        int y = (4096 - rdp.tiles(tile).t_mem) / (rdp.tiles(tile).line << 3);
 
-        rdp.tiles[tile].clamp_t = 0;
-        rdp.tiles[tile].lr_t = rdp.tiles[tile].ul_t + y - 1;
+        rdp.tiles(tile).clamp_t = 0;
+        rdp.tiles(tile).lr_t = rdp.tiles(tile).ul_t + y - 1;
 
         // calc mask
         int shift;
         for (shift = 0; (1 << shift) < y; shift++);
-        rdp.tiles[tile].mask_t = shift;
+        rdp.tiles(tile).mask_t = shift;
 
         // restart the function
         WriteTrace(TraceRDP, TraceDebug, "restarting...");
@@ -351,18 +351,18 @@ void GetTexInfo(int id, int tile)
         return;
     }
 
-    line = rdp.tiles[tile].line;
-    if (rdp.tiles[tile].size == 3)
+    line = rdp.tiles(tile).line;
+    if (rdp.tiles(tile).size == 3)
         line <<= 1;
     uint32_t crc = 0;
     if (g_settings->fast_crc())
     {
         line = (line - wid_64) << 3;
         if (wid_64 < 1) wid_64 = 1;
-        uint8_t * addr = (((uint8_t*)rdp.tmem) + (rdp.tiles[tile].t_mem << 3));
+        uint8_t * addr = (((uint8_t*)rdp.tmem()) + (rdp.tiles(tile).t_mem << 3));
         if (crc_height > 0) // Check the CRC
         {
-            if (rdp.tiles[tile].size < 3)
+            if (rdp.tiles(tile).size < 3)
                 crc = textureCRC(addr, wid_64, crc_height, line);
             else //32b texture
             {
@@ -376,9 +376,9 @@ void GetTexInfo(int id, int tile)
     else
     {
         crc = 0xFFFFFFFF;
-        uintptr_t addr = uintptr_t(rdp.tmem) + (rdp.tiles[tile].t_mem << 3);
+        uintptr_t addr = uintptr_t(rdp.tmem()) + (rdp.tiles(tile).t_mem << 3);
         uint32_t line2 = maxval(line, 1);
-        if (rdp.tiles[tile].size < 3)
+        if (rdp.tiles(tile).size < 3)
         {
             line2 <<= 3;
             for (int y = 0; y < crc_height; y++)
@@ -403,19 +403,19 @@ void GetTexInfo(int id, int tile)
         line = (line - wid_64) << 3;
         if (wid_64 < 1) wid_64 = 1;
     }
-    if ((rdp.tiles[tile].size < 2) && (rdp.tlut_mode || rdp.tiles[tile].format == 2))
+    if ((rdp.tiles(tile).size < 2) && (rdp.tlut_mode || rdp.tiles(tile).format == 2))
     {
-        if (rdp.tiles[tile].size == 0)
-            crc += rdp.pal_8_crc[rdp.tiles[tile].palette];
+        if (rdp.tiles(tile).size == 0)
+            crc += rdp.pal_8_crc[rdp.tiles(tile).palette];
         else
             crc += rdp.pal_256_crc;
     }
 
     WriteTrace(TraceRDP, TraceDebug, "Done.  CRC is: %08lx.", crc);
 
-    uint32_t flags = (rdp.tiles[tile].clamp_s << 23) | (rdp.tiles[tile].mirror_s << 22) |
-        (rdp.tiles[tile].mask_s << 18) | (rdp.tiles[tile].clamp_t << 17) |
-        (rdp.tiles[tile].mirror_t << 16) | (rdp.tiles[tile].mask_t << 12);
+    uint32_t flags = (rdp.tiles(tile).clamp_s << 23) | (rdp.tiles(tile).mirror_s << 22) |
+        (rdp.tiles(tile).mask_s << 18) | (rdp.tiles(tile).clamp_t << 17) |
+        (rdp.tiles(tile).mirror_t << 16) | (rdp.tiles(tile).mask_t << 12);
 
     info->real_image_width = real_image_width;
     info->real_image_height = real_image_height;
@@ -457,18 +457,18 @@ void GetTexInfo(int id, int tile)
     }
 
     NODE *node = cachelut[crc >> 16];
-    uint32_t mod_mask = (rdp.tiles[tile].format == 2) ? 0xFFFFFFFF : 0xF0F0F0F0;
+    uint32_t mod_mask = (rdp.tiles(tile).format == 2) ? 0xFFFFFFFF : 0xF0F0F0F0;
     while (node)
     {
         if (node->crc == crc)
         {
             cache = (CACHE_LUT*)node->data;
             if (/*tex_found[id][node->tmu] == -1 &&
-                rdp.tiles[tile].palette == cache->palette &&
-                rdp.tiles[tile].format == cache->format &&
-                rdp.tiles[tile].size == cache->size &&*/
-                rdp.tiles[tile].width == cache->width &&
-                rdp.tiles[tile].height == cache->height &&
+                rdp.tiles(tile).palette == cache->palette &&
+                rdp.tiles(tile).format == cache->format &&
+                rdp.tiles(tile).size == cache->size &&*/
+                rdp.tiles(tile).width == cache->width &&
+                rdp.tiles(tile).height == cache->height &&
                 flags == cache->flags)
             {
                 if (!(mod + cache->mod) || (cache->mod == mod &&
@@ -813,7 +813,7 @@ void TexCache()
             {
                 CACHE_LUT *cache = voodoo.tex_UMA ? &rdp.cache(0)[tex_found[0][0]] : &rdp.cache(tmu_0)[tex_found[0][tmu_0]];
                 rdp.SetCurCacheN(0, tex_found[0][tmu_0]);
-                rdp.SetCurCache(0,cache);
+                rdp.SetCurCache(0, cache);
                 rdp.cur_cache(0)->last_used = frame_count;
                 rdp.cur_cache(0)->uses = rdp.debug_n;
                 grTexSource(tmu_0,
@@ -843,8 +843,8 @@ void TexCache()
             if (GfxInitDone)
             {
                 CACHE_LUT *cache = voodoo.tex_UMA ? &rdp.cache(0)[tex_found[1][0]] : &rdp.cache(tmu_1)[tex_found[1][tmu_1]];
-                rdp.SetCurCacheN(1,tex_found[1][tmu_1]);
-                rdp.SetCurCache(1,cache);
+                rdp.SetCurCacheN(1, tex_found[1][tmu_1]);
+                rdp.SetCurCache(1, cache);
                 rdp.cur_cache(1)->last_used = frame_count;
                 rdp.cur_cache(1)->uses = rdp.debug_n;
                 grTexSource(tmu_1,
@@ -888,15 +888,15 @@ void TexCache()
                 int clamp_s, clamp_t;
                 if (rdp.force_wrap && !rdp.texrecting)
                 {
-                    clamp_s = rdp.tiles[tile].clamp_s && rdp.tiles[tile].lr_s - rdp.tiles[tile].ul_s < 256;
-                    clamp_t = rdp.tiles[tile].clamp_t && rdp.tiles[tile].lr_t - rdp.tiles[tile].ul_t < 256;
+                    clamp_s = rdp.tiles(tile).clamp_s && rdp.tiles(tile).lr_s - rdp.tiles(tile).ul_s < 256;
+                    clamp_t = rdp.tiles(tile).clamp_t && rdp.tiles(tile).lr_t - rdp.tiles(tile).ul_t < 256;
                 }
                 else
                 {
-                    clamp_s = (rdp.tiles[tile].clamp_s || rdp.tiles[tile].mask_s == 0) &&
-                        rdp.tiles[tile].lr_s - rdp.tiles[tile].ul_s < 256;
-                    clamp_t = (rdp.tiles[tile].clamp_t || rdp.tiles[tile].mask_t == 0) &&
-                        rdp.tiles[tile].lr_t - rdp.tiles[tile].ul_t < 256;
+                    clamp_s = (rdp.tiles(tile).clamp_s || rdp.tiles(tile).mask_s == 0) &&
+                        rdp.tiles(tile).lr_s - rdp.tiles(tile).ul_s < 256;
+                    clamp_t = (rdp.tiles(tile).clamp_t || rdp.tiles(tile).mask_t == 0) &&
+                        rdp.tiles(tile).lr_t - rdp.tiles(tile).ul_t < 256;
                 }
 
                 if (rdp.cur_cache(i)->f_mirror_s)
@@ -907,7 +907,7 @@ void TexCache()
                     mode_s = GR_TEXTURECLAMP_CLAMP;
                 else
                 {
-                    if (rdp.tiles[tile].mirror_s && voodoo.sup_mirroring)
+                    if (rdp.tiles(tile).mirror_s && voodoo.sup_mirroring)
                         mode_s = GR_TEXTURECLAMP_MIRROR_EXT;
                     else
                         mode_s = GR_TEXTURECLAMP_WRAP;
@@ -921,7 +921,7 @@ void TexCache()
                     mode_t = GR_TEXTURECLAMP_CLAMP;
                 else
                 {
-                    if (rdp.tiles[tile].mirror_t && voodoo.sup_mirroring)
+                    if (rdp.tiles(tile).mirror_t && voodoo.sup_mirroring)
                         mode_t = GR_TEXTURECLAMP_MIRROR_EXT;
                     else
                         mode_t = GR_TEXTURECLAMP_WRAP;
@@ -999,28 +999,28 @@ void LoadTex(int id, int tmu)
     // Get this cache object
     cache = voodoo.tex_UMA ? &rdp.cache(0)[rdp.n_cached(0)] : &rdp.cache(tmu)[rdp.n_cached(tmu)];
     memset(cache, 0, sizeof(*cache));
-    rdp.SetCurCache(id,cache);
-    rdp.SetCurCacheN(id,rdp.n_cached(tmu));
+    rdp.SetCurCache(id, cache);
+    rdp.SetCurCacheN(id, rdp.n_cached(tmu));
 
     //!Hackalert
     //GoldenEye water texture. It has CI format in fact, but the game set it to RGBA
-    if (g_settings->hacks(CSettings::hack_GoldenEye) && rdp.tiles[td].format == 0 && rdp.tlut_mode == 2 && rdp.tiles[td].size == 2)
+    if (g_settings->hacks(CSettings::hack_GoldenEye) && rdp.tiles(td).format == 0 && rdp.tlut_mode == 2 && rdp.tiles(td).size == 2)
     {
-        rdp.tiles[td].format = 2;
-        rdp.tiles[td].size = 1;
+        rdp.tiles(td).format = 2;
+        rdp.tiles(td).size = 1;
     }
 
     // Set the data
-    cache->line = rdp.tiles[td].line;
-    cache->addr = rdp.addr[rdp.tiles[td].t_mem];
+    cache->line = rdp.tiles(td).line;
+    cache->addr = rdp.addr(rdp.tiles(td).t_mem);
     cache->crc = texinfo[id].crc;
-    cache->palette = rdp.tiles[td].palette;
-    cache->width = rdp.tiles[td].width;
-    cache->height = rdp.tiles[td].height;
-    cache->format = rdp.tiles[td].format;
-    cache->size = rdp.tiles[td].size;
+    cache->palette = rdp.tiles(td).palette;
+    cache->width = rdp.tiles(td).width;
+    cache->height = rdp.tiles(td).height;
+    cache->format = rdp.tiles(td).format;
+    cache->size = rdp.tiles(td).size;
     cache->tmem_addr = voodoo.tmem_ptr[tmu];
-    cache->set_by = rdp.timg.set_by;
+    cache->set_by = rdp.timg().set_by;
     cache->texrecting = rdp.texrecting;
     cache->last_used = frame_count;
     cache->uses = rdp.debug_n;
@@ -1039,8 +1039,8 @@ void LoadTex(int id, int tmu)
     cache->t_info.format = GR_TEXFMT_ARGB_1555;
 
     // Calculate lod and aspect
-    uint32_t size_x = rdp.tiles[td].width;
-    uint32_t size_y = rdp.tiles[td].height;
+    uint32_t size_x = rdp.tiles(td).width;
+    uint32_t size_y = rdp.tiles(td).height;
 
     // make size_x and size_y both powers of two
     if (!voodoo.sup_large_tex)
@@ -1058,9 +1058,9 @@ void LoadTex(int id, int tmu)
     // Voodoo 1 support is all here, it will automatically mirror to the full extent.
     if (!voodoo.sup_mirroring)
     {
-        if (rdp.tiles[td].mirror_s && !rdp.tiles[td].clamp_s && (voodoo.sup_large_tex || size_x <= 128))
+        if (rdp.tiles(td).mirror_s && !rdp.tiles(td).clamp_s && (voodoo.sup_large_tex || size_x <= 128))
             size_x <<= 1;
-        if (rdp.tiles[td].mirror_t && !rdp.tiles[td].clamp_t && (voodoo.sup_large_tex || size_y <= 128))
+        if (rdp.tiles(td).mirror_t && !rdp.tiles(td).clamp_t && (voodoo.sup_large_tex || size_y <= 128))
             size_y <<= 1;
     }
 
@@ -1262,50 +1262,56 @@ void LoadTex(int id, int tmu)
     if (g_ghq_use)
     {
         int bpl;
-        uint8_t* addr = (uint8_t*)(gfx.RDRAM + rdp.addr[rdp.tiles[td].t_mem]);
+        uint8_t* addr = (uint8_t*)(gfx.RDRAM + rdp.addr(rdp.tiles(td).t_mem));
         int tile_width = texinfo[id].width;
         int tile_height = texinfo[id].height;
-        LOAD_TILE_INFO &info = rdp.load_info[rdp.tiles[td].t_mem];
-        if (rdp.timg.set_by == 1)
+        LOAD_TILE_INFO &info = rdp.load_info(rdp.tiles(td).t_mem);
+        if (rdp.timg().set_by == 1)
         {
             bpl = info.tex_width << info.tex_size >> 1;
             addr += (info.tile_ul_t * bpl) + (((info.tile_ul_s << info.tex_size) + 1) >> 1);
 
             tile_width = minval(info.tile_width, info.tex_width);
-            if (info.tex_size > rdp.tiles[td].size)
-                tile_width <<= info.tex_size - rdp.tiles[td].size;
+            if (info.tex_size > rdp.tiles(td).size)
+            {
+                tile_width <<= info.tex_size - rdp.tiles(td).size;
+            }
 
-            if (rdp.tiles[td].lr_t > rdp.bg_image_height)
-                tile_height = rdp.bg_image_height - rdp.tiles[td].ul_t;
+            if (rdp.tiles(td).lr_t > rdp.bg_image_height)
+            {
+                tile_height = rdp.bg_image_height - rdp.tiles(td).ul_t;
+            }
             else
+            {
                 tile_height = info.tile_height;
+            }
         }
         else
         {
-            if (rdp.tiles[td].size == 3)
-                bpl = rdp.tiles[td].line << 4;
+            if (rdp.tiles(td).size == 3)
+                bpl = rdp.tiles(td).line << 4;
             else if (info.dxt == 0)
-                bpl = rdp.tiles[td].line << 3;
+                bpl = rdp.tiles(td).line << 3;
             else {
                 uint32_t dxt = info.dxt;
                 if (dxt > 1)
-                    dxt = ReverseDXT(dxt, info.tile_width, texinfo[id].width, rdp.tiles[td].size);
+                    dxt = ReverseDXT(dxt, info.tile_width, texinfo[id].width, rdp.tiles(td).size);
                 bpl = dxt << 3;
             }
         }
 
-        //    uint8_t* addr = (uint8_t*)(gfx.RDRAM+rdp.addr[rdp.tiles[td].t_mem] + (rdp.tiles[td].ul_t * bpl) + (((rdp.tiles[td].ul_s<<rdp.tiles[td].size)+1)>>1));
+        //    uint8_t* addr = (uint8_t*)(gfx.RDRAM+rdp.addr[rdp.tiles(td).t_mem] + (rdp.tiles(td).ul_t * bpl) + (((rdp.tiles(td).ul_s<<rdp.tiles(td).size)+1)>>1));
         uint8_t * paladdr = 0;
         uint16_t * palette = 0;
-        if ((rdp.tiles[td].size < 2) && (rdp.tlut_mode || rdp.tiles[td].format == 2))
+        if ((rdp.tiles(td).size < 2) && (rdp.tlut_mode || rdp.tiles(td).format == 2))
         {
-            if (rdp.tiles[td].size == 1)
+            if (rdp.tiles(td).size == 1)
                 paladdr = (uint8_t*)(rdp.pal_8_rice);
             else if (g_settings->ghq_hirs_altcrc())
-                paladdr = (uint8_t*)(rdp.pal_8_rice + (rdp.tiles[td].palette << 5));
+                paladdr = (uint8_t*)(rdp.pal_8_rice + (rdp.tiles(td).palette << 5));
             else
-                paladdr = (uint8_t*)(rdp.pal_8_rice + (rdp.tiles[td].palette << 4));
-            palette = (rdp.pal_8 + (rdp.tiles[td].palette << 4));
+                paladdr = (uint8_t*)(rdp.pal_8_rice + (rdp.tiles(td).palette << 4));
+            palette = (rdp.pal_8 + (rdp.tiles(td).palette << 4));
         }
 
         // XXX: Special combiner modes are ignored for hires textures
@@ -1317,8 +1323,8 @@ void LoadTex(int id, int tmu)
         //g64_crc = CRC32( g64_crc, &cache->mod_color2, 4 ); // not used?
         g64_crc = CRC32(g64_crc, &cache->mod_factor, 4);
 
-        cache->ricecrc = ext_ghq_checksum(addr, tile_width, tile_height, (unsigned short)(rdp.tiles[td].format << 8 | rdp.tiles[td].size), bpl, paladdr);
-        WriteTrace(TraceRDP, TraceDebug, "CI RICE CRC. format: %d, size: %d, CRC: %08lx, PalCRC: %08lx", rdp.tiles[td].format, rdp.tiles[td].size, (uint32_t)(cache->ricecrc & 0xFFFFFFFF), (uint32_t)(cache->ricecrc >> 32));
+        cache->ricecrc = ext_ghq_checksum(addr, tile_width, tile_height, (unsigned short)(rdp.tiles(td).format << 8 | rdp.tiles(td).size), bpl, paladdr);
+        WriteTrace(TraceRDP, TraceDebug, "CI RICE CRC. format: %d, size: %d, CRC: %08lx, PalCRC: %08lx", rdp.tiles(td).format, rdp.tiles(td).size, (uint32_t)(cache->ricecrc & 0xFFFFFFFF), (uint32_t)(cache->ricecrc >> 32));
         if (ext_ghq_hirestex((uint64)g64_crc, cache->ricecrc, palette, &ghqTexInfo))
         {
             cache->is_hires_tex = ghqTexInfo.is_hires_tex;
@@ -1342,12 +1348,12 @@ void LoadTex(int id, int tmu)
                 start_dst <<= HIWORD(result);	// 1st time, result is set to 0, but start_dst is 0 anyway so it doesn't matter
 
                 int start_src = i * 256;	// start 256 more to the right
-                start_src = start_src << (rdp.tiles[td].size) >> 1;
-                if (rdp.tiles[td].size == 3)
+                start_src = start_src << (rdp.tiles(td).size) >> 1;
+                if (rdp.tiles(td).size == 3)
                     start_src >>= 1;
 
-                result = load_table[rdp.tiles[td].size][rdp.tiles[td].format]
-                    (uintptr_t(texture) + start_dst, uintptr_t(rdp.tmem) + (rdp.tiles[td].t_mem << 3) + start_src,
+                result = load_table[rdp.tiles(td).size][rdp.tiles(td).format]
+                (uintptr_t(texture) + start_dst, uintptr_t(rdp.tmem()) + (rdp.tiles(td).t_mem << 3) + start_src,
                     texinfo[id].wid_64, texinfo[id].height, texinfo[id].line, real_x, td);
 
                 uint32_t size = HIWORD(result);
@@ -1363,19 +1369,19 @@ void LoadTex(int id, int tmu)
     // ** end texture splitting **
         else
         {
-            result = load_table[rdp.tiles[td].size][rdp.tiles[td].format]
-                (uintptr_t(texture), uintptr_t(rdp.tmem) + (rdp.tiles[td].t_mem << 3),
+            result = load_table[rdp.tiles(td).size][rdp.tiles(td).format]
+            (uintptr_t(texture), uintptr_t(rdp.tmem()) + (rdp.tiles(td).t_mem << 3),
                 texinfo[id].wid_64, texinfo[id].height, texinfo[id].line, real_x, td);
 
             uint32_t size = HIWORD(result);
 
             int min_x, min_y;
-            if (rdp.tiles[td].mask_s != 0)
-                min_x = minval((int)real_x, 1 << rdp.tiles[td].mask_s);
+            if (rdp.tiles(td).mask_s != 0)
+                min_x = minval((int)real_x, 1 << rdp.tiles(td).mask_s);
             else
                 min_x = real_x;
-            if (rdp.tiles[td].mask_t != 0)
-                min_y = minval((int)real_y, 1 << rdp.tiles[td].mask_t);
+            if (rdp.tiles(td).mask_t != 0)
+                min_y = minval((int)real_y, 1 << rdp.tiles(td).mask_t);
             else
                 min_y = real_y;
 
@@ -1392,29 +1398,29 @@ void LoadTex(int id, int tmu)
 
             if (texinfo[id].width < (int)real_x)
             {
-                if (rdp.tiles[td].mirror_s)
+                if (rdp.tiles(td).mirror_s)
                 {
                     if (size == 1)
-                        Mirror16bS((texture), rdp.tiles[td].mask_s,
-                        real_x, real_x, texinfo[id].height);
+                        Mirror16bS((texture), rdp.tiles(td).mask_s,
+                            real_x, real_x, texinfo[id].height);
                     else if (size != 2)
-                        Mirror8bS((texture), rdp.tiles[td].mask_s,
-                        real_x, real_x, texinfo[id].height);
+                        Mirror8bS((texture), rdp.tiles(td).mask_s,
+                            real_x, real_x, texinfo[id].height);
                     else
-                        Mirror32bS((texture), rdp.tiles[td].mask_s,
-                        real_x, real_x, texinfo[id].height);
+                        Mirror32bS((texture), rdp.tiles(td).mask_s,
+                            real_x, real_x, texinfo[id].height);
                 }
                 else
                 {
                     if (size == 1)
-                        Wrap16bS((texture), rdp.tiles[td].mask_s,
-                        real_x, real_x, texinfo[id].height);
+                        Wrap16bS((texture), rdp.tiles(td).mask_s,
+                            real_x, real_x, texinfo[id].height);
                     else if (size != 2)
-                        Wrap8bS((texture), rdp.tiles[td].mask_s,
-                        real_x, real_x, texinfo[id].height);
+                        Wrap8bS((texture), rdp.tiles(td).mask_s,
+                            real_x, real_x, texinfo[id].height);
                     else
-                        Wrap32bS((texture), rdp.tiles[td].mask_s,
-                        real_x, real_x, texinfo[id].height);
+                        Wrap32bS((texture), rdp.tiles(td).mask_s,
+                            real_x, real_x, texinfo[id].height);
                 }
             }
 
@@ -1430,29 +1436,29 @@ void LoadTex(int id, int tmu)
 
             if (texinfo[id].height < (int)real_y)
             {
-                if (rdp.tiles[td].mirror_t)
+                if (rdp.tiles(td).mirror_t)
                 {
                     if (size == 1)
-                        Mirror16bT((texture), rdp.tiles[td].mask_t,
-                        real_y, real_x);
+                        Mirror16bT((texture), rdp.tiles(td).mask_t,
+                            real_y, real_x);
                     else if (size != 2)
-                        Mirror8bT((texture), rdp.tiles[td].mask_t,
-                        real_y, real_x);
+                        Mirror8bT((texture), rdp.tiles(td).mask_t,
+                            real_y, real_x);
                     else
-                        Mirror32bT((texture), rdp.tiles[td].mask_t,
-                        real_y, real_x);
+                        Mirror32bT((texture), rdp.tiles(td).mask_t,
+                            real_y, real_x);
                 }
                 else
                 {
                     if (size == 1)
-                        Wrap16bT((texture), rdp.tiles[td].mask_t,
-                        real_y, real_x);
+                        Wrap16bT((texture), rdp.tiles(td).mask_t,
+                            real_y, real_x);
                     else if (size != 2)
-                        Wrap8bT((texture), rdp.tiles[td].mask_t,
-                        real_y, real_x);
+                        Wrap8bT((texture), rdp.tiles(td).mask_t,
+                            real_y, real_x);
                     else
-                        Wrap32bT((texture), rdp.tiles[td].mask_t,
-                        real_y, real_x);
+                        Wrap32bT((texture), rdp.tiles(td).mask_t,
+                            real_y, real_x);
                 }
             }
         }
@@ -1623,9 +1629,11 @@ void LoadTex(int id, int tmu)
                             }
                             else
                             {
-                                int tile_width = rdp.tiles[td].width;
-                                if (rdp.timg.set_by == 1)
-                                    tile_width = rdp.load_info[rdp.tiles[td].t_mem].tex_width;
+                                int tile_width = rdp.tiles(td).width;
+                                if (rdp.timg().set_by == 1)
+                                {
+                                    tile_width = rdp.load_info(rdp.tiles(td).t_mem).tex_width;
+                                }
                                 float mult = float(ghqTexInfo.untiled_width / tile_width);
                                 cache->c_scl_x *= mult;
                                 cache->c_scl_y *= mult;
@@ -1663,11 +1671,11 @@ void LoadTex(int id, int tmu)
                         }
                         if (voodoo.sup_mirroring)
                         {
-                            if (rdp.tiles[td].mirror_s && texinfo[id].tile_width == 2 * texinfo[id].width)
+                            if (rdp.tiles(td).mirror_s && texinfo[id].tile_width == 2 * texinfo[id].width)
                                 cache->f_mirror_s = TRUE;
                             else if (texinfo[id].tile_width >= 2 * texinfo[id].width)
                                 cache->f_wrap_s = TRUE;
-                            if (rdp.tiles[td].mirror_t && texinfo[id].tile_height == 2 * texinfo[id].height)
+                            if (rdp.tiles(td).mirror_t && texinfo[id].tile_height == 2 * texinfo[id].height)
                                 cache->f_mirror_t = TRUE;
                             else if (texinfo[id].tile_height >= 2 * texinfo[id].height)
                                 cache->f_wrap_t = TRUE;

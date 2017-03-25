@@ -321,13 +321,13 @@ template<class T> static T __ROL__(T value, unsigned int count)
  * for Rice hires texture packs.
  *
  * BYTE* addr = (BYTE*)(gfx.RDRAM +
- *                     rdp.addr[rdp.tiles[tile].t_mem] +
- *                     (rdp.tiles[tile].ul_t * bpl) +
- *                     (((rdp.tiles[tile].ul_s<<rdp.tiles[tile].size)+1)>>1));
+ *                     rdp.addr[rdp.tiles(tile).t_mem] +
+ *                     (rdp.tiles(tile).ul_t * bpl) +
+ *                     (((rdp.tiles(tile).ul_s<<rdp.tiles(tile).size)+1)>>1));
  * RiceCRC32(addr,
- *          rdp.tiles[tile].width,
- *          rdp.tiles[tile].height,
- *          (unsigned short)(rdp.tiles[tile].format << 8 | rdp.tiles[tile].size),
+ *          rdp.tiles(tile).width,
+ *          rdp.tiles(tile).height,
+ *          (unsigned short)(rdp.tiles(tile).format << 8 | rdp.tiles(tile).size),
  *          bpl);
  */
 uint32

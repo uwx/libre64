@@ -697,7 +697,7 @@ int FindTextureBuffer(uint32_t addr, uint16_t width)
         for (int j = 0; j < rdp.texbufs[index].count && !found; j++)
         {
             rdp.tbuff_tex = &(rdp.texbufs[index].images[j]);
-            if (addr >= rdp.tbuff_tex->addr && addr < rdp.tbuff_tex->end_addr)// && rdp.timg.format == 0)
+            if (addr >= rdp.tbuff_tex->addr && addr < rdp.tbuff_tex->end_addr)// && rdp.timg().format == 0)
             {
                 bool bCorrect;
                 if (rdp.tbuff_tex->crc == 0)

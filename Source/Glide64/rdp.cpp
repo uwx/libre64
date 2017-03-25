@@ -266,7 +266,6 @@ void CRDP::free()
         m_vtx = NULL;
     }
 
-
     reset = 1;
     vtx_buffer = n_global = 0;
 
@@ -291,6 +290,12 @@ void CRDP::free()
     rdp.update = UPDATE_SCISSOR | UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
     fog_mode = CRDP::fog_enabled;
     maincimg[0].addr = maincimg[1].addr = last_drawn_ci_addr = 0x7FFFFFFF;
+
+    memset(&m_timg, 0, sizeof(m_timg));
+    memset(m_tiles, 0, sizeof(m_tiles));
+    memset(m_tmem, 0, sizeof(m_tmem));
+    memset(m_addr, 0, sizeof(m_addr));
+    memset(m_load_info, 0, sizeof(m_load_info));
 }
 
 void microcheck()
@@ -308,12 +313,12 @@ void microcheck()
 
 #ifdef LOG_UCODE
     std::ofstream ucf;
-    ucf.open ("ucode.txt", std::ios::out | std::ios::binary);
+    ucf.open("ucode.txt", std::ios::out | std::ios::binary);
     char d;
-    for (i=0; i<0x400000; i++)
+    for (i = 0; i < 0x400000; i++)
     {
-        d = ((char*)gfx.RDRAM)[i^3];
-        ucf.write (&d, 1);
+        d = ((char*)gfx.RDRAM)[i ^ 3];
+        ucf.write(&d, 1);
     }
     ucf.close();
 #endif
@@ -691,7 +696,7 @@ EXPORT void CALL ProcessDList(void)
         else
         {
             // MAIN PROCESSING LOOP
-            do 
+            do
             {
                 // Get the address of the next command
                 a = rdp.pc[rdp.pc_i] & BMASK;
@@ -738,7 +743,7 @@ EXPORT void CALL ProcessDList(void)
     catch (...) {
         if (g_fullscreen)
         {
-            ReleaseGfx ();
+            ReleaseGfx();
             rdp.reset();
             if (g_ghq_use)
             {
@@ -746,7 +751,7 @@ EXPORT void CALL ProcessDList(void)
                 g_ghq_use = false;
             }
         }
-        if (MessageBox(gfx.hWnd, "The GFX plugin caused an exception and has been disabled.\nWould you like to turn it back on and attempt to continue?","Glide64 Exception", MB_YESNO|MB_ICONEXCLAMATION) == MB_NO)
+        if (MessageBox(gfx.hWnd, "The GFX plugin caused an exception and has been disabled.\nWould you like to turn it back on and attempt to continue?", "Glide64 Exception", MB_YESNO | MB_ICONEXCLAMATION) == MB_NO)
         {
             exception = TRUE;
         }
@@ -809,7 +814,7 @@ void rdp_noop()
     WriteTrace(TraceRDP, TraceDebug, "noop");
 }
 
-static void ys_memrect()
+void ys_memrect()
 {
     uint32_t tile = (uint16_t)((rdp.cmd1 & 0x07000000) >> 24);
 
@@ -830,8 +835,8 @@ static void ys_memrect()
         WriteTrace(TraceRDP, TraceDebug, "  off_y: %d", off_y);
 
     uint32_t y, width = lr_x - ul_x;
-    uint32_t tex_width = rdp.tiles[tile].line << 3;
-    uint8_t * texaddr = gfx.RDRAM + rdp.addr[rdp.tiles[tile].t_mem] + tex_width*off_y + off_x;
+    uint32_t tex_width = rdp.tiles(tile).line << 3;
+    uint8_t * texaddr = gfx.RDRAM + rdp.addr(rdp.tiles(tile).t_mem) + tex_width*off_y + off_x;
     uint8_t * fbaddr = gfx.RDRAM + rdp.cimg + ul_x;
 
     for (y = ul_y; y < lr_y; y++) {
@@ -866,7 +871,7 @@ static void pd_zcopy()
     uint16_t ul_u = (uint16_t)((rdp.cmd2 & 0xFFFF0000) >> 21) + 1;
     uint16_t *ptr_dst = (uint16_t*)(gfx.RDRAM + rdp.cimg);
     uint16_t width = lr_x - ul_x;
-    uint16_t * ptr_src = ((uint16_t*)rdp.tmem) + ul_u;
+    uint16_t * ptr_src = ((uint16_t*)rdp.tmem()) + ul_u;
     uint16_t c;
     for (uint16_t x = 0; x < width; x++)
     {
@@ -912,11 +917,11 @@ void rdp_texrect()
         else
         {
             //gDPTextureRectangle
-			if (g_settings->hacks(CSettings::hack_Winback))
+            if (g_settings->hacks(CSettings::hack_Winback))
             {
-				rdp.pc[rdp.pc_i] += 8;
-				return;
-			}
+                rdp.pc[rdp.pc_i] += 8;
+                return;
+            }
 
             if (g_settings->hacks(CSettings::hack_ASB))
             {
@@ -927,7 +932,7 @@ void rdp_texrect()
                 rdp.cmd2 = ((uint32_t*)gfx.RDRAM)[a + 0];
             }
 
-			rdp.cmd3 = ((uint32_t*)gfx.RDRAM)[a + 1];
+            rdp.cmd3 = ((uint32_t*)gfx.RDRAM)[a + 1];
             rdp.pc[rdp.pc_i] += 8;
         }
     }
@@ -937,7 +942,7 @@ void rdp_texrect()
         return;
     }
 
-	if (rdp.skip_drawing || (!g_settings->fb_emulation_enabled() && (rdp.cimg == rdp.zimg)))
+    if (rdp.skip_drawing || (!g_settings->fb_emulation_enabled() && (rdp.cimg == rdp.zimg)))
     {
         if (g_settings->hacks(CSettings::hack_PMario) && rdp.ci_status == ci_useless)
         {
@@ -952,7 +957,7 @@ void rdp_texrect()
 
     if ((g_settings->ucode() == CSettings::ucode_CBFD) && rdp.cur_image && rdp.cur_image->format)
     {
-        //WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect. texaddr: %08lx, cimg: %08lx, cimg_end: %08lx", rdp.timg.addr, rdp.maincimg[1].addr, rdp.maincimg[1].addr+rdp.ci_width*rdp.ci_height*rdp.ci_size);
+        //WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect. texaddr: %08lx, cimg: %08lx, cimg_end: %08lx", rdp.timg().addr, rdp.maincimg[1].addr, rdp.maincimg[1].addr+rdp.ci_width*rdp.ci_height*rdp.ci_size);
         WriteTrace(TraceRDP, TraceDebug, "Shadow texrect is skipped.");
         rdp.tri_n += 2;
         return;
@@ -1049,27 +1054,26 @@ void rdp_texrect()
 
     /*Gonetz*/
     //hack for Zelda MM. it removes black texrects which cover all geometry in "Link meets Zelda" cut scene
-    if (g_settings->hacks(CSettings::hack_Zelda) && rdp.timg.addr >= rdp.cimg && rdp.timg.addr < rdp.ci_end)
+    if (g_settings->hacks(CSettings::hack_Zelda) && rdp.timg().addr >= rdp.cimg && rdp.timg().addr < rdp.ci_end)
     {
         WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect. texaddr: %08lx, cimg: %08lx, cimg_end: %08lx", rdp.cur_cache(0)->addr, rdp.cimg, rdp.cimg + rdp.ci_width*rdp.ci_height * 2);
         rdp.tri_n += 2;
         return;
     }
-    //*
+
     //hack for Banjo2. it removes black texrects under Banjo
     if (!g_settings->fb_hwfbe_enabled() && ((rdp.cycle1 << 16) | (rdp.cycle2 & 0xFFFF)) == 0xFFFFFFFF && (rdp.othermode_l & 0xFFFF0000) == 0x00500000)
     {
         rdp.tri_n += 2;
         return;
     }
-    //*/
-    //*
+
     //remove motion blur in night vision
-    if (g_settings->ucode() == CSettings::ucode_PerfectDark && (rdp.maincimg[1].addr != rdp.maincimg[0].addr) && (rdp.timg.addr >= rdp.maincimg[1].addr) && (rdp.timg.addr < (rdp.maincimg[1].addr + rdp.ci_width*rdp.ci_height*rdp.ci_size)))
+    if (g_settings->ucode() == CSettings::ucode_PerfectDark && (rdp.maincimg[1].addr != rdp.maincimg[0].addr) && (rdp.timg().addr >= rdp.maincimg[1].addr) && (rdp.timg().addr < (rdp.maincimg[1].addr + rdp.ci_width*rdp.ci_height*rdp.ci_size)))
     {
         if (g_settings->fb_emulation_enabled() && rdp.ci_count > 0 && rdp.frame_buffers[rdp.ci_count - 1].status == ci_copy_self)
         {
-            //WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect. texaddr: %08lx, cimg: %08lx, cimg_end: %08lx", rdp.timg.addr, rdp.maincimg[1], rdp.maincimg[1]+rdp.ci_width*rdp.ci_height*rdp.ci_size);
+            //WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect. texaddr: %08lx, cimg: %08lx, cimg_end: %08lx", rdp.timg().addr, rdp.maincimg[1], rdp.maincimg[1]+rdp.ci_width*rdp.ci_height*rdp.ci_size);
             WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect.");
             rdp.tri_n += 2;
             return;
@@ -1165,7 +1169,7 @@ void rdp_texrect()
         {
             float sx = 1, sy = 1;
             int x_i = off_x_i, y_i = off_y_i;
-            TILE & tile = rdp.tiles[rdp.cur_tile + i];
+            TILE & tile = rdp.tiles(rdp.cur_tile + i);
             //shifting
             if (tile.shift_s)
             {
@@ -1591,21 +1595,21 @@ void load_palette(uint32_t addr, uint16_t start, uint16_t count)
 void rdp_loadtlut()
 {
     uint32_t tile = (rdp.cmd1 >> 24) & 0x07;
-    uint16_t start = rdp.tiles[tile].t_mem - 256; // starting location in the palettes
+    uint16_t start = rdp.tiles(tile).t_mem - 256; // starting location in the palettes
     //  uint16_t start = ((uint16_t)(rdp.cmd1 >> 2) & 0x3FF) + 1;
     uint16_t count = ((uint16_t)(rdp.cmd1 >> 14) & 0x3FF) + 1;    // number to copy
 
-    if (rdp.timg.addr + (count << 1) > BMASK)
-        count = (uint16_t)((BMASK - rdp.timg.addr) >> 1);
+    if (rdp.timg().addr + (count << 1) > BMASK)
+        count = (uint16_t)((BMASK - rdp.timg().addr) >> 1);
 
     if (start + count > 256) count = 256 - start;
 
     WriteTrace(TraceRDP, TraceDebug, "loadtlut: tile: %d, start: %d, count: %d, from: %08lx", tile, start, count,
-        rdp.timg.addr);
+        rdp.timg().addr);
 
-    load_palette(rdp.timg.addr, start, count);
+    load_palette(rdp.timg().addr, start, count);
 
-    rdp.timg.addr += count << 1;
+    rdp.timg().addr += count << 1;
 
     if (rdp.tbuff_tex) //paranoid check.
     {
@@ -1633,8 +1637,8 @@ void rdp_settilesize()
     uint32_t tile = (rdp.cmd1 >> 24) & 0x07;
     rdp.last_tile_size = tile;
 
-    rdp.tiles[tile].f_ul_s = (float)((rdp.cmd0 >> 12) & 0xFFF) / 4.0f;
-    rdp.tiles[tile].f_ul_t = (float)(rdp.cmd0 & 0xFFF) / 4.0f;
+    rdp.tiles(tile).f_ul_s = (float)((rdp.cmd0 >> 12) & 0xFFF) / 4.0f;
+    rdp.tiles(tile).f_ul_t = (float)(rdp.cmd0 & 0xFFF) / 4.0f;
 
     int ul_s = (rdp.cmd0 >> 14) & 0x03ff;
     int ul_t = (rdp.cmd0 >> 2) & 0x03ff;
@@ -1655,32 +1659,32 @@ void rdp_settilesize()
         if (tile_set)
         {
             // coords in 10.2 format
-            rdp.tiles[tile].ul_s = ul_s;
-            rdp.tiles[tile].ul_t = ul_t;
-            rdp.tiles[tile].lr_s = lr_s;
-            rdp.tiles[tile].lr_t = lr_t;
+            rdp.tiles(tile).ul_s = ul_s;
+            rdp.tiles(tile).ul_t = ul_t;
+            rdp.tiles(tile).lr_s = lr_s;
+            rdp.tiles(tile).lr_t = lr_t;
             tile_set = 0;
         }
     }
     else
     {
         // coords in 10.2 format
-        rdp.tiles[tile].ul_s = ul_s;
-        rdp.tiles[tile].ul_t = ul_t;
-        rdp.tiles[tile].lr_s = lr_s;
-        rdp.tiles[tile].lr_t = lr_t;
+        rdp.tiles(tile).ul_s = ul_s;
+        rdp.tiles(tile).ul_t = ul_t;
+        rdp.tiles(tile).lr_s = lr_s;
+        rdp.tiles(tile).lr_t = lr_t;
     }
 
     // handle wrapping
-    if (rdp.tiles[tile].lr_s < rdp.tiles[tile].ul_s) rdp.tiles[tile].lr_s += 0x400;
-    if (rdp.tiles[tile].lr_t < rdp.tiles[tile].ul_t) rdp.tiles[tile].lr_t += 0x400;
+    if (rdp.tiles(tile).lr_s < rdp.tiles(tile).ul_s) rdp.tiles(tile).lr_s += 0x400;
+    if (rdp.tiles(tile).lr_t < rdp.tiles(tile).ul_t) rdp.tiles(tile).lr_t += 0x400;
 
     rdp.update |= UPDATE_TEXTURE;
 
     rdp.first = 1;
 
     WriteTrace(TraceRDP, TraceDebug, "settilesize: tile: %d, ul_s: %d, ul_t: %d, lr_s: %d, lr_t: %d, f_ul_s: %f, f_ul_t: %f",
-        tile, ul_s, ul_t, lr_s, lr_t, rdp.tiles[tile].f_ul_s, rdp.tiles[tile].f_ul_t);
+        tile, ul_s, ul_t, lr_s, lr_t, rdp.tiles(tile).f_ul_s, rdp.tiles(tile).f_ul_t);
 }
 
 void setTBufTex(uint16_t t_mem, uint32_t cnt)
@@ -1849,7 +1853,7 @@ void rdp_loadblock()
     {
         if (ucode5_texshift % ((lr_s + 1) << 3))
         {
-            rdp.timg.addr -= ucode5_texshift;
+            rdp.timg().addr -= ucode5_texshift;
             ucode5_texshiftaddr = 0;
             ucode5_texshift = 0;
             ucode5_texshiftcount = 0;
@@ -1858,7 +1862,7 @@ void rdp_loadblock()
             ucode5_texshiftcount++;
     }
 
-    rdp.addr[rdp.tiles[tile].t_mem] = rdp.timg.addr;
+    rdp.SetAddr(rdp.tiles(tile).t_mem, rdp.timg().addr);
 
     // ** DXT is used for swapping every other line
     /*  double fdxt = (double)0x8000000F/(double)((uint32_t)(2047/(dxt-1))); // F for error
@@ -1867,63 +1871,73 @@ void rdp_loadblock()
     // 0x00000800 -> 0x80000000 (so we can check the sign bit instead of the 11th bit)
     uint32_t _dxt = dxt << 20;
 
-    uint32_t addr = segoffset(rdp.timg.addr) & BMASK;
+    uint32_t addr = segoffset(rdp.timg().addr) & BMASK;
 
     // lr_s specifies number of 64-bit words to copy
     // 10.2 format
     uint16_t ul_s = (uint16_t)((rdp.cmd0 >> 14) & 0x3FF);
     uint16_t ul_t = (uint16_t)((rdp.cmd0 >> 2) & 0x3FF);
 
-    rdp.tiles[tile].ul_s = ul_s;
-    rdp.tiles[tile].ul_t = ul_t;
-    rdp.tiles[tile].lr_s = lr_s;
+    rdp.tiles(tile).ul_s = ul_s;
+    rdp.tiles(tile).ul_t = ul_t;
+    rdp.tiles(tile).lr_s = lr_s;
 
-    rdp.timg.set_by = 0;  // load block
+    rdp.timg().set_by = 0;  // load block
 
-    LOAD_TILE_INFO &info = rdp.load_info[rdp.tiles[tile].t_mem];
+    LOAD_TILE_INFO &info = rdp.load_info(rdp.tiles(tile).t_mem);
     info.tile_width = lr_s;
     info.dxt = dxt;
 
     // do a quick boundary check before copying to eliminate the possibility for exception
-    if (ul_s >= 512) {
+    if (ul_s >= 512)
+    {
         lr_s = 1;   // 1 so that it doesn't die on memcpy
         ul_s = 511;
     }
     if (ul_s + lr_s > 512)
+    {
         lr_s = 512 - ul_s;
+    }
 
     if (addr + (lr_s << 3) > BMASK + 1)
+    {
         lr_s = (uint16_t)((BMASK - addr) >> 3);
+    }
 
     //angrylion's advice to use ul_s in texture image offset and cnt calculations.
     //Helps to fix Vigilante 8 jpeg backgrounds and logos
-    uint32_t off = rdp.timg.addr + (ul_s << rdp.tiles[tile].size >> 1);
-    unsigned char *dst = ((unsigned char *)rdp.tmem) + (rdp.tiles[tile].t_mem << 3);
+    uint32_t off = rdp.timg().addr + (ul_s << rdp.tiles(tile).size >> 1);
+    unsigned char *dst = ((unsigned char *)rdp.tmem()) + (rdp.tiles(tile).t_mem << 3);
     uint32_t cnt = lr_s - ul_s + 1;
-    if (rdp.tiles[tile].size == 3)
+    if (rdp.tiles(tile).size == 3)
+    {
         cnt <<= 1;
-
-    if (((rdp.tiles[tile].t_mem + cnt) << 3) > sizeof(rdp.tmem)) {
-        cnt = (sizeof(rdp.tmem) >> 3) - (rdp.tiles[tile].t_mem);
     }
 
-    if (rdp.timg.size == 3)
-        LoadBlock32b(tile, ul_s, ul_t, lr_s, dxt);
-    else
-        loadBlock((uint32_t *)gfx.RDRAM, (uint32_t *)dst, off, _dxt, cnt);
+    if (((rdp.tiles(tile).t_mem + cnt) << 3) > rdp.tmem_size())
+    {
+        cnt = (rdp.tmem_size() >> 3) - (rdp.tiles(tile).t_mem);
+    }
 
-    rdp.timg.addr += cnt << 3;
-    rdp.tiles[tile].lr_t = ul_t + ((dxt*cnt) >> 11);
+    if (rdp.timg().size == 3)
+    {
+        LoadBlock32b(tile, ul_s, ul_t, lr_s, dxt);
+    }
+    else
+    {
+        loadBlock((uint32_t *)gfx.RDRAM, (uint32_t *)dst, off, _dxt, cnt);
+    }
+
+    rdp.timg().addr += cnt << 3;
+    rdp.tiles(tile).lr_t = ul_t + ((dxt*cnt) >> 11);
 
     rdp.update |= UPDATE_TEXTURE;
 
-    WriteTrace(TraceRDP, TraceDebug, "loadblock: tile: %d, ul_s: %d, ul_t: %d, lr_s: %d, dxt: %08lx -> %08lx",
-        tile, ul_s, ul_t, lr_s,
-        dxt, _dxt);
+    WriteTrace(TraceRDP, TraceDebug, "loadblock: tile: %d, ul_s: %d, ul_t: %d, lr_s: %d, dxt: %08lx -> %08lx", tile, ul_s, ul_t, lr_s, dxt, _dxt);
 
     if (g_settings->fb_hwfbe_enabled())
     {
-        setTBufTex(rdp.tiles[tile].t_mem, cnt);
+        setTBufTex(rdp.tiles(tile).t_mem, cnt);
     }
 }
 
@@ -1991,7 +2005,7 @@ static inline void loadTile(uint32_t *src, uint32_t *dst, int width, int height,
             do
             {
                 v16 = __ROL__(v16, 8);
-                *(uint8_t *)v7 = (v16  & 0xFF);
+                *(uint8_t *)v7 = (v16 & 0xFF);
                 v7 = (uint32_t *)((char *)v7 + 1);
                 --v15;
             } while (v15);
@@ -2059,11 +2073,11 @@ void rdp_loadtile()
         WriteTrace(TraceRDP, TraceDebug, "loadtile skipped");
         return;
     }
-    rdp.timg.set_by = 1;  // load tile
+    rdp.timg().set_by = 1;  // load tile
 
     uint32_t tile = (uint32_t)((rdp.cmd1 >> 24) & 0x07);
 
-    rdp.addr[rdp.tiles[tile].t_mem] = rdp.timg.addr;
+    rdp.SetAddr(rdp.tiles(tile).t_mem, rdp.timg().addr);
 
     uint16_t ul_s = (uint16_t)((rdp.cmd0 >> 14) & 0x03FF);
     uint16_t ul_t = (uint16_t)((rdp.cmd0 >> 2) & 0x03FF);
@@ -2074,18 +2088,22 @@ void rdp_loadtile()
 
     if (wrong_tile >= 0)  //there was a tile with zero length
     {
-        rdp.tiles[wrong_tile].lr_s = lr_s;
+        rdp.tiles(wrong_tile).lr_s = lr_s;
 
-        if (rdp.tiles[tile].size > rdp.tiles[wrong_tile].size)
-            rdp.tiles[wrong_tile].lr_s <<= (rdp.tiles[tile].size - rdp.tiles[wrong_tile].size);
-        else if (rdp.tiles[tile].size < rdp.tiles[wrong_tile].size)
-            rdp.tiles[wrong_tile].lr_s >>= (rdp.tiles[wrong_tile].size - rdp.tiles[tile].size);
-        rdp.tiles[wrong_tile].lr_t = lr_t;
-        rdp.tiles[wrong_tile].mask_s = rdp.tiles[wrong_tile].mask_t = 0;
+        if (rdp.tiles(tile).size > rdp.tiles(wrong_tile).size)
+        {
+            rdp.tiles(wrong_tile).lr_s <<= (rdp.tiles(tile).size - rdp.tiles(wrong_tile).size);
+        }
+        else if (rdp.tiles(tile).size < rdp.tiles(wrong_tile).size)
+        {
+            rdp.tiles(wrong_tile).lr_s >>= (rdp.tiles(wrong_tile).size - rdp.tiles(tile).size);
+        }
+        rdp.tiles(wrong_tile).lr_t = lr_t;
+        rdp.tiles(wrong_tile).mask_s = rdp.tiles(wrong_tile).mask_t = 0;
         //     wrong_tile = -1;
     }
 
-    if (rdp.tbuff_tex)// && (rdp.tiles[tile].format == 0))
+    if (rdp.tbuff_tex)// && (rdp.tiles(tile).format == 0))
     {
         WriteTrace(TraceRDP, TraceDebug, "loadtile: tbuff_tex ul_s: %d, ul_t:%d", ul_s, ul_t);
         rdp.tbuff_tex->tile_uls = ul_s;
@@ -2094,20 +2112,20 @@ void rdp_loadtile()
 
     if (g_settings->hacks(CSettings::hack_Tonic) && tile == 7)
     {
-        rdp.tiles[0].ul_s = ul_s;
-        rdp.tiles[0].ul_t = ul_t;
-        rdp.tiles[0].lr_s = lr_s;
-        rdp.tiles[0].lr_t = lr_t;
+        rdp.tiles(0).ul_s = ul_s;
+        rdp.tiles(0).ul_t = ul_t;
+        rdp.tiles(0).lr_s = lr_s;
+        rdp.tiles(0).lr_t = lr_t;
     }
 
     uint32_t height = lr_t - ul_t + 1;   // get height
     uint32_t width = lr_s - ul_s + 1;
 
-    LOAD_TILE_INFO &info = rdp.load_info[rdp.tiles[tile].t_mem];
+    LOAD_TILE_INFO &info = rdp.load_info(rdp.tiles(tile).t_mem);
     info.tile_ul_s = ul_s;
     info.tile_ul_t = ul_t;
-    info.tile_width = (rdp.tiles[tile].mask_s ? minval((uint16_t)width, 1 << rdp.tiles[tile].mask_s) : (uint16_t)width);
-    info.tile_height = (rdp.tiles[tile].mask_t ? minval((uint16_t)height, 1 << rdp.tiles[tile].mask_t) : (uint16_t)height);
+    info.tile_width = (rdp.tiles(tile).mask_s ? minval((uint16_t)width, 1 << rdp.tiles(tile).mask_s) : (uint16_t)width);
+    info.tile_height = (rdp.tiles(tile).mask_t ? minval((uint16_t)height, 1 << rdp.tiles(tile).mask_t) : (uint16_t)height);
     if (g_settings->hacks(CSettings::hack_MK64))
     {
         if (info.tile_width % 2)
@@ -2119,17 +2137,17 @@ void rdp_loadtile()
             info.tile_height--;
         }
     }
-    info.tex_width = rdp.timg.width;
-    info.tex_size = rdp.timg.size;
+    info.tex_width = rdp.timg().width;
+    info.tex_size = rdp.timg().size;
 
-    int line_n = rdp.timg.width << rdp.tiles[tile].size >> 1;
+    int line_n = rdp.timg().width << rdp.tiles(tile).size >> 1;
     uint32_t offs = ul_t * line_n;
-    offs += ul_s << rdp.tiles[tile].size >> 1;
-    offs += rdp.timg.addr;
+    offs += ul_s << rdp.tiles(tile).size >> 1;
+    offs += rdp.timg().addr;
     if (offs >= BMASK)
         return;
 
-    if (rdp.timg.size == 3)
+    if (rdp.timg().size == 3)
     {
         LoadTile32b(tile, ul_s, ul_t, width, height);
     }
@@ -2141,17 +2159,16 @@ void rdp_loadtile()
         if (height == 0)
             return;
 
-        uint32_t wid_64 = rdp.tiles[tile].line;
-        unsigned char *dst = ((unsigned char *)rdp.tmem) + (rdp.tiles[tile].t_mem << 3);
-        unsigned char *end = ((unsigned char *)rdp.tmem) + 4096 - (wid_64 << 3);
+        uint32_t wid_64 = rdp.tiles(tile).line;
+        unsigned char *dst = rdp.tmem() + (rdp.tiles(tile).t_mem << 3);
+        unsigned char *end = rdp.tmem() + 4096 - (wid_64 << 3);
         loadTile((uint32_t *)gfx.RDRAM, (uint32_t *)dst, wid_64, height, line_n, offs, (uint32_t *)end);
     }
-    WriteTrace(TraceRDP, TraceDebug, "loadtile: tile: %d, ul_s: %d, ul_t: %d, lr_s: %d, lr_t: %d", tile,
-        ul_s, ul_t, lr_s, lr_t);
+    WriteTrace(TraceRDP, TraceDebug, "loadtile: tile: %d, ul_s: %d, ul_t: %d, lr_s: %d, lr_t: %d", tile, ul_s, ul_t, lr_s, lr_t);
 
     if (g_settings->fb_hwfbe_enabled())
     {
-        setTBufTex(rdp.tiles[tile].t_mem, rdp.tiles[tile].line*height);
+        setTBufTex(rdp.tiles(tile).t_mem, rdp.tiles(tile).line*height);
     }
 }
 
@@ -2162,7 +2179,7 @@ void rdp_settile()
     rdp.first = 0;
 
     rdp.last_tile = (uint32_t)((rdp.cmd1 >> 24) & 0x07);
-    TILE *tile = &rdp.tiles[rdp.last_tile];
+    TILE *tile = &rdp.tiles(rdp.last_tile);
 
     tile->format = (uint8_t)((rdp.cmd0 >> 21) & 0x07);
     tile->size = (uint8_t)((rdp.cmd0 >> 19) & 0x03);
@@ -2498,17 +2515,17 @@ void rdp_settextureimage()
     static const char *format[] = { "RGBA", "YUV", "CI", "IA", "I", "?", "?", "?" };
     static const char *size[] = { "4bit", "8bit", "16bit", "32bit" };
 
-    rdp.timg.format = (uint8_t)((rdp.cmd0 >> 21) & 0x07);
-    rdp.timg.size = (uint8_t)((rdp.cmd0 >> 19) & 0x03);
-    rdp.timg.width = (uint16_t)(1 + (rdp.cmd0 & 0x00000FFF));
-    rdp.timg.addr = segoffset(rdp.cmd1);
+    rdp.timg().format = (uint8_t)((rdp.cmd0 >> 21) & 0x07);
+    rdp.timg().size = (uint8_t)((rdp.cmd0 >> 19) & 0x03);
+    rdp.timg().width = (uint16_t)(1 + (rdp.cmd0 & 0x00000FFF));
+    rdp.timg().addr = segoffset(rdp.cmd1);
     if (ucode5_texshiftaddr)
     {
-        if (rdp.timg.format == 0)
+        if (rdp.timg().format == 0)
         {
             uint16_t * t = (uint16_t*)(gfx.RDRAM + ucode5_texshiftaddr);
             ucode5_texshift = t[ucode5_texshiftcount ^ 1];
-            rdp.timg.addr += ucode5_texshift;
+            rdp.timg().addr += ucode5_texshift;
         }
         else
         {
@@ -2520,7 +2537,7 @@ void rdp_settextureimage()
     rdp.s2dex_tex_loaded = TRUE;
     rdp.update |= UPDATE_TEXTURE;
 
-    if (rdp.ci_count > 0 && rdp.frame_buffers[rdp.ci_count - 1].status == ci_copy_self && (rdp.timg.addr >= rdp.cimg) && (rdp.timg.addr < rdp.ci_end))
+    if (rdp.ci_count > 0 && rdp.frame_buffers[rdp.ci_count - 1].status == ci_copy_self && (rdp.timg().addr >= rdp.cimg) && (rdp.timg().addr < rdp.ci_end))
     {
         if (!rdp.fb_drawn)
         {
@@ -2533,11 +2550,11 @@ void rdp_settextureimage()
     }
 
     if (g_settings->fb_hwfbe_enabled()) //search this texture among drawn texture buffers
-        FindTextureBuffer(rdp.timg.addr, rdp.timg.width);
+        FindTextureBuffer(rdp.timg().addr, rdp.timg().width);
 
     WriteTrace(TraceRDP, TraceDebug, "settextureimage: format: %s, size: %s, width: %d, addr: %08lx",
-        format[rdp.timg.format], size[rdp.timg.size],
-        rdp.timg.width, rdp.timg.addr);
+        format[rdp.timg().format], size[rdp.timg().size],
+        rdp.timg().width, rdp.timg().addr);
 }
 
 void rdp_setdepthimage()
@@ -2972,7 +2989,7 @@ void SetWireframeCol()
 {
     switch (g_settings->wfmode())
     {
-    //case CSettings::wfmode_NormalColors: // normal colors, don't do anything
+        //case CSettings::wfmode_NormalColors: // normal colors, don't do anything
     case CSettings::wfmode_VertexColors:
         grColorCombine(GR_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
@@ -3754,23 +3771,31 @@ void lle_triangle(uint32_t w1, uint32_t w2, int shade, int texture, int zbuffer,
         v->v1 = v->v0 = v->ov;
         if (rdp.tex >= 1 && rdp.cur_cache(0))
         {
-            if (rdp.tiles[rdp.cur_tile].shift_s)
+            if (rdp.tiles(rdp.cur_tile).shift_s)
             {
-                if (rdp.tiles[rdp.cur_tile].shift_s > 10)
-                    v->u0 *= (float)(1 << (16 - rdp.tiles[rdp.cur_tile].shift_s));
+                if (rdp.tiles(rdp.cur_tile).shift_s > 10)
+                {
+                    v->u0 *= (float)(1 << (16 - rdp.tiles(rdp.cur_tile).shift_s));
+                }
                 else
-                    v->u0 /= (float)(1 << rdp.tiles[rdp.cur_tile].shift_s);
+                {
+                    v->u0 /= (float)(1 << rdp.tiles(rdp.cur_tile).shift_s);
+                }
             }
-            if (rdp.tiles[rdp.cur_tile].shift_t)
+            if (rdp.tiles(rdp.cur_tile).shift_t)
             {
-                if (rdp.tiles[rdp.cur_tile].shift_t > 10)
-                    v->v0 *= (float)(1 << (16 - rdp.tiles[rdp.cur_tile].shift_t));
+                if (rdp.tiles(rdp.cur_tile).shift_t > 10)
+                {
+                    v->v0 *= (float)(1 << (16 - rdp.tiles(rdp.cur_tile).shift_t));
+                }
                 else
-                    v->v0 /= (float)(1 << rdp.tiles[rdp.cur_tile].shift_t);
+                {
+                    v->v0 /= (float)(1 << rdp.tiles(rdp.cur_tile).shift_t);
+                }
             }
 
-            v->u0 -= rdp.tiles[rdp.cur_tile].f_ul_s;
-            v->v0 -= rdp.tiles[rdp.cur_tile].f_ul_t;
+            v->u0 -= rdp.tiles(rdp.cur_tile).f_ul_s;
+            v->v0 -= rdp.tiles(rdp.cur_tile).f_ul_t;
             v->u0 = rdp.cur_cache(0)->c_off + rdp.cur_cache(0)->c_scl_x * v->u0;
             v->v0 = rdp.cur_cache(0)->c_off + rdp.cur_cache(0)->c_scl_y * v->v0;
             v->u0 /= v->w;
@@ -3779,23 +3804,23 @@ void lle_triangle(uint32_t w1, uint32_t w2, int shade, int texture, int zbuffer,
 
         if (rdp.tex >= 2 && rdp.cur_cache(1))
         {
-            if (rdp.tiles[rdp.cur_tile + 1].shift_s)
+            if (rdp.tiles(rdp.cur_tile + 1).shift_s)
             {
-                if (rdp.tiles[rdp.cur_tile + 1].shift_s > 10)
-                    v->u1 *= (float)(1 << (16 - rdp.tiles[rdp.cur_tile + 1].shift_s));
+                if (rdp.tiles(rdp.cur_tile + 1).shift_s > 10)
+                    v->u1 *= (float)(1 << (16 - rdp.tiles(rdp.cur_tile + 1).shift_s));
                 else
-                    v->u1 /= (float)(1 << rdp.tiles[rdp.cur_tile + 1].shift_s);
+                    v->u1 /= (float)(1 << rdp.tiles(rdp.cur_tile + 1).shift_s);
             }
-            if (rdp.tiles[rdp.cur_tile + 1].shift_t)
+            if (rdp.tiles(rdp.cur_tile + 1).shift_t)
             {
-                if (rdp.tiles[rdp.cur_tile + 1].shift_t > 10)
-                    v->v1 *= (float)(1 << (16 - rdp.tiles[rdp.cur_tile + 1].shift_t));
+                if (rdp.tiles(rdp.cur_tile + 1).shift_t > 10)
+                    v->v1 *= (float)(1 << (16 - rdp.tiles(rdp.cur_tile + 1).shift_t));
                 else
-                    v->v1 /= (float)(1 << rdp.tiles[rdp.cur_tile + 1].shift_t);
+                    v->v1 /= (float)(1 << rdp.tiles(rdp.cur_tile + 1).shift_t);
             }
 
-            v->u1 -= rdp.tiles[rdp.cur_tile + 1].f_ul_s;
-            v->v1 -= rdp.tiles[rdp.cur_tile + 1].f_ul_t;
+            v->u1 -= rdp.tiles(rdp.cur_tile + 1).f_ul_s;
+            v->v1 -= rdp.tiles(rdp.cur_tile + 1).f_ul_t;
             v->u1 = rdp.cur_cache(1)->c_off + rdp.cur_cache(1)->c_scl_x * v->u1;
             v->v1 = rdp.cur_cache(1)->c_off + rdp.cur_cache(1)->c_scl_y * v->v1;
             v->u1 /= v->w;
@@ -4137,7 +4162,7 @@ void CALL ProcessRDPList(void)
         rdp_cmd_cur = (rdp_cmd_cur + rdp_command_length[cmd] / 4) & maxCMDMask;
     }
 
-    if (setZero) 
+    if (setZero)
     {
         rdp_cmd_ptr = 0;
         rdp_cmd_cur = 0;

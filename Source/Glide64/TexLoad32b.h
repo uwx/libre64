@@ -46,8 +46,8 @@
 uint32_t Load32bRGBA(uintptr_t dst, uintptr_t src, int wid_64, int height, int line, int real_width, int tile)
 {
     if (height < 1) height = 1;
-    const uint16_t *tmem16 = (uint16_t*)rdp.tmem;
-    const uint32_t tbase = (src - (uintptr_t)rdp.tmem) >> 1;
+    const uint16_t *tmem16 = (uint16_t*)rdp.tmem();
+    const uint32_t tbase = (src - (uintptr_t)rdp.tmem()) >> 1;
     const uint32_t width = maxval(1, wid_64 << 1);
     const int ext = real_width - width;
     line = width + (line >> 2);
@@ -96,17 +96,17 @@ uint32_t Load32bRGBA(uintptr_t dst, uintptr_t src, int wid_64, int height, int l
 //
 void LoadTile32b(uint32_t tile, uint32_t ul_s, uint32_t ul_t, uint32_t width, uint32_t height)
 {
-    const uint32_t line = rdp.tiles[tile].line << 2;
-    const uint32_t tbase = rdp.tiles[tile].t_mem << 2;
-    const uint32_t addr = rdp.timg.addr >> 2;
+    const uint32_t line = rdp.tiles(tile).line << 2;
+    const uint32_t tbase = rdp.tiles(tile).t_mem << 2;
+    const uint32_t addr = rdp.timg().addr >> 2;
     const uint32_t* src = (const uint32_t*)gfx.RDRAM;
-    uint16_t *tmem16 = (uint16_t*)rdp.tmem;
+    uint16_t *tmem16 = (uint16_t*)rdp.tmem();
     uint32_t c, ptr, tline, s, xorval;
 
     for (uint32_t j = 0; j < height; j++)
     {
         tline = tbase + line * j;
-        s = ((j + ul_t) * rdp.timg.width) + ul_s;
+        s = ((j + ul_t) * rdp.timg().width) + ul_s;
         xorval = (j & 1) ? 3 : 1;
         for (uint32_t i = 0; i < width; i++)
         {
@@ -125,13 +125,13 @@ void LoadTile32b(uint32_t tile, uint32_t ul_s, uint32_t ul_t, uint32_t width, ui
 void LoadBlock32b(uint32_t tile, uint32_t ul_s, uint32_t ul_t, uint32_t lr_s, uint32_t dxt)
 {
     const uint32_t * src = (const uint32_t*)gfx.RDRAM;
-    const uint32_t tb = rdp.tiles[tile].t_mem << 2;
-    const uint32_t tiwindwords = rdp.timg.width;
+    const uint32_t tb = rdp.tiles(tile).t_mem << 2;
+    const uint32_t tiwindwords = rdp.timg().width;
     const uint32_t slindwords = ul_s;
-    const uint32_t line = rdp.tiles[tile].line << 2;
+    const uint32_t line = rdp.tiles(tile).line << 2;
 
-    uint16_t *tmem16 = (uint16_t*)rdp.tmem;
-    uint32_t addr = rdp.timg.addr >> 2;
+    uint16_t *tmem16 = (uint16_t*)rdp.tmem();
+    uint32_t addr = rdp.timg().addr >> 2;
     uint32_t width = (lr_s - ul_s + 1) << 2;
     if (width & 7)
         width = (width & (~7)) + 8;

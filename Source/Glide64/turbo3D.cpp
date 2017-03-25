@@ -79,7 +79,7 @@ struct t3dState {
     uint32_t	othermode1;
 };
 
-struct t3dTriN{
+struct t3dTriN {
     uint8_t	flag, v2, v1, v0;	/* flag is which one for flat shade */
 };
 
@@ -182,7 +182,7 @@ static void t3d_vertex(uint32_t addr, uint32_t v0, uint32_t n)
         if (v.y < -v.w) v.scr_off |= 4;
         if (v.y > v.w) v.scr_off |= 8;
         if (v.w < 0.1f) v.scr_off |= 16;
-        WriteTrace(TraceRDP, TraceVerbose, "v%d - x: %f, y: %f, z: %f, w: %f, u: %f, v: %f, f: %f, z_w: %f, r=%d, g=%d, b=%d, a=%d", i >> 4, v.x, v.y, v.z, v.w, v.ou*rdp.tiles[rdp.cur_tile].s_scale, v.ov*rdp.tiles[rdp.cur_tile].t_scale, v.f, v.z_w, v.r, v.g, v.b, v.a);
+        WriteTrace(TraceRDP, TraceVerbose, "v%d - x: %f, y: %f, z: %f, w: %f, u: %f, v: %f, f: %f, z_w: %f, r=%d, g=%d, b=%d, a=%d", i >> 4, v.x, v.y, v.z, v.w, v.ou*rdp.tiles(rdp.cur_tile).s_scale, v.ov*rdp.tiles(rdp.cur_tile).t_scale, v.f, v.z_w, v.r, v.g, v.b, v.a);
     }
 }
 
@@ -192,10 +192,10 @@ static void t3dLoadObject(uint32_t pstate, uint32_t pvtx, uint32_t ptri)
     t3dState *ostate = (t3dState*)&gfx.RDRAM[segoffset(pstate)];
     rdp.cur_tile = (ostate->textureState) & 7;
     WriteTrace(TraceRDP, TraceDebug, "tile: %d", rdp.cur_tile);
-    if (rdp.tiles[rdp.cur_tile].s_scale < 0.001f)
-        rdp.tiles[rdp.cur_tile].s_scale = 0.015625;
-    if (rdp.tiles[rdp.cur_tile].t_scale < 0.001f)
-        rdp.tiles[rdp.cur_tile].t_scale = 0.015625;
+    if (rdp.tiles(rdp.cur_tile).s_scale < 0.001f)
+        rdp.tiles(rdp.cur_tile).s_scale = 0.015625;
+    if (rdp.tiles(rdp.cur_tile).t_scale < 0.001f)
+        rdp.tiles(rdp.cur_tile).t_scale = 0.015625;
 
     WriteTrace(TraceRDP, TraceVerbose, "renderState: %08lx, textureState: %08lx, othermode0: %08lx, othermode1: %08lx, rdpCmds: %08lx, triCount : %d, v0: %d, vn: %d", ostate->renderState, ostate->textureState,
         ostate->othermode0, ostate->othermode1, ostate->rdpCmds, ostate->triCount, ostate->vtxV0, ostate->vtxCount);
@@ -250,7 +250,7 @@ void Turbo3D()
     WriteTrace(TraceRDP, TraceDebug, "Start Turbo3D microcode");
     g_settings->SetUcode(CSettings::ucode_Fast3D);
     uint32_t a = 0, pgstate = 0, pstate = 0, pvtx = 0, ptri = 0;
-    do 
+    do
     {
         a = rdp.pc[rdp.pc_i] & BMASK;
         pgstate = ((uint32_t*)gfx.RDRAM)[a >> 2];

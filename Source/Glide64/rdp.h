@@ -377,14 +377,13 @@ typedef struct
 
 class CRDP
 {
-public:    
+public:
     CRDP();
     ~CRDP();
 
     bool init();
     void free();
 
-    // Clipping
     inline int clip(void) const { return m_clip; }
     inline VERTEX * vtx1(void) const { return m_vtx1; }
     inline VERTEX * vtx2(void) const { return m_vtx2; }
@@ -394,6 +393,12 @@ public:
     inline CACHE_LUT * cur_cache(int tmu) const { return m_cur_cache[tmu]; }
     inline int n_cached(int tmu) const { return m_n_cached[tmu]; }
     inline VERTEX & vtx(int index) const { return m_vtx[index]; }
+    inline TEXTURE_IMAGE & timg(void) { return m_timg; }
+    inline TILE & tiles(int index) { return m_tiles[index]; }
+    inline uint8_t * tmem(void) { return &m_tmem[0]; }
+    inline uint32_t tmem_size(void) const { return sizeof(m_tmem); }
+    inline uint32_t addr(int index) const { return m_addr[index]; }
+    inline LOAD_TILE_INFO & load_info(int index) { return m_load_info[index]; }
 
     inline void SetClip(int value) { m_clip = value; }
     inline void SetVTxbuf(VERTEX * value) { m_vtxbuf = value; }
@@ -401,6 +406,7 @@ public:
     inline void SetNCached(int tmu, int value) { m_n_cached[tmu] = value; }
     inline void SetCurCache(int tmu, CACHE_LUT * value) { m_cur_cache[tmu] = value; }
     inline void SetCurCacheN(int tmu, uint32_t value) { m_cur_cache_n[tmu] = value; }
+    inline void SetAddr(int index, uint32_t value) { m_addr[index] = value; }
 
 private:
     int m_clip; // clipping flags
@@ -422,7 +428,6 @@ private:
     // Vertices
     VERTEX * m_vtx; //[MAX_VTX]
 public:
-
 
     int v0, vn;
 
@@ -519,12 +524,14 @@ public:
     int model_stack_size;
 
     // Textures
-    TEXTURE_IMAGE timg;       // 1 for each tmem address
-    TILE tiles[8];          // 8 tile descriptors
-    uint8_t tmem[4096];        // 4k tmem
-    uint32_t addr[512];        // 512 addresses (used to determine address loaded from)
-    LOAD_TILE_INFO load_info[512];    // 512 addresses. inforamation about tile loading.
+private:
+    TEXTURE_IMAGE m_timg;       // 1 for each tmem address
+    TILE m_tiles[8];          // 8 tile descriptors
+    uint8_t m_tmem[4096];        // 4k tmem
+    uint32_t m_addr[512];        // 512 addresses (used to determine address loaded from)
+    LOAD_TILE_INFO m_load_info[512];    // 512 addresses. inforamation about tile loading.
 
+public:
     int     cur_tile;   // current tile
     int     mipmap_level;
     int     last_tile;   // last tile set

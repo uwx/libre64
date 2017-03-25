@@ -134,7 +134,7 @@ void rsp_vertex(int v0, int n)
             v.g = ((uint8_t*)gfx.RDRAM)[(addr + i + 13) ^ 3];
             v.b = ((uint8_t*)gfx.RDRAM)[(addr + i + 14) ^ 3];
         }
-        WriteTrace(TraceRDP, TraceVerbose, "v%d - x: %f, y: %f, z: %f, w: %f, u: %f, v: %f, f: %f, z_w: %f, r=%d, g=%d, b=%d, a=%d", i >> 4, v.x, v.y, v.z, v.w, v.ou*rdp.tiles[rdp.cur_tile].s_scale, v.ov*rdp.tiles[rdp.cur_tile].t_scale, v.f, v.z_w, v.r, v.g, v.b, v.a);
+        WriteTrace(TraceRDP, TraceVerbose, "v%d - x: %f, y: %f, z: %f, w: %f, u: %f, v: %f, f: %f, z_w: %f, r=%d, g=%d, b=%d, a=%d", i >> 4, v.x, v.y, v.z, v.w, v.ou*rdp.tiles(rdp.cur_tile).s_scale, v.ov*rdp.tiles(rdp.cur_tile).t_scale, v.f, v.z_w, v.r, v.g, v.b, v.a);
     }
 }
 
@@ -781,7 +781,7 @@ void uc0_texture()
         uint16_t s = (uint16_t)((rdp.cmd1 >> 16) & 0xFFFF);
         uint16_t t = (uint16_t)(rdp.cmd1 & 0xFFFF);
 
-        TILE *tmp_tile = &rdp.tiles[tile];
+        TILE *tmp_tile = &rdp.tiles(tile);
         tmp_tile->on = 1;
         tmp_tile->org_s_scale = s;
         tmp_tile->org_t_scale = t;
@@ -792,13 +792,12 @@ void uc0_texture()
 
         rdp.update |= UPDATE_TEXTURE;
 
-        WriteTrace(TraceRDP, TraceDebug, "uc0:texture: tile: %d, mipmap_lvl: %d, on: %d, s_scale: %f, t_scale: %f",
-            tile, rdp.mipmap_level, on, tmp_tile->s_scale, tmp_tile->t_scale);
+        WriteTrace(TraceRDP, TraceDebug, "uc0:texture: tile: %d, mipmap_lvl: %d, on: %d, s_scale: %f, t_scale: %f", tile, rdp.mipmap_level, on, tmp_tile->s_scale, tmp_tile->t_scale);
     }
     else
     {
         WriteTrace(TraceRDP, TraceDebug, "uc0:texture skipped b/c of off");
-        rdp.tiles[tile].on = 0;
+        rdp.tiles(tile).on = 0;
     }
 }
 

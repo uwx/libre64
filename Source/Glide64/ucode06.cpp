@@ -404,14 +404,14 @@ void DrawImage(DRAWIMAGE & d)
     //int max_256_v = (lr_v-1) >> y_shift;
 
     // SetTextureImage ()
-    rdp.timg.format = d.imageFmt;        // RGBA
-    rdp.timg.size = d.imageSiz;          // 16-bit
-    rdp.timg.addr = d.imagePtr;
-    rdp.timg.width = (d.imageW % 2) ? d.imageW - 1 : d.imageW;
-    rdp.timg.set_by = 0;
+    rdp.timg().format = d.imageFmt;        // RGBA
+    rdp.timg().size = d.imageSiz;          // 16-bit
+    rdp.timg().addr = d.imagePtr;
+    rdp.timg().width = (d.imageW % 2) ? d.imageW - 1 : d.imageW;
+    rdp.timg().set_by = 0;
 
     // SetTile ()
-    TILE *tile = &rdp.tiles[0];
+    TILE *tile = &rdp.tiles(0);
     tile->format = d.imageFmt;   // RGBA
     tile->size = d.imageSiz;             // 16-bit
     tile->line = line;
@@ -426,10 +426,10 @@ void DrawImage(DRAWIMAGE & d)
     tile->mask_s = 0;
     tile->shift_s = 0;
 
-    rdp.tiles[0].ul_s = 0;
-    rdp.tiles[0].ul_t = 0;
-    rdp.tiles[0].lr_s = x_size - 1;
-    rdp.tiles[0].lr_t = y_size - 1;
+    rdp.tiles(0).ul_s = 0;
+    rdp.tiles(0).ul_t = 0;
+    rdp.tiles(0).lr_s = x_size - 1;
+    rdp.tiles(0).lr_t = y_size - 1;
 
     const float Z = set_sprite_combine_mode();
     if (rdp.cycle_mode == 2)
@@ -496,14 +496,14 @@ void DrawImage(DRAWIMAGE & d)
 
             // ** Load the texture, constant portions have been set above
             // SetTileSize ()
-            rdp.tiles[0].ul_s = tb_u;
-            rdp.tiles[0].ul_t = tb_v;
-            rdp.tiles[0].lr_s = tb_u + x_size - 1;
-            rdp.tiles[0].lr_t = tb_v + y_size - 1;
+            rdp.tiles(0).ul_s = tb_u;
+            rdp.tiles(0).ul_t = tb_v;
+            rdp.tiles(0).lr_s = tb_u + x_size - 1;
+            rdp.tiles(0).lr_t = tb_v + y_size - 1;
 
             // LoadTile ()
-            rdp.cmd0 = ((int)rdp.tiles[0].ul_s << 14) | ((int)rdp.tiles[0].ul_t << 2);
-            rdp.cmd1 = ((int)rdp.tiles[0].lr_s << 14) | ((int)rdp.tiles[0].lr_t << 2);
+            rdp.cmd0 = ((int)rdp.tiles(0).ul_s << 14) | ((int)rdp.tiles(0).ul_t << 2);
+            rdp.cmd1 = ((int)rdp.tiles(0).lr_s << 14) | ((int)rdp.tiles(0).lr_t << 2);
             rdp_loadtile();
 
             TexCache();
@@ -982,7 +982,7 @@ static void uc6_read_object_data(DRAWOBJECT & d)
 static void uc6_init_tile(const DRAWOBJECT & d)
 {
     // SetTile ()
-    TILE *tile = &rdp.tiles[0];
+    TILE *tile = &rdp.tiles(0);
     tile->format = d.imageFmt;      // RGBA
     tile->size = d.imageSiz;                // 16-bit
     tile->line = d.imageStride;
@@ -998,10 +998,10 @@ static void uc6_init_tile(const DRAWOBJECT & d)
     tile->shift_s = 0;
 
     // SetTileSize ()
-    rdp.tiles[0].ul_s = 0;
-    rdp.tiles[0].ul_t = 0;
-    rdp.tiles[0].lr_s = (d.imageW > 0) ? d.imageW - 1 : 0;
-    rdp.tiles[0].lr_t = (d.imageH > 0) ? d.imageH - 1 : 0;
+    rdp.tiles(0).ul_s = 0;
+    rdp.tiles(0).ul_t = 0;
+    rdp.tiles(0).lr_s = (d.imageW > 0) ? d.imageW - 1 : 0;
+    rdp.tiles(0).lr_t = (d.imageH > 0) ? d.imageH - 1 : 0;
 }
 
 void uc6_obj_rectangle()
@@ -1211,7 +1211,7 @@ static void uc6_DrawYUVImageToFrameBuffer(uint16_t ul_x, uint16_t ul_y, uint16_t
         width = ci_width - ul_x;
     if (lr_y > ci_height)
         height = ci_height - ul_y;
-    uint32_t * mb = (uint32_t*)(gfx.RDRAM + rdp.timg.addr); //pointer to the first macro block
+    uint32_t * mb = (uint32_t*)(gfx.RDRAM + rdp.timg().addr); //pointer to the first macro block
     uint16_t * dst = (uint16_t*)(gfx.RDRAM + rdp.cimg);
     dst += ul_x + ul_y * ci_width;
     //yuv macro block contains 16x16 texture. we need to put it in the proper place inside cimg
@@ -1329,12 +1329,12 @@ void uc6_obj_loadtxtr()
         uint16_t  tline = ((uint16_t *)gfx.RDRAM)[(addr + 6) ^ 1];      // 6
 
         WriteTrace(TraceRDP, TraceDebug, "addr: %08lx, tmem: %08lx, size: %d", image, tmem, tsize);
-        rdp.timg.addr = image;
-        rdp.timg.width = 1;
-        rdp.timg.size = 1;
+        rdp.timg().addr = image;
+        rdp.timg().width = 1;
+        rdp.timg().size = 1;
 
-        rdp.tiles[7].t_mem = tmem;
-        rdp.tiles[7].size = 1;
+        rdp.tiles(7).t_mem = tmem;
+        rdp.tiles(7).size = 1;
         rdp.cmd0 = 0;
         rdp.cmd1 = 0x07000000 | (tsize << 14) | tline;
         rdp_loadblock();
@@ -1350,13 +1350,13 @@ void uc6_obj_loadtxtr()
 
         uint16_t line = (twidth + 1) >> 2;
 
-        rdp.timg.addr = image;
-        rdp.timg.width = line << 3;
-        rdp.timg.size = 1;
+        rdp.timg().addr = image;
+        rdp.timg().width = line << 3;
+        rdp.timg().size = 1;
 
-        rdp.tiles[7].t_mem = tmem;
-        rdp.tiles[7].line = line;
-        rdp.tiles[7].size = 1;
+        rdp.tiles(7).t_mem = tmem;
+        rdp.tiles(7).line = line;
+        rdp.tiles(7).size = 1;
 
         rdp.cmd0 = 0;
         rdp.cmd1 = 0x07000000 | (twidth << 14) | (theight << 2);
@@ -1531,17 +1531,17 @@ void uc6_sprite2d()
             if (line == 0)
                 line = 1;
 
-            rdp.timg.addr = d.imagePtr;
-            rdp.timg.width = stride;
-            rdp.tiles[7].t_mem = 0;
-            rdp.tiles[7].line = line;//(d.imageW>>3);
-            rdp.tiles[7].size = d.imageSiz;
+            rdp.timg().addr = d.imagePtr;
+            rdp.timg().width = stride;
+            rdp.tiles(7).t_mem = 0;
+            rdp.tiles(7).line = line;//(d.imageW>>3);
+            rdp.tiles(7).size = d.imageSiz;
             rdp.cmd0 = (d.imageX << 14) | (d.imageY << 2);
             rdp.cmd1 = 0x07000000 | ((d.imageX + d.imageW - 1) << 14) | ((d.imageY + d.imageH - 1) << 2);
             rdp_loadtile();
 
             // SetTile ()
-            TILE *tile = &rdp.tiles[0];
+            TILE *tile = &rdp.tiles(0);
             tile->format = d.imageFmt;
             tile->size = d.imageSiz;
             tile->line = line;//(d.imageW>>3);
@@ -1557,10 +1557,10 @@ void uc6_sprite2d()
             tile->shift_s = 0;
 
             // SetTileSize ()
-            rdp.tiles[0].ul_s = d.imageX;
-            rdp.tiles[0].ul_t = d.imageY;
-            rdp.tiles[0].lr_s = d.imageX + d.imageW - 1;
-            rdp.tiles[0].lr_t = d.imageY + d.imageH - 1;
+            rdp.tiles(0).ul_s = d.imageX;
+            rdp.tiles(0).ul_t = d.imageY;
+            rdp.tiles(0).lr_s = d.imageX + d.imageW - 1;
+            rdp.tiles(0).lr_t = d.imageY + d.imageH - 1;
 
             float Z = set_sprite_combine_mode();
 
