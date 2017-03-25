@@ -139,7 +139,7 @@ int cull_tri(VERTEX **v) // type changed to VERTEX** [Dave2001]
     {
     case 1: // cull front
         //    if ((x1*y2 - y1*x2) < 0.0f) //counter-clockwise, positive
-        if ((y1*x2-x1*y2) < 0.0f) //counter-clockwise, positive
+        if ((y1*x2 - x1*y2) < 0.0f) //counter-clockwise, positive
         {
             WriteTrace(TraceRDP, TraceDebug, " culled!");
             return TRUE;
@@ -147,7 +147,7 @@ int cull_tri(VERTEX **v) // type changed to VERTEX** [Dave2001]
         return FALSE;
     case 2: // cull back
         //    if ((x1*y2 - y1*x2) >= 0.0f) //clockwise, negative
-        if ((y1*x2-x1*y2) >= 0.0f) //clockwise, negative
+        if ((y1*x2 - x1*y2) >= 0.0f) //clockwise, negative
         {
             WriteTrace(TraceRDP, TraceDebug, " culled!");
             return TRUE;
@@ -305,7 +305,7 @@ void draw_tri(VERTEX **vtx, uint16_t linew)
             double diffz_02 = vtx[0]->sz - vtx[2]->sz;
             double diffz_12 = vtx[1]->sz - vtx[2]->sz;
             double fdzdx = (diffz_02 * diffy_12 - diffz_12 * diffy_02) / denom;
-            if ((rdp.rm & 0xC00) == 0xC00) 
+            if ((rdp.rm & 0xC00) == 0xC00)
             {
                 // Calculate deltaZ per polygon for Decal z-mode
                 double fdzdy = (diffz_02 * diffx_12 - diffz_12 * diffx_02) / denom;
@@ -818,7 +818,7 @@ void do_triangle_stuff(uint16_t linew, int old_interpolate) // what else?? do th
         if (!g_settings->clip_zmin())
         {
             rdp.SetClip(rdp.clip() & ~CLIP_ZMIN);
-        }         
+        }
         if (!g_settings->clip_zmax())
         {
             rdp.SetClip(rdp.clip() & ~CLIP_ZMAX);
@@ -840,7 +840,7 @@ void do_triangle_stuff_2(uint16_t linew)
         if (vtxbuf[i].y > rdp.clip_max_y) { rdp.SetClip(rdp.clip() | CLIP_YMAX); }
         if (vtxbuf[i].y < rdp.clip_min_y) { rdp.SetClip(rdp.clip() | CLIP_YMIN); }
     }
-  
+
     render_tri(linew, TRUE);
 }
 
@@ -1322,7 +1322,7 @@ void clip_tri(int interpolate_colors)
 
         VERTEX * vtxbuf = rdp.vtxbuf();
         VERTEX * vtxbuf2 = rdp.vtxbuf2();
-        
+
         // Check the vertices for clipping
         for (i = 0; i < n; i++)
         {
@@ -1533,8 +1533,6 @@ void clip_tri(int interpolate_colors)
 
 static void render_tri(uint16_t linew, int old_interpolate)
 {
-    VERTEX * vtxbuf = rdp.vtxbuf();
-
     if (rdp.clip())
     {
         clip_tri(old_interpolate);
@@ -1546,7 +1544,7 @@ static void render_tri(uint16_t linew, int old_interpolate)
         return;
     }
     int i, j;
-    //*
+    VERTEX * vtxbuf = rdp.vtxbuf();
     if ((rdp.clip() & CLIP_ZMIN) != 0 && (rdp.othermode_l & 0x00000030) != 0)
     {
         int to_render = FALSE;
@@ -1948,7 +1946,7 @@ void update()
         }
         if (rdp.acmp == 3 && rdp.cycle_mode < 2)
         {
-            if (g_settings->old_style_adither() || rdp.alpha_dither_mode != 3) 
+            if (g_settings->old_style_adither() || rdp.alpha_dither_mode != 3)
             {
                 WriteTrace(TraceRDP, TraceDebug, " |- alpha compare: dither");
                 grStippleMode(g_settings->stipple_mode());
