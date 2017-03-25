@@ -185,7 +185,6 @@ CRDP::~CRDP()
 {
     free();
 
-    delete[] vtx;
     delete[] frame_buffers;
 }
 
@@ -219,6 +218,19 @@ bool CRDP::init()
             return false;
         }
     };
+    m_vtx = new VERTEX[MAX_VTX];
+    if (m_vtx == NULL)
+    {
+        free();
+        return false;
+    }
+    memset(m_vtx, 0, sizeof(VERTEX)*MAX_VTX);
+    // set all vertex numbers
+    for (int i = 0; i < MAX_VTX; i++)
+    {
+        m_vtx[i].number = i;
+    }
+
     return true;
 }
 
@@ -248,21 +260,19 @@ void CRDP::free()
         m_cur_cache[i] = 0;
         m_cur_cache_n[i] = 0;
     }
+    if (m_vtx != NULL)
+    {
+        delete[] m_vtx;
+        m_vtx = NULL;
+    }
+
 
     reset = 1;
     vtx_buffer = n_global = 0;
 
-    vtx = new VERTEX[MAX_VTX];
-    memset(vtx, 0, sizeof(VERTEX)*MAX_VTX);
     v0 = vn = 0;
 
     frame_buffers = new COLOR_IMAGE[NUMTEXBUF + 2];
-
-    // set all vertex numbers
-    for (int i = 0; i < MAX_VTX; i++)
-    {
-        vtx[i].number = i;
-    }
 
     scissor_o.ul_x = 0;
     scissor_o.ul_y = 0;

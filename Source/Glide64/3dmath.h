@@ -37,9 +37,9 @@
 //
 //****************************************************************
 
-void calc_light (VERTEX *v);
-void calc_linear (VERTEX *v);
-void calc_sphere (VERTEX *v);
+void calc_light (VERTEX &v);
+void calc_linear (VERTEX &v);
+void calc_sphere (VERTEX &v);
 
 void math_init();
 

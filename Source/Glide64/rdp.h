@@ -393,6 +393,7 @@ public:
     inline CACHE_LUT * cache(int tmu) const { return m_cache[tmu]; }
     inline CACHE_LUT * cur_cache(int tmu) const { return m_cur_cache[tmu]; }
     inline int n_cached(int tmu) const { return m_n_cached[tmu]; }
+    inline VERTEX & vtx(int index) const { return m_vtx[index]; }
 
     inline void SetClip(int value) { m_clip = value; }
     inline void SetVTxbuf(VERTEX * value) { m_vtxbuf = value; }
@@ -417,10 +418,12 @@ private:
     CACHE_LUT * m_cur_cache[MAX_TMU];
     uint32_t m_cur_cache_n[MAX_TMU];
     int m_n_cached[MAX_TMU];
-public:
 
     // Vertices
-    VERTEX *vtx; //[MAX_VTX]
+    VERTEX * m_vtx; //[MAX_VTX]
+public:
+
+
     int v0, vn;
 
     COLOR_IMAGE *frame_buffers; //[NUMTEXBUF+2]
@@ -724,19 +727,19 @@ __inline void AddOffset(VERTEX *v, int n)
     }
 }
 
-__inline void CalculateFog(VERTEX *v)
+__inline void CalculateFog(VERTEX &v)
 {
     if (rdp.flags & FOG_ENABLED)
     {
-        if (v->w < 0.0f)
-            v->f = 0.0f;
+        if (v.w < 0.0f)
+            v.f = 0.0f;
         else
-            v->f = minval(255.0f, maxval(0.0f, v->z_w * rdp.fog_multiplier + rdp.fog_offset));
-        v->a = (uint8_t)v->f;
+            v.f = minval(255.0f, maxval(0.0f, v.z_w * rdp.fog_multiplier + rdp.fog_offset));
+        v.a = (uint8_t)v.f;
     }
     else
     {
-        v->f = 1.0f;
+        v.f = 1.0f;
     }
 }
 
