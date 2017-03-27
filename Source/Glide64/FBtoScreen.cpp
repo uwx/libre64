@@ -547,7 +547,7 @@ static void DrawHiresDepthBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
         FXFALSE,
         FXFALSE);
     //  grAuxBufferExt( GR_BUFFER_AUXBUFFER );
-    grTexSource(rdp.texbufs[0].tmu, rdp.texbufs[0].begin, GR_MIPMAPLEVELMASK_BOTH, &(t_info));
+    grTexSource(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, GR_MIPMAPLEVELMASK_BOTH, &(t_info));
     float ul_x = (float)rdp.scissor.ul_x;
     float ul_y = (float)rdp.scissor.ul_y;
     float lr_x = (float)rdp.scissor.lr_x;

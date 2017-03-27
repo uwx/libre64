@@ -160,12 +160,12 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
     t_info.largeLodLog2 = GR_LOD_LOG2_512;
     t_info.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
 
-    grTexDownloadMipMap(rdp.texbufs[1].tmu,
-        rdp.texbufs[1].begin,
+    grTexDownloadMipMap(rdp.texbufs(1).tmu,
+        rdp.texbufs(1).begin,
         GR_MIPMAPLEVELMASK_BOTH,
         &t_info);
-    grTexSource(rdp.texbufs[1].tmu,
-        rdp.texbufs[1].begin,
+    grTexSource(rdp.texbufs(1).tmu,
+        rdp.texbufs(1).begin,
         GR_MIPMAPLEVELMASK_BOTH,
         &t_info);
     grTexCombine(GR_TMU1,
@@ -217,7 +217,7 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
         v[i].uc(0) = v[i].uc(1) = v[i].u0;
         v[i].vc(0) = v[i].vc(1) = v[i].v0;
     }
-    grTextureBufferExt(rdp.texbufs[0].tmu, rdp.texbufs[0].begin, LOD, LOD,
+    grTextureBufferExt(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, LOD, LOD,
         GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
     grRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
     grAuxBufferExt(GR_BUFFER_AUXBUFFER);
@@ -225,7 +225,7 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
     grDrawTriangle(&v[0], &v[2], &v[1]);
     grDrawTriangle(&v[2], &v[3], &v[1]);
     grRenderBuffer(GR_BUFFER_BACKBUFFER);
-    grTextureAuxBufferExt(rdp.texbufs[0].tmu, rdp.texbufs[0].begin, LOD, LOD,
+    grTextureAuxBufferExt(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, LOD, LOD,
         GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
     grAuxBufferExt(GR_BUFFER_TEXTUREAUXBUFFER_EXT);
     grDepthMask(FXTRUE);
@@ -580,7 +580,7 @@ void DrawHiresImage(DRAWIMAGE & d, int screensize)
 {
     TBUFF_COLOR_IMAGE *tbuff_tex = rdp.tbuff_tex;
     if (rdp.motionblur)
-        rdp.tbuff_tex = &(rdp.texbufs[rdp.cur_tex_buf ^ 1].images[0]);
+        rdp.tbuff_tex = &(rdp.texbufs(rdp.cur_tex_buf ^ 1).images[0]);
     else if (rdp.tbuff_tex == 0)
         return;
     WriteTrace(TraceRDP, TraceDebug, "DrawHiresImage. fb format=%d", rdp.tbuff_tex->info.format);

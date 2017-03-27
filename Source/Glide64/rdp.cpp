@@ -184,8 +184,6 @@ CRDP::CRDP() :
 CRDP::~CRDP()
 {
     free();
-
-    delete[] frame_buffers;
 }
 
 bool CRDP::init()
@@ -231,6 +229,12 @@ bool CRDP::init()
         m_vtx[i].number = i;
     }
 
+    m_frame_buffers = new COLOR_IMAGE[NUMTEXBUF + 2];
+    if (m_frame_buffers == NULL)
+    {
+        free();
+        return false;
+    }
     return true;
 }
 
@@ -266,12 +270,16 @@ void CRDP::free()
         m_vtx = NULL;
     }
 
+    if (m_frame_buffers != NULL)
+    {
+        delete[] m_frame_buffers;
+        m_frame_buffers = NULL;
+    }
+
     reset = 1;
     vtx_buffer = n_global = 0;
 
     v0 = vn = 0;
-
-    frame_buffers = new COLOR_IMAGE[NUMTEXBUF + 2];
 
     scissor_o.ul_x = 0;
     scissor_o.ul_y = 0;
@@ -421,7 +429,7 @@ static void CopyFrameBuffer(GrBuffer_t buffer = GR_BUFFER_BACKBUFFER)
     if (g_settings->fb_emulation_enabled() && !g_settings->hacks(CSettings::hack_PPL))
     {
         int ind = (rdp.ci_count > 0) ? rdp.ci_count - 1 : 0;
-        height = rdp.frame_buffers[ind].height;
+        height = rdp.frame_buffers(ind).height;
     }
     else
     {
@@ -505,7 +513,7 @@ static void CopyFrameBuffer(GrBuffer_t buffer = GR_BUFFER_BACKBUFFER)
                 uint32_t stride = info.strideInBytes >> 1;
 
                 int read_alpha = g_settings->fb_read_alpha_enabled();
-                if (g_settings->hacks(CSettings::hack_PMario) && rdp.frame_buffers[rdp.ci_count - 1].status != ci_aux)
+                if (g_settings->hacks(CSettings::hack_PMario) && rdp.frame_buffers(rdp.ci_count - 1).status != ci_aux)
                 {
                     read_alpha = FALSE;
                 }
@@ -963,7 +971,7 @@ void rdp_texrect()
         return;
     }
 
-    if ((g_settings->ucode() == CSettings::ucode_PerfectDark) && rdp.ci_count > 0 && (rdp.frame_buffers[rdp.ci_count - 1].status == ci_zcopy))
+    if ((g_settings->ucode() == CSettings::ucode_PerfectDark) && rdp.ci_count > 0 && (rdp.frame_buffers(rdp.ci_count - 1).status == ci_zcopy))
     {
         pd_zcopy();
         WriteTrace(TraceRDP, TraceDebug, "Depth buffer copied.");
@@ -1071,7 +1079,7 @@ void rdp_texrect()
     //remove motion blur in night vision
     if (g_settings->ucode() == CSettings::ucode_PerfectDark && (rdp.maincimg[1].addr != rdp.maincimg[0].addr) && (rdp.timg().addr >= rdp.maincimg[1].addr) && (rdp.timg().addr < (rdp.maincimg[1].addr + rdp.ci_width*rdp.ci_height*rdp.ci_size)))
     {
-        if (g_settings->fb_emulation_enabled() && rdp.ci_count > 0 && rdp.frame_buffers[rdp.ci_count - 1].status == ci_copy_self)
+        if (g_settings->fb_emulation_enabled() && rdp.ci_count > 0 && rdp.frame_buffers(rdp.ci_count - 1).status == ci_copy_self)
         {
             //WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect. texaddr: %08lx, cimg: %08lx, cimg_end: %08lx", rdp.timg().addr, rdp.maincimg[1], rdp.maincimg[1]+rdp.ci_width*rdp.ci_height*rdp.ci_size);
             WriteTrace(TraceRDP, TraceDebug, "Wrong Texrect.");
@@ -1617,13 +1625,13 @@ void rdp_loadtlut()
         //find and remove it
         for (int i = 0; i < voodoo.num_tmu; i++)
         {
-            for (int j = 0; j < rdp.texbufs[i].count; j++)
+            for (int j = 0; j < rdp.texbufs(i).count; j++)
             {
-                if (&(rdp.texbufs[i].images[j]) == rdp.tbuff_tex)
+                if (&(rdp.texbufs(i).images[j]) == rdp.tbuff_tex)
                 {
-                    rdp.texbufs[i].count--;
-                    if (j < rdp.texbufs[i].count)
-                        memcpy(&(rdp.texbufs[i].images[j]), &(rdp.texbufs[i].images[j + 1]), sizeof(TBUFF_COLOR_IMAGE)*(rdp.texbufs[i].count - j));
+                    rdp.texbufs(i).count--;
+                    if (j < rdp.texbufs(i).count)
+                        memcpy(&(rdp.texbufs(i).images[j]), &(rdp.texbufs(i).images[j + 1]), sizeof(TBUFF_COLOR_IMAGE)*(rdp.texbufs(i).count - j));
                     return;
                 }
             }
@@ -2245,7 +2253,7 @@ void rdp_fillrect()
         return;
     }
     bool pd_multiplayer = g_settings->ucode() == CSettings::ucode_PerfectDark && rdp.cycle_mode == 3 && rdp.fill_color == 0xFFFCFFFC;
-    if ((rdp.cimg == rdp.zimg) || (g_settings->fb_emulation_enabled() && rdp.ci_count > 0 && rdp.frame_buffers[rdp.ci_count - 1].status == ci_zimg) || pd_multiplayer)
+    if ((rdp.cimg == rdp.zimg) || (g_settings->fb_emulation_enabled() && rdp.ci_count > 0 && rdp.frame_buffers(rdp.ci_count - 1).status == ci_zimg) || pd_multiplayer)
     {
         WriteTrace(TraceRDP, TraceDebug, "Fillrect - cleared the depth buffer");
         if (!g_settings->hacks(CSettings::hack_Hyperbike) || rdp.ci_width > 64) //do not clear main depth buffer for aux depth buffers
@@ -2342,7 +2350,7 @@ void rdp_fillrect()
     {
         uint32_t color = rdp.fill_color;
 
-        if (g_settings->hacks(CSettings::hack_PMario) && rdp.ci_count > 0 && rdp.frame_buffers[rdp.ci_count - 1].status == ci_aux)
+        if (g_settings->hacks(CSettings::hack_PMario) && rdp.ci_count > 0 && rdp.frame_buffers(rdp.ci_count - 1).status == ci_aux)
         {
             //background of auxiliary frame buffers must have zero alpha.
             //make it black, set 0 alpha to plack pixels on frame buffer read
@@ -2537,7 +2545,7 @@ void rdp_settextureimage()
     rdp.s2dex_tex_loaded = TRUE;
     rdp.update |= UPDATE_TEXTURE;
 
-    if (rdp.ci_count > 0 && rdp.frame_buffers[rdp.ci_count - 1].status == ci_copy_self && (rdp.timg().addr >= rdp.cimg) && (rdp.timg().addr < rdp.ci_end))
+    if (rdp.ci_count > 0 && rdp.frame_buffers(rdp.ci_count - 1).status == ci_copy_self && (rdp.timg().addr >= rdp.cimg) && (rdp.timg().addr < rdp.ci_end))
     {
         if (!rdp.fb_drawn)
         {
@@ -2589,9 +2597,9 @@ void rdp_setcolorimage()
 {
     if (g_settings->fb_emulation_enabled() && (rdp.num_of_ci < NUMTEXBUF))
     {
-        COLOR_IMAGE & cur_fb = rdp.frame_buffers[rdp.ci_count];
-        COLOR_IMAGE & prev_fb = rdp.frame_buffers[rdp.ci_count ? rdp.ci_count - 1 : 0];
-        COLOR_IMAGE & next_fb = rdp.frame_buffers[rdp.ci_count + 1];
+        COLOR_IMAGE & cur_fb = rdp.frame_buffers(rdp.ci_count);
+        COLOR_IMAGE & prev_fb = rdp.frame_buffers(rdp.ci_count ? rdp.ci_count - 1 : 0);
+        COLOR_IMAGE & next_fb = rdp.frame_buffers(rdp.ci_count + 1);
         switch (cur_fb.status)
         {
         case ci_main:
@@ -2619,27 +2627,27 @@ void rdp_setcolorimage()
                     }
                 }
                 else if (rdp.copy_ci_index && g_settings->hacks(CSettings::hack_PMario)) //tidal wave
-                    OpenTextureBuffer(rdp.frame_buffers[rdp.main_ci_index]);
+                    OpenTextureBuffer(rdp.frame_buffers(rdp.main_ci_index));
             }
             else if (!rdp.motionblur && g_settings->fb_hwfbe_enabled() && !SwapOK && (rdp.ci_count <= rdp.copy_ci_index))
             {
                 if (next_fb.status == ci_aux_copy)
-                    OpenTextureBuffer(rdp.frame_buffers[rdp.main_ci_index]);
+                    OpenTextureBuffer(rdp.frame_buffers(rdp.main_ci_index));
                 else
-                    OpenTextureBuffer(rdp.frame_buffers[rdp.copy_ci_index]);
+                    OpenTextureBuffer(rdp.frame_buffers(rdp.copy_ci_index));
             }
             else if (g_settings->fb_hwfbe_enabled() && prev_fb.status == ci_aux)
             {
                 if (rdp.motionblur)
                 {
-                    rdp.cur_image = &(rdp.texbufs[rdp.cur_tex_buf].images[0]);
+                    rdp.cur_image = &(rdp.texbufs(rdp.cur_tex_buf).images[0]);
                     grRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
                     grTextureBufferExt(rdp.cur_image->tmu, rdp.cur_image->tex_addr, rdp.cur_image->info.smallLodLog2, rdp.cur_image->info.largeLodLog2,
                         rdp.cur_image->info.aspectRatioLog2, rdp.cur_image->info.format, GR_MIPMAPLEVELMASK_BOTH);
                 }
                 else if (rdp.read_whole_frame)
                 {
-                    OpenTextureBuffer(rdp.frame_buffers[rdp.main_ci_index]);
+                    OpenTextureBuffer(rdp.frame_buffers(rdp.main_ci_index));
                 }
             }
             //else if (rdp.ci_status == ci_aux && !rdp.copy_ci_index)
@@ -2658,7 +2666,7 @@ void rdp_setcolorimage()
                     {
                         //                      if (CloseTextureBuffer(TRUE))
                         //*
-                        if (g_settings->hacks(CSettings::hack_Zelda) && (rdp.frame_buffers[rdp.ci_count + 2].status == ci_aux) && !rdp.fb_drawn) //hack for photo camera in Zelda MM
+                        if (g_settings->hacks(CSettings::hack_Zelda) && (rdp.frame_buffers(rdp.ci_count + 2).status == ci_aux) && !rdp.fb_drawn) //hack for photo camera in Zelda MM
                         {
                             CopyFrameBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
                             rdp.fb_drawn = TRUE;
@@ -2719,7 +2727,7 @@ void rdp_setcolorimage()
         }
         break;
         /*
-        else if (rdp.frame_buffers[rdp.ci_count].status == ci_main_i)
+        else if (rdp.frame_buffers(rdp.ci_count).status == ci_main_i)
         {
         //       CopyFrameBuffer ();
         rdp.scale_x = rdp.scale_x_bak;
@@ -2762,7 +2770,7 @@ void rdp_setcolorimage()
                 if (g_settings->fb_hwfbe_enabled() && !rdp.copy_ci_index && (rdp.copy_zi_index || g_settings->hacks(CSettings::hack_BAR)))
                 {
                     GrLOD_t LOD = g_settings->scr_res_x() > 1024 ? GR_LOD_LOG2_1024 : GR_LOD_LOG2_2048;
-                    grTextureAuxBufferExt(rdp.texbufs[0].tmu, rdp.texbufs[0].begin, LOD, LOD,
+                    grTextureAuxBufferExt(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, LOD, LOD,
                         GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
                     grAuxBufferExt(GR_BUFFER_TEXTUREAUXBUFFER_EXT);
                     WriteTrace(TraceRDP, TraceDebug, "rdp_setcolorimage - set texture depth buffer to TMU0");
@@ -2854,7 +2862,7 @@ void rdp_setcolorimage()
             int to_org_res = TRUE;
             for (int i = rdp.ci_count + 1; i < rdp.num_of_ci; i++)
             {
-                if ((rdp.frame_buffers[i].status != ci_main) && (rdp.frame_buffers[i].status != ci_zimg) && (rdp.frame_buffers[i].status != ci_zcopy))
+                if ((rdp.frame_buffers(i).status != ci_main) && (rdp.frame_buffers(i).status != ci_zimg) && (rdp.frame_buffers(i).status != ci_zcopy))
                 {
                     to_org_res = FALSE;
                     break;
@@ -2879,7 +2887,7 @@ void rdp_setcolorimage()
     rdp.cimg = segoffset(rdp.cmd1) & BMASK;
     rdp.ci_width = (rdp.cmd0 & 0xFFF) + 1;
     if (g_settings->fb_emulation_enabled() && rdp.ci_count > 0)
-        rdp.ci_height = rdp.frame_buffers[rdp.ci_count - 1].height;
+        rdp.ci_height = rdp.frame_buffers(rdp.ci_count - 1).height;
     else if (rdp.ci_width == 32)
         rdp.ci_height = 32;
     else
@@ -2901,7 +2909,7 @@ void rdp_setcolorimage()
         if (!rdp.cur_image)
         {
             if (g_settings->fb_hwfbe_enabled() && rdp.ci_width <= 64 && rdp.ci_count > 0)
-                OpenTextureBuffer(rdp.frame_buffers[rdp.ci_count - 1]);
+                OpenTextureBuffer(rdp.frame_buffers(rdp.ci_count - 1));
             else if (format > 2)
                 rdp.skip_drawing = TRUE;
             return;
@@ -2926,7 +2934,7 @@ void rdp_setcolorimage()
         {
             if (g_settings->fb_emulation_enabled())
             {
-                rdp.maincimg[0] = rdp.frame_buffers[rdp.main_ci_index];
+                rdp.maincimg[0] = rdp.frame_buffers(rdp.main_ci_index);
             }
             else
             {
@@ -2939,17 +2947,17 @@ void rdp_setcolorimage()
             SwapOK = FALSE;
             if (g_settings->fb_hwfbe_enabled())
             {
-                if (rdp.copy_ci_index && (rdp.frame_buffers[rdp.ci_count - 1].status != ci_zimg))
+                if (rdp.copy_ci_index && (rdp.frame_buffers(rdp.ci_count - 1).status != ci_zimg))
                 {
-                    int idx = (rdp.frame_buffers[rdp.ci_count].status == ci_aux_copy) ? rdp.main_ci_index : rdp.copy_ci_index;
-                    WriteTrace(TraceRDP, TraceDebug, "attempt open tex buffer. status: %s, addr: %08lx", CIStatus[rdp.frame_buffers[idx].status], rdp.frame_buffers[idx].addr);
-                    OpenTextureBuffer(rdp.frame_buffers[idx]);
-                    if (rdp.frame_buffers[rdp.copy_ci_index].status == ci_main) //tidal wave
+                    int idx = (rdp.frame_buffers(rdp.ci_count).status == ci_aux_copy) ? rdp.main_ci_index : rdp.copy_ci_index;
+                    WriteTrace(TraceRDP, TraceDebug, "attempt open tex buffer. status: %s, addr: %08lx", CIStatus[rdp.frame_buffers(idx).status], rdp.frame_buffers(idx).addr);
+                    OpenTextureBuffer(rdp.frame_buffers(idx));
+                    if (rdp.frame_buffers(rdp.copy_ci_index).status == ci_main) //tidal wave
                         rdp.copy_ci_index = 0;
                 }
                 else if (rdp.read_whole_frame && !rdp.cur_image)
                 {
-                    OpenTextureBuffer(rdp.frame_buffers[rdp.main_ci_index]);
+                    OpenTextureBuffer(rdp.frame_buffers(rdp.main_ci_index));
                 }
             }
         }
@@ -3105,10 +3113,10 @@ EXPORT void CALL FBRead(uint32_t addr)
             {
                 rdp.ci_width = rdp.maincimg[1].width;
                 rdp.ci_count = 0;
-                uint32_t h = rdp.frame_buffers[0].height;
-                rdp.frame_buffers[0].height = rdp.maincimg[1].height;
+                uint32_t h = rdp.frame_buffers(0).height;
+                rdp.frame_buffers(0).height = rdp.maincimg[1].height;
                 CopyFrameBuffer(GR_BUFFER_FRONTBUFFER);
-                rdp.frame_buffers[0].height = h;
+                rdp.frame_buffers(0).height = h;
             }
             else
             {
@@ -3217,7 +3225,7 @@ EXPORT void CALL FBGetFrameBufferInfo(void *p)
         int info_index = 1;
         for (int i = 0; i < rdp.num_of_ci && info_index < 6; i++)
         {
-            COLOR_IMAGE & cur_fb = rdp.frame_buffers[i];
+            COLOR_IMAGE & cur_fb = rdp.frame_buffers(i);
             if (cur_fb.status == ci_main || cur_fb.status == ci_copy_self ||
                 cur_fb.status == ci_old_copy)
             {
@@ -3253,10 +3261,10 @@ void DetectFrameBufferUsage()
     uint32_t a;
 
     int tidal = FALSE;
-    if (g_settings->hacks(CSettings::hack_PMario) && (rdp.copy_ci_index || rdp.frame_buffers[rdp.copy_ci_index].status == ci_copy_self))
+    if (g_settings->hacks(CSettings::hack_PMario) && (rdp.copy_ci_index || rdp.frame_buffers(rdp.copy_ci_index).status == ci_copy_self))
         tidal = TRUE;
     uint32_t ci = rdp.cimg, zi = rdp.zimg;
-    uint32_t ci_height = rdp.frame_buffers[(rdp.ci_count > 0) ? rdp.ci_count - 1 : 0].height;
+    uint32_t ci_height = rdp.frame_buffers((rdp.ci_count > 0) ? rdp.ci_count - 1 : 0).height;
     rdp.main_ci = rdp.main_ci_end = rdp.main_ci_bg = rdp.ci_count = 0;
     rdp.main_ci_index = rdp.copy_ci_index = rdp.copy_zi_index = 0;
     rdp.zimg_end = 0;
@@ -3319,27 +3327,29 @@ void DetectFrameBufferUsage()
     }
 
     if (rdp.black_ci_index > 0 && rdp.black_ci_index < rdp.copy_ci_index)
-        rdp.frame_buffers[rdp.black_ci_index].status = ci_main;
-
-    if (rdp.frame_buffers[rdp.ci_count - 1].status == ci_unknown)
     {
-        if (rdp.ci_count > 1)
-            rdp.frame_buffers[rdp.ci_count - 1].status = ci_aux;
-        else
-            rdp.frame_buffers[rdp.ci_count - 1].status = ci_main;
+        rdp.frame_buffers(rdp.black_ci_index).status = ci_main;
     }
 
-    if ((rdp.frame_buffers[rdp.ci_count - 1].status == ci_aux) &&
-        (rdp.frame_buffers[rdp.main_ci_index].width < 320) &&
-        (rdp.frame_buffers[rdp.ci_count - 1].width > rdp.frame_buffers[rdp.main_ci_index].width))
+    if (rdp.frame_buffers(rdp.ci_count - 1).status == ci_unknown)
+    {
+        if (rdp.ci_count > 1)
+            rdp.frame_buffers(rdp.ci_count - 1).status = ci_aux;
+        else
+            rdp.frame_buffers(rdp.ci_count - 1).status = ci_main;
+    }
+
+    if ((rdp.frame_buffers(rdp.ci_count - 1).status == ci_aux) &&
+        (rdp.frame_buffers(rdp.main_ci_index).width < 320) &&
+        (rdp.frame_buffers(rdp.ci_count - 1).width > rdp.frame_buffers(rdp.main_ci_index).width))
     {
         for (int i = 0; i < rdp.ci_count; i++)
         {
-            if (rdp.frame_buffers[i].status == ci_main)
-                rdp.frame_buffers[i].status = ci_aux;
-            else if (rdp.frame_buffers[i].addr == rdp.frame_buffers[rdp.ci_count - 1].addr)
-                rdp.frame_buffers[i].status = ci_main;
-            //                        WriteTrace(TraceRDP, TraceDebug, "rdp.frame_buffers[%d].status = %d", i, rdp.frame_buffers[i].status);
+            if (rdp.frame_buffers(i).status == ci_main)
+                rdp.frame_buffers(i).status = ci_aux;
+            else if (rdp.frame_buffers(i).addr == rdp.frame_buffers(rdp.ci_count - 1).addr)
+                rdp.frame_buffers(i).status = ci_main;
+            //                        WriteTrace(TraceRDP, TraceDebug, "rdp.frame_buffers[%d].status = %d", i, rdp.frame_buffers(i).status);
         }
         rdp.main_ci_index = rdp.ci_count - 1;
     }
@@ -3348,7 +3358,7 @@ void DetectFrameBufferUsage()
     int i;
     for (i = 0; i < rdp.ci_count; i++)
     {
-        if (rdp.frame_buffers[i].status != ci_zimg)
+        if (rdp.frame_buffers(i).status != ci_zimg)
         {
             all_zimg = FALSE;
             break;
@@ -3357,13 +3367,13 @@ void DetectFrameBufferUsage()
     if (all_zimg)
     {
         for (i = 0; i < rdp.ci_count; i++)
-            rdp.frame_buffers[i].status = ci_main;
+            rdp.frame_buffers(i).status = ci_main;
     }
 
     WriteTrace(TraceRDP, TraceDebug, "detect fb final results: ");
     for (i = 0; i < rdp.ci_count; i++)
     {
-        WriteTrace(TraceRDP, TraceDebug, "rdp.frame_buffers[%d].status = %s, addr: %08lx, height: %d", i, CIStatus[rdp.frame_buffers[i].status], rdp.frame_buffers[i].addr, rdp.frame_buffers[i].height);
+        WriteTrace(TraceRDP, TraceDebug, "rdp.frame_buffers[%d].status = %s, addr: %08lx, height: %d", i, CIStatus[rdp.frame_buffers(i).status], rdp.frame_buffers(i).addr, rdp.frame_buffers(i).height);
     }
 
     rdp.cimg = ci;
@@ -3374,7 +3384,7 @@ void DetectFrameBufferUsage()
         if (!g_settings->fb_hwfbe_enabled() || !rdp.copy_ci_index)
             rdp.motionblur = TRUE;
     }
-    if (rdp.motionblur || g_settings->fb_hwfbe_enabled() || (rdp.frame_buffers[rdp.copy_ci_index].status == ci_aux_copy))
+    if (rdp.motionblur || g_settings->fb_hwfbe_enabled() || (rdp.frame_buffers(rdp.copy_ci_index).status == ci_aux_copy))
     {
         rdp.scale_x = rdp.scale_x_bak;
         rdp.scale_y = rdp.scale_y_bak;
@@ -3389,15 +3399,15 @@ void DetectFrameBufferUsage()
             if (rdp.read_previous_ci && !previous_ci_was_read && (g_settings->swapmode() != CSettings::SwapMode_Hybrid) && (g_settings->ucode() != CSettings::ucode_PerfectDark))
             {
                 int ind = (rdp.ci_count > 0) ? rdp.ci_count - 1 : 0;
-                uint32_t height = rdp.frame_buffers[ind].height;
-                rdp.frame_buffers[ind].height = ci_height;
+                uint32_t height = rdp.frame_buffers(ind).height;
+                rdp.frame_buffers(ind).height = ci_height;
                 CopyFrameBuffer();
-                rdp.frame_buffers[ind].height = height;
+                rdp.frame_buffers(ind).height = height;
             }
             if (rdp.swap_ci_index < 0)
             {
-                rdp.texbufs[0].clear_allowed = rdp.texbufs[1].clear_allowed = TRUE;
-                OpenTextureBuffer(rdp.frame_buffers[rdp.main_ci_index]);
+                rdp.texbufs(0).clear_allowed = rdp.texbufs(1).clear_allowed = TRUE;
+                OpenTextureBuffer(rdp.frame_buffers(rdp.main_ci_index));
             }
         }
         else
@@ -3413,17 +3423,17 @@ void DetectFrameBufferUsage()
                     memset(gfx.RDRAM + rdp.cimg, 0, rdp.ci_width*rdp.ci_height*rdp.ci_size);
                 }
             }
-            else //if (ci_width == rdp.frame_buffers[rdp.main_ci_index].width)
+            else //if (ci_width == rdp.frame_buffers(rdp.main_ci_index).width)
             {
                 if (rdp.maincimg[0].height > 65) //for 1080
                 {
                     rdp.cimg = rdp.maincimg[0].addr;
                     rdp.ci_width = rdp.maincimg[0].width;
                     rdp.ci_count = 0;
-                    uint32_t h = rdp.frame_buffers[0].height;
-                    rdp.frame_buffers[0].height = rdp.maincimg[0].height;
+                    uint32_t h = rdp.frame_buffers(0).height;
+                    rdp.frame_buffers(0).height = rdp.maincimg[0].height;
                     CopyFrameBuffer();
-                    rdp.frame_buffers[0].height = h;
+                    rdp.frame_buffers(0).height = h;
                 }
                 else //conker
                 {
@@ -3437,11 +3447,11 @@ void DetectFrameBufferUsage()
     {
         for (i = 0; i < voodoo.num_tmu; i++)
         {
-            rdp.texbufs[i].clear_allowed = TRUE;
+            rdp.texbufs(i).clear_allowed = TRUE;
             for (int j = 0; j < 256; j++)
             {
-                rdp.texbufs[i].images[j].drawn = FALSE;
-                rdp.texbufs[i].images[j].clear = TRUE;
+                rdp.texbufs(i).images[j].drawn = FALSE;
+                rdp.texbufs(i).images[j].clear = TRUE;
             }
         }
         if (tidal)
@@ -3455,7 +3465,7 @@ void DetectFrameBufferUsage()
     {
         rdp.cur_tex_buf = 0;
     }
-    rdp.maincimg[0] = rdp.frame_buffers[rdp.main_ci_index];
+    rdp.maincimg[0] = rdp.frame_buffers(rdp.main_ci_index);
     //    rdp.scale_x = rdp.scale_x_bak;
     //    rdp.scale_y = rdp.scale_y_bak;
     WriteTrace(TraceRDP, TraceDebug, "DetectFrameBufferUsage End");

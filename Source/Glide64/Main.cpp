@@ -84,7 +84,6 @@ int ev_fullscreen = 0;
 extern int g_viewport_offset;
 extern int g_width, g_height;
 
-
 #ifdef _WIN32
 HINSTANCE hinstDLL = NULL;
 #endif
@@ -256,19 +255,19 @@ void guLoadTextures()
         grRenderBuffer(GR_BUFFER_BACKBUFFER);
     }
 
-    rdp.texbufs[0].tmu = GR_TMU0;
-    rdp.texbufs[0].begin = voodoo.tex_min_addr[GR_TMU0];
-    rdp.texbufs[0].end = rdp.texbufs[0].begin + tbuf_size;
-    rdp.texbufs[0].count = 0;
-    rdp.texbufs[0].clear_allowed = TRUE;
+    rdp.texbufs(0).tmu = GR_TMU0;
+    rdp.texbufs(0).begin = voodoo.tex_min_addr[GR_TMU0];
+    rdp.texbufs(0).end = rdp.texbufs(0).begin + tbuf_size;
+    rdp.texbufs(0).count = 0;
+    rdp.texbufs(0).clear_allowed = TRUE;
     offset_font = tbuf_size;
     if (voodoo.num_tmu > 1)
     {
-        rdp.texbufs[1].tmu = GR_TMU1;
-        rdp.texbufs[1].begin = voodoo.tex_UMA ? rdp.texbufs[0].end : voodoo.tex_min_addr[GR_TMU1];
-        rdp.texbufs[1].end = rdp.texbufs[1].begin + tbuf_size;
-        rdp.texbufs[1].count = 0;
-        rdp.texbufs[1].clear_allowed = TRUE;
+        rdp.texbufs(1).tmu = GR_TMU1;
+        rdp.texbufs(1).begin = voodoo.tex_UMA ? rdp.texbufs(0).end : voodoo.tex_min_addr[GR_TMU1];
+        rdp.texbufs(1).end = rdp.texbufs(1).begin + tbuf_size;
+        rdp.texbufs(1).count = 0;
+        rdp.texbufs(1).clear_allowed = TRUE;
         if (voodoo.tex_UMA)
             offset_font += tbuf_size;
         else
@@ -503,7 +502,7 @@ int InitGfx()
     voodoo.has_2mb_tex_boundary = (SST_type < GR_SSTTYPE_Banshee) && !evoodoo;
     // use UMA if available
     voodoo.tex_UMA = FALSE;
-    if (strstr(extensions, " TEXUMA ")) 
+    if (strstr(extensions, " TEXUMA "))
     {
         // we get better texture cache hits with UMA on
         grEnable(GR_TEXTURE_UMA_EXT);
@@ -1098,14 +1097,14 @@ static void CheckDRAMSize()
     {
         test = gfx.RDRAM[0x007FFFFF] + 1;
     }
-    GLIDE64_CATCH
+        GLIDE64_CATCH
     {
         test = 0;
     }
-    if (test)
-        BMASK = 0x7FFFFF;
-    else
-        BMASK = WMASK;
+        if (test)
+            BMASK = 0x7FFFFF;
+        else
+            BMASK = WMASK;
 #ifdef LOGGING
     sprintf(out_buf, "Detected RDRAM size: %08lx", BMASK);
     LOG(out_buf);

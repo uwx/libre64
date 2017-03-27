@@ -399,6 +399,8 @@ public:
     inline uint32_t tmem_size(void) const { return sizeof(m_tmem); }
     inline uint32_t addr(int index) const { return m_addr[index]; }
     inline LOAD_TILE_INFO & load_info(int index) { return m_load_info[index]; }
+    inline COLOR_IMAGE & frame_buffers(int index) { return m_frame_buffers[index]; }
+    inline TEXTURE_BUFFER & texbufs(int index) { return m_texbufs[index]; }
 
     inline void SetClip(int value) { m_clip = value; }
     inline void SetVTxbuf(VERTEX * value) { m_vtxbuf = value; }
@@ -431,9 +433,11 @@ public:
 
     int v0, vn;
 
-    COLOR_IMAGE *frame_buffers; //[NUMTEXBUF+2]
-    TEXTURE_BUFFER texbufs[2];
+private:
+    COLOR_IMAGE * m_frame_buffers; //[NUMTEXBUF+2]
+    TEXTURE_BUFFER m_texbufs[2];
 
+public:
     char RomName[21];
     float vi_width;
     float vi_height;

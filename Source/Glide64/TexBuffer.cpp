@@ -59,7 +59,7 @@ static TBUFF_COLOR_IMAGE * AllocateTextureBuffer(COLOR_IMAGE & cimage)
     texbuf.size = cimage.size;
     texbuf.scr_width = minval(cimage.width * rdp.scale_x, g_settings->scr_res_x());
     float height = minval(rdp.vi_height, cimage.height);
-    if (cimage.status == ci_copy_self || (cimage.status == ci_copy && cimage.width == rdp.frame_buffers[rdp.main_ci_index].width))
+    if (cimage.status == ci_copy_self || (cimage.status == ci_copy && cimage.width == rdp.frame_buffers(rdp.main_ci_index).width))
         height = rdp.vi_height;
     texbuf.scr_height = height * rdp.scale_y;
     //  texbuf.scr_height = texbuf.height * rdp.scale_y;
@@ -163,50 +163,52 @@ static TBUFF_COLOR_IMAGE * AllocateTextureBuffer(COLOR_IMAGE & cimage)
     {
         uint32_t available = 0;
         uint32_t top = 0;
-        if (rdp.texbufs[i].count)
+        if (rdp.texbufs(i).count)
         {
-            TBUFF_COLOR_IMAGE & t = rdp.texbufs[i].images[rdp.texbufs[i].count - 1];
+            TBUFF_COLOR_IMAGE & t = rdp.texbufs(i).images[rdp.texbufs(i).count - 1];
             if (rdp.read_whole_frame || rdp.motionblur)
             {
                 if ((cimage.status == ci_aux) && (rdp.cur_tex_buf == i))
                 {
                     top = t.tex_addr + t.tex_width * (int)(t.scr_height + 1) * 2;
-                    if (rdp.texbufs[i].end - top < required)
+                    if (rdp.texbufs(i).end - top < required)
                         return 0;
                 }
                 else
-                    top = rdp.texbufs[i].end;
+                    top = rdp.texbufs(i).end;
             }
             else
                 top = t.tex_addr + t.tex_width * t.tex_height * 2;
-            available = rdp.texbufs[i].end - top;
+            available = rdp.texbufs(i).end - top;
         }
         else
         {
-            available = rdp.texbufs[i].end - rdp.texbufs[i].begin;
-            top = rdp.texbufs[i].begin;
+            available = rdp.texbufs(i).end - rdp.texbufs(i).begin;
+            top = rdp.texbufs(i).begin;
         }
         if (available >= required)
         {
-            rdp.texbufs[i].count++;
-            rdp.texbufs[i].clear_allowed = FALSE;
+            rdp.texbufs(i).count++;
+            rdp.texbufs(i).clear_allowed = FALSE;
             texbuf.tex_addr = top;
             rdp.cur_tex_buf = i;
-            texbuf.tmu = rdp.texbufs[i].tmu;
-            rdp.texbufs[i].images[rdp.texbufs[i].count - 1] = texbuf;
-            return &(rdp.texbufs[i].images[rdp.texbufs[i].count - 1]);
+            texbuf.tmu = rdp.texbufs(i).tmu;
+            rdp.texbufs(i).images[rdp.texbufs(i).count - 1] = texbuf;
+            return &(rdp.texbufs(i).images[rdp.texbufs(i).count - 1]);
         }
     }
     //not found. keep recently accessed bank, clear second one
-    if (!rdp.texbufs[rdp.cur_tex_buf ^ 1].clear_allowed) //can't clear => can't allocate
+    if (!rdp.texbufs(rdp.cur_tex_buf ^ 1).clear_allowed) //can't clear => can't allocate
+    {
         return 0;
+    }
     rdp.cur_tex_buf ^= 1;
-    rdp.texbufs[rdp.cur_tex_buf].count = 1;
-    rdp.texbufs[rdp.cur_tex_buf].clear_allowed = FALSE;
-    texbuf.tmu = rdp.texbufs[rdp.cur_tex_buf].tmu;
-    texbuf.tex_addr = rdp.texbufs[rdp.cur_tex_buf].begin;
-    rdp.texbufs[rdp.cur_tex_buf].images[0] = texbuf;
-    return &(rdp.texbufs[rdp.cur_tex_buf].images[0]);
+    rdp.texbufs(rdp.cur_tex_buf).count = 1;
+    rdp.texbufs(rdp.cur_tex_buf).clear_allowed = FALSE;
+    texbuf.tmu = rdp.texbufs(rdp.cur_tex_buf).tmu;
+    texbuf.tex_addr = rdp.texbufs(rdp.cur_tex_buf).begin;
+    rdp.texbufs(rdp.cur_tex_buf).images[0] = texbuf;
+    return &(rdp.texbufs(rdp.cur_tex_buf).images[0]);
 }
 
 int OpenTextureBuffer(COLOR_IMAGE & cimage)
@@ -217,7 +219,7 @@ int OpenTextureBuffer(COLOR_IMAGE & cimage)
     TBUFF_COLOR_IMAGE *texbuf = 0;
     uint32_t addr = cimage.addr;
     if (g_settings->hacks(CSettings::hack_Banjo2) && cimage.status == ci_copy_self)
-        addr = rdp.frame_buffers[rdp.copy_ci_index].addr;
+        addr = rdp.frame_buffers(rdp.copy_ci_index).addr;
     uint32_t end_addr = addr + ((cimage.width*cimage.height) << cimage.size >> 1);
     if (rdp.motionblur)
     {
@@ -234,18 +236,18 @@ int OpenTextureBuffer(COLOR_IMAGE & cimage)
         }
         else
         {
-            if (!rdp.texbufs[0].clear_allowed || !rdp.texbufs[1].clear_allowed)
+            if (!rdp.texbufs(0).clear_allowed || !rdp.texbufs(1).clear_allowed)
             {
                 if (cimage.status == ci_main)
                 {
-                    texbuf = &(rdp.texbufs[rdp.cur_tex_buf].images[0]);
+                    texbuf = &(rdp.texbufs(rdp.cur_tex_buf).images[0]);
                     found = TRUE;
                 }
                 else
                 {
-                    for (int t = 0; (t < rdp.texbufs[rdp.cur_tex_buf].count) && !found; t++)
+                    for (int t = 0; (t < rdp.texbufs(rdp.cur_tex_buf).count) && !found; t++)
                     {
-                        texbuf = &(rdp.texbufs[rdp.cur_tex_buf].images[t]);
+                        texbuf = &(rdp.texbufs(rdp.cur_tex_buf).images[t]);
                         if (addr == texbuf->addr && cimage.width == texbuf->width)
                         {
                             texbuf->drawn = FALSE;
@@ -261,9 +263,9 @@ int OpenTextureBuffer(COLOR_IMAGE & cimage)
     {
         for (int i = 0; (i < voodoo.num_tmu) && !found; i++)
         {
-            for (int j = 0; (j < rdp.texbufs[i].count) && !found; j++)
+            for (int j = 0; (j < rdp.texbufs(i).count) && !found; j++)
             {
-                texbuf = &(rdp.texbufs[i].images[j]);
+                texbuf = &(rdp.texbufs(i).images[j]);
                 if (addr == texbuf->addr && cimage.width == texbuf->width)
                 {
                     //texbuf->height = cimage.height;
@@ -279,7 +281,7 @@ int OpenTextureBuffer(COLOR_IMAGE & cimage)
                     texbuf->tile = 0;
                     found = TRUE;
                     rdp.cur_tex_buf = i;
-                    rdp.texbufs[i].clear_allowed = FALSE;
+                    rdp.texbufs(i).clear_allowed = FALSE;
                 }
                 else //check intersection
                 {
@@ -292,9 +294,9 @@ int OpenTextureBuffer(COLOR_IMAGE & cimage)
                         grBufferClear(0, 0, 0xFFFF);
                         grDepthMask(FXTRUE);
                         grRenderBuffer(GR_BUFFER_BACKBUFFER);
-                        rdp.texbufs[i].count--;
-                        if (j < rdp.texbufs[i].count)
-                            memmove(&(rdp.texbufs[i].images[j]), &(rdp.texbufs[i].images[j + 1]), sizeof(TBUFF_COLOR_IMAGE)*(rdp.texbufs[i].count - j));
+                        rdp.texbufs(i).count--;
+                        if (j < rdp.texbufs(i).count)
+                            memmove(&(rdp.texbufs(i).images[j]), &(rdp.texbufs(i).images[j + 1]), sizeof(TBUFF_COLOR_IMAGE)*(rdp.texbufs(i).count - j));
                     }
                 }
             }
@@ -544,8 +546,8 @@ int CopyDepthBuffer()
         bound = 2048.0f;
         LOD = GR_LOD_LOG2_2048;
     }
-    rdp.tbuff_tex = &(rdp.texbufs[0].images[0]);
-    rdp.tbuff_tex->tmu = rdp.texbufs[0].tmu;
+    rdp.tbuff_tex = &(rdp.texbufs(0).images[0]);
+    rdp.tbuff_tex->tmu = rdp.texbufs(0).tmu;
     rdp.tbuff_tex->info.format = GR_TEXFMT_RGB_565;
     rdp.tbuff_tex->info.smallLodLog2 = rdp.tbuff_tex->info.largeLodLog2 = LOD;
     rdp.tbuff_tex->info.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
@@ -568,14 +570,14 @@ int CopyDepthBuffer()
     };
 
     grAuxBufferExt(GR_BUFFER_AUXBUFFER);
-    grTexSource(rdp.texbufs[0].tmu, rdp.texbufs[0].begin, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
+    grTexSource(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
     grRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
-    grTextureBufferExt(rdp.texbufs[1].tmu, rdp.texbufs[1].begin, LOD, LOD,
+    grTextureBufferExt(rdp.texbufs(1).tmu, rdp.texbufs(1).begin, LOD, LOD,
         GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
     grDrawTriangle(&v[0], &v[2], &v[1]);
     grDrawTriangle(&v[2], &v[3], &v[1]);
     grRenderBuffer(GR_BUFFER_BACKBUFFER);
-    grTextureAuxBufferExt(rdp.texbufs[1].tmu, rdp.texbufs[1].begin, LOD, LOD,
+    grTextureAuxBufferExt(rdp.texbufs(1).tmu, rdp.texbufs(1).begin, LOD, LOD,
         GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
     grAuxBufferExt(GR_BUFFER_TEXTUREAUXBUFFER_EXT);
 
@@ -633,8 +635,8 @@ int SwapTextureBuffer()
         texbuf->info.aspectRatioLog2, texbuf->info.format, GR_MIPMAPLEVELMASK_BOTH);
     grDrawTriangle(&v[0], &v[2], &v[1]);
     grDrawTriangle(&v[2], &v[3], &v[1]);
-    rdp.texbufs[rdp.tbuff_tex->tmu].clear_allowed = TRUE;
-    rdp.texbufs[rdp.tbuff_tex->tmu].count = 0;
+    rdp.texbufs(rdp.tbuff_tex->tmu).clear_allowed = TRUE;
+    rdp.texbufs(rdp.tbuff_tex->tmu).count = 0;
     texbuf->tile_uls = rdp.tbuff_tex->tile_uls;
     texbuf->tile_ult = rdp.tbuff_tex->tile_ult;
     texbuf->u_shift = rdp.tbuff_tex->u_shift;
@@ -694,9 +696,9 @@ int FindTextureBuffer(uint32_t addr, uint16_t width)
     for (int i = 0; i < voodoo.num_tmu && !found; i++)
     {
         uint8_t index = rdp.cur_tex_buf^i;
-        for (int j = 0; j < rdp.texbufs[index].count && !found; j++)
+        for (int j = 0; j < rdp.texbufs(index).count && !found; j++)
         {
-            rdp.tbuff_tex = &(rdp.texbufs[index].images[j]);
+            rdp.tbuff_tex = &(rdp.texbufs(index).images[j]);
             if (addr >= rdp.tbuff_tex->addr && addr < rdp.tbuff_tex->end_addr)// && rdp.timg().format == 0)
             {
                 bool bCorrect;
@@ -718,9 +720,9 @@ int FindTextureBuffer(uint32_t addr, uint16_t width)
                 }
                 else //new texture is loaded into this place, texture buffer is not valid anymore
                 {
-                    rdp.texbufs[index].count--;
-                    if (j < rdp.texbufs[index].count)
-                        memmove(&(rdp.texbufs[index].images[j]), &(rdp.texbufs[index].images[j + 1]), sizeof(TBUFF_COLOR_IMAGE)*(rdp.texbufs[index].count - j));
+                    rdp.texbufs(index).count--;
+                    if (j < rdp.texbufs(index).count)
+                        memmove(&(rdp.texbufs(index).images[j]), &(rdp.texbufs(index).images[j + 1]), sizeof(TBUFF_COLOR_IMAGE)*(rdp.texbufs(index).count - j));
                 }
             }
         }
