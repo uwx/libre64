@@ -44,6 +44,7 @@
 #include <Glide64/Gfx_1.3.h>
 #include <Glide64/trace.h>
 #include <Glide64/ucode.h>
+#include <math.h>
 #include "ucode00.h"
 #include "util.h"
 /******************Turbo3D microcode*************************/

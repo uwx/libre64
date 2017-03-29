@@ -384,14 +384,16 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpenExt(GrColorFormat_t color_format, GrOri
 # endif
 #endif
 
+#ifndef ANDROID
 std::unique_ptr<EGLWindow> mEGLWindow;
 
 void SwapBuffers(void)
 {
     mEGLWindow->swap();
 }
+#endif
 
-FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrColorFormat_t color_format, GrOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
+FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
 {
     static int show_warning = 1;
 
@@ -404,7 +406,7 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrColorFormat_t color_format, GrOrigi
     depth_texture = free_texture++;
 
     WriteTrace(TraceGlitch, TraceDebug, "color_format: %d, origin_location: %d, nColBuffers: %d, nAuxBuffers: %d", color_format, origin_location, nColBuffers, nAuxBuffers);
-#ifdef _WIN32
+#ifndef ANDROID
     mEGLWindow.reset(new EGLWindow(2, 0, EGLPlatformParameters(EGL_PLATFORM_ANGLE_TYPE_DEFAULT_ANGLE)));
     mEGLWindow->setConfigRedBits(8);
     mEGLWindow->setConfigGreenBits(8);
@@ -556,9 +558,9 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen( GrColorFormat_t color_format, GrOrigi
     glCompressedTexImage2DARB = (PFNGLCOMPRESSEDTEXIMAGE2DPROC)wglGetProcAddress("glCompressedTexImage2DARB");
 #endif
 
-glViewport(0, g_viewport_offset, g_width, g_height);
-viewport_width = g_width;
-viewport_height = g_height;
+    glViewport(0, g_viewport_offset, g_width, g_height);
+    viewport_width = g_width;
+    viewport_height = g_height;
 #ifdef _WIN32
     nvidia_viewport_hack = 1;
 #endif // _WIN32
@@ -1012,12 +1014,12 @@ int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, GrTexInfo *info
 
 FX_ENTRY void FX_CALL
 grTextureAuxBufferExt(GrChipID_t tmu,
-FxU32      startAddress,
-GrLOD_t    thisLOD,
-GrLOD_t    largeLOD,
-GrAspectRatio_t aspectRatio,
-GrTextureFormat_t format,
-FxU32      odd_even_mask)
+    FxU32      startAddress,
+    GrLOD_t    thisLOD,
+    GrLOD_t    largeLOD,
+    GrAspectRatio_t aspectRatio,
+    GrTextureFormat_t format,
+    FxU32      odd_even_mask)
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu: %d startAddress: %d thisLOD: %d largeLOD: %d aspectRatio: %d format: %d odd_even_mask: %d", tmu, startAddress, thisLOD, largeLOD, aspectRatio, format, odd_even_mask);
     //WriteTrace(TraceGlitch, TraceWarning, "grTextureAuxBufferExt");
@@ -1456,32 +1458,32 @@ grRenderBuffer(GrBuffer_t buffer)
             savedHeighto = heighto;
         }
 
-    {
-        if (!use_fbo) {
-            //glMatrixMode(GL_MODELVIEW);
-            //glLoadIdentity();
-            //glTranslatef(0, 0, 1-zscale);
-            //glScalef(1, 1, zscale);
-            inverted_culling = 0;
+        {
+            if (!use_fbo) {
+                //glMatrixMode(GL_MODELVIEW);
+                //glLoadIdentity();
+                //glTranslatef(0, 0, 1-zscale);
+                //glScalef(1, 1, zscale);
+                inverted_culling = 0;
+            }
+            else {
+                /*
+                        float m[4*4] = {1.0f, 0.0f, 0.0f, 0.0f,
+                        0.0f,-1.0f, 0.0f, 0.0f,
+                        0.0f, 0.0f, 1.0f, 0.0f,
+                        0.0f, 0.0f, 0.0f, 1.0f};
+                        glMatrixMode(GL_MODELVIEW);
+                        glLoadMatrixf(m);
+                        // VP z fix
+                        glTranslatef(0, 0, 1-zscale);
+                        glScalef(1, 1*1, zscale);
+                        */
+                inverted_culling = 1;
+                grCullMode(culling_mode);
+            }
         }
-        else {
-            /*
-                    float m[4*4] = {1.0f, 0.0f, 0.0f, 0.0f,
-                    0.0f,-1.0f, 0.0f, 0.0f,
-                    0.0f, 0.0f, 1.0f, 0.0f,
-                    0.0f, 0.0f, 0.0f, 1.0f};
-                    glMatrixMode(GL_MODELVIEW);
-                    glLoadMatrixf(m);
-                    // VP z fix
-                    glTranslatef(0, 0, 1-zscale);
-                    glScalef(1, 1*1, zscale);
-                    */
-            inverted_culling = 1;
-            grCullMode(culling_mode);
-        }
-    }
-    render_to_texture = 1;
-    break;
+        render_to_texture = 1;
+        break;
     default:
         WriteTrace(TraceGlitch, TraceWarning, "grRenderBuffer : unknown buffer : %x", buffer);
     }
@@ -1584,8 +1586,8 @@ grBufferSwap(FxU32 swap_interval)
 
 FX_ENTRY FxBool FX_CALL
 grLfbLock(GrLock_t type, GrBuffer_t buffer, GrLfbWriteMode_t writeMode,
-GrOriginLocation_t origin, FxBool pixelPipeline,
-GrLfbInfo_t *info)
+    GrOriginLocation_t origin, FxBool pixelPipeline,
+    GrLfbInfo_t *info)
 {
     WriteTrace(TraceGlitch, TraceDebug, "type: %d buffer: %d writeMode: %d origin: %d pixelPipeline: %d", type, buffer, writeMode, origin, pixelPipeline);
     if (type == GR_LFB_WRITE_ONLY)
@@ -1667,9 +1669,9 @@ grLfbUnlock(GrLock_t type, GrBuffer_t buffer)
 
 FX_ENTRY FxBool FX_CALL
 grLfbReadRegion(GrBuffer_t src_buffer,
-FxU32 src_x, FxU32 src_y,
-FxU32 src_width, FxU32 src_height,
-FxU32 dst_stride, void *dst_data)
+    FxU32 src_x, FxU32 src_y,
+    FxU32 src_width, FxU32 src_height,
+    FxU32 dst_stride, void *dst_data)
 {
     unsigned char *buf;
     unsigned int i, j;
@@ -1732,11 +1734,11 @@ FxU32 dst_stride, void *dst_data)
 
 FX_ENTRY FxBool FX_CALL
 grLfbWriteRegion(GrBuffer_t dst_buffer,
-FxU32 dst_x, FxU32 dst_y,
-GrLfbSrcFmt_t src_format,
-FxU32 src_width, FxU32 src_height,
-FxBool pixelPipeline,
-FxI32 src_stride, void *src_data)
+    FxU32 dst_x, FxU32 dst_y,
+    GrLfbSrcFmt_t src_format,
+    FxU32 src_width, FxU32 src_height,
+    FxBool pixelPipeline,
+    FxI32 src_stride, void *src_data)
 {
     unsigned char *buf;
     unsigned int i, j;
@@ -1830,7 +1832,7 @@ FxI32 src_stride, void *src_data)
     }
     else
     {
-        float *buf = (float*)malloc(src_width*(src_height + (g_viewport_offset))*sizeof(float));
+        float *buf = (float*)malloc(src_width*(src_height + (g_viewport_offset)) * sizeof(float));
 
         if (src_format != GR_LFBWRITEMODE_ZA16)
             WriteTrace(TraceGlitch, TraceWarning, "unknown depth buffer write format:%x", src_format);
@@ -1966,46 +1968,46 @@ grFlush(void)
 
 FX_ENTRY void FX_CALL
 grTexMultibase(GrChipID_t tmu,
-FxBool     enable)
+    FxBool     enable)
 {
     WriteTrace(TraceGlitch, TraceWarning, "grTexMultibase");
 }
 
 FX_ENTRY void FX_CALL
 grTexMipMapMode(GrChipID_t     tmu,
-GrMipMapMode_t mode,
-FxBool         lodBlend)
+    GrMipMapMode_t mode,
+    FxBool         lodBlend)
 {
     WriteTrace(TraceGlitch, TraceWarning, "grTexMipMapMode");
 }
 
 FX_ENTRY void FX_CALL
 grTexDownloadTablePartial(GrTexTable_t type,
-void         *data,
-int          start,
-int          end)
+    void         *data,
+    int          start,
+    int          end)
 {
     WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadTablePartial");
 }
 
 FX_ENTRY void FX_CALL
 grTexDownloadTable(GrTexTable_t type,
-void         *data)
+    void         *data)
 {
     WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadTable");
 }
 
 FX_ENTRY FxBool FX_CALL
 grTexDownloadMipMapLevelPartial(GrChipID_t        tmu,
-FxU32             startAddress,
-GrLOD_t           thisLod,
-GrLOD_t           largeLod,
-GrAspectRatio_t   aspectRatio,
-GrTextureFormat_t format,
-FxU32             evenOdd,
-void              *data,
-int               start,
-int               end)
+    FxU32             startAddress,
+    GrLOD_t           thisLod,
+    GrLOD_t           largeLod,
+    GrAspectRatio_t   aspectRatio,
+    GrTextureFormat_t format,
+    FxU32             evenOdd,
+    void              *data,
+    int               start,
+    int               end)
 {
     WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadMipMapLevelPartial");
     return 1;
@@ -2013,13 +2015,13 @@ int               end)
 
 FX_ENTRY void FX_CALL
 grTexDownloadMipMapLevel(GrChipID_t        tmu,
-FxU32             startAddress,
-GrLOD_t           thisLod,
-GrLOD_t           largeLod,
-GrAspectRatio_t   aspectRatio,
-GrTextureFormat_t format,
-FxU32             evenOdd,
-void              *data)
+    FxU32             startAddress,
+    GrLOD_t           thisLod,
+    GrLOD_t           largeLod,
+    GrAspectRatio_t   aspectRatio,
+    GrTextureFormat_t format,
+    FxU32             evenOdd,
+    void              *data)
 {
     WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadMipMapLevel");
 }
@@ -2057,8 +2059,8 @@ grSelectContext(GrContext_t context)
 
 FX_ENTRY void FX_CALL
 grAADrawTriangle(
-const void *a, const void *b, const void *c,
-FxBool ab_antialias, FxBool bc_antialias, FxBool ca_antialias
+    const void *a, const void *b, const void *c,
+    FxBool ab_antialias, FxBool bc_antialias, FxBool ca_antialias
 )
 {
     WriteTrace(TraceGlitch, TraceWarning, "grAADrawTriangle");
@@ -2120,10 +2122,10 @@ grLfbConstantAlpha(GrAlpha_t alpha)
 
 FX_ENTRY void FX_CALL
 grTexMultibaseAddress(GrChipID_t       tmu,
-GrTexBaseRange_t range,
-FxU32            startAddress,
-FxU32            evenOdd,
-GrTexInfo        *info)
+    GrTexBaseRange_t range,
+    FxU32            startAddress,
+    FxU32            evenOdd,
+    GrTexInfo        *info)
 {
     WriteTrace(TraceGlitch, TraceWarning, "grTexMultibaseAddress");
 }
@@ -2211,7 +2213,7 @@ void CHECK_FRAMEBUFFER_STATUS(void)
     GLenum status;
     status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     WriteTrace(TraceGlitch, TraceDebug, "status: %X", status);
-    switch(status) {
+    switch (status) {
     case GL_FRAMEBUFFER_COMPLETE:
         /*WriteTrace(TraceGlitch, TraceWarning, "framebuffer complete!\n");*/
         break;

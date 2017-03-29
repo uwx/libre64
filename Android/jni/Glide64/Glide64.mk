@@ -36,6 +36,20 @@ LOCAL_SRC_FILES :=                              \
     $(SRCDIR)/Glide64/TexBuffer.cpp             \
     $(SRCDIR)/Glide64/TexCache.cpp              \
     $(SRCDIR)/Glide64/trace.cpp                 \
+    $(SRCDIR)/Glide64/turbo3D.cpp               \
+    $(SRCDIR)/Glide64/ucode.cpp                 \
+    $(SRCDIR)/Glide64/ucode00.cpp               \
+    $(SRCDIR)/Glide64/ucode01.cpp               \
+    $(SRCDIR)/Glide64/ucode02.cpp               \
+    $(SRCDIR)/Glide64/ucode03.cpp               \
+    $(SRCDIR)/Glide64/ucode04.cpp               \
+    $(SRCDIR)/Glide64/ucode05.cpp               \
+    $(SRCDIR)/Glide64/ucode06.cpp               \
+    $(SRCDIR)/Glide64/ucode07.cpp               \
+    $(SRCDIR)/Glide64/ucode08.cpp               \
+    $(SRCDIR)/Glide64/ucode09.cpp               \
+    $(SRCDIR)/Glide64/ucode09rdp.cpp            \
+    $(SRCDIR)/Glide64/ucodeFB.cpp               \
     $(SRCDIR)/Glide64/Util.cpp                  \
     $(SRCDIR)/Glide64/Ext_TxFilter.cpp          \
     $(SRCDIR)/GlideHQ/TxFilterExport.cpp        \

@@ -46,6 +46,7 @@
 #include <Glide64/Gfx_1.3.h>
 #include <Glide64/trace.h>
 #include <Glide64/ucode.h>
+#include <math.h>
 #include "3dmath.h"
 
 uint32_t pd_col_addr = 0;
