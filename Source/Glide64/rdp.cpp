@@ -276,8 +276,216 @@ void CRDP::free()
         m_frame_buffers = NULL;
     }
 
+    n_global = 0;
+    vtx_buffer = 0;
+    v0 = 0;
+    vn = 0;
+    memset(RomName, 0, sizeof(RomName));
+    vi_width = 0;
+    vi_height = 0;
+
+    window_changed = 0;
+
+    offset_x = 0;
+    offset_y = 0;
+    offset_x_bak = 0;
+    offset_y_bak = 0;
+
+    scale_x = 0;
+    scale_1024 = 0;
+    scale_x_bak = 0;
+
+    scale_y = 0;
+    scale_768 = 0;
+    scale_y_bak = 0;
+
+    memset(view_scale, 0, sizeof(view_scale));
+    memset(view_trans, 0, sizeof(view_trans));
+    clip_min_x = 0;
+    clip_max_x = 0;
+    clip_min_y = 0;
+    clip_max_y = 0;
+    clip_ratio = 0;
+
+    updatescreen = 0;
+
+    tri_n = 0;
+    debug_n = 0;
+
+    memset(pc, 0, sizeof(pc));
+    pc_i = 0;
+    dl_count = 0;
+    LLE = 0;
+
+    memset(segment, 0, sizeof(segment));
+    halt = 0;
+
+    cmd0 = 0;
+    cmd1 = 0;
+    cmd2 = 0;
+    cmd3 = 0;
+
+    memset(&scissor_o, 0, sizeof(scissor_o));
+    memset(&scissor, 0, sizeof(scissor));
+    scissor_set = 0;
+
+    fog_color = 0;
+    fill_color = 0;
+    prim_color = 0;
+    blend_color = 0;
+    env_color = 0;
+    SCALE = 0;
+    CENTER = 0;
+    prim_lodmin = 0;
+    prim_lodfrac = 0;
+    prim_depth = 0;
+    prim_dz = 0;
+    K4 = 0;
+    K5 = 0;
+    noise = noise_none;
+
+    memset(col, 0, sizeof(col));
+    memset(col_2, 0, sizeof(col_2));
+    memset(coladd, 0, sizeof(coladd));
+    shade_factor = 0;
+    cmb_flags = 0;
+    cmb_flags_2 = 0;
+
+    acmp = 0;
+    zsrc = 0;
+    alpha_dither_mode = 0;
+
+    memset(model, 0, sizeof(model));
+    memset(proj, 0, sizeof(proj));
+    memset(combined, 0, sizeof(combined));
+    memset(dkrproj, 0, sizeof(dkrproj));
+    memset(model_stack, 0, sizeof(model_stack));
+
+    model_i = 0;
+    model_stack_size = 0;
+    cur_tile = 0;
+    mipmap_level = 0;
+    last_tile = 0;
+    last_tile_size = 0;
+
+    t0 = 0;
+    t1 = 0;
+    best_tex = 0;
+    tex = 0;
+    filter_mode = 0;
+
+    memset(pal_8, 0, sizeof(pal_8));
+    memset(pal_8_crc, 0, sizeof(pal_8_crc));
+    pal_256_crc = 0;
+    tlut_mode = 0;
+    LOD_en = 0;
+    Persp_en = 0;
+    persp_supported = 0;
+    force_wrap = 0;
+    memset(pal_8_rice, 0, sizeof(pal_8_rice));
+    num_lights = 0;
+    memset(light, 0, sizeof(light));
+    memset(light_vector, 0, sizeof(light_vector));
+    memset(lookat, 0, sizeof(lookat));
+    use_lookat = 0;
+
+    cycle1 = 0;
+    cycle2 = 0;
+    cycle_mode = 0;
+    c_a0 = 0;
+    c_b0 = 0;
+    c_c0 = 0;
+    c_d0 = 0;
+    c_Aa0 = 0;
+    c_Ab0 = 0;
+    c_Ac0 = 0;
+    c_Ad0 = 0;
+    c_a1 = 0;
+    c_b1 = 0;
+    c_c1 = 0;
+    c_d1 = 0;
+    c_Aa1 = 0;
+    c_Ab1 = 0;
+    c_Ac1 = 0;
+    c_Ad1 = 0;
+
+    fbl_a0 = 0;
+    fbl_b0 = 0;
+    fbl_c0 = 0;
+    fbl_d0 = 0;
+    fbl_a1 = 0;
+    fbl_b1 = 0;
+    fbl_c1 = 0;
+    fbl_d1 = 0;
+
+    uncombined = 0;
+    update = 0;
+    flags = 0;
+
+    first = 0;
+
+    tex_ctr = 0;
+
+    allow_combine = 0;
+
+    s2dex_tex_loaded = 0;
+    bg_image_height = 0;
+
+    rm = 0;
+    render_mode_changed = 0;
+    geom_mode = 0;
+
+    othermode_h = 0;
+    othermode_l = 0;
+
+    texrecting = 0;
+
+    cimg = 0;
+    ocimg = 0;
+    zimg = 0;
+    tmpzimg = 0;
+    vi_org_reg = 0;
+    memset(maincimg, 0, sizeof(maincimg));
+    last_drawn_ci_addr = 0;
+    main_ci = 0;
+    main_ci_end = 0;
+    main_ci_bg = 0;
+    main_ci_last_tex_addr = 0;
+    zimg_end = 0;
+    last_bg = 0;
+    ci_width = 0;
+    ci_height = 0;
+    ci_size = 0;
+    ci_end = 0;
+    zi_width = 0;
+    zi_lrx = 0;
+    zi_lry = 0;
+    ci_count = 0;
+    num_of_ci = 0;
+    main_ci_index = 0;
+    copy_ci_index = 0;
+    copy_zi_index = 0;
+    swap_ci_index = 0;
+    black_ci_index = 0;
+    ci_upper_bound = 0;
+    ci_lower_bound = 0;
+    motionblur = 0;
+    fb_drawn = 0;
+    fb_drawn_front = 0;
+    read_previous_ci = 0;
+    read_whole_frame = 0;
+    ci_status = ci_main;
+    cur_image = NULL;
+    tbuff_tex = NULL;
+    memset(aTBuffTex, 0, sizeof(aTBuffTex));
+    cur_tex_buf = 0;
+    acc_tex_buf = 0;
+    skip_drawing = 0;
+    fog_multiplier = 0;
+    fog_offset = 0;
+    fog_mode = fog_disabled;
+
     reset = 1;
-    vtx_buffer = n_global = 0;
 
     v0 = vn = 0;
 
