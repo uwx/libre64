@@ -550,11 +550,6 @@ int InitGfx()
         voodoo.tex_max_addr[1] = grTexMaxAddress(GR_TMU1);
     }
 
-    if (strstr(extensions, "TEXMIRROR") && !g_settings->hacks(CSettings::hack_Zelda)) //zelda's trees suffer from hardware mirroring
-        voodoo.sup_mirroring = 1;
-    else
-        voodoo.sup_mirroring = 0;
-
     if (strstr(extensions, "TEXFMT"))  //VSA100 texture format extension
         voodoo.sup_32bit_tex = TRUE;
     else
@@ -571,12 +566,10 @@ int InitGfx()
 
 #ifdef SIMULATE_VOODOO1
     voodoo.num_tmu = 1;
-    voodoo.sup_mirroring = 0;
 #endif
 
 #ifdef SIMULATE_BANSHEE
     voodoo.num_tmu = 1;
-    voodoo.sup_mirroring = 1;
 #endif
 
     grCoordinateSpace(GR_WINDOW_COORDS);
@@ -700,10 +693,6 @@ int InitGfx()
                 rdp.RomName, // name of ROM. must be no longer than 256 characters
                 DisplayLoadProgress);
         }
-    }
-    if (g_ghq_use && strstr(extensions, "TEXMIRROR"))
-    {
-        voodoo.sup_mirroring = 1;
     }
     return TRUE;
 }

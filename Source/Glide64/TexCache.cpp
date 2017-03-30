@@ -900,31 +900,45 @@ void TexCache()
                 }
 
                 if (rdp.cur_cache(i)->f_mirror_s)
+                {
                     mode_s = GR_TEXTURECLAMP_MIRROR_EXT;
+                }
                 else if (rdp.cur_cache(i)->f_wrap_s)
+                {
                     mode_s = GR_TEXTURECLAMP_WRAP;
+                }
                 else if (clamp_s)
+                {
                     mode_s = GR_TEXTURECLAMP_CLAMP;
+                }
+                else if (rdp.tiles(tile).mirror_s && !g_settings->hacks(CSettings::hack_Zelda))
+                {
+                    mode_s = GR_TEXTURECLAMP_MIRROR_EXT;
+                }
                 else
                 {
-                    if (rdp.tiles(tile).mirror_s && voodoo.sup_mirroring)
-                        mode_s = GR_TEXTURECLAMP_MIRROR_EXT;
-                    else
-                        mode_s = GR_TEXTURECLAMP_WRAP;
+                    mode_s = GR_TEXTURECLAMP_WRAP;
                 }
 
                 if (rdp.cur_cache(i)->f_mirror_t)
+                {
                     mode_t = GR_TEXTURECLAMP_MIRROR_EXT;
+                }
                 else if (rdp.cur_cache(i)->f_wrap_t)
+                {
                     mode_t = GR_TEXTURECLAMP_WRAP;
+                }
                 else if (clamp_t)
+                {
                     mode_t = GR_TEXTURECLAMP_CLAMP;
+                }
+                else if (rdp.tiles(tile).mirror_t && !g_settings->hacks(CSettings::hack_Zelda))
+                {
+                    mode_t = GR_TEXTURECLAMP_MIRROR_EXT;
+                }
                 else
                 {
-                    if (rdp.tiles(tile).mirror_t && voodoo.sup_mirroring)
-                        mode_t = GR_TEXTURECLAMP_MIRROR_EXT;
-                    else
-                        mode_t = GR_TEXTURECLAMP_WRAP;
+                    mode_t = GR_TEXTURECLAMP_WRAP;
                 }
 
                 grTexClampMode(tmu,
@@ -1056,7 +1070,7 @@ void LoadTex(int id, int tmu)
     size_y = 1 << shift;
 
     // Voodoo 1 support is all here, it will automatically mirror to the full extent.
-    if (!voodoo.sup_mirroring)
+    if (g_settings->hacks(CSettings::hack_Zelda))
     {
         if (rdp.tiles(td).mirror_s && !rdp.tiles(td).clamp_s && (voodoo.sup_large_tex || size_x <= 128))
             size_x <<= 1;
@@ -1669,7 +1683,7 @@ void LoadTex(int id, int tmu)
                                 cache->c_scl_y /= splits;
                             }
                         }
-                        if (voodoo.sup_mirroring)
+                        if (!g_settings->hacks(CSettings::hack_Zelda))
                         {
                             if (rdp.tiles(td).mirror_s && texinfo[id].tile_width == 2 * texinfo[id].width)
                                 cache->f_mirror_s = TRUE;
