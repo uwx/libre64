@@ -78,7 +78,6 @@ bool g_romopen = false;
 GrContext_t gfx_context = 0;
 int exception = FALSE;
 
-int evoodoo = 0;
 int ev_fullscreen = 0;
 
 extern int g_viewport_offset;
@@ -499,7 +498,7 @@ int InitGfx()
         SST_type = GR_SSTTYPE_Voodoo5;
     }
     // 2Mb Texture boundary
-    voodoo.has_2mb_tex_boundary = (SST_type < GR_SSTTYPE_Banshee) && !evoodoo;
+    voodoo.has_2mb_tex_boundary = false;
     // use UMA if available
     voodoo.tex_UMA = FALSE;
     if (strstr(extensions, " TEXUMA "))
@@ -869,32 +868,15 @@ EXPORT void CALL ChangeWindow(void)
 {
     WriteTrace(TraceGlide64, TraceDebug, "-");
 
-    if (evoodoo)
+    if (!ev_fullscreen)
     {
-        if (!ev_fullscreen)
-        {
-            to_fullscreen = TRUE;
-            ev_fullscreen = TRUE;
-        }
-        else
-        {
-            ev_fullscreen = FALSE;
-            InitGfx();
-        }
+        to_fullscreen = TRUE;
+        ev_fullscreen = TRUE;
     }
     else
     {
-        // Go to fullscreen at next dlist
-        // This is for compatibility with 1964, which reloads the plugin
-        //  when switching to fullscreen
-        if (!GfxInitDone)
-        {
-            to_fullscreen = TRUE;
-        }
-        else
-        {
-            ReleaseGfx();
-        }
+        ev_fullscreen = FALSE;
+        InitGfx();
     }
 }
 
@@ -1026,18 +1008,8 @@ int CALL InitiateGFX(GFX_INFO Gfx_Info)
 
     grConfigWrapperExt(g_settings->wrpVRAM() * 1024 * 1024, g_settings->wrpFBO(), g_settings->wrpAnisotropic());
     grGlideInit();
-    const char *extensions = "CHROMARANGE TEXCHROMA TEXMIRROR PALETTE6666 FOGCOORD EVOODOO TEXTUREBUFFER TEXUMA TEXFMT COMBINE GETGAMMA";
     grGlideShutdown();
-    if (strstr(extensions, "EVOODOO"))
-    {
-        evoodoo = 1;
-        voodoo.has_2mb_tex_boundary = 0;
-    }
-    else
-    {
-        evoodoo = 0;
-        voodoo.has_2mb_tex_boundary = 1;
-    }
+    voodoo.has_2mb_tex_boundary = 0;
     return TRUE;
 }
 
@@ -1174,7 +1146,6 @@ void CALL RomOpen(void)
     {
         grGlideInit();
     }
-    evoodoo = 1;
     grGlideShutdown();
 
     InitGfx();
@@ -1520,7 +1491,7 @@ void newSwapBuffers()
         DrawWholeFrameBufferToScreen();
     }
 
-    if (g_settings->fb_hwfbe_enabled() && !g_settings->hacks(CSettings::hack_RE2) && !evoodoo)
+    if (g_settings->fb_hwfbe_enabled() && !g_settings->hacks(CSettings::hack_RE2) && !true)
     {
         grAuxBufferExt(GR_BUFFER_AUXBUFFER);
     }

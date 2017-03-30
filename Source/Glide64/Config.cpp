@@ -104,7 +104,6 @@ void ConfigCleanup(void)
 
 #endif
 
-
 void CloseConfig();
 
 #ifdef _WIN32
@@ -114,7 +113,7 @@ class CToolTipDialog
 {
     // Data declarations and members
 public:
-    TT& GetTT(){ return m_TT; }
+    TT& GetTT() { return m_TT; }
 protected:
     TT m_TT;
     UINT m_uTTStyle;
@@ -281,7 +280,7 @@ public:
     LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
     {
         TTInit();
-		TTSize(400);
+        TTSize(400);
         m_WindowRes.Attach(GetDlgItem(IDC_CMB_WINDOW_RES));
         for (uint32_t i = 0, n = GetScreenResolutionCount(); i < n; i++)
         {
@@ -361,7 +360,7 @@ private:
 
     void AutoDetectChanged(void)
     {
-        m_spinVRAM.SetWindowText(m_cbxVRAM.GetCheck() == BST_CHECKED ? " auto" : stdstr_f("%d",g_settings->wrpVRAM() != 0 ? g_settings->wrpVRAM() : 32).c_str());
+        m_spinVRAM.SetWindowText(m_cbxVRAM.GetCheck() == BST_CHECKED ? " auto" : stdstr_f("%d", g_settings->wrpVRAM() != 0 ? g_settings->wrpVRAM() : 32).c_str());
         m_spinVRAM.EnableWindow(m_cbxVRAM.GetCheck() != BST_CHECKED);
         m_VramSize.EnableWindow(m_cbxVRAM.GetCheck() != BST_CHECKED);
         m_lblMb.EnableWindow(m_cbxVRAM.GetCheck() != BST_CHECKED);
@@ -408,7 +407,7 @@ public:
     LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
     {
         TTInit();
-		TTSize(400);
+        TTSize(400);
 
         if (g_romopen)
         {
@@ -473,7 +472,7 @@ public:
         m_cbxFBEnable.SetCheck(g_settings->fb_emulation_enabled() ? BST_CHECKED : BST_UNCHECKED);
 
         m_cbxFBHWFBE.Attach(GetDlgItem(IDC_CHK_HARDWARE_FRAMEBUFFER));
-        TTSetTxt(IDC_CHK_HARDWARE_FRAMEBUFFER, "Enable hardware frame buffer emulation:\n\nIf this option is on, plugin will create auxiliary frame buffers in video memory instead of copying frame buffer content into main memory.\nThis allows plugin to run frame buffer effects without slowdown and without scaling image down to N64's native resolution.\nThis feature is fully supported by Voodoo 4/5 cards and partially by Voodoo3 and Banshee. Modern cards also fully support it.\n\n[Recommended: on, if supported by your hardware]");
+        TTSetTxt(IDC_CHK_HARDWARE_FRAMEBUFFER, "Enable hardware frame buffer emulation:\n\nIf this option is on, plugin will create auxiliary frame buffers in video memory instead of copying frame buffer content into main memory.\nThis allows plugin to run frame buffer effects without slowdown and without scaling image down to N64's native resolution.\nModern cards also fully support it.\n\n[Recommended: on, if supported by your hardware]");
         m_cbxFBHWFBE.SetCheck(g_settings->fb_hwfbe_set() ? BST_CHECKED : BST_UNCHECKED);
 
         m_cbxFBGetFBI.Attach(GetDlgItem(IDC_CHK_GET_FRAMEBUFFER));
@@ -580,7 +579,7 @@ public:
     LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
     {
         TTInit();
-		TTSize(400);
+        TTSize(400);
 
         std::string tooltip = "Filters:\n\nApply a filter to either smooth or sharpen textures.\nThere are 4 different smoothing filters and 2 different sharpening filters.\nThe higher the number, the stronger the effect,\ni.e. \"Smoothing filter 4\" will have a much more noticeable effect than \"Smoothing filter 1\".\nBe aware that performance may have an impact depending on the game and/or the PC.\n\n[Recommended: your preference]";
         TTSetTxt(IDC_TXT_ENH_FILTER, tooltip.c_str());
@@ -792,12 +791,9 @@ void CALL DllConfig(HWND hParent)
 
     if (g_romopen)
     {
-        if (evoodoo)// && fullscreen && !ev_fullscreen)
-        {
-            ReleaseGfx();
-            rdp.free();
-            rdp.init();
-        }
+        ReleaseGfx();
+        rdp.free();
+        rdp.init();
         if (g_ghq_use)
         {
             ext_ghq_shutdown();
@@ -824,16 +820,7 @@ void CloseConfig()
         {
             ZLUT_init();
         }
-        // re-init evoodoo graphics to resize window
-        if (evoodoo)// && !ev_fullscreen)
-        {
-            InitGfx();
-        }
-        else
-        {
-            rdp.free();
-            rdp.init();
-        }
+        InitGfx();
     }
 }
 
