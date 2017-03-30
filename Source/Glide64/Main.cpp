@@ -464,7 +464,7 @@ int InitGfx()
     grGlideInit();
 
     // Is mirroring allowed?
-    const char *extensions = grGetString(GR_EXTENSION);
+    const char *extensions = "CHROMARANGE TEXCHROMA TEXMIRROR PALETTE6666 FOGCOORD EVOODOO TEXTUREBUFFER TEXUMA TEXFMT COMBINE GETGAMMA";
 
     // Check which SST we are using and initialize stuff
     // Hiroshi Morii <koolsmoky@users.sourceforge.net>
@@ -478,7 +478,7 @@ int InitGfx()
         GR_SSTTYPE_Voodoo4 = 6,
         GR_SSTTYPE_Voodoo5 = 7
     };
-    const char *hardware = grGetString(GR_HARDWARE);
+    const char *hardware = "Voodoo5 (tm)";
     unsigned int SST_type = GR_SSTTYPE_VOODOO;
     if (strstr(hardware, "Rush")) {
         SST_type = GR_SSTTYPE_SST96;
@@ -1026,7 +1026,7 @@ int CALL InitiateGFX(GFX_INFO Gfx_Info)
 
     grConfigWrapperExt(g_settings->wrpVRAM() * 1024 * 1024, g_settings->wrpFBO(), g_settings->wrpAnisotropic());
     grGlideInit();
-    const char *extensions = grGetString(GR_EXTENSION);
+    const char *extensions = "CHROMARANGE TEXCHROMA TEXMIRROR PALETTE6666 FOGCOORD EVOODOO TEXTUREBUFFER TEXUMA TEXFMT COMBINE GETGAMMA";
     grGlideShutdown();
     if (strstr(extensions, "EVOODOO"))
     {
