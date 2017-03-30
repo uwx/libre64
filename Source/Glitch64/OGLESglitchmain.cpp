@@ -840,7 +840,6 @@ FX_ENTRY void FX_CALL grTextureBufferExt(GrChipID_t  		tmu,
                         glClear(GL_DEPTH_BUFFER_BIT); //clear z-buffer only. we may need content, stored in the frame buffer
                         fbs[i].buff_clear = 0;
                     }
-                    CHECK_FRAMEBUFFER_STATUS();
                     curBufferAddr = pBufferAddress;
                     return;
                 }
@@ -883,7 +882,6 @@ FX_ENTRY void FX_CALL grTextureBufferExt(GrChipID_t  		tmu,
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glDepthMask(1);
         glClear(GL_DEPTH_BUFFER_BIT);
-        CHECK_FRAMEBUFFER_STATUS();
         curBufferAddr = pBufferAddress;
         nb_fb++;
     }
@@ -1152,30 +1150,6 @@ static void render_rectangle(int texture_number,
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     vbo_enable();
 
-    /*
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-      glBegin(GL_QUADS);
-      glMultiTexCoord2fARB(texture_number, 0.0f, 0.0f);
-      glVertex2f(((int)dst_x - widtho) / (float)(width/2),
-      invert*-((int)dst_y - heighto) / (float)(height/2));
-      glMultiTexCoord2fARB(texture_number, 0.0f, (float)src_height / (float)tex_height);
-      glVertex2f(((int)dst_x - widtho) / (float)(width/2),
-      invert*-((int)dst_y + (int)src_height - heighto) / (float)(height/2));
-      glMultiTexCoord2fARB(texture_number, (float)src_width / (float)tex_width, (float)src_height / (float)tex_height);
-      glVertex2f(((int)dst_x + (int)src_width - widtho) / (float)(width/2),
-      invert*-((int)dst_y + (int)src_height - heighto) / (float)(height/2));
-      glMultiTexCoord2fARB(texture_number, (float)src_width / (float)tex_width, 0.0f);
-      glVertex2f(((int)dst_x + (int)src_width - widtho) / (float)(width/2),
-      invert*-((int)dst_y - heighto) / (float)(height/2));
-      glMultiTexCoord2fARB(texture_number, 0.0f, 0.0f);
-      glVertex2f(((int)dst_x - widtho) / (float)(width/2),
-      invert*-((int)dst_y - heighto) / (float)(height/2));
-      glEnd();
-      */
-
     compile_shader();
 
     glEnable(GL_DEPTH_TEST);
@@ -1185,48 +1159,37 @@ static void render_rectangle(int texture_number,
 void reloadTexture()
 {
     if (use_fbo || !render_to_texture || buffer_cleared)
+    {
         return;
-
+    }
     WriteTrace(TraceGlitch, TraceDebug, "width: %d height: %d", g_width, g_height);
-    //printf("reload texture %dx%d\n", width, height);
 
     buffer_cleared = 1;
 
-    //glPushAttrib(GL_ALL_ATTRIB_BITS);
     glActiveTexture(texture_unit);
     glBindTexture(GL_TEXTURE_2D, pBufferAddress);
-    //glDisable(GL_ALPHA_TEST);
-    //glDrawBuffer(current_buffer);
     glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
     set_copy_shader();
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
     int w = 0, h = 0;
     if (g_height > screen_height) h = screen_height - g_height;
-    render_rectangle(texture_unit,
-        -w, -h,
-        g_width, g_height,
-        g_width, g_height, -1);
-    glBindTexture(GL_TEXTURE_2D, default_texture);
-    //glPopAttrib();
+    render_rectangle(texture_unit, -w, -h, g_width, g_height, g_width, g_height, -1);
+    glBindTexture(GL_TEXTURE_2D, default_texture);;
 }
 
 void updateTexture()
 {
-    if (!use_fbo && render_to_texture == 2) {
+    if (!use_fbo && render_to_texture == 2)
+    {
         WriteTrace(TraceGlitch, TraceDebug, "pBufferAddress: %x", pBufferAddress);
-        //printf("update texture %x\n", pBufferAddress);
 
-        // nothing changed, don't update the texture
-        if (!buffer_cleared) {
+        if (!buffer_cleared)
+        {
             WriteTrace(TraceGlitch, TraceDebug, "update cancelled");
             return;
         }
 
-        //glPushAttrib(GL_ALL_ATTRIB_BITS);
-
-        // save result of render to texture into actual texture
-        //glReadBuffer(current_buffer);
         glActiveTexture(texture_unit);
         // ZIGGY
         // deleting the texture before resampling it increases speed on certain old
@@ -1234,42 +1197,37 @@ void updateTexture()
         // on newer cards.
         //glDeleteTextures( 1, &pBufferAddress );
         glBindTexture(GL_TEXTURE_2D, pBufferAddress);
-        glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
-            0, g_viewport_offset, g_width, g_height, 0);
+        glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, g_viewport_offset, g_width, g_height, 0);
 
         glBindTexture(GL_TEXTURE_2D, default_texture);
-        //glPopAttrib();
     }
 }
 
-FX_ENTRY void FX_CALL grFramebufferCopyExt(int x, int y, int w, int h,
-    int from, int to, int mode)
+FX_ENTRY void FX_CALL grFramebufferCopyExt(int x, int y, int w, int h, int from, int to, int mode)
 {
-    if (mode == GR_FBCOPY_MODE_DEPTH) {
+    if (mode == GR_FBCOPY_MODE_DEPTH)
+    {
         int tw = 1, th = 1;
-        if (npot_support) {
+        if (npot_support)
+        {
             tw = g_width; th = g_height;
         }
-        else {
+        else
+        {
             while (tw < g_width) tw <<= 1;
             while (th < g_height) th <<= 1;
         }
 
-        if (from == GR_FBCOPY_BUFFER_BACK && to == GR_FBCOPY_BUFFER_FRONT) {
-            //printf("save depth buffer %d\n", render_to_texture);
-            // save the depth image in a texture
-            //glReadBuffer(current_buffer);
+        if (from == GR_FBCOPY_BUFFER_BACK && to == GR_FBCOPY_BUFFER_FRONT)
+        {
             glBindTexture(GL_TEXTURE_2D, depth_texture);
             glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
                 0, g_viewport_offset, tw, th, 0);
             glBindTexture(GL_TEXTURE_2D, default_texture);
             return;
         }
-        if (from == GR_FBCOPY_BUFFER_FRONT && to == GR_FBCOPY_BUFFER_BACK) {
-            //printf("writing to depth buffer %d\n", render_to_texture);
-            //glPushAttrib(GL_ALL_ATTRIB_BITS);
-            //glDisable(GL_ALPHA_TEST);
-            //glDrawBuffer(current_buffer);
+        if (from == GR_FBCOPY_BUFFER_FRONT && to == GR_FBCOPY_BUFFER_BACK)
+        {
             glActiveTexture(texture_unit);
             glBindTexture(GL_TEXTURE_2D, depth_texture);
             glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
@@ -1283,7 +1241,6 @@ FX_ENTRY void FX_CALL grFramebufferCopyExt(int x, int y, int w, int h,
                 tw, th, -1);
             glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
             glBindTexture(GL_TEXTURE_2D, default_texture);
-            //glPopAttrib();
             return;
         }
     }
@@ -1306,11 +1263,6 @@ grRenderBuffer(GrBuffer_t buffer)
         {
             updateTexture();
 
-            // VP z fix
-            //glMatrixMode(GL_MODELVIEW);
-            //glLoadIdentity();
-            //glTranslatef(0, 0, 1-zscale);
-            //glScalef(1, 1, zscale);
             inverted_culling = 0;
             grCullMode(culling_mode);
 
@@ -1380,25 +1332,12 @@ grRenderBuffer(GrBuffer_t buffer)
         }
 
         {
-            if (!use_fbo) {
-                //glMatrixMode(GL_MODELVIEW);
-                //glLoadIdentity();
-                //glTranslatef(0, 0, 1-zscale);
-                //glScalef(1, 1, zscale);
+            if (!use_fbo)
+            {
                 inverted_culling = 0;
             }
-            else {
-                /*
-                        float m[4*4] = {1.0f, 0.0f, 0.0f, 0.0f,
-                        0.0f,-1.0f, 0.0f, 0.0f,
-                        0.0f, 0.0f, 1.0f, 0.0f,
-                        0.0f, 0.0f, 0.0f, 1.0f};
-                        glMatrixMode(GL_MODELVIEW);
-                        glLoadMatrixf(m);
-                        // VP z fix
-                        glTranslatef(0, 0, 1-zscale);
-                        glScalef(1, 1*1, zscale);
-                        */
+            else
+            {
                 inverted_culling = 1;
                 grCullMode(culling_mode);
             }
@@ -1414,9 +1353,9 @@ FX_ENTRY void FX_CALL
 grAuxBufferExt(GrBuffer_t buffer)
 {
     WriteTrace(TraceGlitch, TraceDebug, "buffer: %d", buffer);
-    //WriteTrace(TraceGlitch, TraceWarning, "grAuxBufferExt");
 
-    if (buffer == GR_BUFFER_AUXBUFFER) {
+    if (buffer == GR_BUFFER_AUXBUFFER)
+    {
         invtex[0] = 0;
         invtex[1] = 0;
         need_to_compile = 0;
@@ -1429,7 +1368,8 @@ grAuxBufferExt(GrBuffer_t buffer)
         glDepthMask(GL_TRUE);
         grTexFilterMode(GR_TMU1, GR_TEXTUREFILTER_POINT_SAMPLED, GR_TEXTUREFILTER_POINT_SAMPLED);
     }
-    else {
+    else
+    {
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
         need_to_compile = 1;
     }
@@ -1474,22 +1414,11 @@ grBufferClear(GrColor_t color, GrAlpha_t alpha, FxU32 depth)
 FX_ENTRY void FX_CALL
 grBufferSwap(FxU32 swap_interval)
 {
-    //   GLuint program;
-
     vbo_draw();
-    //	glFinish();
-    //  printf("rendercallback is %p\n", renderCallback);
-    //if (renderCallback) {
-    //      glGetIntegerv(GL_CURRENT_PROGRAM, (GLint*) &program);
-    //      glUseProgramObjectARB(0);
-    //(*renderCallback)(1);
-    //      if (program)
-    //         glUseProgramObjectARB(program);
-    //}
     int i;
     WriteTrace(TraceGlitch, TraceDebug, "swap_interval: %d", swap_interval);
-    //printf("swap\n");
-    if (render_to_texture) {
+    if (render_to_texture)
+    {
         WriteTrace(TraceGlitch, TraceWarning, "swap while render_to_texture\n");
         return;
     }
@@ -1500,7 +1429,9 @@ grBufferSwap(FxU32 swap_interval)
     SwapBuffers();
 #endif
     for (i = 0; i < nb_fb; i++)
+    {
         fbs[i].buff_clear = 1;
+    }
 }
 
 // frame buffer
@@ -1603,14 +1534,9 @@ grLfbReadRegion(GrBuffer_t src_buffer,
     switch (src_buffer)
     {
     case GR_BUFFER_FRONTBUFFER:
-        //glReadBuffer(GL_FRONT);
         break;
     case GR_BUFFER_BACKBUFFER:
-        //glReadBuffer(GL_BACK);
         break;
-        /*case GR_BUFFER_AUXBUFFER:
-        glReadBuffer(current_buffer);
-        break;*/
     default:
         WriteTrace(TraceGlitch, TraceWarning, "grReadRegion : unknown buffer : %x", src_buffer);
     }
@@ -1794,11 +1720,11 @@ grLfbWriteRegion(GrBuffer_t dst_buffer,
         //glDrawPixels(src_width, src_height+(g_viewport_offset), GL_DEPTH_COMPONENT, GL_FLOAT, buf);
 
         free(buf);
-    }
+        }
     //glDrawBuffer(current_buffer);
     //glPopAttrib();
     return FXTRUE;
-}
+    }
 
 /* wrapper-specific glide extensions */
 void grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
@@ -1810,43 +1736,6 @@ void grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
 }
 
 // unused by glide64
-
-FX_ENTRY FxI32 FX_CALL
-grQueryResolutions(const GrResolution *resTemplate, GrResolution *output)
-{
-    int res_inf = 0;
-    int res_sup = 0xf;
-    int i;
-    int n = 0;
-    WriteTrace(TraceGlitch, TraceDebug, "-");
-    WriteTrace(TraceGlitch, TraceWarning, "grQueryResolutions");
-    if ((unsigned int)resTemplate->resolution != GR_QUERY_ANY)
-    {
-        res_inf = res_sup = resTemplate->resolution;
-    }
-    if ((unsigned int)resTemplate->refresh == GR_QUERY_ANY) WriteTrace(TraceGlitch, TraceWarning, "querying any refresh rate");
-    if ((unsigned int)resTemplate->numAuxBuffers == GR_QUERY_ANY) WriteTrace(TraceGlitch, TraceWarning, "querying any numAuxBuffers");
-    if ((unsigned int)resTemplate->numColorBuffers == GR_QUERY_ANY) WriteTrace(TraceGlitch, TraceWarning, "querying any numColorBuffers");
-
-    if (output == NULL) return res_sup - res_inf + 1;
-    for (i = res_inf; i <= res_sup; i++)
-    {
-        output[n].resolution = i;
-        output[n].refresh = resTemplate->refresh;
-        output[n].numAuxBuffers = resTemplate->numAuxBuffers;
-        output[n].numColorBuffers = resTemplate->numColorBuffers;
-        n++;
-    }
-    return res_sup - res_inf + 1;
-}
-
-FX_ENTRY FxBool FX_CALL
-grReset(FxU32 what)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grReset");
-    return 1;
-}
-
 FX_ENTRY void FX_CALL
 grEnable(GrEnableMode_t mode)
 {
@@ -1861,248 +1750,4 @@ grDisable(GrEnableMode_t mode)
     WriteTrace(TraceGlitch, TraceDebug, "-");
     if (mode == GR_TEXTURE_UMA_EXT)
         UMAmode = 0;
-}
-
-FX_ENTRY void FX_CALL
-grDisableAllEffects(void)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grDisableAllEffects");
-}
-
-FX_ENTRY void FX_CALL
-grErrorSetCallback(GrErrorCallbackFnc_t fnc)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grErrorSetCallback");
-}
-
-FX_ENTRY void FX_CALL
-grFinish(void)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grFinish");
-}
-
-FX_ENTRY void FX_CALL
-grFlush(void)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grFlush");
-}
-
-FX_ENTRY void FX_CALL
-grTexMultibase(GrChipID_t tmu,
-    FxBool     enable)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexMultibase");
-}
-
-FX_ENTRY void FX_CALL
-grTexMipMapMode(GrChipID_t     tmu,
-    GrMipMapMode_t mode,
-    FxBool         lodBlend)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexMipMapMode");
-}
-
-FX_ENTRY void FX_CALL
-grTexDownloadTablePartial(GrTexTable_t type,
-    void         *data,
-    int          start,
-    int          end)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadTablePartial");
-}
-
-FX_ENTRY void FX_CALL
-grTexDownloadTable(GrTexTable_t type,
-    void         *data)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadTable");
-}
-
-FX_ENTRY FxBool FX_CALL
-grTexDownloadMipMapLevelPartial(GrChipID_t        tmu,
-    FxU32             startAddress,
-    GrLOD_t           thisLod,
-    GrLOD_t           largeLod,
-    GrAspectRatio_t   aspectRatio,
-    GrTextureFormat_t format,
-    FxU32             evenOdd,
-    void              *data,
-    int               start,
-    int               end)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadMipMapLevelPartial");
-    return 1;
-}
-
-FX_ENTRY void FX_CALL
-grTexDownloadMipMapLevel(GrChipID_t        tmu,
-    FxU32             startAddress,
-    GrLOD_t           thisLod,
-    GrLOD_t           largeLod,
-    GrAspectRatio_t   aspectRatio,
-    GrTextureFormat_t format,
-    FxU32             evenOdd,
-    void              *data)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadMipMapLevel");
-}
-
-FX_ENTRY void FX_CALL
-grTexNCCTable(GrNCCTable_t table)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexNCCTable");
-}
-
-FX_ENTRY void FX_CALL
-grViewport(FxI32 x, FxI32 y, FxI32 width, FxI32 height)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grViewport");
-}
-
-FX_ENTRY void FX_CALL
-grDepthRange(FxFloat n, FxFloat f)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grDepthRange");
-}
-
-FX_ENTRY void FX_CALL
-grSplash(float x, float y, float width, float height, FxU32 frame)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grSplash");
-}
-
-FX_ENTRY FxBool FX_CALL
-grSelectContext(GrContext_t context)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grSelectContext");
-    return 1;
-}
-
-FX_ENTRY void FX_CALL
-grAADrawTriangle(
-    const void *a, const void *b, const void *c,
-    FxBool ab_antialias, FxBool bc_antialias, FxBool ca_antialias
-)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grAADrawTriangle");
-}
-
-FX_ENTRY void FX_CALL
-grAlphaControlsITRGBLighting(FxBool enable)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grAlphaControlsITRGBLighting");
-}
-
-FX_ENTRY void FX_CALL
-grGlideSetVertexLayout(const void *layout)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grGlideSetVertexLayout");
-}
-
-FX_ENTRY void FX_CALL
-grGlideGetVertexLayout(void *layout)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grGlideGetVertexLayout");
-}
-
-FX_ENTRY void FX_CALL
-grGlideSetState(const void *state)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grGlideSetState");
-}
-
-FX_ENTRY void FX_CALL
-grGlideGetState(void *state)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grGlideGetState");
-}
-
-FX_ENTRY void FX_CALL
-grLfbWriteColorFormat(GrColorFormat_t colorFormat)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grLfbWriteColorFormat");
-}
-
-FX_ENTRY void FX_CALL
-grLfbWriteColorSwizzle(FxBool swizzleBytes, FxBool swapWords)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grLfbWriteColorSwizzle");
-}
-
-FX_ENTRY void FX_CALL
-grLfbConstantDepth(FxU32 depth)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grLfbConstantDepth");
-}
-
-FX_ENTRY void FX_CALL
-grLfbConstantAlpha(GrAlpha_t alpha)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grLfbConstantAlpha");
-}
-
-FX_ENTRY void FX_CALL
-grTexMultibaseAddress(GrChipID_t       tmu,
-    GrTexBaseRange_t range,
-    FxU32            startAddress,
-    FxU32            evenOdd,
-    GrTexInfo        *info)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexMultibaseAddress");
-}
-
-FX_ENTRY void FX_CALL
-grDitherMode(GrDitherMode_t mode)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grDitherMode");
-}
-
-void grChromaRangeExt(GrColor_t color0, GrColor_t color1, FxU32 mode)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grChromaRangeExt");
-}
-
-void grChromaRangeModeExt(GrChromakeyMode_t mode)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grChromaRangeModeExt");
-}
-
-void grTexChromaRangeExt(GrChipID_t tmu, GrColor_t color0, GrColor_t color1, GrTexChromakeyMode_t mode)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexChromaRangeExt");
-}
-
-void grTexChromaModeExt(GrChipID_t tmu, GrChromakeyMode_t mode)
-{
-    WriteTrace(TraceGlitch, TraceWarning, "grTexChromaRangeModeExt");
-}
-
-void CHECK_FRAMEBUFFER_STATUS(void)
-{
-    GLenum status;
-    status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-    WriteTrace(TraceGlitch, TraceDebug, "status: %X", status);
-    switch (status) {
-    case GL_FRAMEBUFFER_COMPLETE:
-        /*WriteTrace(TraceGlitch, TraceWarning, "framebuffer complete!\n");*/
-        break;
-    case GL_FRAMEBUFFER_UNSUPPORTED:
-        WriteTrace(TraceGlitch, TraceWarning, "framebuffer GL_FRAMEBUFFER_UNSUPPORTED_EXT\n");
-        /* you gotta choose different formats */
-        /*assert(0);*/
-        break;
-    case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
-        WriteTrace(TraceGlitch, TraceWarning, "framebuffer INCOMPLETE_ATTACHMENT\n");
-        break;
-    case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
-        WriteTrace(TraceGlitch, TraceWarning, "framebuffer FRAMEBUFFER_MISSING_ATTACHMENT\n");
-        break;
-    case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
-        WriteTrace(TraceGlitch, TraceWarning, "framebuffer FRAMEBUFFER_DIMENSIONS\n");
-        break;
-    default:
-        break;
-        /* programming error; will fail on all hardware */
-        /*assert(0);*/
-    }
 }

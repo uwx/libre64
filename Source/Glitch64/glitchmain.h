@@ -123,7 +123,7 @@ void ExitFullScreen();
 
 // config functions
 
-void grConfigWrapperExt(FxI32,FxBool,FxBool);
+void grConfigWrapperExt(FxI32, FxBool, FxBool);
 uint32_t grWrapperFullScreenResolutionExt(uint32_t * width, uint32_t * height);
 char ** grQueryResolutionsExt(int32_t*);
 FX_ENTRY void FX_CALL grGetGammaTableExt(FxU32, FxU32*, FxU32*, FxU32*);
@@ -135,7 +135,7 @@ FX_ENTRY void FX_CALL grGetGammaTableExt(FxU32, FxU32*, FxU32*, FxU32*);
 #define GR_FBCOPY_BUFFER_BACK 0
 #define GR_FBCOPY_BUFFER_FRONT 1
 FX_ENTRY void FX_CALL grFramebufferCopyExt(int x, int y, int w, int h,
-                                           int buffer_from, int buffer_to, int mode);
+    int buffer_from, int buffer_to, int mode);
 
 // COMBINE extension
 
@@ -171,21 +171,21 @@ typedef FxU32 GrCombineMode_t;
 #define GR_CMBX_TMU_CCOLOR                0x11
 
 FX_ENTRY void FX_CALL
-    grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
+grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
     GrCCUColor_t b, GrCombineMode_t b_mode,
     GrCCUColor_t c, FxBool c_invert,
     GrCCUColor_t d, FxBool d_invert,
     FxU32 shift, FxBool invert);
 
 FX_ENTRY void FX_CALL
-    grAlphaCombineExt(GrACUColor_t a, GrCombineMode_t a_mode,
+grAlphaCombineExt(GrACUColor_t a, GrCombineMode_t a_mode,
     GrACUColor_t b, GrCombineMode_t b_mode,
     GrACUColor_t c, FxBool c_invert,
     GrACUColor_t d, FxBool d_invert,
     FxU32 shift, FxBool invert);
 
 FX_ENTRY void FX_CALL
-    grTexColorCombineExt(GrChipID_t       tmu,
+grTexColorCombineExt(GrChipID_t       tmu,
     GrTCCUColor_t a, GrCombineMode_t a_mode,
     GrTCCUColor_t b, GrCombineMode_t b_mode,
     GrTCCUColor_t c, FxBool c_invert,
@@ -193,7 +193,7 @@ FX_ENTRY void FX_CALL
     FxU32 shift, FxBool invert);
 
 FX_ENTRY void FX_CALL
-    grTexAlphaCombineExt(GrChipID_t       tmu,
+grTexAlphaCombineExt(GrChipID_t       tmu,
     GrTACUColor_t a, GrCombineMode_t a_mode,
     GrTACUColor_t b, GrCombineMode_t b_mode,
     GrTACUColor_t c, FxBool c_invert,
@@ -201,7 +201,5 @@ FX_ENTRY void FX_CALL
     FxU32 shift, FxBool invert);
 
 FX_ENTRY void FX_CALL
-    grConstantColorValueExt(GrChipID_t    tmu,
+grConstantColorValueExt(GrChipID_t    tmu,
     GrColor_t     value);
-
-void CHECK_FRAMEBUFFER_STATUS(void);
