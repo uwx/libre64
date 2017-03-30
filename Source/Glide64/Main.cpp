@@ -465,38 +465,6 @@ int InitGfx()
     // Is mirroring allowed?
     const char *extensions = "CHROMARANGE TEXCHROMA TEXMIRROR PALETTE6666 FOGCOORD EVOODOO TEXTUREBUFFER TEXUMA TEXFMT COMBINE GETGAMMA";
 
-    // Check which SST we are using and initialize stuff
-    // Hiroshi Morii <koolsmoky@users.sourceforge.net>
-    enum {
-        GR_SSTTYPE_VOODOO = 0,
-        GR_SSTTYPE_SST96 = 1,
-        GR_SSTTYPE_AT3D = 2,
-        GR_SSTTYPE_Voodoo2 = 3,
-        GR_SSTTYPE_Banshee = 4,
-        GR_SSTTYPE_Voodoo3 = 5,
-        GR_SSTTYPE_Voodoo4 = 6,
-        GR_SSTTYPE_Voodoo5 = 7
-    };
-    const char *hardware = "Voodoo5 (tm)";
-    unsigned int SST_type = GR_SSTTYPE_VOODOO;
-    if (strstr(hardware, "Rush")) {
-        SST_type = GR_SSTTYPE_SST96;
-    }
-    else if (strstr(hardware, "Voodoo2")) {
-        SST_type = GR_SSTTYPE_Voodoo2;
-    }
-    else if (strstr(hardware, "Voodoo Banshee")) {
-        SST_type = GR_SSTTYPE_Banshee;
-    }
-    else if (strstr(hardware, "Voodoo3")) {
-        SST_type = GR_SSTTYPE_Voodoo3;
-    }
-    else if (strstr(hardware, "Voodoo4")) {
-        SST_type = GR_SSTTYPE_Voodoo4;
-    }
-    else if (strstr(hardware, "Voodoo5")) {
-        SST_type = GR_SSTTYPE_Voodoo5;
-    }
     // 2Mb Texture boundary
     voodoo.has_2mb_tex_boundary = false;
     // use UMA if available
@@ -703,8 +671,6 @@ void ReleaseGfx()
     {
         if (voodoo.gamma_table_r)
             grLoadGammaTable(voodoo.gamma_table_size, voodoo.gamma_table_r, voodoo.gamma_table_g, voodoo.gamma_table_b);
-        else
-            guGammaCorrectionRGB(1.3f, 1.3f, 1.3f); //1.3f is default 3dfx gamma for everything but desktop
         voodoo.gamma_correction = 0;
     }
 
@@ -1487,7 +1453,6 @@ void newSwapBuffers()
         {
             if (voodoo.gamma_table_size && !voodoo.gamma_table_r)
                 GetGammaTable(); //save initial gamma tables
-            guGammaCorrectionRGB(2.0f, 2.0f, 2.0f); //with gamma=2.0 gamma table is the same, as in N64
             voodoo.gamma_correction = 1;
         }
     }
@@ -1497,8 +1462,6 @@ void newSwapBuffers()
         {
             if (voodoo.gamma_table_r)
                 grLoadGammaTable(voodoo.gamma_table_size, voodoo.gamma_table_r, voodoo.gamma_table_g, voodoo.gamma_table_b);
-            else
-                guGammaCorrectionRGB(1.3f, 1.3f, 1.3f); //1.3f is default 3dfx gamma for everything but desktop
             voodoo.gamma_correction = 0;
         }
     }
