@@ -550,11 +550,6 @@ int InitGfx()
         voodoo.tex_max_addr[1] = grTexMaxAddress(GR_TMU1);
     }
 
-    if (strstr(extensions, "TEXFMT"))  //VSA100 texture format extension
-        voodoo.sup_32bit_tex = TRUE;
-    else
-        voodoo.sup_32bit_tex = FALSE;
-
     voodoo.gamma_correction = 0;
     if (strstr(extensions, "GETGAMMA"))
         grGet(GR_GAMMA_TABLE_ENTRIES, sizeof(voodoo.gamma_table_size), &voodoo.gamma_table_size);
@@ -686,7 +681,7 @@ int InitGfx()
 
             g_ghq_use = (int)ext_ghq_init(voodoo.max_tex_size, // max texture width supported by hardware
                 voodoo.max_tex_size, // max texture height supported by hardware
-                voodoo.sup_32bit_tex ? 32 : 16, // max texture bpp supported by hardware
+                32,
                 options,
                 g_settings->ghq_cache_size() * 1024 * 1024, // cache texture to system memory
                 g_settings->texture_dir(),
