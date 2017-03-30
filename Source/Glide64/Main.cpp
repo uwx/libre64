@@ -102,7 +102,7 @@ CSettings * g_settings = NULL;
 
 VOODOO voodoo = { 0, 0, 0, 0,
 0, 0, 0, 0,
-0, 0, 0, 0
+0, 0, 0
 };
 
 GrTexInfo fontTex;
@@ -518,10 +518,6 @@ int InitGfx()
         voodoo.tex_max_addr[1] = grTexMaxAddress(GR_TMU1);
     }
 
-    voodoo.gamma_correction = 0;
-    if (strstr(extensions, "GETGAMMA"))
-        grGet(GR_GAMMA_TABLE_ENTRIES, sizeof(voodoo.gamma_table_size), &voodoo.gamma_table_size);
-
     srand(g_settings->stipple_pattern());
     setPattern();
 
@@ -665,14 +661,6 @@ void ReleaseGfx()
     WriteTrace(TraceGlide64, TraceDebug, "-");
 
     rdp.free();
-
-    // Restore gamma settings
-    if (voodoo.gamma_correction)
-    {
-        if (voodoo.gamma_table_r)
-            grLoadGammaTable(voodoo.gamma_table_size, voodoo.gamma_table_r, voodoo.gamma_table_g, voodoo.gamma_table_b);
-        voodoo.gamma_correction = 0;
-    }
 
     // Release graphics
     grSstWinClose(gfx_context);
@@ -856,12 +844,6 @@ void CALL CloseDLL(void)
     ReleaseGfx();
     ZLUT_release();
     ClearCache();
-    delete[] voodoo.gamma_table_r;
-    voodoo.gamma_table_r = 0;
-    delete[] voodoo.gamma_table_g;
-    voodoo.gamma_table_g = 0;
-    delete[] voodoo.gamma_table_b;
-    voodoo.gamma_table_b = 0;
 }
 
 /******************************************************************
@@ -1239,14 +1221,6 @@ static void DrawWholeFrameBufferToScreen()
     }
 }
 
-static void GetGammaTable()
-{
-    voodoo.gamma_table_r = new FxU32[voodoo.gamma_table_size];
-    voodoo.gamma_table_g = new FxU32[voodoo.gamma_table_size];
-    voodoo.gamma_table_b = new FxU32[voodoo.gamma_table_size];
-    grGetGammaTableExt(voodoo.gamma_table_size, voodoo.gamma_table_r, voodoo.gamma_table_g, voodoo.gamma_table_b);
-}
-
 void write_png_file(const char* file_name, int width, int height, uint8_t *buffer)
 {
     /* create file */
@@ -1447,24 +1421,6 @@ void newSwapBuffers()
     }
     WriteTrace(TraceGlide64, TraceDebug, "BUFFER SWAPPED");
     grBufferSwap(g_settings->vsync());
-    if (*gfx.VI_STATUS_REG & 0x08) //gamma correction is used
-    {
-        if (!voodoo.gamma_correction)
-        {
-            if (voodoo.gamma_table_size && !voodoo.gamma_table_r)
-                GetGammaTable(); //save initial gamma tables
-            voodoo.gamma_correction = 1;
-        }
-    }
-    else
-    {
-        if (voodoo.gamma_correction)
-        {
-            if (voodoo.gamma_table_r)
-                grLoadGammaTable(voodoo.gamma_table_size, voodoo.gamma_table_r, voodoo.gamma_table_g, voodoo.gamma_table_b);
-            voodoo.gamma_correction = 0;
-        }
-    }
 
     if (g_settings->wireframe() || g_settings->buff_clear() || (g_settings->hacks(CSettings::hack_PPL) && g_settings->ucode() == CSettings::ucode_S2DEX))
     {

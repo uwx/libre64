@@ -53,43 +53,6 @@ int screen_width, screen_height;
 
 void Android_JNI_SwapWindow(void);
 
-/*
-static inline void opt_glCopyTexImage2D( GLenum target,
-GLint level,
-GLenum internalFormat,
-GLint x,
-GLint y,
-GLsizei width,
-GLsizei height,
-GLint border )
-
-{
-int w, h, fmt;
-glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &w);
-glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &h);
-glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_INTERNAL_FORMAT, &fmt);
-//printf("copyteximage %dx%d fmt %x oldfmt %x\n", width, height, internalFormat, fmt);
-if (w == (int) width && h == (int) height && fmt == (int) internalFormat) {
-if (x+width >= screen_width) {
-width = screen_width - x;
-//printf("resizing w --> %d\n", width);
-}
-if (y+height >= screen_height+g_viewport_offset) {
-height = screen_height+g_viewport_offset - y;
-//printf("resizing h --> %d\n", height);
-}
-glCopyTexSubImage2D(target, level, 0, 0, x, y, width, height);
-} else {
-//printf("copyteximage %dx%d fmt %x old %dx%d oldfmt %x\n", width, height, internalFormat, w, h, fmt);
-//       glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, internalFormat, GL_UNSIGNED_BYTE, 0);
-//       glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_INTERNAL_FORMAT, &fmt);
-//       printf("--> %dx%d newfmt %x\n", width, height, fmt);
-glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border);
-}
-}
-#define glCopyTexImage2D opt_glCopyTexImage2D
-*/
-
 #ifdef _WIN32
 PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
 PFNGLBLENDFUNCSEPARATEEXTPROC glBlendFuncSeparateEXT;
@@ -2086,58 +2049,6 @@ grTexMultibaseAddress(GrChipID_t       tmu,
     GrTexInfo        *info)
 {
     WriteTrace(TraceGlitch, TraceWarning, "grTexMultibaseAddress");
-}
-
-FX_ENTRY void FX_CALL
-grLoadGammaTable(FxU32 nentries, FxU32 *red, FxU32 *green, FxU32 *blue)
-{
-}
-
-FX_ENTRY void FX_CALL
-grGetGammaTableExt(FxU32 nentries, FxU32 *red, FxU32 *green, FxU32 *blue)
-{
-    return;
-    //TODO?
-    /*
-    LOG("grGetGammaTableExt()\r\n");
-    FxU16 aGammaRamp[3][256];
-    #ifdef _WIN32
-    HDC hdc = GetDC(NULL);
-    if (hdc == NULL)
-    return;
-    if (GetDeviceGammaRamp(hdc, aGammaRamp) == TRUE)
-    {
-    ReleaseDC(NULL, hdc);
-    #else
-    if (SDL_GetGammaRamp(aGammaRamp[0], aGammaRamp[1], aGammaRamp[2]) != -1)
-    {
-    #endif
-    for (int i = 0; i < 256; i++)
-    {
-    red[i] = aGammaRamp[0][i] >> 8;
-    green[i] = aGammaRamp[1][i] >> 8;
-    blue[i] = aGammaRamp[2][i] >> 8;
-    }
-    }
-    */
-}
-
-FX_ENTRY void FX_CALL
-guGammaCorrectionRGB(FxFloat gammaR, FxFloat gammaG, FxFloat gammaB)
-{
-    //TODO?
-    /*
-    LOG("guGammaCorrectionRGB()\r\n");
-    if (!fullscreen)
-    return;
-    FxU16 aGammaRamp[3][256];
-    for (int i = 0; i < 256; i++)
-    {
-    aGammaRamp[0][i] = (((FxU16)((pow(i/255.0F, 1.0F/gammaR)) * 255.0F + 0.5F)) << 8) & 0xFFFF;
-    aGammaRamp[1][i] = (((FxU16)((pow(i/255.0F, 1.0F/gammaG)) * 255.0F + 0.5F)) << 8) & 0xFFFF;
-    aGammaRamp[2][i] = (((FxU16)((pow(i/255.0F, 1.0F/gammaB)) * 255.0F + 0.5F)) << 8) & 0xFFFF;
-    }
-    CorrectGamma(aGammaRamp);*/
 }
 
 FX_ENTRY void FX_CALL
