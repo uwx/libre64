@@ -459,9 +459,6 @@ int InitGfx()
 
     WriteTrace(TraceGlide64, TraceDebug, "-");
 
-    // Initialize Glide
-    grGlideInit();
-
     // Is mirroring allowed?
     const char *extensions = "CHROMARANGE TEXCHROMA TEXMIRROR PALETTE6666 FOGCOORD EVOODOO TEXTUREBUFFER TEXUMA TEXFMT COMBINE GETGAMMA";
 
@@ -489,7 +486,6 @@ int InitGfx()
 #else
         fprintf(stderr, "Error setting display mode\n");
 #endif
-        grGlideShutdown();
         return FALSE;
     }
 
@@ -664,9 +660,6 @@ void ReleaseGfx()
 
     // Release graphics
     grSstWinClose(gfx_context);
-
-    // Shutdown glide
-    grGlideShutdown();
 
     GfxInitDone = FALSE;
     rdp.window_changed = TRUE;
@@ -939,8 +932,6 @@ int CALL InitiateGFX(GFX_INFO Gfx_Info)
     ZLUT_init();
 
     grConfigWrapperExt(g_settings->wrpVRAM() * 1024 * 1024, g_settings->wrpFBO(), g_settings->wrpAnisotropic());
-    grGlideInit();
-    grGlideShutdown();
     voodoo.has_2mb_tex_boundary = 0;
     return TRUE;
 }
@@ -1072,13 +1063,6 @@ void CALL RomOpen(void)
     ClearCache();
 
     CheckDRAMSize();
-
-    // ** EVOODOO EXTENSIONS **
-    if (!GfxInitDone)
-    {
-        grGlideInit();
-    }
-    grGlideShutdown();
 
     InitGfx();
 }

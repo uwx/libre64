@@ -223,12 +223,6 @@ grColorMask(FxBool rgb, FxBool a)
     glColorMask(rgb, rgb, rgb, a);
 }
 
-FX_ENTRY void FX_CALL
-grGlideInit(void)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "-");
-}
-
 int isExtensionSupported(const char *extension)
 {
     return 0;
@@ -436,12 +430,6 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOrigin
     return 1;
 }
 
-FX_ENTRY void FX_CALL
-grGlideShutdown(void)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "-");
-}
-
 FX_ENTRY FxBool FX_CALL
 grSstWinClose(GrContext_t context)
 {
@@ -496,7 +484,7 @@ grSstWinClose(GrContext_t context)
     ExitFullScreen();
 #endif
     return FXTRUE;
-    }
+}
 
 FX_ENTRY void FX_CALL grTextureBufferExt(GrChipID_t  		tmu,
     FxU32 				startAddress,
@@ -1272,7 +1260,7 @@ grBufferSwap(FxU32 swap_interval)
     for (i = 0; i < nb_fb; i++)
     {
         fbs[i].buff_clear = 1;
-    }
+}
 }
 
 // frame buffer
