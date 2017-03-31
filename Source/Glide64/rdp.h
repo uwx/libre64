@@ -177,7 +177,6 @@ typedef struct {
 
 typedef struct
 {
-    int num_tmu;
     int max_tex_size;
     int sup_large_tex;
     int has_2mb_tex_boundary;

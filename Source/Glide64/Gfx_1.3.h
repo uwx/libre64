@@ -115,11 +115,6 @@ extern "C" {
     // Usually enabled
 #define LARGE_TEXTURE_HANDLING	// allow large-textured objects to be split?
 
-    // Simulations
-    //#define SIMULATE_VOODOO1
-    //#define SIMULATE_BANSHEE
-    //********
-
     extern unsigned int BMASK;
 #define WMASK	0x3FFFFF
 #define DMASK	0x1FFFFF

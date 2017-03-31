@@ -148,12 +148,11 @@ COMBINE cmb;
   cmb.tex |= 1, \
   cmb.tmu0_func = GR_COMBINE_FUNCTION_LOCAL
 #define USE_T1() \
-  if (voodoo.num_tmu > 1) { \
   rdp.best_tex = 1; \
   cmb.tex |= 2, \
   cmb.tmu1_func = GR_COMBINE_FUNCTION_LOCAL, \
   cmb.tmu0_func = GR_COMBINE_FUNCTION_SCALE_OTHER, \
-  cmb.tmu0_fac = GR_COMBINE_FACTOR_ONE; } else { USE_T0(); }
+  cmb.tmu0_fac = GR_COMBINE_FACTOR_ONE;
 
 #define T0_ADD_T1() \
   rdp.best_tex = 0; \
@@ -493,7 +492,7 @@ COMBINE cmb;
   cmb.tex |= 1, \
   cmb.tmu0_a_func = GR_COMBINE_FUNCTION_LOCAL
 #define A_USE_T1() \
-  if (voodoo.num_tmu > 1) { \
+  if (true) { \
   cmb.tex |= 2, \
   cmb.tmu1_a_func = GR_COMBINE_FUNCTION_LOCAL, \
   cmb.tmu0_a_func = GR_COMBINE_FUNCTION_SCALE_OTHER, \

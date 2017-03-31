@@ -102,7 +102,7 @@ CSettings * g_settings = NULL;
 
 VOODOO voodoo = { 0, 0, 0, 0,
 0, 0, 0, 0,
-0, 0
+0
 };
 
 GrTexInfo fontTex;
@@ -245,15 +245,12 @@ void guLoadTextures()
     rdp.texbufs(0).count = 0;
     rdp.texbufs(0).clear_allowed = TRUE;
     offset_font = tbuf_size;
-    if (voodoo.num_tmu > 1)
-    {
-        rdp.texbufs(1).tmu = GR_TMU1;
-        rdp.texbufs(1).begin = rdp.texbufs(0).end;
-        rdp.texbufs(1).end = rdp.texbufs(1).begin + tbuf_size;
-        rdp.texbufs(1).count = 0;
-        rdp.texbufs(1).clear_allowed = TRUE;
-        offset_font += tbuf_size;
-    }
+    rdp.texbufs(1).tmu = GR_TMU1;
+    rdp.texbufs(1).begin = rdp.texbufs(0).end;
+    rdp.texbufs(1).end = rdp.texbufs(1).begin + tbuf_size;
+    rdp.texbufs(1).count = 0;
+    rdp.texbufs(1).clear_allowed = TRUE;
+    offset_font += tbuf_size;
 
 #include "font.h"
     uint32_t *data = (uint32_t*)font;
@@ -465,8 +462,6 @@ int InitGfx()
     GfxInitDone = TRUE;
     to_fullscreen = FALSE;
 
-    // get the # of TMUs available
-    grGet(GR_NUM_TMU, 4, (FxI32*)&voodoo.num_tmu);
     // get maximal texture size
     grGet(GR_MAX_TEXTURE_SIZE, 4, (FxI32*)&voodoo.max_tex_size);
     voodoo.sup_large_tex = (voodoo.max_tex_size > 256 && !g_settings->hacks(CSettings::hack_PPL));
@@ -859,7 +854,6 @@ that there is a waiting interrupt.
 int CALL InitiateGFX(GFX_INFO Gfx_Info)
 {
     WriteTrace(TraceInterface, TraceDebug, "Start");
-    voodoo.num_tmu = 2;
 
     // Assume scale of 1 for debug purposes
     rdp.scale_x = 1.0f;

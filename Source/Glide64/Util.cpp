@@ -963,21 +963,6 @@ static void InterpolateColors3(VERTEX &v1, VERTEX &v2, VERTEX &v3, VERTEX &out)
 
 static void CalculateLOD(VERTEX *v, int n)
 {
-    //rdp.update |= UPDATE_TEXTURE;
-    /*
-    if (rdp.lod_calculated)
-    {
-    float detailmax;
-    if (dc0_detailmax < 0.5)
-    detailmax = rdp.lod_fraction;
-    else
-    detailmax = 1.0f - rdp.lod_fraction;
-    grTexDetailControl (GR_TMU0, dc0_lodbias, dc0_detailscale, detailmax);
-    if (num_tmu == 2)
-    grTexDetailControl (GR_TMU1, dc1_lodbias, dc1_detailscale, detailmax);
-    return;
-    }
-    */
     float deltaS, deltaT;
     float deltaX, deltaY;
     double deltaTexels, deltaPixels, lodFactor = 0;
@@ -1031,8 +1016,7 @@ static void CalculateLOD(VERTEX *v, int n)
     else
         detailmax = 1.0f - lod_fraction;
     grTexDetailControl(GR_TMU0, cmb.dc0_lodbias, cmb.dc0_detailscale, detailmax);
-    if (voodoo.num_tmu == 2)
-        grTexDetailControl(GR_TMU1, cmb.dc1_lodbias, cmb.dc1_detailscale, detailmax);
+    grTexDetailControl(GR_TMU1, cmb.dc1_lodbias, cmb.dc1_detailscale, detailmax);
     WriteTrace(TraceRDP, TraceDebug, "CalculateLOD factor: %f, tile: %d, lod_fraction: %f", (float)lodFactor, lod_tile, lod_fraction);
 }
 

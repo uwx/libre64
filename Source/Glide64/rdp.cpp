@@ -1831,7 +1831,7 @@ void rdp_loadtlut()
     {
         //the buffer is definitely wrong, as there must be no CI frame buffers
         //find and remove it
-        for (int i = 0; i < voodoo.num_tmu; i++)
+        for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < rdp.texbufs(i).count; j++)
             {
@@ -3653,7 +3653,7 @@ void DetectFrameBufferUsage()
 
     if (g_settings->fb_hwfbe_enabled())
     {
-        for (i = 0; i < voodoo.num_tmu; i++)
+        for (i = 0; i < 2; i++)
         {
             rdp.texbufs(i).clear_allowed = TRUE;
             for (int j = 0; j < 256; j++)

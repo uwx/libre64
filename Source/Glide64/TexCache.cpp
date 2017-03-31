@@ -665,26 +665,6 @@ void TexCache()
         }
     }
 
-    // little change to make single-tmu cards look better, use first texture no matter what
-
-    if (voodoo.num_tmu == 1)
-    {
-        if (rdp.best_tex == 0)
-        {
-            cmb.tmu0_func = cmb.tmu0_a_func = GR_COMBINE_FUNCTION_LOCAL;
-            cmb.tmu0_fac = cmb.tmu0_a_fac = GR_COMBINE_FACTOR_NONE;
-            tmu_0 = 0;
-            tmu_1 = 1;
-        }
-        else
-        {
-            cmb.tmu1_func = cmb.tmu1_a_func = GR_COMBINE_FUNCTION_LOCAL;
-            cmb.tmu1_fac = cmb.tmu1_a_fac = GR_COMBINE_FACTOR_NONE;
-            tmu_1 = 0;
-            tmu_0 = 1;
-        }
-    }
-
     rdp.t0 = tmu_0;
     rdp.t1 = tmu_1;
 
@@ -721,7 +701,7 @@ void TexCache()
                 return;
         }
 
-        if (tmu_1 < voodoo.num_tmu)
+        if (tmu_1 < 2)
         {
             if (cmb.tex_cmb_ext_use)
             {
@@ -749,7 +729,7 @@ void TexCache()
             grTexDetailControl(tmu_1, cmb.dc1_lodbias, cmb.dc1_detailscale, cmb.dc1_detailmax);
             grTexLodBiasValue(tmu_1, cmb.lodbias1);
         }
-        if (tmu_0 < voodoo.num_tmu)
+        if (tmu_0 < 2)
         {
             if (cmb.tex_cmb_ext_use)
             {
@@ -779,7 +759,7 @@ void TexCache()
         }
     }
 
-    if ((rdp.tex & 1) && tmu_0 < voodoo.num_tmu)
+    if ((rdp.tex & 1) && tmu_0 < 2)
     {
         if (aTBuff[0] && aTBuff[0]->cache)
         {
@@ -810,7 +790,7 @@ void TexCache()
         else
             LoadTex(0, tmu_0);
     }
-    if ((rdp.tex & 2) && tmu_1 < voodoo.num_tmu)
+    if ((rdp.tex & 2) && tmu_1 < 2)
     {
         if (aTBuff[1] && aTBuff[1]->cache)
         {
@@ -852,7 +832,7 @@ void TexCache()
         {
             const int tmu = tmu_v[i];
 
-            if (tmu >= voodoo.num_tmu) continue;
+            if (tmu >= 2) continue;
 
             int tile = rdp.cur_tile + i;
 

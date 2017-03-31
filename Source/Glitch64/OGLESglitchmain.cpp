@@ -816,11 +816,6 @@ grGet(FxU32 pname, FxU32 plength, FxI32 *params)
         params[0] = 2048;
         return 4;
         break;
-    case GR_NUM_TMU:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 2;
-        return 4;
-        break;
     case GR_NUM_BOARDS:
     case GR_NUM_FB:
     case GR_REVISION_FB:
@@ -1231,7 +1226,7 @@ grBufferSwap(FxU32 swap_interval)
     for (i = 0; i < nb_fb; i++)
     {
         fbs[i].buff_clear = 1;
-    }
+}
 }
 
 // frame buffer
@@ -1520,11 +1515,11 @@ grLfbWriteRegion(GrBuffer_t dst_buffer,
         //glDrawPixels(src_width, src_height+(g_viewport_offset), GL_DEPTH_COMPONENT, GL_FLOAT, buf);
 
         free(buf);
-    }
+        }
     //glDrawBuffer(current_buffer);
     //glPopAttrib();
     return FXTRUE;
-}
+    }
 
 /* wrapper-specific glide extensions */
 void grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
