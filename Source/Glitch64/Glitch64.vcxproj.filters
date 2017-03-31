@@ -34,9 +34,6 @@
     <ClInclude Include="glitchmain.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="OGLESwrappers.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="opengl.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -44,6 +41,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="EGLWindow.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="OGLESwrappers.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

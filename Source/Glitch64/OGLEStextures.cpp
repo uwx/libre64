@@ -621,10 +621,7 @@ grTexDownloadMipMap(GrChipID_t tmu,
         }
     }
 
-    if (nbTextureUnits <= 2)
-        glActiveTexture(GL_TEXTURE1);
-    else
-        glActiveTexture(GL_TEXTURE2);
+    glActiveTexture(GL_TEXTURE2);
 
     switch (info->format)
     {
@@ -659,9 +656,8 @@ grTexSource(GrChipID_t tmu,
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, startAddress: %d evenOdd: %d", tmu, startAddress, evenOdd);
 
-    if (tmu == GR_TMU1 || nbTextureUnits <= 2)
+    if (tmu == GR_TMU1)
     {
-        if (tmu == GR_TMU1 && nbTextureUnits <= 2) return;
         glActiveTexture(GL_TEXTURE0);
 
         if (info->aspectRatioLog2 < 0)
@@ -765,9 +761,8 @@ grTexFilterMode(
 )
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, bias: %d magfilter_mode: %d", tmu, minfilter_mode, magfilter_mode);
-    if (tmu == GR_TMU1 || nbTextureUnits <= 2)
+    if (tmu == GR_TMU1)
     {
-        if (tmu == GR_TMU1 && nbTextureUnits <= 2) return;
         if (minfilter_mode == GR_TEXTUREFILTER_POINT_SAMPLED) min_filter0 = GL_NEAREST;
         else min_filter0 = GL_LINEAR;
 
@@ -800,9 +795,8 @@ grTexClampMode(
 )
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, s_clampmode: %d t_clampmode: %d", tmu, s_clampmode, t_clampmode);
-    if (tmu == GR_TMU1 || nbTextureUnits <= 2)
+    if (tmu == GR_TMU1)
     {
-        if (tmu == GR_TMU1 && nbTextureUnits <= 2) return;
         switch (s_clampmode)
         {
         case GR_TEXTURECLAMP_WRAP:

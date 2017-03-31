@@ -69,7 +69,6 @@ typedef struct
     int buff_clear;
 } fb;
 
-int nbTextureUnits;
 int nbAuxBuffers, current_buffer;
 int g_width, widtho, heighto, g_height;
 int saved_width, saved_height;
@@ -123,8 +122,6 @@ static int texbuf_i;
 
 unsigned short frameBuffer[2048 * 2048 * 2]; // Support 2048x2048 screen resolution at 32 bits (RGBA) per pixel
 unsigned short depthBuffer[2048 * 2048];   // Support 2048x2048 screen resolution at 16 bits (depth) per pixel
-
-//#define VOODOO1
 
 void display_warning(const char *text, ...)
 {
@@ -332,17 +329,10 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOrigin
         WriteTrace(TraceGlitch, TraceWarning, "Your video card doesn't support GL_ARB_texture_mirrored_repeat extension");
     show_warning = 0;
 
-    nbTextureUnits = 4;
-    //glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB, &nbTextureUnits);
-    if (nbTextureUnits == 1) WriteTrace(TraceGlitch, TraceWarning, "You need a video card that has at least 2 texture units");
-
     nbAuxBuffers = 4;
     //glGetIntegerv(GL_AUX_BUFFERS, &nbAuxBuffers);
     if (nbAuxBuffers > 0)
         printf("Congratulations, you have %d auxilliary buffers, we'll use them wisely !\n", nbAuxBuffers);
-#ifdef VOODOO1
-    nbTextureUnits = 2;
-#endif
 
     blend_func_separate_support = 1;
     packed_pixels_support = 0;
@@ -830,19 +820,7 @@ grGet(FxU32 pname, FxU32 plength, FxI32 *params)
         break;
     case GR_NUM_TMU:
         if (plength < 4 || params == NULL) return 0;
-        if (!nbTextureUnits)
-        {
-            grSstWinOpen(GR_COLORFORMAT_ARGB, GR_ORIGIN_UPPER_LEFT, 2, 1);
-            grSstWinClose(0);
-        }
-#ifdef VOODOO1
-        params[0] = 1;
-#else
-        if (nbTextureUnits > 2)
-            params[0] = 2;
-        else
-            params[0] = 1;
-#endif
+        params[0] = 2;
         return 4;
         break;
     case GR_NUM_BOARDS:
@@ -861,11 +839,6 @@ grGet(FxU32 pname, FxU32 plength, FxI32 *params)
     case GR_MEMORY_TMU:
         if (plength < 4 || params == NULL) return 0;
         params[0] = 16 * 1024 * 1024;
-        return 4;
-        break;
-    case GR_MEMORY_UMA:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 16 * 1024 * 1024 * nbTextureUnits;
         return 4;
         break;
     case GR_BITS_RGBA:
@@ -1260,7 +1233,7 @@ grBufferSwap(FxU32 swap_interval)
     for (i = 0; i < nb_fb; i++)
     {
         fbs[i].buff_clear = 1;
-}
+    }
 }
 
 // frame buffer
