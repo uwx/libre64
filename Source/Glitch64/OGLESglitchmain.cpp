@@ -90,8 +90,6 @@ int viewport_width, viewport_height, g_viewport_offset = 0, nvidia_viewport_hack
 int save_w, save_h;
 int lfb_color_fmt;
 float invtex[2];
-//Gonetz
-int UMAmode = 0; //support for VSA-100 UMA mode;
 
 #ifdef _WIN32
 static HDC hDC = NULL;
@@ -1522,11 +1520,11 @@ grLfbWriteRegion(GrBuffer_t dst_buffer,
         //glDrawPixels(src_width, src_height+(g_viewport_offset), GL_DEPTH_COMPONENT, GL_FLOAT, buf);
 
         free(buf);
-        }
+    }
     //glDrawBuffer(current_buffer);
     //glPopAttrib();
     return FXTRUE;
-    }
+}
 
 /* wrapper-specific glide extensions */
 void grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
@@ -1535,21 +1533,4 @@ void grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
     config.vram_size = vram;
     config.fbo = fbo;
     config.anisofilter = aniso;
-}
-
-// unused by glide64
-FX_ENTRY void FX_CALL
-grEnable(GrEnableMode_t mode)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "-");
-    if (mode == GR_TEXTURE_UMA_EXT)
-        UMAmode = 1;
-}
-
-FX_ENTRY void FX_CALL
-grDisable(GrEnableMode_t mode)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "-");
-    if (mode == GR_TEXTURE_UMA_EXT)
-        UMAmode = 0;
 }

@@ -251,13 +251,9 @@ extern "C" {
 
     typedef void (FX_CALL *GRCONSTANTCOLORVALUEEXT)
         (GrChipID_t       tmu,
-        GrColor_t        value);
+            GrColor_t        value);
 
     typedef void (FX_CALL *GRSTIPPLE)(FxI32 mode);
-
-    typedef int(*GETTEXADDR)(int tmu, int texsize);
-
-    extern GETTEXADDR           GetTexAddr;
 
 #ifndef GR_STIPPLE_DISABLE
 #define GR_STIPPLE_DISABLE	0x0

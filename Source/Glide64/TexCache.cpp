@@ -108,10 +108,7 @@ void AddToList(NODE **list, uint32_t crc, uintptr_t data, int tmu, int number)
     node->pNext = *list;
     *list = node;
     rdp.SetNCached(tmu, rdp.n_cached(tmu) + 1);
-    if (voodoo.tex_UMA)
-    {
-        rdp.SetNCached(tmu ^ 1, rdp.n_cached(tmu));
-    }
+    rdp.SetNCached(tmu ^ 1, rdp.n_cached(tmu));
 }
 
 void DeleteList(NODE **list)
@@ -139,7 +136,7 @@ void ClearCache()
 {
     voodoo.tmem_ptr[0] = offset_textures;
     rdp.SetNCached(0, 0);
-    voodoo.tmem_ptr[1] = voodoo.tex_UMA ? offset_textures : offset_texbuf1;
+    voodoo.tmem_ptr[1] = offset_textures;
     rdp.SetNCached(1, 0);
 
     for (int i = 0; i < 65536; i++)
@@ -479,11 +476,8 @@ void GetTexInfo(int id, int tile)
                 {
                     WriteTrace(TraceRDP, TraceDebug, " | | | |- Texture found in cache (tmu=%d).", node->tmu);
                     tex_found[id][node->tmu] = node->number;
-                    if (voodoo.tex_UMA)
-                    {
-                        tex_found[id][node->tmu ^ 1] = node->number;
-                        return;
-                    }
+                    tex_found[id][node->tmu ^ 1] = node->number;
+                    return;
                 }
             }
         }
@@ -499,16 +493,7 @@ void GetTexInfo(int id, int tile)
 int ChooseBestTmu(int tmu1, int tmu2)
 {
     if (!GfxInitDone) return tmu1;
-    if (voodoo.tex_UMA) return 0;
-
-    if (tmu1 >= voodoo.num_tmu) return tmu2;
-    if (tmu2 >= voodoo.num_tmu) return tmu1;
-
-    if (voodoo.tex_max_addr[tmu1] - voodoo.tmem_ptr[tmu1] >
-        voodoo.tex_max_addr[tmu2] - voodoo.tmem_ptr[tmu2])
-        return tmu1;
-    else
-        return tmu2;
+    return 0;
 }
 
 //****************************************************************
@@ -811,7 +796,7 @@ void TexCache()
             WriteTrace(TraceRDP, TraceDebug, " | |- T0 found in cache.");
             if (GfxInitDone)
             {
-                CACHE_LUT *cache = voodoo.tex_UMA ? &rdp.cache(0)[tex_found[0][0]] : &rdp.cache(tmu_0)[tex_found[0][tmu_0]];
+                CACHE_LUT *cache = &rdp.cache(0)[tex_found[0][0]];
                 rdp.SetCurCacheN(0, tex_found[0][tmu_0]);
                 rdp.SetCurCache(0, cache);
                 rdp.cur_cache(0)->last_used = frame_count;
@@ -842,7 +827,7 @@ void TexCache()
             WriteTrace(TraceRDP, TraceDebug, " | |- T1 found in cache.");
             if (GfxInitDone)
             {
-                CACHE_LUT *cache = voodoo.tex_UMA ? &rdp.cache(0)[tex_found[1][0]] : &rdp.cache(tmu_1)[tex_found[1][tmu_1]];
+                CACHE_LUT *cache = &rdp.cache(0)[tex_found[1][0]];
                 rdp.SetCurCacheN(1, tex_found[1][tmu_1]);
                 rdp.SetCurCache(1, cache);
                 rdp.cur_cache(1)->last_used = frame_count;
@@ -1011,7 +996,7 @@ void LoadTex(int id, int tmu)
     }
 
     // Get this cache object
-    cache = voodoo.tex_UMA ? &rdp.cache(0)[rdp.n_cached(0)] : &rdp.cache(tmu)[rdp.n_cached(tmu)];
+    cache = &rdp.cache(0)[rdp.n_cached(0)];
     memset(cache, 0, sizeof(*cache));
     rdp.SetCurCache(id, cache);
     rdp.SetCurCacheN(id, rdp.n_cached(tmu));
@@ -1749,16 +1734,12 @@ void LoadTex(int id, int tmu)
             // DON'T CONTINUE (already done)
         }
 
-        uint32_t tex_addr = GetTexAddr(tmu, texture_size);
-        grTexDownloadMipMap(tmu,
-            tex_addr,
-            GR_MIPMAPLEVELMASK_BOTH,
-            t_info);
+        uint32_t tex_addr = voodoo.tex_min_addr[0] + voodoo.tmem_ptr[0];
+        voodoo.tmem_ptr[0] += texture_size;
+        voodoo.tmem_ptr[1] = voodoo.tmem_ptr[0];
 
-        grTexSource(tmu,
-            tex_addr,
-            GR_MIPMAPLEVELMASK_BOTH,
-            t_info);
+        grTexDownloadMipMap(tmu, tex_addr, GR_MIPMAPLEVELMASK_BOTH, t_info);
+        grTexSource(tmu, tex_addr, GR_MIPMAPLEVELMASK_BOTH, t_info);
     }
 
     WriteTrace(TraceRDP, TraceDebug, " | | +- LoadTex end");
