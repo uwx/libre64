@@ -20,7 +20,6 @@ int grTexFormatSize(int fmt);
 extern int grDisplayGLError(const char* message);
 
 extern int packed_pixels_support;
-extern int ati_sucks;
 extern float largest_supported_anisotropy;
 
 extern int default_texture; // the infamous "32*1024*1024" is now configurable
@@ -41,7 +40,7 @@ typedef const char * (WINAPI * PFNWGLGETEXTENSIONSSTRINGARBPROC)(HDC hdc);
 #include "glide.h"
 
 void init_geometry();
-void init_textures();
+bool init_textures();
 void init_combiner();
 void free_textures();
 void remove_tex(unsigned int idmin, unsigned int idmax);

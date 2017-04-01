@@ -361,7 +361,10 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOrigin
     }
 
     init_geometry();
-    init_textures();
+    if (!init_textures())
+    {
+        return 0;
+    }
     init_combiner();
 
     return 1;

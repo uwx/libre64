@@ -45,7 +45,6 @@ int TMU_SIZE = 8 * 2048 * 2048;
 static unsigned char* texture = NULL;
 
 int packed_pixels_support = -1;
-int ati_sucks = -1;
 float largest_supported_anisotropy = 1.0f;
 
 #ifndef GL_TEXTURE_MAX_ANISOTROPY_EXT
@@ -57,8 +56,6 @@ float lambda;
 
 static int min_filter0, mag_filter0, wrap_s0, wrap_t0;
 static int min_filter1, mag_filter1, wrap_s1, wrap_t1;
-
-unsigned char *filter(unsigned char *source, int width, int height, int *width2, int *height2);
 
 typedef struct _texlist
 {
@@ -129,24 +126,32 @@ void add_tex(unsigned int id)
     aux->next->next = aux2;
 }
 
-void init_textures()
+bool init_textures()
 {
     tex0_width = tex0_height = tex1_width = tex1_height = 2;
-    // ZIGGY because remove_tex isn't called (Pj64 doesn't like it), it's better
-    // to leave these so that they'll be reused (otherwise we have a memory leak)
-    // 	list = NULL;
-    // 	nbTex = 0;
+    list = NULL;
+    nbTex = 0;
+    min_filter0 = 0;
+    mag_filter0 = 0;
+    wrap_s0 = 0;
+    wrap_t0 = 0;
+    min_filter1 = 0;
+    mag_filter1 = 0;
+    wrap_s1 = 0;
+    wrap_t1 = 0;
 
-    if (!texture)	texture = (unsigned char*)malloc(2048 * 2048 * 4);
+    if (texture == NULL)
+    {
+        texture = (unsigned char*)malloc(2048 * 2048 * 4);
+    }
+    return texture != NULL;
 }
 
 void free_textures()
 {
-#ifndef WIN32
-    // ZIGGY for some reasons, Pj64 doesn't like remove_tex on exit
     remove_tex(0x00000000, 0xFFFFFFFF);
-#endif
-    if (texture != NULL) {
+    if (texture != NULL)
+    {
         free(texture);
         texture = NULL;
     }
@@ -315,85 +320,6 @@ int grTexFormat2GLPackedFmt(int fmt, int * gltexfmt, int * glpixfmt, int * glpac
     *glpixfmt = GL_RGBA;
     *glpackfmt = GL_UNSIGNED_BYTE;
     return 0;
-    /*
-      int factor = -1;
-      switch(fmt) {
-      case GR_TEXFMT_ALPHA_8:
-        factor = 1;
-        *gltexfmt = GL_INTENSITY8;
-        *glpixfmt = GL_LUMINANCE;
-        *glpackfmt = GL_UNSIGNED_BYTE;
-        break;
-      case GR_TEXFMT_INTENSITY_8: // I8 support - H.Morii
-        factor = 1;
-        *gltexfmt = GL_LUMINANCE8;
-        *glpixfmt = GL_LUMINANCE;
-        *glpackfmt = GL_UNSIGNED_BYTE;
-        break;
-      case GR_TEXFMT_ALPHA_INTENSITY_44:
-        break;
-      case GR_TEXFMT_RGB_565:
-        factor = 2;
-        *gltexfmt = GL_RGB;
-        *glpixfmt = GL_RGB;
-        *glpackfmt = GL_UNSIGNED_SHORT_5_6_5;
-        break;
-      case GR_TEXFMT_ARGB_1555:
-        if (ati_sucks > 0) return -1; // ATI sucks as usual (fixes slowdown on ATI)
-        factor = 2;
-        *gltexfmt = GL_RGB5_A1;
-        *glpixfmt = GL_BGRA;
-        *glpackfmt = GL_UNSIGNED_SHORT_1_5_5_5_REV;
-        break;
-      case GR_TEXFMT_ALPHA_INTENSITY_88:
-        factor = 2;
-        *gltexfmt = GL_LUMINANCE8_ALPHA8;
-        *glpixfmt = GL_LUMINANCE_ALPHA;
-        *glpackfmt = GL_UNSIGNED_BYTE;
-        break;
-      case GR_TEXFMT_ARGB_4444:
-        factor = 2;
-        *gltexfmt = GL_RGBA4;
-        *glpixfmt = GL_BGRA;
-        *glpackfmt = GL_UNSIGNED_SHORT_4_4_4_4_REV;
-        break;
-      case GR_TEXFMT_ARGB_8888:
-        factor = 4;
-        *gltexfmt = GL_RGBA8;
-        *glpixfmt = GL_BGRA;
-        *glpackfmt = GL_UNSIGNED_INT_8_8_8_8_REV;
-        break;
-      case GR_TEXFMT_ARGB_CMP_DXT1:  // FXT1,DXT1,5 support - H.Morii
-        // HACKALERT: 3Dfx Glide uses GR_TEXFMT_ARGB_CMP_DXT1 for both opaque DXT1 and DXT1 with 1bit alpha.
-        // GlideHQ compiled with GLIDE64_DXTN option enabled, uses opaqe DXT1 only.
-        factor = 8; // HACKALERT: factor holds block bytes
-        *gltexfmt = GL_COMPRESSED_RGB_S3TC_DXT1_EXT; // these variables aren't used
-        *glpixfmt = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
-        *glpackfmt = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
-        break;
-      case GR_TEXFMT_ARGB_CMP_DXT3:
-        factor = 16;
-        *gltexfmt = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-        *glpixfmt = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-        *glpackfmt = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-        break;
-      case GR_TEXFMT_ARGB_CMP_DXT5:
-        factor = 16;
-        *gltexfmt = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-        *glpixfmt = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-        *glpackfmt = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-        break;
-      case GR_TEXFMT_ARGB_CMP_FXT1:
-        factor = 8;
-        *gltexfmt = GL_COMPRESSED_RGBA_FXT1_3DFX;
-        *glpixfmt = GL_COMPRESSED_RGBA_FXT1_3DFX;
-        *glpackfmt = GL_COMPRESSED_RGBA_FXT1_3DFX; // XXX: what should we do about GL_COMPRESSED_RGB_FXT1_3DFX?
-        break;
-      default:
-        WriteTrace(TraceGlitch, TraceWarning, "grTexFormat2GLPackedFmt : unknown texture format: %x", fmt);
-      }
-      return factor;
-    */
 }
 
 FX_ENTRY void FX_CALL
@@ -463,23 +389,16 @@ grTexDownloadMipMap(GrChipID_t tmu,
             glformat = GL_ALPHA;
             break;
         case GR_TEXFMT_ALPHA_INTENSITY_44:
-#if 1
             for (i = 0; i < height; i++)
             {
                 for (j = 0; j < width; j++)
                 {
                     unsigned int texel = (unsigned int)((unsigned char*)info->data)[m];
-#if 1
                     /* accurate conversion */
                     unsigned int texel_hi = (texel & 0x000000F0) << 20;
                     unsigned int texel_low = texel & 0x0000000F;
                     texel_low |= (texel_low << 4);
                     texel_hi |= ((texel_hi << 4) | (texel_low << 16) | (texel_low << 8) | texel_low);
-#else
-                    unsigned int texel_hi = (texel & 0x000000F0) << 24;
-                    unsigned int texel_low = (texel & 0x0000000F) << 4;
-                    texel_hi |= ((texel_low << 16) | (texel_low << 8) | texel_low);
-#endif
                     ((unsigned int*)texture)[n] = texel_hi;
                     m++;
                     n++;
@@ -487,7 +406,6 @@ grTexDownloadMipMap(GrChipID_t tmu,
             }
             factor = 1;
             glformat = GL_LUMINANCE_ALPHA;
-#endif
             break;
         case GR_TEXFMT_RGB_565:
             for (i = 0; i < height; i++)
@@ -498,16 +416,12 @@ grTexDownloadMipMap(GrChipID_t tmu,
                     unsigned int B = texel & 0x0000F800;
                     unsigned int G = texel & 0x000007E0;
                     unsigned int R = texel & 0x0000001F;
-#if 0
-                    /* accurate conversion */
-                    ((unsigned int*)texture)[n] = 0xFF000000 | (R << 19) | ((R >> 2) << 16) | (G << 5) | ((G >> 9) << 8) | (B >> 8) | (B >> 13);
-#else
+
                     ((unsigned int*)texture)[n] = 0xFF000000 | (R << 19) | (G << 5) | (B >> 8);
-#endif
                     m++;
                     n++;
                 }
-                }
+            }
             factor = 2;
             glformat = GL_RGB;
             break;
@@ -521,16 +435,11 @@ grTexDownloadMipMap(GrChipID_t tmu,
                     unsigned int B = texel & 0x00007C00;
                     unsigned int G = texel & 0x000003E0;
                     unsigned int R = texel & 0x0000001F;
-#if 0
-                    /* accurate conversion */
-                    ((unsigned int*)texture)[n] = A | (R << 19) | ((R >> 2) << 16) | (G << 6) | ((G >> 8) << 8) | (B >> 7) | (B >> 12);
-#else
                     ((unsigned int*)texture)[n] = A | (R << 19) | (G << 6) | (B >> 7);
-#endif
                     m++;
                     n++;
                 }
-                }
+            }
             factor = 2;
             glformat = GL_RGBA;
             break;
@@ -560,16 +469,11 @@ grTexDownloadMipMap(GrChipID_t tmu,
                     unsigned int B = texel & 0x00000F00;
                     unsigned int G = texel & 0x000000F0;
                     unsigned int R = texel & 0x0000000F;
-#if 0
-                    /* accurate conversion */
-                    ((unsigned int*)texture)[n] = (A << 16) | (A << 12) | (R << 20) | (R << 16) | (G << 8) | (G << 4) | (B >> 4) | (B >> 8);
-#else
                     ((unsigned int*)texture)[n] = (A << 16) | (R << 20) | (G << 8) | (B >> 4);
-#endif
                     m++;
                     n++;
                 }
-                }
+            }
             factor = 2;
             glformat = GL_RGBA;
             break;
@@ -591,29 +495,11 @@ grTexDownloadMipMap(GrChipID_t tmu,
             factor = 4;
             glformat = GL_RGBA;
             break;
-            /*
-                case GR_TEXFMT_ARGB_CMP_DXT1: // FXT1,DXT1,5 support - H.Morii
-                  factor = 8;                 // HACKALERT: factor holds block bytes
-                  glformat = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
-                  break;
-                case GR_TEXFMT_ARGB_CMP_DXT3: // FXT1,DXT1,5 support - H.Morii
-                  factor = 16;                 // HACKALERT: factor holds block bytes
-                  glformat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-                  break;
-                case GR_TEXFMT_ARGB_CMP_DXT5:
-                  factor = 16;
-                  glformat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-                  break;
-                case GR_TEXFMT_ARGB_CMP_FXT1:
-                  factor = 8;
-                  glformat = GL_COMPRESSED_RGBA_FXT1_3DFX;
-                  break;
-            */
         default:
             WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadMipMap : unknown texture format: %x", info->format);
             factor = 0;
-            }
-            }
+        }
+    }
 
     glActiveTexture(GL_TEXTURE2);
 
@@ -638,7 +524,7 @@ grTexDownloadMipMap(GrChipID_t tmu,
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
 
     glBindTexture(GL_TEXTURE_2D, default_texture);
-            }
+}
 
 int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, GrTexInfo *info);
 
@@ -705,15 +591,6 @@ grTexSource(GrChipID_t tmu,
             need_to_compile = 1;
         }
     }
-
-#if 0
-    extern int auxbuffer;
-    static int oldbuffer;
-    FX_ENTRY void FX_CALL grAuxBufferExt(GrBuffer_t buffer);
-    if (auxbuffer == GR_BUFFER_AUXBUFFER && auxbuffer != oldbuffer)
-        grAuxBufferExt(auxbuffer);
-    oldbuffer = auxbuffer;
-#endif
 }
 
 FX_ENTRY void FX_CALL
@@ -739,12 +616,6 @@ grTexDetailControl(
     if (lambda > 1.0f) WriteTrace(TraceGlitch, TraceWarning, "lambda:%f", lambda);
 
     set_lambda();
-}
-
-FX_ENTRY void FX_CALL
-grTexLodBiasValue(GrChipID_t tmu, float bias)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, bias: %f", tmu, bias);
 }
 
 FX_ENTRY void FX_CALL
