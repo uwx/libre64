@@ -457,7 +457,6 @@ int InitGfx()
 
     InitCombine();
 
-    grCoordinateSpace(GR_WINDOW_COORDS);
     grVertexLayout(GR_PARAM_XY, offsetof(VERTEX, x), GR_PARAM_ENABLE);
     grVertexLayout(GR_PARAM_Q, offsetof(VERTEX, q), GR_PARAM_ENABLE);
     grVertexLayout(GR_PARAM_Z, offsetof(VERTEX, z), GR_PARAM_ENABLE);
