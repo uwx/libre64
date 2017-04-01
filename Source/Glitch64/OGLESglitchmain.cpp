@@ -249,6 +249,7 @@ void SwapBuffers(void)
 FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
 {
     static int show_warning = 1;
+    GLCache::ResetCache();
 
     // ZIGGY
     // allocate static texture names
