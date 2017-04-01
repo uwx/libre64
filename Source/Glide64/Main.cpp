@@ -101,7 +101,7 @@ CRDP rdp;
 CSettings * g_settings = NULL;
 
 VOODOO voodoo = { 0, 0, 0, 0,
-0, 0, 0, 0,
+0, 0, 0,
 };
 
 GrTexInfo fontTex;
@@ -455,8 +455,6 @@ int InitGfx()
     to_fullscreen = FALSE;
 
     // get maximal texture size
-    voodoo.sup_large_tex = !g_settings->hacks(CSettings::hack_PPL);
-
     voodoo.tex_min_addr[0] = voodoo.tex_min_addr[1] = grTexMinAddress(GR_TMU0);
     voodoo.tex_max_addr[0] = voodoo.tex_max_addr[1] = grTexMaxAddress(GR_TMU0);
 
