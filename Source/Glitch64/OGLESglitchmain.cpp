@@ -44,19 +44,10 @@
 #include "glitchmain.h"
 #include <Glide64/trace.h>
 
-#define OPENGL_CHECK_ERRORS { const GLenum errcode = glGetError(); if (errcode != GL_NO_ERROR) LOG("OpenGL Error code %i in '%s' line %i\n", errcode, __FILE__, __LINE__-1); }
-
-extern void(*renderCallback)(int);
-
 wrapper_config config = { 0, 0, 0 };
 int screen_width, screen_height;
 
 void Android_JNI_SwapWindow(void);
-
-#ifdef _WIN32
-
-PFNGLCOMPRESSEDTEXIMAGE2DPROC glCompressedTexImage2DARB;
-#endif // _WIN32
 
 typedef struct
 {
@@ -92,9 +83,6 @@ int lfb_color_fmt;
 float invtex[2];
 
 #ifdef _WIN32
-static HDC hDC = NULL;
-static HGLRC hGLRC = NULL;
-static HWND hToolBar = NULL;
 extern HWND g_hwnd_win;
 #endif // _WIN32
 static unsigned long fullscreen;
@@ -165,14 +153,6 @@ void display_error()
     LocalFree(lpMsgBuf);
 }
 #endif // _WIN32
-
-FX_ENTRY void FX_CALL
-grSstOrigin(GrOriginLocation_t  origin)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "origin = %d", origin);
-    if (origin != GR_ORIGIN_UPPER_LEFT)
-        WriteTrace(TraceGlitch, TraceWarning, "grSstOrigin : %x", origin);
-}
 
 FX_ENTRY void FX_CALL
 grClipWindow(FxU32 minx, FxU32 miny, FxU32 maxx, FxU32 maxy)
@@ -257,13 +237,6 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpenExt(GrColorFormat_t color_format, GrOri
     return grSstWinOpen(color_format, origin_location, nColBuffers, nAuxBuffers);
 }
 
-#ifdef _WIN32
-# include <fcntl.h>
-# ifndef ATTACH_PARENT_PROCESS
-#  define ATTACH_PARENT_PROCESS ((FxU32)-1)
-# endif
-#endif
-
 #ifndef ANDROID
 std::unique_ptr<EGLWindow> mEGLWindow;
 
@@ -329,8 +302,6 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOrigin
 
     nbAuxBuffers = 4;
     //glGetIntegerv(GL_AUX_BUFFERS, &nbAuxBuffers);
-    if (nbAuxBuffers > 0)
-        printf("Congratulations, you have %d auxilliary buffers, we'll use them wisely !\n", nbAuxBuffers);
 
     blend_func_separate_support = 1;
     packed_pixels_support = 0;
@@ -389,31 +360,9 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOrigin
         save_w = save_h = 0;
     }
 
-    //void FindBestDepthBias();
-    //FindBestDepthBias();
-
     init_geometry();
     init_textures();
     init_combiner();
-
-    /*
-      // Aniso filter check
-      if (config.anisofilter > 0 )
-      glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &largest_supported_anisotropy);
-
-      // ATI hack - certain texture formats are slow on ATI?
-      // Hmm, perhaps the internal format need to be specified explicitly...
-      {
-      GLint ifmt;
-      glTexImage2D(GL_PROXY_TEXTURE_2D, 0, GL_RGBA, 16, 16, 0, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV, NULL);
-      glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0, GL_TEXTURE_INTERNAL_FORMAT, &ifmt);
-      if (ifmt != GL_RGB5_A1) {
-      WriteTrace(TraceGlitch, TraceWarning, "ATI SUCKS %x\n", ifmt);
-      ati_sucks = 1;
-      } else
-      ati_sucks = 0;
-      }
-      */
 
     return 1;
 }
@@ -461,14 +410,7 @@ grSstWinClose(GrContext_t context)
     remove_tex(0, 0xfffffff);
 #endif
 
-    //*/
 #ifdef _WIN32
-    if (hGLRC)
-    {
-        wglMakeCurrent(hDC, NULL);
-        wglDeleteContext(hGLRC);
-        hGLRC = NULL;
-    }
     ExitFullScreen();
 #endif
     return FXTRUE;
@@ -707,15 +649,20 @@ FX_ENTRY void FX_CALL grTextureBufferExt(GrChipID_t  		tmu,
 int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, GrTexInfo *info)
 {
     int found, i;
-    if (!use_fbo) {
+    if (!use_fbo)
+    {
         for (found = i = 0; i < 2; i++)
-            if ((FxU32)tmu_usage[i].min <= startAddress && (FxU32)tmu_usage[i].max > startAddress) {
+        {
+            if ((FxU32)tmu_usage[i].min <= startAddress && (FxU32)tmu_usage[i].max > startAddress)
+            {
                 //printf("tmu %d == framebuffer %x\n", tmu, startAddress);
                 found = 1;
                 break;
             }
+        }
     }
-    else {
+    else
+    {
         found = i = 0;
         while (i < nb_fb)
         {
@@ -729,7 +676,8 @@ int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, GrTexInfo *info
         }
     }
 
-    if (!use_fbo && found) {
+    if (!use_fbo && found)
+    {
         int tw, th, rh, cw, ch;
         if (info->aspectRatioLog2 < 0)
         {
@@ -763,10 +711,14 @@ int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, GrTexInfo *info
         invtex[tmu] = 1.0f - (th - rh) / (float)th;
     }
     else
+    {
         invtex[tmu] = 0;
+    }
 
-    if (info->format == GR_TEXFMT_ALPHA_INTENSITY_88) {
-        if (!found) {
+    if (info->format == GR_TEXFMT_ALPHA_INTENSITY_88)
+    {
+        if (!found)
+        {
             return 0;
         }
         if (tmu == 0)
@@ -786,116 +738,6 @@ int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, GrTexInfo *info
             }
         }
         return 1;
-    }
-    return 0;
-}
-
-FX_ENTRY void FX_CALL
-grTextureAuxBufferExt(GrChipID_t tmu,
-    FxU32      startAddress,
-    GrLOD_t    thisLOD,
-    GrLOD_t    largeLOD,
-    GrAspectRatio_t aspectRatio,
-    GrTextureFormat_t format,
-    FxU32      odd_even_mask)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "tmu: %d startAddress: %d thisLOD: %d largeLOD: %d aspectRatio: %d format: %d odd_even_mask: %d", tmu, startAddress, thisLOD, largeLOD, aspectRatio, format, odd_even_mask);
-    //WriteTrace(TraceGlitch, TraceWarning, "grTextureAuxBufferExt");
-}
-
-FX_ENTRY void FX_CALL grAuxBufferExt(GrBuffer_t buffer);
-
-FX_ENTRY FxU32 FX_CALL
-grGet(FxU32 pname, FxU32 plength, FxI32 *params)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "pname: %d plength: %d", pname, plength);
-    switch (pname)
-    {
-    case GR_MAX_TEXTURE_SIZE:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 2048;
-        return 4;
-        break;
-    case GR_NUM_BOARDS:
-    case GR_NUM_FB:
-    case GR_REVISION_FB:
-    case GR_REVISION_TMU:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 1;
-        return 4;
-        break;
-    case GR_MEMORY_FB:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 16 * 1024 * 1024;
-        return 4;
-        break;
-    case GR_MEMORY_TMU:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 16 * 1024 * 1024;
-        return 4;
-        break;
-    case GR_BITS_RGBA:
-        if (plength < 16 || params == NULL) return 0;
-        params[0] = 8;
-        params[1] = 8;
-        params[2] = 8;
-        params[3] = 8;
-        return 16;
-        break;
-    case GR_BITS_DEPTH:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 16;
-        return 4;
-        break;
-    case GR_BITS_GAMMA:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 8;
-        return 4;
-        break;
-    case GR_GAMMA_TABLE_ENTRIES:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 256;
-        return 4;
-        break;
-    case GR_FOG_TABLE_ENTRIES:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 64;
-        return 4;
-        break;
-    case GR_WDEPTH_MIN_MAX:
-        if (plength < 8 || params == NULL) return 0;
-        params[0] = 0;
-        params[1] = 65528;
-        return 8;
-        break;
-    case GR_ZDEPTH_MIN_MAX:
-        if (plength < 8 || params == NULL) return 0;
-        params[0] = 0;
-        params[1] = 65535;
-        return 8;
-        break;
-    case GR_LFB_PIXEL_PIPE:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = FXFALSE;
-        return 4;
-        break;
-    case GR_MAX_TEXTURE_ASPECT_RATIO:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 3;
-        return 4;
-        break;
-    case GR_NON_POWER_OF_TWO_TEXTURES:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = FXFALSE;
-        return 4;
-        break;
-    case GR_TEXTURE_ALIGN:
-        if (plength < 4 || params == NULL) return 0;
-        params[0] = 0;
-        return 4;
-        break;
-    default:
-        WriteTrace(TraceGlitch, TraceWarning, "unknown pname in grGet : %x", pname);
     }
     return 0;
 }
@@ -995,49 +837,6 @@ void updateTexture()
         glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, g_viewport_offset, g_width, g_height, 0);
 
         glBindTexture(GL_TEXTURE_2D, default_texture);
-    }
-}
-
-FX_ENTRY void FX_CALL grFramebufferCopyExt(int x, int y, int w, int h, int from, int to, int mode)
-{
-    if (mode == GR_FBCOPY_MODE_DEPTH)
-    {
-        int tw = 1, th = 1;
-        if (npot_support)
-        {
-            tw = g_width; th = g_height;
-        }
-        else
-        {
-            while (tw < g_width) tw <<= 1;
-            while (th < g_height) th <<= 1;
-        }
-
-        if (from == GR_FBCOPY_BUFFER_BACK && to == GR_FBCOPY_BUFFER_FRONT)
-        {
-            glBindTexture(GL_TEXTURE_2D, depth_texture);
-            glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
-                0, g_viewport_offset, tw, th, 0);
-            glBindTexture(GL_TEXTURE_2D, default_texture);
-            return;
-        }
-        if (from == GR_FBCOPY_BUFFER_FRONT && to == GR_FBCOPY_BUFFER_BACK)
-        {
-            glActiveTexture(texture_unit);
-            glBindTexture(GL_TEXTURE_2D, depth_texture);
-            glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-            set_depth_shader();
-            glEnable(GL_DEPTH_TEST);
-            glDepthFunc(GL_ALWAYS);
-            glDisable(GL_CULL_FACE);
-            render_rectangle(texture_unit,
-                0, 0,
-                g_width, g_height,
-                tw, th, -1);
-            glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-            glBindTexture(GL_TEXTURE_2D, default_texture);
-            return;
-        }
     }
 }
 
@@ -1226,7 +1025,7 @@ grBufferSwap(FxU32 swap_interval)
     for (i = 0; i < nb_fb; i++)
     {
         fbs[i].buff_clear = 1;
-}
+    }
 }
 
 // frame buffer
@@ -1491,35 +1290,15 @@ grLfbWriteRegion(GrBuffer_t dst_buffer,
             }
         }
 
-#ifdef VPDEBUG
-        if (dumping) {
-            unsigned char * buf2 = (unsigned char *)malloc(src_width*(src_height + (g_viewport_offset)));
-            for (i = 0; i < src_width*src_height; i++)
-                buf2[i] = buf[i] * 255.0f;
-            ilTexImage(src_width, src_height, 1, 1, IL_LUMINANCE, IL_UNSIGNED_BYTE, buf2);
-            char name[128];
-            static int id;
-            sprintf(name, "dump/writedepth%d.png", id++);
-            ilSaveImage(name);
-            //printf("dumped gdLfbWriteRegion %s\n", name);
-            free(buf2);
-        }
-#endif
-
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_ALWAYS);
 
-        //glDrawBuffer(GL_BACK);
         glClear(GL_DEPTH_BUFFER_BIT);
         glDepthMask(1);
-        //glDrawPixels(src_width, src_height+(g_viewport_offset), GL_DEPTH_COMPONENT, GL_FLOAT, buf);
-
         free(buf);
-        }
-    //glDrawBuffer(current_buffer);
-    //glPopAttrib();
-    return FXTRUE;
     }
+    return FXTRUE;
+}
 
 /* wrapper-specific glide extensions */
 void grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
@@ -1528,4 +1307,4 @@ void grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
     config.vram_size = vram;
     config.fbo = fbo;
     config.anisofilter = aniso;
-}
+    }
