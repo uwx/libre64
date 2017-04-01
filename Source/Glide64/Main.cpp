@@ -101,7 +101,7 @@ CRDP rdp;
 CSettings * g_settings = NULL;
 
 VOODOO voodoo = { 0, 0, 0, 0,
-0, 0, 0,
+0, 0,
 };
 
 GrTexInfo fontTex;
@@ -430,12 +430,6 @@ int InitGfx()
 
     WriteTrace(TraceGlide64, TraceDebug, "-");
 
-    // Is mirroring allowed?
-    const char *extensions = "CHROMARANGE TEXCHROMA TEXMIRROR PALETTE6666 FOGCOORD EVOODOO TEXTUREBUFFER TEXUMA TEXFMT COMBINE GETGAMMA";
-
-    // 2Mb Texture boundary
-    voodoo.has_2mb_tex_boundary = false;
-
     g_settings->UpdateScreenSize(ev_fullscreen);
 #ifndef ANDROID
     SetWindowDisplaySize(gfx.hWnd);
@@ -473,32 +467,21 @@ int InitGfx()
 
     grCullMode(GR_CULL_NEGATIVE);
 
-    if (g_settings->fog()) //"FOGCOORD" extension
+    if (g_settings->fog())
     {
-        if (strstr(extensions, "FOGCOORD"))
-        {
-            GrFog_t fog_t[64];
-            guFogGenerateLinear(fog_t, 0.0f, 255.0f);//(float)rdp.fog_multiplier + (float)rdp.fog_offset);//256.0f);
+        GrFog_t fog_t[64];
+        guFogGenerateLinear(fog_t, 0.0f, 255.0f);
 
-            for (int i = 63; i > 0; i--)
-            {
-                if (fog_t[i] - fog_t[i - 1] > 63)
-                {
-                    fog_t[i - 1] = fog_t[i] - 63;
-                }
-            }
-            fog_t[0] = 0;
-            //      for (int f = 0; f < 64; f++)
-            //      {
-            //        WriteTrace(TraceRDP, TraceDebug, "fog[%d]=%d->%f", f, fog_t[f], guFogTableIndexToW(f));
-            //      }
-            grFogTable(fog_t);
-            grVertexLayout(GR_PARAM_FOG_EXT, offsetof(VERTEX, f), GR_PARAM_ENABLE);
-        }
-        else //not supported
+        for (int i = 63; i > 0; i--)
         {
-            g_settings->SetFog(FALSE);
+            if (fog_t[i] - fog_t[i - 1] > 63)
+            {
+                fog_t[i - 1] = fog_t[i] - 63;
+            }
         }
+        fog_t[0] = 0;
+        grFogTable(fog_t);
+        grVertexLayout(GR_PARAM_FOG_EXT, offsetof(VERTEX, f), GR_PARAM_ENABLE);
     }
 
     grDepthBufferMode(GR_DEPTHBUFFER_ZBUFFER);
@@ -867,7 +850,6 @@ int CALL InitiateGFX(GFX_INFO Gfx_Info)
     ZLUT_init();
 
     grConfigWrapperExt(g_settings->wrpVRAM() * 1024 * 1024, g_settings->wrpFBO(), g_settings->wrpAnisotropic());
-    voodoo.has_2mb_tex_boundary = 0;
     return TRUE;
 }
 
