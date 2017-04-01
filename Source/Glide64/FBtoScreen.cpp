@@ -308,8 +308,8 @@ bool DrawFrameBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
         return false;
     uint32_t width = fb_info.lr_x - fb_info.ul_x + 1;
     uint32_t height = fb_info.lr_y - fb_info.ul_y + 1;
-    uint32_t max_size = minval(voodoo.max_tex_size, 512);
-    if (width >(uint32_t)max_size || height > (uint32_t)max_size)
+    uint32_t max_size = 512;
+    if (width > (uint32_t)max_size || height > (uint32_t)max_size)
     {
         DrawFrameBufferToScreen256(fb_info);
         return true;
@@ -573,7 +573,7 @@ void DrawDepthBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
 {
     uint32_t width = fb_info.lr_x - fb_info.ul_x + 1;
     uint32_t height = fb_info.lr_y - fb_info.ul_y + 1;
-    if (width > (uint32_t)voodoo.max_tex_size || height > (uint32_t)voodoo.max_tex_size || width > 512)
+    if (width > 2048 || height > 2048 || width > 512)
     {
         DrawDepthBufferToScreen256(fb_info);
         return;

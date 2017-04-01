@@ -211,14 +211,7 @@ extern int g_width, g_height;
 void guLoadTextures()
 {
     int tbuf_size = 0;
-    if (voodoo.max_tex_size <= 256)
-    {
-        grTextureBufferExt(GR_TMU1, voodoo.tex_min_addr[GR_TMU1], GR_LOD_LOG2_256, GR_LOD_LOG2_256,
-            GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
-        tbuf_size = 8 * grTexCalcMemRequired(GR_LOD_LOG2_256, GR_LOD_LOG2_256,
-            GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565);
-    }
-    else if (g_settings->scr_res_x() <= 1024)
+    if (g_settings->scr_res_x() <= 1024)
     {
         grTextureBufferExt(GR_TMU0, voodoo.tex_min_addr[GR_TMU0], GR_LOD_LOG2_1024, GR_LOD_LOG2_1024,
             GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
@@ -281,8 +274,8 @@ void guLoadTextures()
             if (cur&b) *tex8 = 0xFF;
             else *tex8 = 0x00;
             tex8++;
-        }
     }
+}
 
     grTexDownloadMipMap(GR_TMU0,
         voodoo.tex_min_addr[GR_TMU0] + offset_font,
@@ -463,8 +456,7 @@ int InitGfx()
     to_fullscreen = FALSE;
 
     // get maximal texture size
-    grGet(GR_MAX_TEXTURE_SIZE, 4, (FxI32*)&voodoo.max_tex_size);
-    voodoo.sup_large_tex = (voodoo.max_tex_size > 256 && !g_settings->hacks(CSettings::hack_PPL));
+    voodoo.sup_large_tex = !g_settings->hacks(CSettings::hack_PPL);
 
     voodoo.tex_min_addr[0] = voodoo.tex_min_addr[1] = grTexMinAddress(GR_TMU0);
     voodoo.tex_max_addr[0] = voodoo.tex_max_addr[1] = grTexMaxAddress(GR_TMU0);
@@ -586,8 +578,8 @@ int InitGfx()
                 options |= DUMP_TEX;
             }
 
-            g_ghq_use = (int)ext_ghq_init(voodoo.max_tex_size, // max texture width supported by hardware
-                voodoo.max_tex_size, // max texture height supported by hardware
+            g_ghq_use = (int)ext_ghq_init(2048, // max texture width supported by hardware
+                2048, // max texture height supported by hardware
                 32,
                 options,
                 g_settings->ghq_cache_size() * 1024 * 1024, // cache texture to system memory

@@ -1590,7 +1590,7 @@ void LoadTex(int id, int tmu)
                     int splits = cache->splits;
                     if (ghqTexInfo.is_hires_tex)
                     {
-                        if (ghqTexInfo.tiles/*ghqTexInfo.untiled_width > max_tex_size*/)
+                        if (ghqTexInfo.tiles)
                         {
                             cache->scale = 1.0f;
                             cache->c_off = 0.5f;

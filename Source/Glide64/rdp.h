@@ -177,7 +177,6 @@ typedef struct {
 
 typedef struct
 {
-    int max_tex_size;
     int sup_large_tex;
     int has_2mb_tex_boundary;
     uint32_t tmem_ptr[MAX_TMU];
