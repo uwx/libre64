@@ -102,7 +102,6 @@ CSettings * g_settings = NULL;
 
 VOODOO voodoo = { 0, 0, 0, 0,
 0, 0, 0, 0,
-0
 };
 
 GrTexInfo fontTex;
@@ -274,8 +273,8 @@ void guLoadTextures()
             if (cur&b) *tex8 = 0xFF;
             else *tex8 = 0x00;
             tex8++;
+        }
     }
-}
 
     grTexDownloadMipMap(GR_TMU0,
         voodoo.tex_min_addr[GR_TMU0] + offset_font,
