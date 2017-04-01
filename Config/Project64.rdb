@@ -772,6 +772,12 @@ Internal Name=BOMBERMAN64
 Status=Compatible
 Culling=1
 
+[9780C9FB-67CF6B4A-C:45]
+Good Name=Bomberman 64 (J) [T]
+Internal Name=BOMBERMAN64
+Status=Compatible
+Culling=1
+
 [F568D51E-7E49BA1E-C:45]
 Good Name=Bomberman 64 (U)
 Internal Name=BOMBERMAN64U
@@ -997,6 +1003,12 @@ Plugin Note=[input] disable Memory Pak
 
 [A4F2F521-F0EB168E-C:4A]
 Good Name=Chameleon Twist (J)
+Internal Name=Chameleon Twist
+Status=Compatible
+Plugin Note=[input] disable Memory Pak
+
+[D0443A6B-C0B89972-C:41]
+Good Name=Chameleon Twist (J) [T]
 Internal Name=Chameleon Twist
 Status=Compatible
 Plugin Note=[input] disable Memory Pak
@@ -3002,6 +3014,14 @@ Plugin Note=[video] HLE not supported
 HLE GFX=No
 RDRAM Size=8
 
+[0160E9E5-29A4CB68-C:45]
+Good Name=Last Legion UX (J) [T]
+Internal Name=LASTLEGION UX
+Status=Issues (plugin)
+Plugin Note=[video] HLE not supported
+HLE GFX=No
+RDRAM Size=8
+
 [F478D8B3-9716DD6D-C:50]
 Good Name=LEGO Racers (E) (M10)
 Internal Name=LEGORacers
@@ -3660,7 +3680,7 @@ Status=Compatible
 Good Name=Namco Museum 64 (U)
 Internal Name=NAMCOMUSEUM64
 Status=Compatible
-Culling=1
+32bit=No
 RDRAM Size=8
 
 [DF331A18-5FD4E044-C:45]
