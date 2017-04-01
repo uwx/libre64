@@ -456,14 +456,6 @@ int InitGfx()
     setPattern();
 
     InitCombine();
-
-    grVertexLayout(GR_PARAM_XY, offsetof(VERTEX, x), GR_PARAM_ENABLE);
-    grVertexLayout(GR_PARAM_Q, offsetof(VERTEX, q), GR_PARAM_ENABLE);
-    grVertexLayout(GR_PARAM_Z, offsetof(VERTEX, z), GR_PARAM_ENABLE);
-    grVertexLayout(GR_PARAM_ST0, offsetof(VERTEX, coord[0]), GR_PARAM_ENABLE);
-    grVertexLayout(GR_PARAM_ST1, offsetof(VERTEX, coord[2]), GR_PARAM_ENABLE);
-    grVertexLayout(GR_PARAM_PARGB, offsetof(VERTEX, b), GR_PARAM_ENABLE);
-
     grCullMode(GR_CULL_NEGATIVE);
 
     if (g_settings->fog())
@@ -480,7 +472,6 @@ int InitGfx()
         }
         fog_t[0] = 0;
         grFogTable(fog_t);
-        grVertexLayout(GR_PARAM_FOG_EXT, offsetof(VERTEX, f), GR_PARAM_ENABLE);
     }
 
     grDepthBufferMode(GR_DEPTHBUFFER_ZBUFFER);

@@ -15535,15 +15535,8 @@ void Combine()
         = cmb.modfactor_0 = cmb.modfactor_1 = 0;
 
     cmb.ccolor = cmb.tex_ccolor = 0;
-    if (cmb.cmb_ext_use || cmb.tex_cmb_ext_use)
-    {
-        //have to draw something to allow use of standard combine functions
-        VERTEX v;
-        memset(&v, 0, sizeof(v));
-        grDrawPoint(&v);
-        cmb.cmb_ext_use = 0;
-        cmb.tex_cmb_ext_use = 0;
-    }
+    cmb.cmb_ext_use = 0;
+    cmb.tex_cmb_ext_use = 0;
 
     uint32_t cmb_mode_c = (rdp.cycle1 << 16) | (rdp.cycle2 & 0xFFFF);
     uint32_t cmb_mode_a = (rdp.cycle1 & 0x0FFF0000) | ((rdp.cycle2 >> 16) & 0x00000FFF);

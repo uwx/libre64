@@ -32,21 +32,6 @@
 #define Z_MAX (65536.0f)
 #define VERTEX_SIZE sizeof(VERTEX) //Size of vertex struct
 
-static int xy_off;
-static int xy_en;
-static int z_en;
-static int z_off;
-static int q_off;
-static int q_en;
-static int pargb_off;
-static int pargb_en;
-static int st0_off;
-static int st0_en;
-static int st1_off;
-static int st1_en;
-static int fog_ext_off;
-static int fog_ext_en;
-
 int w_buffer_mode;
 int inverted_culling;
 int culling_mode;
@@ -118,88 +103,24 @@ void vbo_disable()
     vertex_buffer_enabled = false;
 }
 
-inline float ZCALC(const float & z, const float & q) {
-    float res = z_en ? ((z) / Z_MAX) / (q) : 1.0f;
+inline float ZCALC(const float & z, const float & q)
+{
+    float res = ((z) / Z_MAX) / (q);
     return res;
 }
 
-/*
-#define zclamp (1.0f-1.0f/zscale)
-static inline void zclamp_glVertex4f(float a, float b, float c, float d)
+static inline float ytex(int tmu, float y)
 {
-if (c<zclamp) c = zclamp;
-glVertex4f(a,b,c,d);
-}
-#define glVertex4f(a,b,c,d) zclamp_glVertex4f(a,b,c,d)
-*/
-
-static inline float ytex(int tmu, float y) {
-    if (invtex[tmu])
-        return invtex[tmu] - y;
-    else
-        return y;
+    return invtex[tmu] ? invtex[tmu] - y : y;
 }
 
 void init_geometry()
 {
-    xy_en = q_en = pargb_en = st0_en = st1_en = z_en = 0;
     w_buffer_mode = 0;
     inverted_culling = 0;
 
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-}
-
-FX_ENTRY void FX_CALL
-grCoordinateSpace(GrCoordinateSpaceMode_t mode)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "mode: %d", mode);
-    switch (mode)
-    {
-    case GR_WINDOW_COORDS:
-        break;
-    default:
-        WriteTrace(TraceGlitch, TraceWarning, "unknwown coordinate space : %x", mode);
-    }
-}
-
-FX_ENTRY void FX_CALL
-grVertexLayout(FxU32 param, FxI32 offset, FxU32 mode)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "param: %d offset: %d mode: %d", param, offset, mode);
-    switch (param)
-    {
-    case GR_PARAM_XY:
-        xy_en = mode;
-        xy_off = offset;
-        break;
-    case GR_PARAM_Z:
-        z_en = mode;
-        z_off = offset;
-        break;
-    case GR_PARAM_Q:
-        q_en = mode;
-        q_off = offset;
-        break;
-    case GR_PARAM_FOG_EXT:
-        fog_ext_en = mode;
-        fog_ext_off = offset;
-        break;
-    case GR_PARAM_PARGB:
-        pargb_en = mode;
-        pargb_off = offset;
-        break;
-    case GR_PARAM_ST0:
-        st0_en = mode;
-        st0_off = offset;
-        break;
-    case GR_PARAM_ST1:
-        st1_en = mode;
-        st1_off = offset;
-        break;
-    default:
-        WriteTrace(TraceGlitch, TraceWarning, "unknown grVertexLayout parameter : %x", param);
-    }
 }
 
 FX_ENTRY void FX_CALL
@@ -209,7 +130,9 @@ grCullMode(GrCullMode_t mode)
     static int oldmode = -1, oldinv = -1;
     culling_mode = mode;
     if (inverted_culling == oldinv && oldmode == mode)
+    {
         return;
+    }
     oldmode = mode;
     oldinv = inverted_culling;
     switch (mode)
@@ -317,7 +240,7 @@ grDepthMask(FxBool mask)
     WriteTrace(TraceGlitch, TraceDebug, "mask: %d", mask);
     glDepthMask(mask);
 }
-float biasFactor = 0;
+
 FX_ENTRY void FX_CALL
 grDepthBiasLevel(FxI32 level)
 {
@@ -330,7 +253,7 @@ grDepthBiasLevel(FxI32 level)
         }
         else
         {
-            glPolygonOffset(0, (float)level*biasFactor);
+            glPolygonOffset(0, 0);
         }
         glEnable(GL_POLYGON_OFFSET_FILL);
     }
@@ -369,11 +292,6 @@ grDrawTriangle(const void *a, const void *b, const void *c)
     vertex_buffer_count += 3;
 
     WriteTrace(TraceGlitch, TraceDebug, "Done");
-}
-
-FX_ENTRY void FX_CALL
-grDrawPoint(const void *pt)
-{
 }
 
 FX_ENTRY void FX_CALL
