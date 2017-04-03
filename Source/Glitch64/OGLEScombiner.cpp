@@ -2771,7 +2771,7 @@ grTexAlphaCombineExt(GrChipID_t       tmu,
     need_to_compile = 1;
 }
 
-FX_ENTRY void FX_CALL grConstantColorValueExt(GrChipID_t tmu, GrColor_t value)
+void gfxConstantColorValueExt(GrChipID_t tmu, GrColor_t value)
 {
     int num_tex;
     WriteTrace(TraceResolution, TraceDebug, "tmu: %d value: %d", tmu, value);
