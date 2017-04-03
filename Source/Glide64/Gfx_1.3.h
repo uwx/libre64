@@ -206,17 +206,6 @@ extern "C" {
     extern GFX_INFO gfx;
     extern bool no_dlist;
 
-    typedef void (FX_CALL *GRCOLORCOMBINEEXT) (GrCCUColor_t     a,
-        GrCombineMode_t  a_mode,
-        GrCCUColor_t     b,
-        GrCombineMode_t  b_mode,
-        GrCCUColor_t     c,
-        FxBool           c_invert,
-        GrCCUColor_t     d,
-        FxBool           d_invert,
-        FxU32            shift,
-        FxBool           invert);
-
     typedef void (FX_CALL *GRTEXCOLORCOMBINEEXT) (GrChipID_t       tmu,
         GrTCCUColor_t    a,
         GrCombineMode_t  a_mode,
