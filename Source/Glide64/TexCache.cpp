@@ -681,7 +681,7 @@ void TexCache()
                     ColorCombinerToExtension();
                 if (!(cmb.cmb_ext_use & COMBINE_EXT_ALPHA))
                     AlphaCombinerToExtension();
-                cmb.grColorCombineExt(cmb.c_ext_a, cmb.c_ext_a_mode,
+                grColorCombineExt(cmb.c_ext_a, cmb.c_ext_a_mode,
                     cmb.c_ext_b, cmb.c_ext_b_mode,
                     cmb.c_ext_c, cmb.c_ext_c_invert,
                     cmb.c_ext_d, cmb.c_ext_d_invert, 0, 0);
