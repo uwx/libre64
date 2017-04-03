@@ -231,17 +231,17 @@ COMBINE cmb;
   rdp.best_tex = 0; \
   cmb.tex |= 3, \
   cmb.t1c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_a_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_a_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_b_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_b_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_c = GFX_CMBX_ZERO, \
   cmb.t1c_ext_c_invert = 0, \
   cmb.t1c_ext_d= GFX_CMBX_B, \
   cmb.t1c_ext_d_invert = 0, \
   cmb.t0c_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB, \
-  cmb.t0c_ext_a_mode = GR_FUNC_MODE_X, \
+  cmb.t0c_ext_a_mode = GFX_FUNC_MODE_X, \
   cmb.t0c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t0c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X, \
+  cmb.t0c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X, \
   cmb.t0c_ext_c = GFX_CMBX_OTHER_TEXTURE_RGB, \
   cmb.t0c_ext_c_invert = 0, \
   cmb.t0c_ext_d= GFX_CMBX_B, \
@@ -262,17 +262,17 @@ COMBINE cmb;
   rdp.best_tex = 0; \
   cmb.tex |= 3, \
   cmb.t1c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_a_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_a_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_b_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_b_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_c = GFX_CMBX_ZERO, \
   cmb.t1c_ext_c_invert = 0, \
   cmb.t1c_ext_d= GFX_CMBX_B, \
   cmb.t1c_ext_d_invert = 0, \
   cmb.t0c_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB, \
-  cmb.t0c_ext_a_mode = GR_FUNC_MODE_X, \
+  cmb.t0c_ext_a_mode = GFX_FUNC_MODE_X, \
   cmb.t0c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t0c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X, \
+  cmb.t0c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X, \
   cmb.t0c_ext_c = GFX_CMBX_TMU_CCOLOR, \
   cmb.t0c_ext_c_invert = 0, \
   cmb.t0c_ext_d= GFX_CMBX_B, \
@@ -288,17 +288,17 @@ COMBINE cmb;
   rdp.best_tex = 0; \
   cmb.tex |= 3, \
   cmb.t1c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_a_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_a_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_b_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_b_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_c = GFX_CMBX_ZERO, \
   cmb.t1c_ext_c_invert = 0, \
   cmb.t1c_ext_d= GFX_CMBX_B, \
   cmb.t1c_ext_d_invert = 0, \
   cmb.t0c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t0c_ext_a_mode = GR_FUNC_MODE_X, \
+  cmb.t0c_ext_a_mode = GFX_FUNC_MODE_X, \
   cmb.t0c_ext_b = GFX_CMBX_OTHER_TEXTURE_RGB, \
-  cmb.t0c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X, \
+  cmb.t0c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X, \
   cmb.t0c_ext_c = GFX_CMBX_TMU_CCOLOR, \
   cmb.t0c_ext_c_invert = 0, \
   cmb.t0c_ext_d= GFX_CMBX_B, \
@@ -314,17 +314,17 @@ COMBINE cmb;
   rdp.best_tex = 0; \
   cmb.tex |= 3, \
   cmb.t1c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_a_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_a_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_b_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_b_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_c = GFX_CMBX_ZERO, \
   cmb.t1c_ext_c_invert = 0, \
   cmb.t1c_ext_d= GFX_CMBX_B, \
   cmb.t1c_ext_d_invert = 0, \
   cmb.t0c_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB, \
-  cmb.t0c_ext_a_mode = GR_FUNC_MODE_X, \
+  cmb.t0c_ext_a_mode = GFX_FUNC_MODE_X, \
   cmb.t0c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t0c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X, \
+  cmb.t0c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X, \
   cmb.t0c_ext_c = GFX_CMBX_TMU_CCOLOR, \
   cmb.t0c_ext_c_invert = 0, \
   cmb.t0c_ext_d= GFX_CMBX_B, \
@@ -340,17 +340,17 @@ COMBINE cmb;
   rdp.best_tex = 0; \
   cmb.tex |= 3, \
   cmb.t1c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_a_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_a_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_b_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_b_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_c = GFX_CMBX_ZERO, \
   cmb.t1c_ext_c_invert = 0, \
   cmb.t1c_ext_d= GFX_CMBX_B, \
   cmb.t1c_ext_d_invert = 0, \
   cmb.t0c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t0c_ext_a_mode = GR_FUNC_MODE_X, \
+  cmb.t0c_ext_a_mode = GFX_FUNC_MODE_X, \
   cmb.t0c_ext_b = GFX_CMBX_OTHER_TEXTURE_RGB, \
-  cmb.t0c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X, \
+  cmb.t0c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X, \
   cmb.t0c_ext_c = GFX_CMBX_TMU_CCOLOR, \
   cmb.t0c_ext_c_invert = 0, \
   cmb.t0c_ext_d= GFX_CMBX_B, \
@@ -366,17 +366,17 @@ COMBINE cmb;
   rdp.best_tex = 0; \
   cmb.tex |= 3, \
   cmb.t1c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_a_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_a_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_b_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_b_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_c = GFX_CMBX_ZERO, \
   cmb.t1c_ext_c_invert = 0, \
   cmb.t1c_ext_d= GFX_CMBX_B, \
   cmb.t1c_ext_d_invert = 0, \
   cmb.t0c_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB, \
-  cmb.t0c_ext_a_mode = GR_FUNC_MODE_X, \
+  cmb.t0c_ext_a_mode = GFX_FUNC_MODE_X, \
   cmb.t0c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t0c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X, \
+  cmb.t0c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X, \
   cmb.t0c_ext_c = GFX_CMBX_ITALPHA, \
   cmb.t0c_ext_c_invert = 0, \
   cmb.t0c_ext_d= GFX_CMBX_B, \
@@ -389,17 +389,17 @@ COMBINE cmb;
   rdp.best_tex = 0; \
   cmb.tex |= 3, \
   cmb.t1c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_a_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_a_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t1c_ext_b_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1c_ext_b_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1c_ext_c = GFX_CMBX_ZERO, \
   cmb.t1c_ext_c_invert = 0, \
   cmb.t1c_ext_d= GFX_CMBX_B, \
   cmb.t1c_ext_d_invert = 0, \
   cmb.t0c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t0c_ext_a_mode = GR_FUNC_MODE_X, \
+  cmb.t0c_ext_a_mode = GFX_FUNC_MODE_X, \
   cmb.t0c_ext_b = GFX_CMBX_OTHER_TEXTURE_RGB, \
-  cmb.t0c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X, \
+  cmb.t0c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X, \
   cmb.t0c_ext_c = GFX_CMBX_ITALPHA, \
   cmb.t0c_ext_c_invert = 0, \
   cmb.t0c_ext_d= GFX_CMBX_B, \
@@ -450,12 +450,12 @@ COMBINE cmb;
 #define T1_SUB_PRIM_MUL_PRIMLOD_ADD_T0() \
   if (cmb.combine_ext) \
                           { \
-  T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X, \
-  GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X, \
+  T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X, \
+  GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X, \
   GFX_CMBX_DETAIL_FACTOR, 0, \
   GFX_CMBX_ZERO, 0); \
-  T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X, \
-  GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X, \
+  T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X, \
+  GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X, \
   GFX_CMBX_ZERO, 1, \
   GFX_CMBX_ZERO, 0); \
   cmb.tex_ccolor = rdp.prim_color; \
@@ -478,9 +478,9 @@ COMBINE cmb;
   rdp.best_tex = 0; \
   cmb.tex |= 1, \
   cmb.t0c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB, \
-  cmb.t0c_ext_a_mode = GR_FUNC_MODE_X, \
+  cmb.t0c_ext_a_mode = GFX_FUNC_MODE_X, \
   cmb.t0c_ext_b = GFX_CMBX_TMU_CCOLOR, \
-  cmb.t0c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X, \
+  cmb.t0c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X, \
   cmb.t0c_ext_c = GFX_CMBX_ITALPHA, \
   cmb.t0c_ext_c_invert = 0, \
   cmb.t0c_ext_d= GFX_CMBX_B, \
@@ -578,17 +578,17 @@ COMBINE cmb;
   rdp.best_tex = 0; \
   cmb.tex |= 3, \
   cmb.t1a_ext_a = GFX_CMBX_LOCAL_TEXTURE_ALPHA, \
-  cmb.t1a_ext_a_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1a_ext_a_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1a_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA, \
-  cmb.t1a_ext_b_mode = GR_FUNC_MODE_ZERO, \
+  cmb.t1a_ext_b_mode = GFX_FUNC_MODE_ZERO, \
   cmb.t1a_ext_c = GFX_CMBX_ZERO, \
   cmb.t1a_ext_c_invert = 0, \
   cmb.t1a_ext_d= GFX_CMBX_B, \
   cmb.t1a_ext_d_invert = 0, \
   cmb.t0a_ext_a = GFX_CMBX_OTHER_TEXTURE_ALPHA, \
-  cmb.t0a_ext_a_mode = GR_FUNC_MODE_X, \
+  cmb.t0a_ext_a_mode = GFX_FUNC_MODE_X, \
   cmb.t0a_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA, \
-  cmb.t0a_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X, \
+  cmb.t0a_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X, \
   cmb.t0a_ext_c = GFX_CMBX_ITALPHA, \
   cmb.t0a_ext_c_invert = 0, \
   cmb.t0a_ext_d= GFX_CMBX_B, \
@@ -1084,8 +1084,8 @@ static void cc__t0_inter_one_using_primlod__mul_prim()
     CC_PRIM();
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ONE_MINUS_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ONE_MINUS_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
@@ -1110,12 +1110,12 @@ static void cc__t1_inter_one_using_env__mul_prim()
     CC_PRIM();
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 1,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 2;
@@ -1135,12 +1135,12 @@ static void cc__t1_inter_one_using_enva__mul_t0()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T1CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
@@ -1317,13 +1317,13 @@ static void cc__t0_mul_shade__add__t1_mul_shade()
     //combiner is used in Spiderman. It seems that t0 is used instead of t1
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_B, 0);
     }
@@ -1346,14 +1346,14 @@ static void cc__t0_mul_prim__inter_env_using_enva()
         cc_t0_mul_prim();
     else if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         SETSHADE_ENV();
@@ -1382,12 +1382,12 @@ static void cc__t1_inter_t0_using_t1__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_B, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -1416,8 +1416,8 @@ static void cc__t1_inter_t0_using_shadea__mul_shade()
         cc_t0_mul_shade();
         return;
     }
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_ZERO, 0);
     T1_INTER_T0_USING_SHADEA();
@@ -1433,8 +1433,8 @@ static void cc__t0_inter_one_using_prim__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ONE_MINUS_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ONE_MINUS_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
@@ -1457,8 +1457,8 @@ static void cc__t0_inter_one_using_primlod__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ONE_MINUS_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ONE_MINUS_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
@@ -1484,8 +1484,8 @@ static void cc__t0_inter_env_using_enva__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
@@ -1506,14 +1506,14 @@ static void cc__t0_inter_env_using_shadea__mul_shade()
     // (env-t0)*shade_a+t0, (cmb-0)*shade+0
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.env_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -1527,14 +1527,14 @@ static void cc__t0_mul_prim_add_env__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_ENV();
@@ -1556,19 +1556,19 @@ static void cc__t1_sub_t0_mul_primlod_add_prim__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
         percent = (float)lod_frac / 255.0f;
         cmb.dc0_detailmax = cmb.dc1_detailmax = percent;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -1591,12 +1591,12 @@ static void cc__t1_sub_prim_mul_t0__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -1616,12 +1616,12 @@ static void cc__t1_sub_t0_mul_t0_add_shade__mul_shade() //Aded by Gonetz
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_ITRGB, 0);
         cmb.tex |= 3;
@@ -1636,13 +1636,13 @@ static void cc__one_sub_shade_mul_t0_add_shade__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ONE_MINUS_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ONE_MINUS_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -1669,12 +1669,12 @@ static void cc__t0_sub_prim_mul_t1_add_t1__mul_shade()
     }
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -1693,12 +1693,12 @@ static void cc__t1_sub_env_mul_t0_add_t0__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color;
@@ -1720,8 +1720,8 @@ static void cc__t0_mul_prima_add_prim_mul__shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -1740,14 +1740,14 @@ static void cc__t0_inter_prim_using_prima__inter_env_using_enva()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         CC_ENVA();
@@ -1773,17 +1773,17 @@ static void cc_prim_inter_t1_mul_shade_using_texa()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TEXTURE_ALPHA, 0,
             GFX_CMBX_B, 0);
     }
@@ -1801,8 +1801,8 @@ static void cc__prim_inter_t0_using_t0a__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -1820,14 +1820,14 @@ static void cc__prim_inter_t0_using_t0a__inter_env_using_enva()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         CC_ENVA();
@@ -1864,13 +1864,13 @@ static void cc__shade_inter_t0_using_shadea__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -2006,18 +2006,18 @@ static void cc__t0_mul_t1__add_env_mul__t0_mul_t1__add_env()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color;
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TEXTURE_RGB, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -2057,12 +2057,12 @@ static void cc_t0_add_prim_mul_one_sub_t0_add_t0() //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 1,
             GFX_CMBX_B, 0);
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -2079,12 +2079,12 @@ static void cc__one_sub_prim_mul_t0_add_prim__mul_prima_add__one_sub_prim_mul_t0
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 1,
             GFX_CMBX_B, 0);
-        CCMBEXT(GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -2151,17 +2151,17 @@ static void cc_env_sub__t0_sub_t1_mul_primlod__mul_prim() //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         SETSHADE_PRIM();
@@ -2184,14 +2184,14 @@ static void cc_env_sub__t0_mul_scale_add_env__mul_prim()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.SCALE;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         SETSHADE_ENV();
@@ -2205,16 +2205,16 @@ static void cc_one_sub__one_sub_t0_mul_enva_add_prim__mul_prim() //Aded by Gonet
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ONE_MINUS_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ONE_MINUS_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
         cmb.tex |= 1;
         percent = (float)(rdp.env_color & 0xFF) / 255.0f;
         cmb.dc0_detailmax = cmb.dc1_detailmax = percent;
-        CCMBEXT(GFX_CMBX_ZERO, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_ZERO, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_ZERO, 1);
         CC_PRIM();
@@ -2272,8 +2272,8 @@ static void cc__t0_sub_env_mul_enva__add_prim_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.env_color;
@@ -2281,8 +2281,8 @@ static void cc__t0_sub_env_mul_enva__add_prim_mul_shade()
         percent = (float)(rdp.env_color & 0xFF) / 255.0f;
         cmb.dc0_detailmax = cmb.dc1_detailmax = percent;
 
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         CC_PRIM();
@@ -2310,12 +2310,12 @@ static void cc_t0_mul_prim_add_t1()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -2339,19 +2339,19 @@ static void cc_shirt()
     if (cmb.combine_ext)
     {
         /*
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_TMU_CCOLOR, 0,
         GFX_CMBX_ZERO, 0);
         //*/
         //*
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
         //*/
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 1,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -2404,12 +2404,12 @@ static void cc__t0_add_primlod__mul_prim_add_env()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         CC_PRIMLOD();
@@ -2466,12 +2466,12 @@ static void cc__t1_sub_prim_mul_enva_add_t0__mul_prim_add_env()
     SETSHADE_ENV();
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -2528,18 +2528,18 @@ static void cc__t0_mul_t1__sub_prim_mul_env_add_shade()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color;
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_TEXTURE_RGB, 0);
         CC_PRIMMULENV();
@@ -2569,12 +2569,12 @@ static void cc__t0_sub_prim_mul_t1_add_t1__mul_env_add_shade()
     }
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -2599,14 +2599,14 @@ static void cc__t0_mul_shadea_add_env__mul_shade_add_prim()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         CC_PRIM();
@@ -2750,19 +2750,19 @@ static void cc__t1_sub_t0_mul_primlod_add_prim__mul_shade_add_shade()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
         percent = (float)lod_frac / 255.0f;
         cmb.dc0_detailmax = cmb.dc1_detailmax = percent;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ITRGB, 0);
         CC_PRIM();
@@ -2954,12 +2954,12 @@ static void cc__t0_mul_enva_add_t1__mul_shade_add_prim()
     CC_PRIM();
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -3006,8 +3006,8 @@ static void cc__t0_add_prim__mul_shade_add_t0()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         CC_PRIM();
@@ -3028,17 +3028,17 @@ static void cc__t0_add_prim__mul_shade_add_t1()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         CC_PRIM();
@@ -3058,16 +3058,16 @@ static void cc__t0_add_primlod__mul_shade_add_env()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         CC_PRIMLOD();
@@ -3098,8 +3098,8 @@ static void cc__t0_mul_prima_add_prim_mul__shade_add_env()
     CC_ENV();
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -3349,12 +3349,12 @@ static void cc__t1_mul_t1_add_t0__mul_prim()
     CC_PRIM();
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_OTHER_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -3596,14 +3596,14 @@ static void cc__t0_mul_prim_add_shade__mul_env()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_ZERO, 0);
         CC_ENV();
@@ -3651,14 +3651,14 @@ static void cc__prim_mul_shade_add_env__mul_shade() //Aded by Gonetz
         cc_prim_mul_shade_add_env();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+    T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_ZERO, 0);
     cmb.tex |= 1;
     cmb.tex_ccolor = rdp.prim_color;
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_ZERO, 0);
     CC_ENV();
@@ -3670,12 +3670,12 @@ static void cc__t0_sub_t1__mul_prim_mul_shade_add_prim_mul_env()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
@@ -3785,14 +3785,14 @@ static void cc_t0_mul_scale_add_prim__mul_shade() //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.SCALE;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -3813,8 +3813,8 @@ static void cc__t0_mul_t1_add_prim__mul_shade() //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -3864,14 +3864,14 @@ static void cc__t0_mul_prim_add_shade__sub_env_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_ENV();
@@ -3897,14 +3897,14 @@ static void cc__t0_sub_env_mul_shade__sub_prim_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.env_color;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ITRGB, 0);
         CC_PRIM();
@@ -3919,8 +3919,8 @@ static void cc_t0_sub_prim_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -3944,8 +3944,8 @@ static void cc__t0_mul_t1__sub_prim_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -3964,8 +3964,8 @@ static void cc_t0_sub_env_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_ENV();
@@ -3989,15 +3989,15 @@ static void cc__t0_mul_prima_add_t0__sub_center_mul_scale()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_B, 0);
         uint32_t prima = rdp.prim_color & 0xFF;
         cmb.tex_ccolor = (prima << 24) | (prima << 16) | (prima << 8) | prima;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC(rdp.CENTER);
@@ -4013,8 +4013,8 @@ static void cc__t1_inter_t0_using_primlod__sub_shade_mul_prim()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -4034,8 +4034,8 @@ static void cc__t0_inter_t1_using_enva__sub_shade_mul_prim()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -4165,14 +4165,14 @@ static void cc_one_sub__t0_mul_shadea__mul_shade() //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
 
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_ONE_MINUS_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_ONE_MINUS_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -4274,17 +4274,17 @@ static void cc_t0_sub_t1_mul_prim_mul_shade_add_t1()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         MULSHADE_PRIM();
@@ -4314,18 +4314,18 @@ static void cc_t0_sub_prim_mul_t1_add_shade()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_OTHER_TEXTURE_RGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_B, 0);
     }
@@ -4345,8 +4345,8 @@ static void cc_t0_sub_prim_mul_primlod_add_prim()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         SETSHADE_PRIM();
@@ -4394,14 +4394,14 @@ static void cc_t0_sub_prim_mul_env_add_shade()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         CC_ENV();
@@ -4416,13 +4416,13 @@ static void cc__t0_inter_t1_using_shadea__sub_prim_mul_env_add_shade()  //Aded b
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         //have to pass shade alpha to combiner
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -4454,8 +4454,8 @@ static void cc_t0_sub_prim_mul_enva_add_prim()  //Aded by Gonetz41
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         SETSHADE_PRIM();
@@ -4539,14 +4539,14 @@ static void cc_t0_sub_prim_mul_shade_add_env()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         CC_ENV();
@@ -4568,18 +4568,18 @@ static void cc_t1_sub_prim_mul_shade_add_env()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 2;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         CC_ENV();
@@ -4601,12 +4601,12 @@ static void cc_t1_sub_k4_mul_prima_add_t0()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 1,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
@@ -4614,8 +4614,8 @@ static void cc_t1_sub_k4_mul_prima_add_t0()
         cmb.tex_ccolor = cmb.ccolor;
         percent = (float)(rdp.prim_color & 0xFF) / 255.0f;
         cmb.dc0_detailmax = cmb.dc1_detailmax = percent;
-        CCMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
     }
@@ -4633,14 +4633,14 @@ static void cc__t0_sub_prim_mul_shade_add_env__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_ENV();
@@ -4662,14 +4662,14 @@ static void cc__t0_sub_prim_mul_shade_add_env__mul_shadea()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CC_ENV();
@@ -4729,8 +4729,8 @@ static void cc_t0_sub_k4_mul_k5_add_t0()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         uint32_t temp = rdp.prim_lodfrac;
@@ -4751,8 +4751,8 @@ static void cc__t0_inter_t1_using_t0__sub_shade_mul_prima_add_shade()  //Aded by
     if (cmb.combine_ext)
     {
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         CC_PRIMA();
@@ -4797,8 +4797,8 @@ static void cc_t0_sub_env_mul_prima_add_env()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
@@ -4850,8 +4850,8 @@ static void cc_t0_sub_env_mul_shade_add_prim()  //Aded by Gonetz
     CC_PRIM();
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
@@ -4870,19 +4870,19 @@ static void cc__t0_sub_t1_mul_enva_add_shade__sub_env_mul_prim()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_ITRGB, 0);
         cmb.tex |= 3;
         CC_COLMULBYTE(rdp.prim_color, (rdp.env_color & 0xFF));
         cmb.tex_ccolor = cmb.ccolor;
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_TEXTURE_RGB, 0);
         MULSHADE_PRIM();
@@ -4908,8 +4908,8 @@ static void cc__t0_inter_t1_using_primlod__sub_env_mul_shade_add_prim()  //Aded 
             cc_t0_sub_env_mul_shade();
             return;
         }
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_ENV();
@@ -4926,14 +4926,14 @@ static void cc__t0_sub_env_mul_shade_add_prim__mul_shade()  //Aded by Gonetz
         cc_t0_sub_env_mul_shade_add_prim();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_ZERO, 0);
     cmb.tex_ccolor = rdp.env_color;
     cmb.tex |= 1;
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_ZERO, 0);
     CC_PRIM();
@@ -4946,8 +4946,8 @@ static void cc__t0_sub_env_mul_shade_add_prim__mul_shadea()  //Aded by Gonetz
         cc_t0_sub_env_mul_shade_add_prim();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.prim_color;
@@ -4955,8 +4955,8 @@ static void cc__t0_sub_env_mul_shade_add_prim__mul_shadea()  //Aded by Gonetz
     MOD_0(TMOD_TEX_SUB_COL);
     MOD_0_COL(rdp.env_color & 0xFFFFFF00);
 
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITALPHA, 0,
         GFX_CMBX_ZERO, 0);
 }
@@ -4966,8 +4966,8 @@ static void cc__t0_inter_t1_using_primlod__sub_env_mul_shade_add_env()
     // (t1-t0)*primlod+t0, (cmb-env)*shade+env
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
     }
@@ -5086,8 +5086,8 @@ static void cc_one_sub_prim_mul_t0a_add_prim()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_ONE_MINUS_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_ONE_MINUS_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TEXTURE_ALPHA, 0,
             GFX_CMBX_B, 0);
         CC_PRIM();
@@ -5157,8 +5157,8 @@ static void cc_t0_sub_prim_mul_shade_add_shade()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ITRGB, 0);
         CC_PRIM();
@@ -5182,13 +5182,13 @@ static void cc__t0_mul_t0__sub_prim_mul_shade_add_shade()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ITRGB, 0);
         CC_PRIM();
@@ -5201,8 +5201,8 @@ static void cc__t0_mul_t1__sub_prim_mul_shade_add_shade()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ITRGB, 0);
         CC_PRIM();
@@ -5221,8 +5221,8 @@ static void cc__t0_mul_t1__sub_env_mul_shade_add_shade()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ITRGB, 0);
         CC_ENV();
@@ -5268,8 +5268,8 @@ static void cc_t0_inter_env_using_enva()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color;
@@ -5468,8 +5468,8 @@ static void cc_one_sub_shade_mul__t0_mul_shadea__add_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
@@ -5557,12 +5557,12 @@ static void cc__t0_mul_t1_add_env__mul_shadea_add_shade()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color;
@@ -5599,18 +5599,18 @@ static void cc_prim_sub_t0_mul_t1_add_t0()  //Aded by Gonetz
         cc_t0_mul_t1();
         return;
     }
-    T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+    T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ZERO, 0,
         GFX_CMBX_B, 0);
-    T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+    T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_OTHER_TEXTURE_RGB, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.prim_color;
     cmb.tex |= 3;
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-        GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+        GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ZERO, 0,
         GFX_CMBX_B, 0);
 }
@@ -5635,8 +5635,8 @@ static void cc_env_sub_t0_mul_shade_add_t0()  //Aded by Gonetz
         cc_t0_mul_shade();
         return;
     }
-    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_B, 0);
     CC_ENV();
@@ -5672,15 +5672,15 @@ static void cc__prim_sub_env_mul_t0_add_env__add_primlod()
         cc_prim_sub_env_mul_t0_add_env();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.env_color;
     cmb.tex |= 1;
     SETSHADE_PRIMSUBENV();
-    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ZERO, 1,
         GFX_CMBX_TEXTURE_RGB, 0);
     CC_PRIMLOD();
@@ -5693,15 +5693,15 @@ static void cc__prim_sub_env_mul_t0_add_env__add_shadea()
         cc_prim_sub_env_mul_t0_add_env();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.env_color;
     cmb.tex |= 1;
     SETSHADE_PRIMSUBENV();
-    CCMBEXT(GFX_CMBX_ITALPHA, GR_FUNC_MODE_X,
-        GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+    CCMBEXT(GFX_CMBX_ITALPHA, GFX_FUNC_MODE_X,
+        GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ZERO, 1,
         GFX_CMBX_TEXTURE_RGB, 0);
 }
@@ -5727,8 +5727,8 @@ static void cc_prim_sub_env_mul__t0_mul_prim__add_env()
     SETSHADE_ENV();
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -5744,8 +5744,8 @@ static void cc_prim_sub_env_mul_t0_mul_shade_add_env()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIMSUBENV();
@@ -5789,8 +5789,8 @@ static void cc_prim_sub_env_mul__one_sub_t0_mul_primlod_add_prim__add_env()
     SETSHADE_PRIM();
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ONE_MINUS_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ONE_MINUS_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -5847,23 +5847,23 @@ static void cc_prim_sub_env_mul__t1_sub_prim_mul_enva_add_t0__add_env()
     {
         if (rdp.tiles(rdp.cur_tile).format > 2)
         {
-            T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-                GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+            T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+                GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
                 GFX_CMBX_ZERO, 0,
                 GFX_CMBX_B, 0);
-            T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-                GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+            T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+                GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
                 GFX_CMBX_DETAIL_FACTOR, 0,
                 GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         }
         else
         {
-            T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-                GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+            T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+                GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
                 GFX_CMBX_DETAIL_FACTOR, 0,
                 GFX_CMBX_ZERO, 0);
-            T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-                GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
+            T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+                GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
                 GFX_CMBX_ZERO, 1,
                 GFX_CMBX_ZERO, 0);
         }
@@ -5891,12 +5891,12 @@ static void cc_prim_sub_env_mul__t1_sub_prim_mul_prima_add_t0__add_env()
     SETSHADE_PRIM();
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -5989,8 +5989,8 @@ static void cc_prim_sub_env_mul_t0a_add_t0()
     CC_PRIMSUBENV();
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = cmb.ccolor;
@@ -6109,8 +6109,8 @@ static void cc_prim_sub_env_mul__t0_sub_prim_mul_primlod_add_t0__add_env()
     SETSHADE_ENV();
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -6134,12 +6134,12 @@ static void cc_prim_sub_env_mul__t0_sub_prim_mul_primlod_add_shade__add_env()
         cc_prim_sub_env_mul_t0_add_env();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_DETAIL_FACTOR, 0,
         GFX_CMBX_ITRGB, 0);
-    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_TEXTURE_RGB, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.prim_color;
@@ -6157,12 +6157,12 @@ static void cc_prim_sub_env_mul__t0_sub_shade_mul_primlod_add_shade__add_env()
         cc_prim_sub_env_mul_t0_add_env();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_DETAIL_FACTOR, 0,
         GFX_CMBX_B, 0);
-    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_TEXTURE_RGB, 0,
         GFX_CMBX_B, 0);
     CC_PRIM();
@@ -6177,8 +6177,8 @@ static void cc_lavatex_sub_prim_mul_shade_add_lavatex()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         CC_PRIM();
@@ -6261,12 +6261,12 @@ static void cc__env_inter_prim_using_t0__sub_shade_mul_t0a_add_shade()
     }
     else
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TEXTURE_ALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color;
@@ -6295,8 +6295,8 @@ static void cc_prim_sub_env_mul_prima_add_t0()
     {
         if (cmb.combine_ext)
         {
-            CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-                GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+            CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+                GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
                 GFX_CMBX_CONSTANT_ALPHA, 0,
                 GFX_CMBX_TEXTURE_RGB, 0);
             CC_PRIM();
@@ -6422,12 +6422,12 @@ static void cc_prim_sub_env_mul__t0_mul_enva_add_t1__add_env()
     SETSHADE_PRIM();
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -6506,12 +6506,12 @@ static void cc_prim_sub_env_mul__t1_sub_prim_mul_t0_add_t0__add_env()
     SETSHADE_PRIM();
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -6530,15 +6530,15 @@ static void cc__prim_sub_env_mul_prim_add_t0__mul_prim()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         SETSHADE_PRIMSUBENV();
         SETSHADE_PRIM();
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -6560,8 +6560,8 @@ static void cc_prim_sub_env_mul_prim_add_env()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_B, 0);
         SETSHADE_ENV();
@@ -6583,15 +6583,15 @@ static void cc_prim_sub_env_mul_primlod_add_env()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
         CC_PRIMLOD();
         cmb.tex_ccolor = cmb.ccolor;
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         SETSHADE_PRIM();
@@ -6625,15 +6625,15 @@ static void cc_prim_sub_env_mul_enva_add_env()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
         CC_ENVA();
         cmb.tex_ccolor = cmb.ccolor;
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         SETSHADE_PRIM();
@@ -6734,8 +6734,8 @@ static void cc_prim_sub_shade_mul__t0_inter_t1_using_shadea__add_shade()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
     }
@@ -6941,14 +6941,14 @@ static void cc__t0_sub_env_mul_shade__sub_prim_mul_shade_add_prim()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.env_color;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         CC_PRIM();
@@ -7041,14 +7041,14 @@ static void cc__env_sub_shade_mul_t0_add_shade__mul_prim()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = rdp.prim_color;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -7080,8 +7080,8 @@ static void cc_env_sub_shade_mul__t0_inter_t1_using_shadea__add_shade()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
     }
@@ -7122,18 +7122,18 @@ static void cc__t0_mul_shade_mul_shadea__add__t1_mul_one_sub_shadea()
     // (t0-0)*shade+0, (cmb-t0)*shadea+t0
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITALPHA, 1,
             GFX_CMBX_ZERO, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         MULSHADE_SHADEA();
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_TEXTURE_RGB, 0);
     }
@@ -7179,8 +7179,8 @@ static void cc_shade_sub_env_mul__t0_mul_t1__add__t0_mul_t1()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TEXTURE_RGB, 0,
             GFX_CMBX_TEXTURE_RGB, 0);
         CC_ENV();
@@ -7310,16 +7310,16 @@ static void cc__t0_add_prim_mul_shade__mul_shade_add_env()
         cc_shade_sub_env_mul_prim_add_t0();
         return;
     }
-    T1CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+    T1CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_B, 0);
-    T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+    T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_B, 0);
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_ZERO,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.prim_color;
@@ -7334,12 +7334,12 @@ static void cc__t0_add_prim_mul_shade__mul_shade()
         cc_shade_sub_env_mul_prim_add_t0();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+    T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_B, 0);
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_ZERO, 0);
     cmb.tex_ccolor = rdp.prim_color;
@@ -7450,18 +7450,18 @@ static void cc__t0_inter_t1_using_prim__inter_env_using_enva()
         cc_t0_inter_t1_using_prima();
         return;
     }
-    T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+    T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ZERO, 0,
         GFX_CMBX_B, 0);
-    T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+    T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_TMU_CCOLOR, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.prim_color;
     cmb.tex |= 3;
-    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_CONSTANT_ALPHA, 0,
         GFX_CMBX_B, 0);
     cmb.ccolor = rdp.env_color;
@@ -7475,17 +7475,17 @@ static void cc__t0_inter_t1_using_shade__inter_env_using_enva()
         cc_t0_inter_t1_using_enva();
         return;
     }
-    T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+    T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ZERO, 0,
         GFX_CMBX_B, 0);
-    T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+    T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_B, 0);
     cmb.tex |= 3;
-    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-        GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+    CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+        GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_CONSTANT_ALPHA, 0,
         GFX_CMBX_B, 0);
     cmb.ccolor = rdp.env_color;
@@ -7496,17 +7496,17 @@ static void cc_t0_inter_t1_using_shade()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
     }
@@ -7525,17 +7525,17 @@ static void cc_t1_inter_t0_using_shade()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
     }
@@ -7554,8 +7554,8 @@ static void cc_t1_inter_t0_using_shadea()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
     }
@@ -7640,8 +7640,8 @@ static void cc_t0_inter_shade_using_t0a()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TEXTURE_ALPHA, 0,
             GFX_CMBX_B, 0);
         USE_T0();
@@ -7699,14 +7699,14 @@ static void cc__env_inter_t0_using_shadea__mul_shade()
         cc_t0_mul_shade();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+    T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_ITALPHA, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.env_color;
     cmb.tex |= 1;
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ITRGB, 0,
         GFX_CMBX_ZERO, 0);
 }
@@ -7740,12 +7740,12 @@ static void cc_prim_inter__t0_mul_t1_add_env__using_shadea()
 {
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color;
@@ -7770,14 +7770,14 @@ static void cc_env_inter__prim_inter_shade_using_t0__using_shadea()
         cc_shade_sub_prim_mul_t0_add_prim();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-        GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+    T0CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.prim_color;
     cmb.tex |= 1;
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_NEGATIVE_X,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_ITALPHA, 0,
         GFX_CMBX_B, 0);
     CC_ENV();
@@ -7790,14 +7790,14 @@ static void cc_shade_inter__prim_inter_shade_using_t0__using_shadea()
         cc_shade_sub_prim_mul_t0_add_prim();
         return;
     }
-    T0CCMBEXT(GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
-        GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+    T0CCMBEXT(GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
         GFX_CMBX_B, 0);
     cmb.tex_ccolor = rdp.prim_color;
     cmb.tex |= 1;
-    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-        GFX_CMBX_ITRGB, GR_FUNC_MODE_NEGATIVE_X,
+    CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+        GFX_CMBX_ITRGB, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_ITALPHA, 0,
         GFX_CMBX_B, 0);
 }
@@ -7821,14 +7821,14 @@ static void cc_t0_sub_env_mul_prim_mul_shade_add_prim_mul_shade() //Aded by Gone
     //(t0-env)*shade+shade, (cmb-0)*prim+0
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.env_color;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_X,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -7854,18 +7854,18 @@ static void cc__t1_sub_prim_mul_t0_add_env__mul_shade() //Aded by Gonetz
     // (t1-prim)*t0+env, (cmb-0)*shade+0
     if (cmb.combine_ext)
     {
-        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T1CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.prim_color;
         cmb.tex |= 3;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_ENV();
@@ -8054,13 +8054,13 @@ static void cc__one_sub_shade_mul_t0_add_shade__mul_prim()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ONE_MINUS_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ONE_MINUS_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -8079,13 +8079,13 @@ static void cc__one_sub_shade_mul_t0_add_shade__mul_env()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ONE_MINUS_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ONE_MINUS_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_COLOR, 0,
             GFX_CMBX_ZERO, 0);
         CC_ENV();
@@ -8166,8 +8166,8 @@ static void cc__t0_inter_t1_using_shadea__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -8203,8 +8203,8 @@ static void cc_t0_inter_prim_using_prima()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.prim_color;
@@ -8289,8 +8289,8 @@ static void cc__env_inter_one_using_t0__mul_shade()
     //(one-env)*t0+env, (cmb-0)*shade+0
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ONE_MINUS_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ONE_MINUS_X,
             GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color & 0xFFFFFF00;
@@ -8314,8 +8314,8 @@ static void cc_env_inter_one_using__one_sub_t0_mul_primlod()
     if (cmb.combine_ext)
     {
         // (noise-t0)*primlod+0, (1-env)*cmb+env
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rand() & 0xFFFFFF00;
@@ -8363,14 +8363,14 @@ static void cc__prim_inter_t0_using_env__mul_shade()
     }
     else if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CCOLOR, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.env_color & 0xFFFFFF00;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         uint32_t onesubenv = ~rdp.env_color;
@@ -8395,27 +8395,27 @@ static void cc__one_inter_prim_using_t1__mul_shade()
     {
         if (g_settings->hacks(CSettings::hack_BAR) && rdp.cur_tile == 1)
         {
-            T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-                GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+            T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+                GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
                 GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
                 GFX_CMBX_ZERO, 1);
             cmb.tex |= 1;
         }
         else
         {
-            T1CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-                GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+            T1CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+                GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
                 GFX_CMBX_LOCAL_TEXTURE_RGB, 0,
                 GFX_CMBX_ZERO, 1);
-            T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-                GFX_CMBX_OTHER_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
+            T0CCMBEXT(GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+                GFX_CMBX_OTHER_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
                 GFX_CMBX_ZERO, 0,
                 GFX_CMBX_B, 0);
             cmb.tex |= 2;
         }
         cmb.tex_ccolor = rdp.prim_color | 0xFF;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -8447,14 +8447,14 @@ static void cc_prim_sub__prim_sub_t0_mul_prima__mul_shade()
     // (prim-t0)*prim_a+0, (prim-cmb)*shade+0
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        T0CCMBEXT(GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = rdp.prim_color;
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_NEGATIVE_X,
+        CCMBEXT(GFX_CMBX_CONSTANT_COLOR, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         CC_PRIM();
@@ -8550,8 +8550,8 @@ static void cc__env_inter_prim_using__t0_sub_shade_mul_primlod_add_env()
     // (t0-shade)*lodf+env, (prim-env)*cmb+env
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = rdp.env_color;
@@ -8644,13 +8644,13 @@ static void cc__t0_mul_shade__inter_env_using_enva()
         cc_t0_mul_shade();
     else if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CCOLOR, GR_FUNC_MODE_ZERO,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CCOLOR, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_X,
-            GFX_CMBX_ITRGB, GR_FUNC_MODE_ZERO,
+        CCMBEXT(GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITRGB, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         MULSHADE_1MENVA();
@@ -8686,13 +8686,13 @@ static void cc__t0_mul_shade__inter_one_using_shadea()
 {
     if (cmb.combine_ext)
     {
-        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_RGB, GR_FUNC_MODE_X,
+        T0CCMBEXT(GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_RGB, GFX_FUNC_MODE_X,
             GFX_CMBX_ITRGB, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
-        CCMBEXT(GFX_CMBX_ZERO, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_RGB, GR_FUNC_MODE_ONE_MINUS_X,
+        CCMBEXT(GFX_CMBX_ZERO, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_RGB, GFX_FUNC_MODE_ONE_MINUS_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_B, 0);
     }
@@ -8988,12 +8988,12 @@ static void ac_t0_mul_t1_add_t1()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -9052,12 +9052,12 @@ static void ac__t1_sub_one_mul_primlod_add_t0__mul_prim()
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (0xFF);
@@ -9089,12 +9089,12 @@ static void ac__t0_sub_t1_mul_enva_add_t0__mul_prim()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.env_color & 0xFF);
@@ -9115,8 +9115,8 @@ static void ac__t0_sub_one_mul_enva_add_t0__mul_prim()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_ITALPHA, GR_FUNC_MODE_NEGATIVE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        T0ACMBEXT(GFX_CMBX_ITALPHA, GFX_FUNC_MODE_NEGATIVE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         SETSHADE_A(0xFF);
@@ -9138,12 +9138,12 @@ static void ac__t0_sub_t1_mul_primlod_add_t0__mul_prim()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex |= 3;
@@ -9165,12 +9165,12 @@ static void ac__t1_sub_prim_mul_primlod_add_t0__mul_prim()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex |= 3;
@@ -9193,12 +9193,12 @@ static void ac__t1_sub_t0_mul_enva_add_t1__mul_prim()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
-            GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
+            GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
@@ -9220,12 +9220,12 @@ static void ac__t1_sub_t0_mul_primlod__mul_env_add_prim()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (uint32_t)((float)(rdp.env_color & 0xFF)*(float)rdp.prim_lodfrac / 255.0f);
@@ -9245,18 +9245,18 @@ static void ac__t0_sub_one_mul_enva_add_t1__mul_prim()
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.env_color & 0xFF);
         cmb.tex |= 3;
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_ENV();
@@ -9385,12 +9385,12 @@ static void ac__t1_sub_one_mul_primlod_add_t0__mul_env()
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (0xFF);
@@ -9449,8 +9449,8 @@ static void ac__t0_mul_primlod_add_t0__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex |= 1;
@@ -9481,12 +9481,12 @@ static void ac__t0_sub_t1__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
@@ -9505,12 +9505,12 @@ static void ac__t1_mul_t1_add_t1__mul_shade()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 2;
@@ -9534,12 +9534,12 @@ static void ac__t1_sub_one_mul_primlod_add_t0__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (0xFF);
@@ -9570,12 +9570,12 @@ static void ac__t1_sub_shade_mul_primlod_add_t0__mul_shade()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex |= 3;
@@ -9624,8 +9624,8 @@ static void ac__prim_sub_one_mul_primlod_add_t0__mul_env()
 {
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_ITALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_ITALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         SETSHADE_A_PRIM();
@@ -9690,8 +9690,8 @@ static void ac_t0_mul_prim_add_t0()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_B, 0);
         CA_PRIM();
@@ -9714,8 +9714,8 @@ static void ac__t0_inter_t1_using_t1a__mul_prim_add__t0_inter_t1_using_t1a()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_B, 0);
         CA_PRIM();
@@ -9735,8 +9735,8 @@ static void ac__t1_inter_t0_using_t0a__mul_prim_add__t1_inter_t0_using_t0a()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_B, 0);
         CA_PRIM();
@@ -9798,8 +9798,8 @@ static void ac_t0_mul_primlod_add_t0()
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex |= 1;
@@ -9940,15 +9940,15 @@ static void ac__t0_mul_primlod_add_shade__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
         percent = (float)lod_frac / 255.0f;
         cmb.dc0_detailmax = cmb.dc1_detailmax = percent;
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -9966,19 +9966,19 @@ static void ac__t1_mul_primlod_add_shade__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 2;
         percent = (float)lod_frac / 255.0f;
         cmb.dc0_detailmax = cmb.dc1_detailmax = percent;
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -9998,18 +9998,18 @@ static void ac__t0_sub_t1_mul_prim_add_shade__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.prim_color & 0xFF);
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -10029,18 +10029,18 @@ static void ac__t1_sub_t0_mul_prim_add_shade__mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 3;
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.prim_color & 0xFF);
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -10117,14 +10117,14 @@ static void ac__t0_add_prim_mul_shade__mul_shade()
     // (shade-0)*prim+t0, (cmb-0)*shade+0
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_ITALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T0ACMBEXT(GFX_CMBX_ITALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.prim_color & 0xFF);
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
     }
@@ -10247,14 +10247,14 @@ static void ac_t0_sub_prim_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.prim_color & 0xFF);
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
     }
@@ -10272,14 +10272,14 @@ static void ac_t0_sub_prim_mul_shade_mul_env()
 {
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.prim_color & 0xFF);
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_ENV();
@@ -10299,14 +10299,14 @@ static void ac_t0_sub_shade_mul_prim()
 {
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex |= 1;
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.prim_color & 0xFF);
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
     }
@@ -10324,8 +10324,8 @@ static void ac__t0_mul_t1__sub_prim_mul_shade()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_PRIM();
@@ -10345,17 +10345,17 @@ static void ac__one_sub_t1_mul_t0_add_shade__sub_prim_mul_shade()  //Aded by Gon
     // (1-t1)*t0+shade, (cmb-prim)*shade+0
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_ONE_MINUS_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_ONE_MINUS_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex |= 3;
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_PRIM();
@@ -10374,8 +10374,8 @@ static void ac__t1_mul_primlod_add_t0__sub_prim_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_PRIM();
@@ -10394,8 +10394,8 @@ static void ac__t1_mul_primlod_add_t0__sub_env_mul_prim()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_ENV();
@@ -10416,8 +10416,8 @@ static void ac__t1_mul_prima_add_t0__sub_env_mul_shade()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_ENV();
@@ -10508,8 +10508,8 @@ static void ac_prim_sub_shade_mul_prim()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_PRIM();
@@ -10557,8 +10557,8 @@ static void ac_one_plus_env_mul_prim_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_ZERO, GR_FUNC_MODE_ONE_MINUS_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_X,
+        ACMBEXT(GFX_CMBX_ZERO, GFX_FUNC_MODE_ONE_MINUS_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         MULSHADE_A_PRIM();
@@ -10573,8 +10573,8 @@ static void ac__t0_mul_t1__sub_env_mul_prim_add__t0_mul_t1()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_TEXTURE_ALPHA, 0);
         CA_ENV();
@@ -10595,14 +10595,14 @@ static void ac__t0_sub_prim_mul_shade_add_shade__mul_env()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ITALPHA, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.prim_color & 0xFF);
         cmb.tex |= 1;
-        ACMBEXT(GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        ACMBEXT(GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_ENV();
@@ -10634,12 +10634,12 @@ static void ac_t0_sub_one_mul_enva_add_t1()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.env_color & 0xFF);
@@ -10660,19 +10660,19 @@ static void ac_t1_sub_one_mul_enva_add_t0()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_B, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.env_color & 0xFF);
         SETSHADE_A(0xFF);
         cmb.tex |= 3;
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
     }
@@ -10694,12 +10694,12 @@ static void ac_t1_sub_one_mul_primlod_add_t0()  //Aded by Gonetz
         GR_COMBINE_OTHER_TEXTURE);
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (0xFF);
@@ -10725,18 +10725,18 @@ static void ac_t1_sub_prim_mul_shade_add_prim()  //Aded by Gonetz
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_B, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.prim_color & 0xFF);
         cmb.tex |= 2;
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ZERO, GR_FUNC_MODE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ZERO, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
     }
@@ -10772,13 +10772,13 @@ static void ac_t0_sub_env_mul_shadea_add_env()  //Aded by Gonetz
         ac_t0_mul_shade();
         return;
     }
-    T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-        GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+    T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+        GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
         GFX_CMBX_ZERO, 1,
         GFX_CMBX_ZERO, 0);
     cmb.tex |= 1;
-    ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-        GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+    ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+        GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
         GFX_CMBX_ITALPHA, 0,
         GFX_CMBX_B, 0);
     CA_ENV();
@@ -10947,12 +10947,12 @@ static void ac_one_sub_t1_add_t0_mul_env()
 {
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_B, 1);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (rdp.env_color & 0xFF);
@@ -11022,14 +11022,14 @@ static void ac_shade_sub_t0_mul_primlod_add_prim()
 {
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_ITALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_ITALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_TMU_CALPHA, 0,
             GFX_CMBX_ZERO, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (lod_frac & 0xFF);
         cmb.tex |= 1;
-        ACMBEXT(GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_TEXTURE_ALPHA, 0);
         CA_PRIM();
@@ -11124,8 +11124,8 @@ static void ac_t0_inter_t1_using_shadea()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
     }
@@ -11290,12 +11290,12 @@ static void ac__env_sub_one_mul_t1_add_t0__mul_prim()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T1ACMBEXT(GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0,
             GFX_CMBX_ZERO, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_ZERO, 1,
             GFX_CMBX_ZERO, 0);
         SETSHADE_A(0xFF);
@@ -11324,8 +11324,8 @@ static void ac__t1_mul_enva_add_t0__sub_prim_mul_shade()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_PRIM();
@@ -11377,8 +11377,8 @@ static void ac__t0_inter_t1_using_shadea__mul_prim()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_ZERO, 0);
         A_T0_INTER_T1_USING_SHADEA();
@@ -11399,8 +11399,8 @@ static void ac__t0_inter_t1_using_shadea__mul_env()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_ITALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_ITALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_ZERO, 0);
         A_T0_INTER_T1_USING_SHADEA();
@@ -11420,8 +11420,8 @@ static void ac__t0_inter_t1_using_primlod__sub_env_mul_shade_add_shade()
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_ITALPHA, 0,
             GFX_CMBX_ALOCAL, 0);
         CA_ENV();
@@ -11469,8 +11469,8 @@ static void ac__t0_inter_t1_using_primlod__mul_env_add__t0_inter_t1_using_primlo
 {
     if (cmb.combine_ext)
     {
-        ACMBEXT(GFX_CMBX_ZERO, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
+        ACMBEXT(GFX_CMBX_ZERO, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_B, 0);
         CA_ENV();
@@ -11496,12 +11496,12 @@ static void ac__t1_sub_one_mul_enva_add_t0__mul_prim()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (0xFF);
@@ -11522,15 +11522,15 @@ static void ac__one_inter_t0_using_prim__mul_env()
 {
     if (cmb.combine_ext)
     {
-        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_B, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | (0xFF);
         cmb.tex |= 1;
         cmb.dc0_detailmax = cmb.dc1_detailmax = (float)(rdp.prim_color & 0xFF) / 255.0f;
-        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_CONSTANT_ALPHA, GR_FUNC_MODE_ZERO,
+        ACMBEXT(GFX_CMBX_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_CONSTANT_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_CONSTANT_ALPHA, 0,
             GFX_CMBX_ZERO, 0);
         CA_ENV();
@@ -11550,12 +11550,12 @@ static void ac__t1_sub_one_mul_enva_add_t0__mul_shade()
     CA_PRIM();
     if (cmb.combine_ext)
     {
-        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
-            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GR_FUNC_MODE_ZERO,
+        T1ACMBEXT(GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
+            GFX_CMBX_LOCAL_TEXTURE_ALPHA, GFX_FUNC_MODE_ZERO,
             GFX_CMBX_ZERO, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
-        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GR_FUNC_MODE_X,
-            GFX_CMBX_TMU_CALPHA, GR_FUNC_MODE_NEGATIVE_X,
+        T0ACMBEXT(GFX_CMBX_OTHER_TEXTURE_ALPHA, GFX_FUNC_MODE_X,
+            GFX_CMBX_TMU_CALPHA, GFX_FUNC_MODE_NEGATIVE_X,
             GFX_CMBX_DETAIL_FACTOR, 0,
             GFX_CMBX_LOCAL_TEXTURE_ALPHA, 0);
         cmb.tex_ccolor = (cmb.tex_ccolor & 0xFFFFFF00) | 0xFF;
@@ -16027,9 +16027,9 @@ void ColorCombinerToExtension()
     {
     case GR_COMBINE_FUNCTION_ZERO:
         cmb.c_ext_a = GFX_CMBX_ZERO;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_b = GFX_CMBX_ZERO;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_c = GFX_CMBX_ZERO;
         cmb.c_ext_c_invert = 0;
         cmb.c_ext_d = GFX_CMBX_ZERO;
@@ -16037,9 +16037,9 @@ void ColorCombinerToExtension()
         break;
     case GR_COMBINE_FUNCTION_LOCAL:
         cmb.c_ext_a = ext_local;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_b = GFX_CMBX_ZERO;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_c = GFX_CMBX_ZERO;
         cmb.c_ext_c_invert = 1;
         cmb.c_ext_d = GFX_CMBX_ZERO;
@@ -16047,9 +16047,9 @@ void ColorCombinerToExtension()
         break;
     case GR_COMBINE_FUNCTION_LOCAL_ALPHA:
         cmb.c_ext_a = ext_local_a;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_b = GFX_CMBX_ZERO;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_c = GFX_CMBX_ZERO;
         cmb.c_ext_c_invert = 1;
         cmb.c_ext_d = GFX_CMBX_ZERO;
@@ -16057,66 +16057,66 @@ void ColorCombinerToExtension()
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER:
         cmb.c_ext_a = ext_other;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_b = GFX_CMBX_ZERO;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_ZERO;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_ZERO;
         cmb.c_ext_d = GFX_CMBX_ZERO;
         cmb.c_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_ADD_LOCAL:
         cmb.c_ext_a = ext_other;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_b = ext_local;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_ZERO;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_ZERO;
         cmb.c_ext_d = GFX_CMBX_B;
         cmb.c_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_ADD_LOCAL_ALPHA:
         cmb.c_ext_a = ext_other;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_b = ext_local_a;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_ZERO;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_ZERO;
         cmb.c_ext_d = GFX_CMBX_B;
         cmb.c_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL:
         cmb.c_ext_a = ext_other;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_b = ext_local;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         cmb.c_ext_d = GFX_CMBX_ZERO;
         cmb.c_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL_ADD_LOCAL:
         cmb.c_ext_a = ext_other;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_b = ext_local;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         cmb.c_ext_d = GFX_CMBX_B;
         cmb.c_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL_ADD_LOCAL_ALPHA:
         cmb.c_ext_a = ext_other;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.c_ext_b = ext_local;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         cmb.c_ext_d = GFX_CMBX_ALOCAL;
         cmb.c_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_MINUS_LOCAL_ADD_LOCAL:
         cmb.c_ext_a = GFX_CMBX_ZERO;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_ZERO;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_ZERO;
         cmb.c_ext_b = ext_local;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         cmb.c_ext_d = GFX_CMBX_B;
         cmb.c_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_MINUS_LOCAL_ADD_LOCAL_ALPHA:
     default:
         cmb.c_ext_a = GFX_CMBX_ZERO;
-        cmb.c_ext_a_mode = GR_FUNC_MODE_ZERO;
+        cmb.c_ext_a_mode = GFX_FUNC_MODE_ZERO;
         cmb.c_ext_b = ext_local;
-        cmb.c_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        cmb.c_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         cmb.c_ext_d = GFX_CMBX_ALOCAL;
         cmb.c_ext_d_invert = 0;
         break;
@@ -16196,9 +16196,9 @@ void AlphaCombinerToExtension()
     {
     case GR_COMBINE_FUNCTION_ZERO:
         cmb.a_ext_a = GFX_CMBX_ZERO;
-        cmb.a_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.a_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.a_ext_b = GFX_CMBX_ZERO;
-        cmb.a_ext_b_mode = GR_FUNC_MODE_X;
+        cmb.a_ext_b_mode = GFX_FUNC_MODE_X;
         cmb.a_ext_c = GFX_CMBX_ZERO;
         cmb.a_ext_c_invert = 0;
         cmb.a_ext_d = GFX_CMBX_ZERO;
@@ -16207,9 +16207,9 @@ void AlphaCombinerToExtension()
     case GR_COMBINE_FUNCTION_LOCAL:
     case GR_COMBINE_FUNCTION_LOCAL_ALPHA:
         cmb.a_ext_a = GFX_CMBX_ZERO;
-        cmb.a_ext_a_mode = GR_FUNC_MODE_ZERO;
+        cmb.a_ext_a_mode = GFX_FUNC_MODE_ZERO;
         cmb.a_ext_b = ext_local;
-        cmb.a_ext_b_mode = GR_FUNC_MODE_X;
+        cmb.a_ext_b_mode = GFX_FUNC_MODE_X;
         cmb.a_ext_c = GFX_CMBX_ZERO;
         cmb.a_ext_c_invert = 1;
         cmb.a_ext_d = GFX_CMBX_ZERO;
@@ -16217,44 +16217,44 @@ void AlphaCombinerToExtension()
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER:
         cmb.a_ext_a = ext_other;
-        cmb.a_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.a_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.a_ext_b = GFX_CMBX_ZERO;
-        cmb.a_ext_b_mode = GR_FUNC_MODE_ZERO;
+        cmb.a_ext_b_mode = GFX_FUNC_MODE_ZERO;
         cmb.a_ext_d = GFX_CMBX_ZERO;
         cmb.a_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_ADD_LOCAL:
     case GR_COMBINE_FUNCTION_SCALE_OTHER_ADD_LOCAL_ALPHA:
         cmb.a_ext_a = ext_other;
-        cmb.a_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.a_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.a_ext_b = ext_local;
-        cmb.a_ext_b_mode = GR_FUNC_MODE_ZERO;
+        cmb.a_ext_b_mode = GFX_FUNC_MODE_ZERO;
         cmb.a_ext_d = GFX_CMBX_B;
         cmb.a_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL:
         cmb.a_ext_a = ext_other;
-        cmb.a_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.a_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.a_ext_b = ext_local;
-        cmb.a_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        cmb.a_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         cmb.a_ext_d = GFX_CMBX_ZERO;
         cmb.a_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL_ADD_LOCAL:
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL_ADD_LOCAL_ALPHA:
         cmb.a_ext_a = ext_other;
-        cmb.a_ext_a_mode = GR_FUNC_MODE_X;
+        cmb.a_ext_a_mode = GFX_FUNC_MODE_X;
         cmb.a_ext_b = ext_local;
-        cmb.a_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        cmb.a_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         cmb.a_ext_d = GFX_CMBX_B;
         cmb.a_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_MINUS_LOCAL_ADD_LOCAL:
     case GR_COMBINE_FUNCTION_SCALE_MINUS_LOCAL_ADD_LOCAL_ALPHA:
         cmb.a_ext_a = GFX_CMBX_ZERO;
-        cmb.a_ext_a_mode = GR_FUNC_MODE_ZERO;
+        cmb.a_ext_a_mode = GFX_FUNC_MODE_ZERO;
         cmb.a_ext_b = ext_local;
-        cmb.a_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        cmb.a_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         cmb.a_ext_d = GFX_CMBX_B;
         cmb.a_ext_d_invert = 0;
         break;
@@ -16331,9 +16331,9 @@ void TexColorCombinerToExtension(GrChipID_t tmu)
     {
     case GR_COMBINE_FUNCTION_ZERO:
         tc_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_a_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_b_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_c = GFX_CMBX_ZERO;
         tc_ext_c_invert = 0;
         tc_ext_d = GFX_CMBX_ZERO;
@@ -16341,9 +16341,9 @@ void TexColorCombinerToExtension(GrChipID_t tmu)
         break;
     case GR_COMBINE_FUNCTION_LOCAL:
         tc_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_X;
+        tc_ext_a_mode = GFX_FUNC_MODE_X;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_b_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_c = GFX_CMBX_ZERO;
         tc_ext_c_invert = 1;
         tc_ext_d = GFX_CMBX_ZERO;
@@ -16351,9 +16351,9 @@ void TexColorCombinerToExtension(GrChipID_t tmu)
         break;
     case GR_COMBINE_FUNCTION_LOCAL_ALPHA:
         tc_ext_a = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        tc_ext_a_mode = GR_FUNC_MODE_X;
+        tc_ext_a_mode = GFX_FUNC_MODE_X;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_b_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_c = GFX_CMBX_ZERO;
         tc_ext_c_invert = 1;
         tc_ext_d = GFX_CMBX_ZERO;
@@ -16361,74 +16361,74 @@ void TexColorCombinerToExtension(GrChipID_t tmu)
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER:
         tc_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_X;
+        tc_ext_a_mode = GFX_FUNC_MODE_X;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_b_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_d = GFX_CMBX_ZERO;
         tc_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_ADD_LOCAL:
         tc_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_X;
+        tc_ext_a_mode = GFX_FUNC_MODE_X;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_b_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_d = GFX_CMBX_B;
         tc_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_ADD_LOCAL_ALPHA:
         tc_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_X;
+        tc_ext_a_mode = GFX_FUNC_MODE_X;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        tc_ext_b_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_b_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_d = GFX_CMBX_B;
         tc_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL:
         tc_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_X;
+        tc_ext_a_mode = GFX_FUNC_MODE_X;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        tc_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         tc_ext_d = GFX_CMBX_ZERO;
         tc_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL_ADD_LOCAL:
         tc_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_X;
+        tc_ext_a_mode = GFX_FUNC_MODE_X;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        tc_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         tc_ext_d = GFX_CMBX_B;
         tc_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL_ADD_LOCAL_ALPHA:
         tc_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_X;
+        tc_ext_a_mode = GFX_FUNC_MODE_X;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        tc_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         tc_ext_d = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
         tc_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_MINUS_LOCAL_ADD_LOCAL:
         tc_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_a_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        tc_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         tc_ext_d = GFX_CMBX_B;
         tc_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_MINUS_LOCAL_ADD_LOCAL_ALPHA:
         tc_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_a_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        tc_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         tc_ext_d = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
         tc_ext_d_invert = 0;
         break;
     default:
         WriteTrace(TraceRDP, TraceWarning, "Invalid combiner TMU function %u.", tmu_func);
         tc_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_a_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_a_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
-        tc_ext_b_mode = GR_FUNC_MODE_ZERO;
+        tc_ext_b_mode = GFX_FUNC_MODE_ZERO;
         tc_ext_c = GFX_CMBX_ZERO;
         tc_ext_c_invert = 0;
         tc_ext_d = GFX_CMBX_ZERO;
@@ -16524,9 +16524,9 @@ void TexAlphaCombinerToExtension(GrChipID_t tmu)
     {
     case GR_COMBINE_FUNCTION_ZERO:
         ta_ext_a = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_a_mode = GR_FUNC_MODE_ZERO;
+        ta_ext_a_mode = GFX_FUNC_MODE_ZERO;
         ta_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_b_mode = GR_FUNC_MODE_ZERO;
+        ta_ext_b_mode = GFX_FUNC_MODE_ZERO;
         ta_ext_c = GFX_CMBX_ZERO;
         ta_ext_c_invert = 0;
         ta_ext_d = GFX_CMBX_ZERO;
@@ -16535,9 +16535,9 @@ void TexAlphaCombinerToExtension(GrChipID_t tmu)
     case GR_COMBINE_FUNCTION_LOCAL:
     case GR_COMBINE_FUNCTION_LOCAL_ALPHA:
         ta_ext_a = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_a_mode = GR_FUNC_MODE_X;
+        ta_ext_a_mode = GFX_FUNC_MODE_X;
         ta_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_b_mode = GR_FUNC_MODE_ZERO;
+        ta_ext_b_mode = GFX_FUNC_MODE_ZERO;
         ta_ext_c = GFX_CMBX_ZERO;
         ta_ext_c_invert = 1;
         ta_ext_d = GFX_CMBX_ZERO;
@@ -16545,53 +16545,53 @@ void TexAlphaCombinerToExtension(GrChipID_t tmu)
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER:
         ta_ext_a = GFX_CMBX_OTHER_TEXTURE_ALPHA;
-        ta_ext_a_mode = GR_FUNC_MODE_X;
+        ta_ext_a_mode = GFX_FUNC_MODE_X;
         ta_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_b_mode = GR_FUNC_MODE_ZERO;
+        ta_ext_b_mode = GFX_FUNC_MODE_ZERO;
         ta_ext_d = GFX_CMBX_ZERO;
         ta_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_ADD_LOCAL:
     case GR_COMBINE_FUNCTION_SCALE_OTHER_ADD_LOCAL_ALPHA:
         ta_ext_a = GFX_CMBX_OTHER_TEXTURE_ALPHA;
-        ta_ext_a_mode = GR_FUNC_MODE_X;
+        ta_ext_a_mode = GFX_FUNC_MODE_X;
         ta_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_b_mode = GR_FUNC_MODE_ZERO;
+        ta_ext_b_mode = GFX_FUNC_MODE_ZERO;
         ta_ext_d = GFX_CMBX_B;
         ta_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL:
         ta_ext_a = GFX_CMBX_OTHER_TEXTURE_ALPHA;
-        ta_ext_a_mode = GR_FUNC_MODE_X;
+        ta_ext_a_mode = GFX_FUNC_MODE_X;
         ta_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        ta_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         ta_ext_d = GFX_CMBX_ZERO;
         ta_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL_ADD_LOCAL:
     case GR_COMBINE_FUNCTION_SCALE_OTHER_MINUS_LOCAL_ADD_LOCAL_ALPHA:
         ta_ext_a = GFX_CMBX_OTHER_TEXTURE_ALPHA;
-        ta_ext_a_mode = GR_FUNC_MODE_X;
+        ta_ext_a_mode = GFX_FUNC_MODE_X;
         ta_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        ta_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         ta_ext_d = GFX_CMBX_B;
         ta_ext_d_invert = 0;
         break;
     case GR_COMBINE_FUNCTION_SCALE_MINUS_LOCAL_ADD_LOCAL:
     case GR_COMBINE_FUNCTION_SCALE_MINUS_LOCAL_ADD_LOCAL_ALPHA:
         ta_ext_a = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_a_mode = GR_FUNC_MODE_ZERO;
+        ta_ext_a_mode = GFX_FUNC_MODE_ZERO;
         ta_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_b_mode = GR_FUNC_MODE_NEGATIVE_X;
+        ta_ext_b_mode = GFX_FUNC_MODE_NEGATIVE_X;
         ta_ext_d = GFX_CMBX_B;
         ta_ext_d_invert = 0;
         break;
     default:
         WriteTrace(TraceRDP, TraceWarning, "Invalid combiner alpha coverage function %u.", tmu_a_func);
         ta_ext_a = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_a_mode = GR_FUNC_MODE_ZERO;
+        ta_ext_a_mode = GFX_FUNC_MODE_ZERO;
         ta_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
-        ta_ext_b_mode = GR_FUNC_MODE_ZERO;
+        ta_ext_b_mode = GFX_FUNC_MODE_ZERO;
         ta_ext_c = GFX_CMBX_ZERO;
         ta_ext_c_invert = 0;
         ta_ext_d = GFX_CMBX_ZERO;

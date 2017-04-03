@@ -104,11 +104,15 @@ typedef FxU32 GrTCCUColor_t;
 typedef FxU32 GrTACUColor_t;
 
 typedef FxU32 GrCombineMode_t;
-#define GR_FUNC_MODE_ZERO                 0x00
-#define GR_FUNC_MODE_X                    0x01
-#define GR_FUNC_MODE_ONE_MINUS_X          0x02
-#define GR_FUNC_MODE_NEGATIVE_X           0x03
-#define GR_FUNC_MODE_X_MINUS_HALF         0x04
+
+enum GFX_FUNC
+{
+    GFX_FUNC_MODE_ZERO = 0x00,
+    GFX_FUNC_MODE_X = 0x01,
+    GFX_FUNC_MODE_ONE_MINUS_X = 0x02,
+    GFX_FUNC_MODE_NEGATIVE_X = 0x03,
+    GFX_FUNC_MODE_X_MINUS_HALF = 0x04,
+};
 
 enum GFX_CMBX
 {
