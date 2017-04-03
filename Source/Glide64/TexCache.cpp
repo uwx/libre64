@@ -710,7 +710,7 @@ void TexCache()
                     TexColorCombinerToExtension(GR_TMU1);
                 if (!(cmb.tex_cmb_ext_use & TEX_COMBINE_EXT_ALPHA))
                     TexAlphaCombinerToExtension(GR_TMU1);
-                cmb.grTexColorCombineExt(tmu_1, cmb.t1c_ext_a, cmb.t1c_ext_a_mode,
+                grTexColorCombineExt(tmu_1, cmb.t1c_ext_a, cmb.t1c_ext_a_mode,
                     cmb.t1c_ext_b, cmb.t1c_ext_b_mode,
                     cmb.t1c_ext_c, cmb.t1c_ext_c_invert,
                     cmb.t1c_ext_d, cmb.t1c_ext_d_invert, 0, 0);
@@ -737,7 +737,7 @@ void TexCache()
                     TexColorCombinerToExtension(GR_TMU0);
                 if (!(cmb.tex_cmb_ext_use & TEX_COMBINE_EXT_ALPHA))
                     TexAlphaCombinerToExtension(GR_TMU0);
-                cmb.grTexColorCombineExt(tmu_0, cmb.t0c_ext_a, cmb.t0c_ext_a_mode,
+                grTexColorCombineExt(tmu_0, cmb.t0c_ext_a, cmb.t0c_ext_a_mode,
                     cmb.t0c_ext_b, cmb.t0c_ext_b_mode,
                     cmb.t0c_ext_c, cmb.t0c_ext_c_invert,
                     cmb.t0c_ext_d, cmb.t0c_ext_d_invert, 0, 0);

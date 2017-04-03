@@ -15929,10 +15929,9 @@ void InitCombine()
     if (const char * extstr = strstr(extensions, "COMBINE")) {
         if (!strncmp(extstr, "COMBINE", 7)) {
             WriteTrace(TraceGlide64, TraceDebug, "extensions");
-            cmb.grTexColorCombineExt = (GRTEXCOLORCOMBINEEXT)grTexColorCombineExt;
             cmb.grTexAlphaCombineExt = (GRTEXCOLORCOMBINEEXT)grTexAlphaCombineExt;
             cmb.grConstantColorValueExt = (GRCONSTANTCOLORVALUEEXT)grConstantColorValueExt;
-            if (cmb.grTexColorCombineExt && cmb.grTexAlphaCombineExt)
+            if (cmb.grTexAlphaCombineExt)
             {
                 cmb.combine_ext = TRUE;
                 WriteTrace(TraceGlide64, TraceDebug, "initialized.");
