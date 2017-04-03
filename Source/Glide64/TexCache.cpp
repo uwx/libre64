@@ -578,21 +578,21 @@ void TexCache()
         cmb.tmu0_fac = cmb.tmu0_a_fac = GR_COMBINE_FACTOR_ONE;
         if (cmb.tex_cmb_ext_use)
         {
-            cmb.t0c_ext_a = GR_CMBX_OTHER_TEXTURE_RGB;
+            cmb.t0c_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
             cmb.t0c_ext_a_mode = GR_FUNC_MODE_X;
-            cmb.t0c_ext_b = GR_CMBX_LOCAL_TEXTURE_RGB;
+            cmb.t0c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
             cmb.t0c_ext_b_mode = GR_FUNC_MODE_ZERO;
-            cmb.t0c_ext_c = GR_CMBX_ZERO;
+            cmb.t0c_ext_c = GFX_CMBX_ZERO;
             cmb.t0c_ext_c_invert = 1;
-            cmb.t0c_ext_d = GR_CMBX_ZERO;
+            cmb.t0c_ext_d = GFX_CMBX_ZERO;
             cmb.t0c_ext_d_invert = 0;
-            cmb.t0a_ext_a = GR_CMBX_OTHER_TEXTURE_ALPHA;
+            cmb.t0a_ext_a = GFX_CMBX_OTHER_TEXTURE_ALPHA;
             cmb.t0a_ext_a_mode = GR_FUNC_MODE_X;
-            cmb.t0a_ext_b = GR_CMBX_LOCAL_TEXTURE_ALPHA;
+            cmb.t0a_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
             cmb.t0a_ext_b_mode = GR_FUNC_MODE_ZERO;
-            cmb.t0a_ext_c = GR_CMBX_ZERO;
+            cmb.t0a_ext_c = GFX_CMBX_ZERO;
             cmb.t0a_ext_c_invert = 1;
-            cmb.t0a_ext_d = GR_CMBX_ZERO;
+            cmb.t0a_ext_d = GFX_CMBX_ZERO;
             cmb.t0a_ext_d_invert = 0;
         }
     }
@@ -601,21 +601,21 @@ void TexCache()
         cmb.tmu0_fac = cmb.tmu0_a_fac = GR_COMBINE_FACTOR_NONE;
         if (cmb.tex_cmb_ext_use)
         {
-            cmb.t0c_ext_a = GR_CMBX_LOCAL_TEXTURE_RGB;
+            cmb.t0c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB;
             cmb.t0c_ext_a_mode = GR_FUNC_MODE_ZERO;
-            cmb.t0c_ext_b = GR_CMBX_LOCAL_TEXTURE_RGB;
+            cmb.t0c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
             cmb.t0c_ext_b_mode = GR_FUNC_MODE_ZERO;
-            cmb.t0c_ext_c = GR_CMBX_ZERO;
+            cmb.t0c_ext_c = GFX_CMBX_ZERO;
             cmb.t0c_ext_c_invert = 0;
-            cmb.t0c_ext_d = GR_CMBX_ZERO;
+            cmb.t0c_ext_d = GFX_CMBX_ZERO;
             cmb.t0c_ext_d_invert = 0;
-            cmb.t0a_ext_a = GR_CMBX_LOCAL_TEXTURE_ALPHA;
+            cmb.t0a_ext_a = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
             cmb.t0a_ext_a_mode = GR_FUNC_MODE_ZERO;
-            cmb.t0a_ext_b = GR_CMBX_LOCAL_TEXTURE_ALPHA;
+            cmb.t0a_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
             cmb.t0a_ext_b_mode = GR_FUNC_MODE_ZERO;
-            cmb.t0a_ext_c = GR_CMBX_ZERO;
+            cmb.t0a_ext_c = GFX_CMBX_ZERO;
             cmb.t0a_ext_c_invert = 0;
-            cmb.t0a_ext_d = GR_CMBX_ZERO;
+            cmb.t0a_ext_d = GFX_CMBX_ZERO;
             cmb.t0a_ext_d_invert = 0;
         }
     }
@@ -624,21 +624,21 @@ void TexCache()
         cmb.tmu1_fac = cmb.tmu1_a_fac = GR_COMBINE_FACTOR_ONE;
         if (cmb.tex_cmb_ext_use)
         {
-            cmb.t1c_ext_a = GR_CMBX_OTHER_TEXTURE_RGB;
+            cmb.t1c_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
             cmb.t1c_ext_a_mode = GR_FUNC_MODE_X;
-            cmb.t1c_ext_b = GR_CMBX_LOCAL_TEXTURE_RGB;
+            cmb.t1c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
             cmb.t1c_ext_b_mode = GR_FUNC_MODE_ZERO;
-            cmb.t1c_ext_c = GR_CMBX_ZERO;
+            cmb.t1c_ext_c = GFX_CMBX_ZERO;
             cmb.t1c_ext_c_invert = 1;
-            cmb.t1c_ext_d = GR_CMBX_ZERO;
+            cmb.t1c_ext_d = GFX_CMBX_ZERO;
             cmb.t1c_ext_d_invert = 0;
-            cmb.t1a_ext_a = GR_CMBX_OTHER_TEXTURE_ALPHA;
+            cmb.t1a_ext_a = GFX_CMBX_OTHER_TEXTURE_ALPHA;
             cmb.t1a_ext_a_mode = GR_FUNC_MODE_X;
-            cmb.t1a_ext_b = GR_CMBX_LOCAL_TEXTURE_ALPHA;
+            cmb.t1a_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
             cmb.t1a_ext_b_mode = GR_FUNC_MODE_ZERO;
-            cmb.t1a_ext_c = GR_CMBX_ZERO;
+            cmb.t1a_ext_c = GFX_CMBX_ZERO;
             cmb.t1a_ext_c_invert = 1;
-            cmb.t1a_ext_d = GR_CMBX_ZERO;
+            cmb.t1a_ext_d = GFX_CMBX_ZERO;
             cmb.t1a_ext_d_invert = 0;
         }
     }
@@ -647,21 +647,21 @@ void TexCache()
         cmb.tmu1_fac = cmb.tmu1_a_fac = GR_COMBINE_FACTOR_NONE;
         if (cmb.tex_cmb_ext_use)
         {
-            cmb.t1c_ext_a = GR_CMBX_LOCAL_TEXTURE_RGB;
+            cmb.t1c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB;
             cmb.t1c_ext_a_mode = GR_FUNC_MODE_ZERO;
-            cmb.t1c_ext_b = GR_CMBX_LOCAL_TEXTURE_RGB;
+            cmb.t1c_ext_b = GFX_CMBX_LOCAL_TEXTURE_RGB;
             cmb.t1c_ext_b_mode = GR_FUNC_MODE_ZERO;
-            cmb.t1c_ext_c = GR_CMBX_ZERO;
+            cmb.t1c_ext_c = GFX_CMBX_ZERO;
             cmb.t1c_ext_c_invert = 0;
-            cmb.t1c_ext_d = GR_CMBX_ZERO;
+            cmb.t1c_ext_d = GFX_CMBX_ZERO;
             cmb.t1c_ext_d_invert = 0;
-            cmb.t1a_ext_a = GR_CMBX_LOCAL_TEXTURE_ALPHA;
+            cmb.t1a_ext_a = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
             cmb.t1a_ext_a_mode = GR_FUNC_MODE_ZERO;
-            cmb.t1a_ext_b = GR_CMBX_LOCAL_TEXTURE_ALPHA;
+            cmb.t1a_ext_b = GFX_CMBX_LOCAL_TEXTURE_ALPHA;
             cmb.t1a_ext_b_mode = GR_FUNC_MODE_ZERO;
-            cmb.t1a_ext_c = GR_CMBX_ZERO;
+            cmb.t1a_ext_c = GFX_CMBX_ZERO;
             cmb.t1a_ext_c_invert = 0;
-            cmb.t1a_ext_d = GR_CMBX_ZERO;
+            cmb.t1a_ext_d = GFX_CMBX_ZERO;
             cmb.t1a_ext_d_invert = 0;
         }
     }
