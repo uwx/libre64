@@ -15926,7 +15926,6 @@ void InitCombine()
     WriteTrace(TraceGlide64, TraceDebug, "-");
     memset(&cmb, 0, sizeof(cmb));
     WriteTrace(TraceGlide64, TraceDebug, "extensions");
-    cmb.grConstantColorValueExt = (GRCONSTANTCOLORVALUEEXT)grConstantColorValueExt;
     cmb.combine_ext = TRUE;
     WriteTrace(TraceGlide64, TraceDebug, "initialized.");
     cmb.dc0_lodbias = cmb.dc1_lodbias = 31;

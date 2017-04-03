@@ -205,10 +205,6 @@ extern "C" {
     extern GFX_INFO gfx;
     extern bool no_dlist;
 
-    typedef void (FX_CALL *GRCONSTANTCOLORVALUEEXT)
-        (GrChipID_t       tmu,
-            GrColor_t        value);
-
     typedef void (FX_CALL *GRSTIPPLE)(FxI32 mode);
 
 #ifndef GR_STIPPLE_DISABLE
