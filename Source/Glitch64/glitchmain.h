@@ -143,13 +143,6 @@ grAlphaCombineExt(GrACUColor_t a, GrCombineMode_t a_mode,
     GrACUColor_t d, FxBool d_invert,
     FxU32 shift, FxBool invert);
 
-FX_ENTRY void FX_CALL
-grTexColorCombineExt(GrChipID_t       tmu,
-    GrTCCUColor_t a, GrCombineMode_t a_mode,
-    GrTCCUColor_t b, GrCombineMode_t b_mode,
-    GrTCCUColor_t c, FxBool c_invert,
-    GrTCCUColor_t d, FxBool d_invert,
-    FxU32 shift, FxBool invert);
-
+void gfxTexColorCombineExt(GrChipID_t tmu, GrTCCUColor_t a, GrCombineMode_t a_mode, GrTCCUColor_t b, GrCombineMode_t b_mode, GrTCCUColor_t c, FxBool c_invert, GrTCCUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
 void gfxTexAlphaCombineExt(GrChipID_t tmu, GrTACUColor_t a, GrCombineMode_t a_mode, GrTACUColor_t b, GrCombineMode_t b_mode, GrTACUColor_t c, FxBool c_invert, GrTACUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
 void gfxConstantColorValueExt(GrChipID_t tmu, GrColor_t value);
