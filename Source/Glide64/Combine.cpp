@@ -15925,23 +15925,10 @@ void InitCombine()
 {
     WriteTrace(TraceGlide64, TraceDebug, "-");
     memset(&cmb, 0, sizeof(cmb));
-    const char *extensions = "CHROMARANGE TEXCHROMA TEXMIRROR PALETTE6666 FOGCOORD EVOODOO TEXTUREBUFFER TEXUMA TEXFMT COMBINE GETGAMMA";
-    if (const char * extstr = strstr(extensions, "COMBINE")) {
-        if (!strncmp(extstr, "COMBINE", 7)) {
-            WriteTrace(TraceGlide64, TraceDebug, "extensions");
-            cmb.grTexAlphaCombineExt = (GRTEXCOLORCOMBINEEXT)grTexAlphaCombineExt;
-            cmb.grConstantColorValueExt = (GRCONSTANTCOLORVALUEEXT)grConstantColorValueExt;
-            if (cmb.grTexAlphaCombineExt)
-            {
-                cmb.combine_ext = TRUE;
-                WriteTrace(TraceGlide64, TraceDebug, "initialized.");
-            }
-            else
-            {
-                cmb.combine_ext = FALSE;
-            }
-        }
-    }
+    WriteTrace(TraceGlide64, TraceDebug, "extensions");
+    cmb.grConstantColorValueExt = (GRCONSTANTCOLORVALUEEXT)grConstantColorValueExt;
+    cmb.combine_ext = TRUE;
+    WriteTrace(TraceGlide64, TraceDebug, "initialized.");
     cmb.dc0_lodbias = cmb.dc1_lodbias = 31;
     cmb.dc0_detailscale = cmb.dc1_detailscale = 7;
     cmb.lodbias0 = cmb.lodbias1 = 1.0f;

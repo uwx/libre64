@@ -59,8 +59,7 @@ the plugin
 // THIS FILE IS A PRECOMPILED HEADER TO DECREASE BUILD TIME.  INCLUDE ALL STANDARD
 //  .H FILES HERE
 
-#ifndef _GFX_H_INCLUDED__
-#define _GFX_H_INCLUDED__
+#pragma once
 
 #include "winlnxdefs.h"
 
@@ -205,18 +204,6 @@ extern "C" {
 
     extern GFX_INFO gfx;
     extern bool no_dlist;
-
-    typedef void (FX_CALL *GRTEXCOLORCOMBINEEXT) (GrChipID_t       tmu,
-        GrTCCUColor_t    a,
-        GrCombineMode_t  a_mode,
-        GrTCCUColor_t    b,
-        GrCombineMode_t  b_mode,
-        GrTCCUColor_t    c,
-        FxBool           c_invert,
-        GrTCCUColor_t    d,
-        FxBool           d_invert,
-        FxU32            shift,
-        FxBool           invert);
 
     typedef void (FX_CALL *GRCONSTANTCOLORVALUEEXT)
         (GrChipID_t       tmu,
@@ -497,4 +484,3 @@ extern "C" {
 #if defined(__cplusplus)
 }
 #endif
-#endif //_GFX_H_INCLUDED__

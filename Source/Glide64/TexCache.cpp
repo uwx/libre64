@@ -714,7 +714,7 @@ void TexCache()
                     cmb.t1c_ext_b, cmb.t1c_ext_b_mode,
                     cmb.t1c_ext_c, cmb.t1c_ext_c_invert,
                     cmb.t1c_ext_d, cmb.t1c_ext_d_invert, 0, 0);
-                cmb.grTexAlphaCombineExt(tmu_1, cmb.t1a_ext_a, cmb.t1a_ext_a_mode,
+                grTexAlphaCombineExt(tmu_1, cmb.t1a_ext_a, cmb.t1a_ext_a_mode,
                     cmb.t1a_ext_b, cmb.t1a_ext_b_mode,
                     cmb.t1a_ext_c, cmb.t1a_ext_c_invert,
                     cmb.t1a_ext_d, cmb.t1a_ext_d_invert, 0, 0);
@@ -741,7 +741,7 @@ void TexCache()
                     cmb.t0c_ext_b, cmb.t0c_ext_b_mode,
                     cmb.t0c_ext_c, cmb.t0c_ext_c_invert,
                     cmb.t0c_ext_d, cmb.t0c_ext_d_invert, 0, 0);
-                cmb.grTexAlphaCombineExt(tmu_0, cmb.t0a_ext_a, cmb.t0a_ext_a_mode,
+                grTexAlphaCombineExt(tmu_0, cmb.t0a_ext_a, cmb.t0a_ext_a_mode,
                     cmb.t0a_ext_b, cmb.t0a_ext_b_mode,
                     cmb.t0a_ext_c, cmb.t0a_ext_c_invert,
                     cmb.t0a_ext_d, cmb.t0a_ext_d_invert, 0, 0);
