@@ -1788,16 +1788,11 @@ grStippleMode(GrStippleMode_t mode)
     need_to_compile = 1;
 }
 
-FX_ENTRY void FX_CALL
-grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
-    GrCCUColor_t b, GrCombineMode_t b_mode,
-    GrCCUColor_t c, FxBool c_invert,
-    GrCCUColor_t d, FxBool d_invert,
-    FxU32 shift, FxBool invert)
+void gfxColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode, GrCCUColor_t b, GrCombineMode_t b_mode, GrCCUColor_t c, FxBool c_invert, GrCCUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert)
 {
     WriteTrace(TraceResolution, TraceDebug, "a: %d a_mode: %d b: %d b_mode: %d c: %d c_invert: %d d: %d d_invert: %d shift: %d invert: %d", a, a_mode, b, b_mode, c, c_invert, d, d_invert, shift, invert);
-    if (invert) WriteTrace(TraceGlitch, TraceWarning, "grColorCombineExt : inverted result");
-    if (shift) WriteTrace(TraceGlitch, TraceWarning, "grColorCombineExt : shift = %d", shift);
+    if (invert) WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombineExt : inverted result");
+    if (shift) WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombineExt : shift = %d", shift);
 
     color_combiner_key = 0x80000000 | (a & 0x1F) | ((a_mode & 3) << 5) |
         ((b & 0x1F) << 7) | ((b_mode & 3) << 12) |
@@ -1830,7 +1825,7 @@ grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
         strcat(fragment_shader_color_combiner, "vec4 cs_a = ctexture1; \n");
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grColorCombineExt : a = %x", a);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombineExt : a = %x", a);
         strcat(fragment_shader_color_combiner, "vec4 cs_a = vec4(0.0); \n");
     }
 
@@ -1849,7 +1844,7 @@ grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
         strcat(fragment_shader_color_combiner, "vec4 c_a = -cs_a; \n");
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grColorCombineExt : a_mode = %x", a_mode);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombineExt : a_mode = %x", a_mode);
         strcat(fragment_shader_color_combiner, "vec4 c_a = vec4(0.0); \n");
     }
 
@@ -1877,7 +1872,7 @@ grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
         strcat(fragment_shader_color_combiner, "vec4 cs_b = ctexture1; \n");
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grColorCombineExt : b = %x", b);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombineExt : b = %x", b);
         strcat(fragment_shader_color_combiner, "vec4 cs_b = vec4(0.0); \n");
     }
 
@@ -1896,7 +1891,7 @@ grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
         strcat(fragment_shader_color_combiner, "vec4 c_b = -cs_b; \n");
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grColorCombineExt : b_mode = %x", b_mode);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombineExt : b_mode = %x", b_mode);
         strcat(fragment_shader_color_combiner, "vec4 c_b = vec4(0.0); \n");
     }
 
@@ -1933,7 +1928,7 @@ grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
         strcat(fragment_shader_color_combiner, "vec4 c_c = ctexture1; \n");
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grColorCombineExt : c = %x", c);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombineExt : c = %x", c);
         strcat(fragment_shader_color_combiner, "vec4 c_c = vec4(0.0); \n");
     }
 
@@ -1958,7 +1953,7 @@ grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
         strcat(fragment_shader_color_combiner, "vec4 c_d = vFrontColor; \n");
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grColorCombineExt : d = %x", d);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombineExt : d = %x", d);
         strcat(fragment_shader_color_combiner, "vec4 c_d = vec4(0.0); \n");
     }
 
