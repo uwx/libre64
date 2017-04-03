@@ -16,16 +16,12 @@ extern wrapper_config config;
 // returns the bytes per pixel of a given GR texture format
 int grTexFormatSize(int fmt);
 
-/* 2015.03.07 cxd4 -- regulated GL state machine debugging using glGetError */
-extern int grDisplayGLError(const char* message);
-
 extern int packed_pixels_support;
 extern float largest_supported_anisotropy;
 
 extern int default_texture; // the infamous "32*1024*1024" is now configurable
 extern int depth_texture;
 void set_depth_shader();
-void set_bw_shader();
 extern float invtex[2];
 extern int buffer_cleared; // mark that the buffer has been cleared, used to check if we need to reload the texture buffer content
 
@@ -92,7 +88,6 @@ void ExitFullScreen();
 void grConfigWrapperExt(FxI32, FxBool, FxBool);
 uint32_t grWrapperFullScreenResolutionExt(uint32_t * width, uint32_t * height);
 char ** grQueryResolutionsExt(int32_t*);
-FX_ENTRY void FX_CALL grGetGammaTableExt(FxU32, FxU32*, FxU32*, FxU32*);
 
 // ZIGGY framebuffer copy extension
 // allow to copy the depth or color buffer from back/front to front/back
@@ -100,8 +95,6 @@ FX_ENTRY void FX_CALL grGetGammaTableExt(FxU32, FxU32*, FxU32*, FxU32*);
 #define GR_FBCOPY_MODE_COLOR 1
 #define GR_FBCOPY_BUFFER_BACK 0
 #define GR_FBCOPY_BUFFER_FRONT 1
-FX_ENTRY void FX_CALL grFramebufferCopyExt(int x, int y, int w, int h,
-    int buffer_from, int buffer_to, int mode);
 
 // COMBINE extension
 
@@ -166,6 +159,4 @@ grTexAlphaCombineExt(GrChipID_t       tmu,
     GrTACUColor_t d, FxBool d_invert,
     FxU32 shift, FxBool invert);
 
-FX_ENTRY void FX_CALL
-grConstantColorValueExt(GrChipID_t    tmu,
-    GrColor_t     value);
+FX_ENTRY void FX_CALL grConstantColorValueExt(GrChipID_t tmu, GrColor_t value);

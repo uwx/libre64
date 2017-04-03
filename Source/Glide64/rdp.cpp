@@ -946,7 +946,7 @@ EXPORT void CALL ProcessDList(void)
             } while (!rdp.halt);
         }
 #ifdef CATCH_EXCEPTIONS
-}
+    }
     catch (...) {
         if (g_fullscreen)
         {
@@ -996,7 +996,7 @@ EXPORT void CALL ProcessDList(void)
         CI_SET = FALSE;
     }
     WriteTrace(TraceRDP, TraceDebug, "ProcessDList end");
-            }
+}
 
 // undef - undefined instruction, always ignore
 void undef()
@@ -2578,7 +2578,7 @@ void rdp_fillrect()
         grAlphaBlendFunction(GR_BLEND_ONE, GR_BLEND_ZERO, GR_BLEND_ONE, GR_BLEND_ZERO);
 
         grAlphaTestFunction(GR_CMP_ALWAYS);
-        grStippleMode(GR_STIPPLE_DISABLE);
+        grStippleMode(GFX_STIPPLE_DISABLE);
 
         grCullMode(GR_CULL_DISABLE);
         grFogMode(GR_FOG_DISABLE);

@@ -31,6 +31,7 @@
 #include "glitchmain.h"
 #include <Glide64/trace.h>
 #include <Glide64/Settings.h>
+#include <Glide64/Gfx_1.3.h>
 #include <vector>
 
 void vbo_draw();
@@ -446,7 +447,7 @@ void update_uniforms(GLuint program_object, const shader_program_key & prog)
         g_fog_enabled != 2 ? 0.0f : 1.0f,
         fogEnd,
         1.0f / (fogEnd - fogStart)
-        );
+    );
 
     if (prog.fogColor_location != -1)
     {
@@ -534,7 +535,7 @@ void compile_shader()
     {
         fragment_shader += g_fragment_shader_dither;
     }
-    switch (blackandwhite0) 
+    switch (blackandwhite0)
     {
     case 1: fragment_shader += g_fragment_shader_readtex0bw; break;
     case 2: fragment_shader += g_fragment_shader_readtex0bw_2; break;
@@ -793,9 +794,9 @@ void writeGLSLColorFactor(int factor, int local, int need_local, int other, int 
 
 FX_ENTRY void FX_CALL
 grColorCombine(
-GrCombineFunction_t function, GrCombineFactor_t factor,
-GrCombineLocal_t local, GrCombineOther_t other,
-FxBool invert)
+    GrCombineFunction_t function, GrCombineFactor_t factor,
+    GrCombineLocal_t local, GrCombineOther_t other,
+    FxBool invert)
 {
     WriteTrace(TraceResolution, TraceDebug, "function: %d factor: %d local: %d other: %d invert: %d", function, factor, local, other, invert);
     static int last_function = 0;
@@ -1002,9 +1003,9 @@ void writeGLSLAlphaFactor(int factor, int local, int need_local, int other, int 
 
 FX_ENTRY void FX_CALL
 grAlphaCombine(
-GrCombineFunction_t function, GrCombineFactor_t factor,
-GrCombineLocal_t local, GrCombineOther_t other,
-FxBool invert
+    GrCombineFunction_t function, GrCombineFactor_t factor,
+    GrCombineLocal_t local, GrCombineOther_t other,
+    FxBool invert
 )
 {
     WriteTrace(TraceResolution, TraceDebug, "function: %d factor: %d local: %d other: %d invert: %d", function, factor, local, other, invert);
@@ -1236,13 +1237,13 @@ void writeGLSLTextureAlphaFactor(int num_tex, int factor)
 
 FX_ENTRY void FX_CALL
 grTexCombine(
-GrChipID_t tmu,
-GrCombineFunction_t rgb_function,
-GrCombineFactor_t rgb_factor,
-GrCombineFunction_t alpha_function,
-GrCombineFactor_t alpha_factor,
-FxBool rgb_invert,
-FxBool alpha_invert
+    GrChipID_t tmu,
+    GrCombineFunction_t rgb_function,
+    GrCombineFactor_t rgb_factor,
+    GrCombineFunction_t alpha_function,
+    GrCombineFactor_t alpha_factor,
+    FxBool rgb_invert,
+    FxBool alpha_invert
 )
 {
     WriteTrace(TraceResolution, TraceDebug, "tmu: %d rgb_function: %d rgb_factor: %d alpha_function: %d alpha_factor: %d rgb_invert: %d alpha_invert: %d", tmu, rgb_function, rgb_factor, alpha_function, alpha_factor, rgb_invert, alpha_invert);
@@ -1491,8 +1492,8 @@ FxBool alpha_invert
 
 FX_ENTRY void FX_CALL
 grAlphaBlendFunction(
-GrAlphaBlendFnc_t rgb_sf, GrAlphaBlendFnc_t rgb_df,
-GrAlphaBlendFnc_t alpha_sf, GrAlphaBlendFnc_t alpha_df
+    GrAlphaBlendFnc_t rgb_sf, GrAlphaBlendFnc_t rgb_df,
+    GrAlphaBlendFnc_t alpha_sf, GrAlphaBlendFnc_t alpha_df
 )
 {
     int sfactorRGB = 0, dfactorRGB = 0, sfactorAlpha = 0, dfactorAlpha = 0;
@@ -1632,7 +1633,7 @@ guFogTableIndexToW(int i)
 
 FX_ENTRY void FX_CALL
 guFogGenerateLinear(GrFog_t *fogtable,
-float nearZ, float farZ)
+    float nearZ, float farZ)
 {
     WriteTrace(TraceResolution, TraceDebug, "nearZ: %f farZ: %f", nearZ, farZ);
     /*
@@ -1767,16 +1768,16 @@ grStippleMode(GrStippleMode_t mode)
     WriteTrace(TraceResolution, TraceDebug, "mode: %d", mode);
     switch (mode)
     {
-    case GR_STIPPLE_DISABLE:
+    case GFX_STIPPLE_DISABLE:
         dither_enabled = 0;
         glActiveTexture(GL_TEXTURE2);
         break;
-    case GR_STIPPLE_PATTERN:
+    case GFX_STIPPLE_PATTERN:
         setPattern();
         dither_enabled = 1;
         glActiveTexture(GL_TEXTURE2);
         break;
-    case GR_STIPPLE_ROTATE:
+    case GFX_STIPPLE_ROTATE:
         setPattern();
         dither_enabled = 1;
         glActiveTexture(GL_TEXTURE2);
@@ -1789,10 +1790,10 @@ grStippleMode(GrStippleMode_t mode)
 
 FX_ENTRY void FX_CALL
 grColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode,
-GrCCUColor_t b, GrCombineMode_t b_mode,
-GrCCUColor_t c, FxBool c_invert,
-GrCCUColor_t d, FxBool d_invert,
-FxU32 shift, FxBool invert)
+    GrCCUColor_t b, GrCombineMode_t b_mode,
+    GrCCUColor_t c, FxBool c_invert,
+    GrCCUColor_t d, FxBool d_invert,
+    FxU32 shift, FxBool invert)
 {
     WriteTrace(TraceResolution, TraceDebug, "a: %d a_mode: %d b: %d b_mode: %d c: %d c_invert: %d d: %d d_invert: %d shift: %d invert: %d", a, a_mode, b, b_mode, c, c_invert, d, d_invert, shift, invert);
     if (invert) WriteTrace(TraceGlitch, TraceWarning, "grColorCombineExt : inverted result");
@@ -1971,10 +1972,10 @@ FxU32 shift, FxBool invert)
 
 FX_ENTRY void FX_CALL
 grAlphaCombineExt(GrACUColor_t a, GrCombineMode_t a_mode,
-GrACUColor_t b, GrCombineMode_t b_mode,
-GrACUColor_t c, FxBool c_invert,
-GrACUColor_t d, FxBool d_invert,
-FxU32 shift, FxBool invert)
+    GrACUColor_t b, GrCombineMode_t b_mode,
+    GrACUColor_t c, FxBool c_invert,
+    GrACUColor_t d, FxBool d_invert,
+    FxU32 shift, FxBool invert)
 {
     WriteTrace(TraceResolution, TraceDebug, "a: %d a_mode: %d b: %d b_mode: %d c: %d c_invert: %d d: %d d_invert: %d shift: %d invert: %d", a, a_mode, b, b_mode, c, c_invert, d, d_invert, shift, invert);
     if (invert) WriteTrace(TraceGlitch, TraceWarning, "grAlphaCombineExt : inverted result");
@@ -2123,11 +2124,11 @@ FxU32 shift, FxBool invert)
 
 FX_ENTRY void FX_CALL
 grTexColorCombineExt(GrChipID_t       tmu,
-GrTCCUColor_t a, GrCombineMode_t a_mode,
-GrTCCUColor_t b, GrCombineMode_t b_mode,
-GrTCCUColor_t c, FxBool c_invert,
-GrTCCUColor_t d, FxBool d_invert,
-FxU32 shift, FxBool invert)
+    GrTCCUColor_t a, GrCombineMode_t a_mode,
+    GrTCCUColor_t b, GrCombineMode_t b_mode,
+    GrTCCUColor_t c, FxBool c_invert,
+    GrTCCUColor_t d, FxBool d_invert,
+    FxU32 shift, FxBool invert)
 {
     int num_tex;
     WriteTrace(TraceResolution, TraceDebug, "tmu: %d a: %d a_mode: %d b: %d b_mode: %d c: %d c_invert: %d d: %d d_invert: %d shift: %d invert: %d", tmu, a, a_mode, b, b_mode, c, c_invert, d, d_invert, shift, invert);
@@ -2488,11 +2489,11 @@ FxU32 shift, FxBool invert)
 
 FX_ENTRY void FX_CALL
 grTexAlphaCombineExt(GrChipID_t       tmu,
-GrTACUColor_t a, GrCombineMode_t a_mode,
-GrTACUColor_t b, GrCombineMode_t b_mode,
-GrTACUColor_t c, FxBool c_invert,
-GrTACUColor_t d, FxBool d_invert,
-FxU32 shift, FxBool invert)
+    GrTACUColor_t a, GrCombineMode_t a_mode,
+    GrTACUColor_t b, GrCombineMode_t b_mode,
+    GrTACUColor_t c, FxBool c_invert,
+    GrTACUColor_t d, FxBool d_invert,
+    FxU32 shift, FxBool invert)
 {
     int num_tex;
     WriteTrace(TraceResolution, TraceDebug, "tmu: %d a: %d a_mode: %d b: %d b_mode: %d c: %d c_invert: %d d: %d d_invert: %d shift, invert: %d", tmu, a, a_mode, b, b_mode, c, c_invert, d, d_invert, shift, invert);
@@ -2775,8 +2776,7 @@ FX_ENTRY void FX_CALL grConstantColorValueExt(GrChipID_t tmu, GrColor_t value)
     int num_tex;
     WriteTrace(TraceResolution, TraceDebug, "tmu: %d value: %d", tmu, value);
 
-    if (tmu == GR_TMU0) num_tex = 1;
-    else num_tex = 0;
+    num_tex = tmu == GR_TMU0 ? 1 : 0;
 
     switch (lfb_color_fmt)
     {

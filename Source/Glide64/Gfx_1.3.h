@@ -205,13 +205,12 @@ extern "C" {
     extern GFX_INFO gfx;
     extern bool no_dlist;
 
-    typedef void (FX_CALL *GRSTIPPLE)(FxI32 mode);
-
-#ifndef GR_STIPPLE_DISABLE
-#define GR_STIPPLE_DISABLE	0x0
-#define GR_STIPPLE_PATTERN	0x1
-#define GR_STIPPLE_ROTATE	0x2
-#endif
+    enum
+    {
+        GFX_STIPPLE_DISABLE = 0x0,
+        GFX_STIPPLE_PATTERN = 0x1,
+        GFX_STIPPLE_ROTATE = 0x2,
+    };
 
     /******************************************************************
     Function: CaptureScreen
