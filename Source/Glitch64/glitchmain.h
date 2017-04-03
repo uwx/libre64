@@ -98,12 +98,12 @@ char ** grQueryResolutionsExt(int32_t*);
 
 // COMBINE extension
 
-typedef FxU32 GrCCUColor_t;
-typedef FxU32 GrACUColor_t;
-typedef FxU32 GrTCCUColor_t;
-typedef FxU32 GrTACUColor_t;
+typedef uint32_t gfxCCUColor_t;
+typedef uint32_t gfxACUColor_t;
+typedef uint32_t gfxTCCUColor_t;
+typedef uint32_t gfxTACUColor_t;
 
-typedef FxU32 GrCombineMode_t;
+typedef uint32_t gfxCombineMode_t;
 
 enum GFX_FUNC
 {
@@ -136,8 +136,8 @@ enum GFX_CMBX
     GFX_CMBX_TMU_CCOLOR = 0x11,
 };
 
-void gfxColorCombineExt(GrCCUColor_t a, GrCombineMode_t a_mode, GrCCUColor_t b, GrCombineMode_t b_mode, GrCCUColor_t c, FxBool c_invert, GrCCUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
-void gfxAlphaCombineExt(GrACUColor_t a, GrCombineMode_t a_mode, GrACUColor_t b, GrCombineMode_t b_mode, GrACUColor_t c, FxBool c_invert, GrACUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
-void gfxTexColorCombineExt(GrChipID_t tmu, GrTCCUColor_t a, GrCombineMode_t a_mode, GrTCCUColor_t b, GrCombineMode_t b_mode, GrTCCUColor_t c, FxBool c_invert, GrTCCUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
-void gfxTexAlphaCombineExt(GrChipID_t tmu, GrTACUColor_t a, GrCombineMode_t a_mode, GrTACUColor_t b, GrCombineMode_t b_mode, GrTACUColor_t c, FxBool c_invert, GrTACUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
+void gfxColorCombineExt(gfxCCUColor_t a, gfxCombineMode_t a_mode, gfxCCUColor_t b, gfxCombineMode_t b_mode, gfxCCUColor_t c, FxBool c_invert, gfxCCUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
+void gfxAlphaCombineExt(gfxACUColor_t a, gfxCombineMode_t a_mode, gfxACUColor_t b, gfxCombineMode_t b_mode, gfxACUColor_t c, FxBool c_invert, gfxACUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
+void gfxTexColorCombineExt(GrChipID_t tmu, gfxTCCUColor_t a, gfxCombineMode_t a_mode, gfxTCCUColor_t b, gfxCombineMode_t b_mode, gfxTCCUColor_t c, FxBool c_invert, gfxTCCUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
+void gfxTexAlphaCombineExt(GrChipID_t tmu, gfxTACUColor_t a, gfxCombineMode_t a_mode, gfxTACUColor_t b, gfxCombineMode_t b_mode, gfxTACUColor_t c, FxBool c_invert, gfxTACUColor_t d, FxBool d_invert, FxU32 shift, FxBool invert);
 void gfxConstantColorValueExt(GrChipID_t tmu, GrColor_t value);
