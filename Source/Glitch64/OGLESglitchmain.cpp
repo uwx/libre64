@@ -498,7 +498,7 @@ FX_ENTRY void FX_CALL grTextureBufferExt(GrChipID_t  		tmu,
         pBufferFmt = fmt;
 
         int rtmu = startAddress < grTexMinAddress(GR_TMU1) ? 0 : 1;
-        int size = pBufferWidth*pBufferHeight * 2; //grTexFormatSize(fmt);
+        int size = pBufferWidth*pBufferHeight * 2;
         if ((unsigned int)tmu_usage[rtmu].min > pBufferAddress)
             tmu_usage[rtmu].min = pBufferAddress;
         if ((unsigned int)tmu_usage[rtmu].max < pBufferAddress + size)
@@ -604,7 +604,7 @@ FX_ENTRY void FX_CALL grTextureBufferExt(GrChipID_t  		tmu,
             }
         }
 
-        remove_tex(pBufferAddress, pBufferAddress + g_width*g_height * 2/*grTexFormatSize(fmt)*/);
+        remove_tex(pBufferAddress, pBufferAddress + g_width*g_height * 2);
         //create new FBO
         glGenFramebuffers(1, &(fbs[nb_fb].fbid));
         glGenRenderbuffers(1, &(fbs[nb_fb].zbid));

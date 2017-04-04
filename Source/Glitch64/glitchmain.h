@@ -4,10 +4,6 @@
 
 #define zscale 1.0f
 
-// VP added this utility function
-// returns the bytes per pixel of a given GR texture format
-int grTexFormatSize(int fmt);
-
 extern int packed_pixels_support;
 extern float largest_supported_anisotropy;
 
@@ -17,10 +13,7 @@ void set_depth_shader();
 extern float invtex[2];
 extern int buffer_cleared; // mark that the buffer has been cleared, used to check if we need to reload the texture buffer content
 
-#ifdef _WIN32
-#include <windows.h>
-typedef const char * (WINAPI * PFNWGLGETEXTENSIONSSTRINGARBPROC)(HDC hdc);
-#else
+#ifndef _WIN32
 #include <stdio.h>
 #endif
 
@@ -39,11 +32,14 @@ void vbo_enable();
 void vbo_disable();
 
 //Vertex Attribute Locations
-#define POSITION_ATTR 0
-#define COLOUR_ATTR 1
-#define TEXCOORD_0_ATTR 2
-#define TEXCOORD_1_ATTR 3
-#define FOG_ATTR 4
+enum VERTEX_ATTRIBUTE_LOCATIONS
+{
+    POSITION_ATTR = 0,
+    COLOUR_ATTR = 1,
+    TEXCOORD_0_ATTR = 2,
+    TEXCOORD_1_ATTR = 3,
+    FOG_ATTR = 4,
+};
 
 extern int w_buffer_mode;
 extern int g_width, g_height, widtho, heighto;
@@ -69,8 +65,6 @@ void set_lambda();
 void set_copy_shader();
 void disable_textureSizes();
 void ExitFullScreen();
-
-void grConfigWrapperExt(FxI32, FxBool, FxBool);
 
 typedef uint32_t gfxCCUColor_t;
 typedef uint32_t gfxACUColor_t;

@@ -270,50 +270,6 @@ grTexCalcMemRequired(
     return 0;
 }
 
-int grTexFormatSize(int fmt)
-{
-    int factor = -1;
-    switch (fmt) {
-    case GR_TEXFMT_ALPHA_8:
-    case GR_TEXFMT_INTENSITY_8: // I8 support - H.Morii
-        factor = 1;
-        break;
-    case GR_TEXFMT_ALPHA_INTENSITY_44:
-        factor = 1;
-        break;
-    case GR_TEXFMT_RGB_565:
-        factor = 2;
-        break;
-    case GR_TEXFMT_ARGB_1555:
-        factor = 2;
-        break;
-    case GR_TEXFMT_ALPHA_INTENSITY_88:
-        factor = 2;
-        break;
-    case GR_TEXFMT_ARGB_4444:
-        factor = 2;
-        break;
-    case GR_TEXFMT_ARGB_8888:
-        factor = 4;
-        break;
-    case GR_TEXFMT_ARGB_CMP_DXT1:  // FXT1,DXT1,5 support - H.Morii
-        factor = 8;                  // HACKALERT: factor holds block bytes
-        break;
-    case GR_TEXFMT_ARGB_CMP_DXT3:  // FXT1,DXT1,5 support - H.Morii
-        factor = 16;                  // HACKALERT: factor holds block bytes
-        break;
-    case GR_TEXFMT_ARGB_CMP_DXT5:
-        factor = 16;
-        break;
-    case GR_TEXFMT_ARGB_CMP_FXT1:
-        factor = 8;
-        break;
-    default:
-        WriteTrace(TraceGlitch, TraceWarning, "grTexFormatSize : unknown texture format: %x", fmt);
-    }
-    return factor;
-}
-
 int grTexFormat2GLPackedFmt(int fmt, int * gltexfmt, int * glpixfmt, int * glpackfmt)
 {
     *gltexfmt = GL_RGBA;
