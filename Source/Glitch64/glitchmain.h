@@ -86,23 +86,11 @@ void ExitFullScreen();
 // config functions
 
 void grConfigWrapperExt(FxI32, FxBool, FxBool);
-uint32_t grWrapperFullScreenResolutionExt(uint32_t * width, uint32_t * height);
-char ** grQueryResolutionsExt(int32_t*);
-
-// ZIGGY framebuffer copy extension
-// allow to copy the depth or color buffer from back/front to front/back
-#define GR_FBCOPY_MODE_DEPTH 0
-#define GR_FBCOPY_MODE_COLOR 1
-#define GR_FBCOPY_BUFFER_BACK 0
-#define GR_FBCOPY_BUFFER_FRONT 1
-
-// COMBINE extension
 
 typedef uint32_t gfxCCUColor_t;
 typedef uint32_t gfxACUColor_t;
 typedef uint32_t gfxTCCUColor_t;
 typedef uint32_t gfxTACUColor_t;
-
 typedef uint32_t gfxCombineMode_t;
 
 enum GFX_FUNC

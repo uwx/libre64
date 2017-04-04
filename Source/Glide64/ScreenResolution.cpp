@@ -147,13 +147,32 @@ uint32_t GetScreenResHeight(uint32_t index)
 class FullScreenResolutions
 {
 public:
-    FullScreenResolutions() : 
+    FullScreenResolutions() :
         m_dwNumResolutions(0),
-        m_aResolutions(0), 
+        m_aResolutions(0),
         m_aResolutionsStr(0)
     {
     }
     ~FullScreenResolutions();
+
+    uint32_t getCount()
+    {
+        if (m_dwNumResolutions == 0)
+        {
+            init();
+        }
+        return m_dwNumResolutions;
+    }
+
+    const char * getName(uint32_t index)
+    {
+        if (index >= m_dwNumResolutions)
+        {
+            WriteTrace(TraceGlitch, TraceError, "NumResolutions = %d", m_dwNumResolutions);
+            return "-";
+        }
+        return m_aResolutionsStr[index];
+    }
 
     void getResolution(uint32_t _idx, uint32_t * _width, uint32_t * _height, uint32_t * _frequency = 0)
     {
@@ -321,17 +340,12 @@ int GetCurrentResIndex(void)
     return g_FullScreenResolutions.getCurrentResolutions();
 }
 
-#ifndef ANDROID
-char ** grQueryResolutionsExt(int32_t * Size)
+uint32_t GetFullScreenScreenResolutionCount()
 {
-    WriteTrace(TraceGlitch, TraceDebug, "-");
-    return g_FullScreenResolutions.getResolutionsList(Size);
+    return g_FullScreenResolutions.getCount();
 }
 
-uint32_t grWrapperFullScreenResolutionExt(uint32_t * width, uint32_t * height)
+const char * GetFullScreenScreenResolutionName(uint32_t index)
 {
-    WriteTrace(TraceGlitch, TraceDebug, "-");
-    g_FullScreenResolutions.getResolution(g_settings->FullScreenRes(), width, height);
-    return g_settings->FullScreenRes();
+    return g_FullScreenResolutions.getName(index);
 }
-#endif

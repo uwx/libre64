@@ -297,16 +297,12 @@ public:
         m_cbxTextureSettings.SetCheck(g_settings->texenh_options() ? BST_CHECKED : BST_UNCHECKED);
 
         m_cmbFSResolution.Attach(GetDlgItem(IDC_CMB_FS_RESOLUTION));
-        int32_t size = 0;
-        char ** aRes = grQueryResolutionsExt(&size);
-        if (aRes && size)
+        int32_t size = GetFullScreenScreenResolutionCount();
+        for (int r = 0; r < size; r++)
         {
-            for (int r = 0; r < size; r++)
-            {
-                m_cmbFSResolution.AddString(aRes[r]);
-            }
-            m_cmbFSResolution.SetCurSel(g_settings->FullScreenRes() < size ? g_settings->FullScreenRes() : 0);
+            m_cmbFSResolution.AddString(GetFullScreenScreenResolutionName(r));
         }
+        m_cmbFSResolution.SetCurSel(g_settings->FullScreenRes() < size ? g_settings->FullScreenRes() : 0);
         TTSetTxt(IDC_CMB_FS_RESOLUTION, "Full screen resolution:\n\nThis sets the full screen resolution.\nAll the resolutions that your video card / monitor support should be displayed.\n\n[Recommended:native(max) resolution of your monitor - unless performance becomes an issue]");
 
         m_cbxAnisotropic.Attach(GetDlgItem(IDC_CBXANISOTROPIC));
