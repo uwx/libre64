@@ -43,8 +43,8 @@
 #include "g3ext.h"
 #include "glitchmain.h"
 #include <Glide64/trace.h>
+#include <Glide64/Settings.h>
 
-wrapper_config config = { 0, 0, 0 };
 int screen_width, screen_height;
 
 void Android_JNI_SwapWindow(void);
@@ -65,7 +65,6 @@ int g_width, widtho, heighto, g_height;
 int saved_width, saved_height;
 int blend_func_separate_support;
 int npot_support;
-int fog_coord_support;
 int render_to_texture = 0;
 int texture_unit;
 int use_fbo;
@@ -76,8 +75,7 @@ int free_texture;
 int default_texture; // the infamous "32*1024*1024" is now configurable
 int current_texture;
 int depth_texture, color_texture;
-int glsl_support = 1;
-int viewport_width, viewport_height, g_viewport_offset = 0, nvidia_viewport_hack = 0;
+int viewport_width, viewport_height, g_viewport_offset = 0;
 int save_w, save_h;
 int lfb_color_fmt;
 float invtex[2];
@@ -279,10 +277,6 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOrigin
 #endif
     WriteTrace(TraceGlitch, TraceDebug, "g_width: %d, g_height: %d fullscreen: %d", g_width, g_height, fullscreen);
 
-    //g_viewport_offset = ((screen_resolution>>2) > 20) ? screen_resolution >> 2 : 20;
-    // ZIGGY g_viewport_offset is WIN32 specific, with SDL just set it to zero
-    g_viewport_offset = 0; //-10 //-20;
-
     printf("(II) Setting video mode %dx%d...\n", g_width, g_height);
 
     glViewport(0, g_viewport_offset, g_width, g_height);
@@ -313,12 +307,7 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOrigin
         npot_support = 1;
     }
 
-    if (isExtensionSupported("GL_EXT_fog_coord") == 0)
-        fog_coord_support = 0;
-    else
-        fog_coord_support = 1;
-
-    use_fbo = config.fbo;
+    use_fbo = g_settings->wrpFBO();
 
     if (isExtensionSupported("GL_EXT_texture_compression_s3tc") == 0 && show_warning)
         WriteTrace(TraceGlitch, TraceWarning, "Your video card doesn't support GL_EXT_texture_compression_s3tc extension");
@@ -328,9 +317,6 @@ FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOrigin
     glViewport(0, g_viewport_offset, g_width, g_height);
     viewport_width = g_width;
     viewport_height = g_height;
-#ifdef _WIN32
-    nvidia_viewport_hack = 1;
-#endif // _WIN32
 
     widtho = g_width / 2;
     heighto = g_height / 2;
@@ -1303,12 +1289,3 @@ grLfbWriteRegion(GrBuffer_t dst_buffer,
     }
     return FXTRUE;
 }
-
-/* wrapper-specific glide extensions */
-void grConfigWrapperExt(FxI32 vram, FxBool fbo, FxBool aniso)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "-");
-    config.vram_size = vram;
-    config.fbo = fbo;
-    config.anisofilter = aniso;
-    }

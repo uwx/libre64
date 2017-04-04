@@ -271,11 +271,6 @@ grDrawTriangle(const void *a, const void *b, const void *c)
 {
     WriteTrace(TraceGlitch, TraceDebug, "start");
     vbo_enable();
-    if (nvidia_viewport_hack && !render_to_texture)
-    {
-        glViewport(0, g_viewport_offset, viewport_width, viewport_height);
-        nvidia_viewport_hack = 0;
-    }
 
     reloadTexture();
 
@@ -305,12 +300,6 @@ grDrawVertexArray(FxU32 mode, FxU32 Count, void *pointers2)
     void **pointers = (void**)pointers2;
     WriteTrace(TraceGlitch, TraceDebug, "grDrawVertexArray(%d,%d)\r\n", mode, Count);
 
-    if (nvidia_viewport_hack && !render_to_texture)
-    {
-        glViewport(0, g_viewport_offset, viewport_width, viewport_height);
-        nvidia_viewport_hack = 0;
-    }
-
     reloadTexture();
 
     if (need_to_compile) compile_shader();
@@ -328,12 +317,6 @@ FX_ENTRY void FX_CALL
 grDrawVertexArrayContiguous(FxU32 mode, FxU32 Count, void *pointers, FxU32 stride)
 {
     WriteTrace(TraceGlitch, TraceDebug, "grDrawVertexArrayContiguous(%d,%d,%d)\r\n", mode, Count, stride);
-
-    if (nvidia_viewport_hack && !render_to_texture)
-    {
-        glViewport(0, g_viewport_offset, viewport_width, viewport_height);
-        nvidia_viewport_hack = 0;
-    }
 
     if (stride != 156)
     {

@@ -194,11 +194,6 @@ void ChangeSize()
     }
 }
 
-void ConfigWrapper()
-{
-    grConfigWrapperExt(g_settings->wrpVRAM() * 1024 * 1024, g_settings->wrpFBO(), g_settings->wrpAnisotropic());
-}
-
 extern int g_width, g_height;
 
 // guLoadTextures - used to load the cursor and font textures
@@ -819,7 +814,6 @@ int CALL InitiateGFX(GFX_INFO Gfx_Info)
     char name[21] = "DEFAULT";
     g_settings->ReadGameSettings(name);
     ZLUT_init();
-    ConfigWrapper();
 
     gfx = Gfx_Info;
 
@@ -833,8 +827,6 @@ int CALL InitiateGFX(GFX_INFO Gfx_Info)
     CRC_BuildTable();
     CountCombine();
     ZLUT_init();
-
-    grConfigWrapperExt(g_settings->wrpVRAM() * 1024 * 1024, g_settings->wrpFBO(), g_settings->wrpAnisotropic());
     return TRUE;
 }
 

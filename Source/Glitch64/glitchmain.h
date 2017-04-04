@@ -4,14 +4,6 @@
 
 #define zscale 1.0f
 
-typedef struct _wrapper_config
-{
-    int fbo;
-    int anisofilter;
-    int vram_size;
-} wrapper_config;
-extern wrapper_config config;
-
 // VP added this utility function
 // returns the bytes per pixel of a given GR texture format
 int grTexFormatSize(int fmt);
@@ -57,8 +49,6 @@ extern int w_buffer_mode;
 extern int g_width, g_height, widtho, heighto;
 extern int tex0_width, tex0_height, tex1_width, tex1_height;
 extern float lambda;
-extern int need_lambda[2];
-extern float lambda_color[2][4];
 extern int inverted_culling;
 extern int culling_mode;
 extern int render_to_texture;
@@ -66,13 +56,10 @@ extern int lfb_color_fmt;
 extern int need_to_compile;
 extern int blackandwhite0;
 extern int blackandwhite1;
-extern int TMU_SIZE;
 
 extern int blend_func_separate_support;
-extern int fog_coord_support;
-extern int glsl_support;
 extern unsigned int pBufferAddress;
-extern int viewport_width, viewport_height, g_viewport_offset, nvidia_viewport_hack;
+extern int viewport_width, viewport_height, g_viewport_offset;
 
 void updateTexture();
 void reloadTexture();
@@ -82,8 +69,6 @@ void set_lambda();
 void set_copy_shader();
 void disable_textureSizes();
 void ExitFullScreen();
-
-// config functions
 
 void grConfigWrapperExt(FxI32, FxBool, FxBool);
 

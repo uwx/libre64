@@ -55,7 +55,6 @@ float fogStart, fogEnd;
 float fogColor[4];
 
 int need_lambda[2];
-float lambda_color[2][4];
 
 // shaders variables
 int need_to_compile;
@@ -631,14 +630,6 @@ void free_combiners()
     for (int i = 0; i < (sizeof(fogColor) / sizeof(fogColor[0])); i++)
     {
         fogColor[i] = 0.0f;
-    }
-    memset(need_lambda, 0, sizeof(need_lambda));
-    for (int i = 0; i < (sizeof(lambda_color) / sizeof(lambda_color[0])); i++)
-    {
-        for (int z = 0; z < (sizeof(lambda_color[i]) / sizeof(lambda_color[i][0])); z++)
-        {
-            lambda_color[i][z] = 0.0f;
-        }
     }
     need_to_compile = 0;
 
