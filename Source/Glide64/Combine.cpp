@@ -44,6 +44,7 @@
 #include "trace.h"
 #include <Glide64/trace.h>
 #include <Glitch64/glitchmain.h>
+#include <Glitch64/OGLEScombiner.h>
 
 #define FASTSEARCH  // Enable fast combine mode searching algorithm
 
@@ -15685,7 +15686,7 @@ void Combine()
                 ;
             else
             {
-                grChromakeyValue(0);
+                gfxChromakeyValue(0);
                 grChromakeyMode(GR_CHROMAKEY_ENABLE);
             }
         }

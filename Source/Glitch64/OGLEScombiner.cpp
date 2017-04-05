@@ -1644,8 +1644,7 @@ grChromakeyMode(GrChromakeyMode_t mode)
     need_to_compile = 1;
 }
 
-FX_ENTRY void FX_CALL
-grChromakeyValue(GrColor_t value)
+void gfxChromakeyValue(gfxColor_t value)
 {
     WriteTrace(TraceResolution, TraceDebug, "value: %d", value);
     int chroma_color_location;
@@ -1665,12 +1664,11 @@ grChromakeyValue(GrColor_t value)
         g_chroma_color[3] = 1.0;//(value & 0xFF) / 255.0f;
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grChromakeyValue: unknown color format : %x", lfb_color_fmt);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxChromakeyValue: unknown color format : %x", lfb_color_fmt);
     }
     vbo_draw();
     chroma_color_location = glGetUniformLocation(g_program_object_default, "chroma_color");
-    glUniform4f(chroma_color_location, g_chroma_color[0], g_chroma_color[1],
-        g_chroma_color[2], g_chroma_color[3]);
+    glUniform4f(chroma_color_location, g_chroma_color[0], g_chroma_color[1], g_chroma_color[2], g_chroma_color[3]);
 }
 
 void setPattern()
