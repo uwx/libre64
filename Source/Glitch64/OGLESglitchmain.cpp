@@ -943,7 +943,6 @@ grAuxBufferExt(GrBuffer_t buffer)
         invtex[0] = 0;
         invtex[1] = 0;
         need_to_compile = 0;
-        set_depth_shader();
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_ALWAYS);

@@ -94,7 +94,7 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
     grTexClampMode(tmu,
         GR_TEXTURECLAMP_CLAMP,
         GR_TEXTURECLAMP_CLAMP);
-    //  grConstantColorValue (0xFFFFFFFF);
+    //  gfxConstantColorValue (0xFFFFFFFF);
     gfxColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
@@ -445,7 +445,7 @@ static void DrawDepthBufferToScreen256(FB_TO_SCREEN_INFO & fb_info)
     t_info.data = tex;
     uint32_t tex_size = grTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, &t_info);
     int tmu = SetupFBtoScreenCombiner(tex_size*width256*height256, fb_info.opaque);
-    grConstantColorValue(rdp.fog_color);
+    gfxConstantColorValue(rdp.fog_color);
     gfxColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
@@ -515,7 +515,7 @@ static void DrawHiresDepthBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
     t_info.format = GR_TEXFMT_ALPHA_INTENSITY_88;
     t_info.smallLodLog2 = t_info.largeLodLog2 = LOD;
     t_info.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
-    grConstantColorValue(rdp.fog_color);
+    gfxConstantColorValue(rdp.fog_color);
     gfxColorCombine(GR_COMBINE_FUNCTION_LOCAL,
         GR_COMBINE_FACTOR_NONE,
         GR_COMBINE_LOCAL_CONSTANT,
@@ -622,7 +622,7 @@ void DrawDepthBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
     t_info.data = tex;
 
     int tmu = SetupFBtoScreenCombiner(grTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, &t_info), fb_info.opaque);
-    grConstantColorValue(rdp.fog_color);
+    gfxConstantColorValue(rdp.fog_color);
     gfxColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,

@@ -9,7 +9,6 @@ extern float largest_supported_anisotropy;
 
 extern int default_texture; // the infamous "32*1024*1024" is now configurable
 extern int depth_texture;
-void set_depth_shader();
 extern float invtex[2];
 extern int buffer_cleared; // mark that the buffer has been cleared, used to check if we need to reload the texture buffer content
 

@@ -664,18 +664,13 @@ void set_copy_shader()
     }
 }
 
-void set_depth_shader()
-{
-}
-
 void set_lambda()
 {
     int lambda_location = glGetUniformLocation(g_program_object_default, "lambda");
     glUniform1f(lambda_location, lambda);
 }
 
-FX_ENTRY void FX_CALL
-grConstantColorValue(GrColor_t value)
+void gfxConstantColorValue(gfxColor_t value)
 {
     WriteTrace(TraceResolution, TraceDebug, "value: %d", value);
     switch (lfb_color_fmt)
@@ -873,43 +868,6 @@ void gfxColorCombine(gfxCombineFunction_t function, gfxCombineFactor_t factor, g
     //compile_shader();
     need_to_compile = 1;
 }
-
-/*
-int setOtherAlphaSource(int other)
-{
-switch(other)
-{
-case GR_COMBINE_OTHER_ITERATED:
-return GL_PRIMARY_COLOR_ARB;
-break;
-case GR_COMBINE_OTHER_TEXTURE:
-return GL_PREVIOUS_ARB;
-break;
-case GR_COMBINE_OTHER_CONSTANT:
-return GL_CONSTANT_ARB;
-break;
-default:
-WriteTrace(TraceGlitch, TraceWarning, "unknwown other alpha source : %x", other);
-}
-return 0;
-}
-
-int setLocalAlphaSource(int local)
-{
-switch(local)
-{
-case GR_COMBINE_LOCAL_ITERATED:
-return GL_PRIMARY_COLOR_ARB;
-break;
-case GR_COMBINE_LOCAL_CONSTANT:
-return GL_CONSTANT_ARB;
-break;
-default:
-WriteTrace(TraceGlitch, TraceWarning, "unknwown local alpha source : %x", local);
-}
-return 0;
-}
-*/
 
 void writeGLSLAlphaOther(int other)
 {

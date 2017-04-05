@@ -968,7 +968,7 @@ EXPORT void CALL ProcessDList(void)
             to_fullscreen = TRUE;
         }
         return;
-        }
+    }
 #endif
 
     if (g_settings->fb_emulation_enabled())
@@ -997,7 +997,7 @@ EXPORT void CALL ProcessDList(void)
         CI_SET = FALSE;
     }
     WriteTrace(TraceRDP, TraceDebug, "ProcessDList end");
-    }
+}
 
 // undef - undefined instruction, always ignore
 void undef()
@@ -2562,7 +2562,7 @@ void rdp_fillrect()
                 ((uint32_t)((float)((color & 0x003E) >> 1) / 31.0f * 255.0f) << 8);
         }
 
-        grConstantColorValue(color);
+        gfxConstantColorValue(color);
 
         gfxColorCombine(GR_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
@@ -2607,7 +2607,7 @@ void rdp_fillrect()
                 GR_COMBINE_LOCAL_CONSTANT,
                 GR_COMBINE_OTHER_NONE,
                 FXFALSE);
-            grConstantColorValue((cmb.ccolor & 0xFFFFFF00) | (rdp.fog_color & 0xFF));
+            gfxConstantColorValue((cmb.ccolor & 0xFFFFFF00) | (rdp.fog_color & 0xFF));
             rdp.update |= UPDATE_COMBINE;
         }
     }
@@ -3233,7 +3233,7 @@ void SetWireframeCol()
             GR_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
-        grConstantColorValue(0xFF0000FF);
+        gfxConstantColorValue(0xFF0000FF);
         grAlphaBlendFunction(GR_BLEND_ONE,
             GR_BLEND_ZERO,
             GR_BLEND_ZERO,
