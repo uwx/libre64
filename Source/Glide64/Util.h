@@ -37,8 +37,7 @@
 //
 //****************************************************************
 
-#ifndef Util_H
-#define Util_H
+#pragma once
 
 #define NOT_TMU0	0x00
 #define NOT_TMU1	0x01
@@ -55,7 +54,7 @@ void apply_shade_mods(VERTEX *v);
 void update();
 void update_scissor();
 
-void set_message_combiner();
+void set_message_combiner(void);
 
 float ScaleZ(float z);
 
@@ -95,8 +94,8 @@ float ScaleZ(float z);
 static inline uint32_t bswap32(uint32_t val)
 {
     return (((val & 0xff000000) >> 24) |
-        ((val & 0x00ff0000) >>  8) |
-        ((val & 0x0000ff00) <<  8) |
+        ((val & 0x00ff0000) >> 8) |
+        ((val & 0x0000ff00) << 8) |
         ((val & 0x000000ff) << 24));
 }
 #endif
@@ -136,5 +135,3 @@ template<class T> static T __ROL__(T value, unsigned int count)
     value |= high;
     return value;
 }
-
-#endif  // ifndef Util_H

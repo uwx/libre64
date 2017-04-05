@@ -48,6 +48,7 @@
 #include "TexCache.h"
 #include "DepthBufferRender.h"
 #include <Glide64/trace.h>
+#include <Glitch64/OGLEScombiner.h>
 
 VERTEX *vtx_list1[32];  // vertex indexing
 VERTEX *vtx_list2[32];
@@ -2044,9 +2045,9 @@ void update()
     WriteTrace(TraceRDP, TraceDebug, " + update end");
 }
 
-void set_message_combiner()
+void set_message_combiner(void)
 {
-    grColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
+    gfxColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_TEXTURE,

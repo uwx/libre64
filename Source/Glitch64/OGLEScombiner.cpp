@@ -33,6 +33,7 @@
 #include <Glide64/Settings.h>
 #include <Glide64/Gfx_1.3.h>
 #include <vector>
+#include "OGLEScombiner.h"
 
 void vbo_draw();
 
@@ -783,11 +784,7 @@ void writeGLSLColorFactor(int factor, int local, int need_local, int other, int 
     }
 }
 
-FX_ENTRY void FX_CALL
-grColorCombine(
-    GrCombineFunction_t function, GrCombineFactor_t factor,
-    GrCombineLocal_t local, GrCombineOther_t other,
-    FxBool invert)
+void gfxColorCombine(gfxCombineFunction_t function, gfxCombineFactor_t factor, gfxCombineLocal_t local, gfxCombineOther_t other, bool invert)
 {
     WriteTrace(TraceResolution, TraceDebug, "function: %d factor: %d local: %d other: %d invert: %d", function, factor, local, other, invert);
     static int last_function = 0;
@@ -805,7 +802,7 @@ grColorCombine(
     last_local = local;
     last_other = other;
 
-    if (invert) WriteTrace(TraceGlitch, TraceWarning, "grColorCombine : inverted result");
+    if (invert) WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombine : inverted result");
 
     color_combiner_key = function | (factor << 4) | (local << 8) | (other << 10);
     chroma_other_color = other;
@@ -871,7 +868,7 @@ grColorCombine(
         break;
     default:
         strcpy(fragment_shader_color_combiner, g_fragment_shader_default);
-        WriteTrace(TraceGlitch, TraceWarning, "grColorCombine : unknown function : %x", function);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxColorCombine : unknown function : %x", function);
     }
     //compile_shader();
     need_to_compile = 1;

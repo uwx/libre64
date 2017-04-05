@@ -47,6 +47,7 @@
 #include "TexBuffer.h"
 #include "CRC.h"
 #include <Glide64/trace.h>
+#include <Glitch64/OGLEScombiner.h>
 
 static TBUFF_COLOR_IMAGE * AllocateTextureBuffer(COLOR_IMAGE & cimage)
 {
@@ -355,7 +356,7 @@ int OpenTextureBuffer(COLOR_IMAGE & cimage)
 
 static GrTextureFormat_t TexBufSetupCombiner(int force_rgb = FALSE)
 {
-    grColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
+    gfxColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_TEXTURE,

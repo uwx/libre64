@@ -46,5 +46,8 @@
     <ClInclude Include="OGLESwrappers.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="OGLEScombiner.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

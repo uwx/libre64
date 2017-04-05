@@ -53,6 +53,7 @@
 #include "trace.h"
 #include "SettingsID.h"
 #include "turbo3D.h"
+#include <Glitch64/OGLEScombiner.h>
 
 #ifdef _WIN32
 #include <Common/CriticalSection.h>
@@ -967,7 +968,7 @@ EXPORT void CALL ProcessDList(void)
             to_fullscreen = TRUE;
         }
         return;
-    }
+        }
 #endif
 
     if (g_settings->fb_emulation_enabled())
@@ -996,7 +997,7 @@ EXPORT void CALL ProcessDList(void)
         CI_SET = FALSE;
     }
     WriteTrace(TraceRDP, TraceDebug, "ProcessDList end");
-}
+    }
 
 // undef - undefined instruction, always ignore
 void undef()
@@ -2563,7 +2564,7 @@ void rdp_fillrect()
 
         grConstantColorValue(color);
 
-        grColorCombine(GR_COMBINE_FUNCTION_LOCAL,
+        gfxColorCombine(GR_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
@@ -3194,7 +3195,7 @@ void SetWireframeCol()
     {
         //case CSettings::wfmode_NormalColors: // normal colors, don't do anything
     case CSettings::wfmode_VertexColors:
-        grColorCombine(GR_COMBINE_FUNCTION_LOCAL,
+        gfxColorCombine(GR_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_LOCAL_ITERATED,
             GR_COMBINE_OTHER_NONE,
@@ -3222,7 +3223,7 @@ void SetWireframeCol()
             FXFALSE, FXFALSE);
         break;
     case CSettings::wfmode_RedOnly:
-        grColorCombine(GR_COMBINE_FUNCTION_LOCAL,
+        gfxColorCombine(GR_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
