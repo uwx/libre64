@@ -59,6 +59,7 @@
 #include "DepthBufferRender.h"
 #include "trace.h"
 #include "ScreenResolution.h"
+#include <Glitch64/OGLEScombiner.h>
 
 #ifdef _WIN32
 #include <commctrl.h>
@@ -450,18 +451,7 @@ int InitGfx()
 
     if (g_settings->fog())
     {
-        GrFog_t fog_t[64];
-        guFogGenerateLinear(fog_t, 0.0f, 255.0f);
-
-        for (int i = 63; i > 0; i--)
-        {
-            if (fog_t[i] - fog_t[i - 1] > 63)
-            {
-                fog_t[i - 1] = fog_t[i] - 63;
-            }
-        }
-        fog_t[0] = 0;
-        grFogTable(fog_t);
+        gfxFogGenerateLinear(0.0f, 255.0f);
     }
 
     grDepthBufferMode(GR_DEPTHBUFFER_ZBUFFER);

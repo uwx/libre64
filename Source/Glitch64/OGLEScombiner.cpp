@@ -1577,25 +1577,12 @@ guFogTableIndexToW(int i)
     return (float)(pow(2.0, 3.0 + (double)(i >> 2)) / (8 - (i & 3)));
 }
 
-FX_ENTRY void FX_CALL
-guFogGenerateLinear(GrFog_t *fogtable,
-    float nearZ, float farZ)
+void gfxFogGenerateLinear(float nearZ, float farZ)
 {
     WriteTrace(TraceResolution, TraceDebug, "nearZ: %f farZ: %f", nearZ, farZ);
-    /*
-      glFogi(GL_FOG_MODE, GL_LINEAR);
-      glFogi(GL_FOG_COORDINATE_SOURCE_EXT, GL_FOG_COORDINATE_EXT);
-      glFogf(GL_FOG_START, nearZ / 255.0f);
-      glFogf(GL_FOG_END, farZ / 255.0f);
-      */
+
     fogStart = nearZ / 255.0f;
     fogEnd = farZ / 255.0f;
-}
-
-FX_ENTRY void FX_CALL
-grFogTable(const GrFog_t /*ft */[])
-{
-    WriteTrace(TraceResolution, TraceDebug, "-");
 }
 
 void gfxFogColorValue(gfxColor_t fogcolor)
