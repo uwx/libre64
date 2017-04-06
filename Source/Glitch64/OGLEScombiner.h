@@ -7,7 +7,9 @@ typedef int32_t gfxCombineFactor_t;
 typedef int32_t gfxCombineLocal_t;
 typedef int32_t gfxCombineOther_t;
 typedef int32_t gfxStippleMode_t;
+typedef int32_t gfxChromakeyMode_t;
 
+void gfxChromakeyMode(gfxChromakeyMode_t mode);
 void gfxChromakeyValue(gfxColor_t value);
 void gfxStippleMode(gfxStippleMode_t mode);
 void gfxColorCombine(gfxCombineFunction_t function, gfxCombineFactor_t factor, gfxCombineLocal_t local, gfxCombineOther_t other, bool invert);
