@@ -1598,8 +1598,7 @@ grFogTable(const GrFog_t /*ft */[])
     WriteTrace(TraceResolution, TraceDebug, "-");
 }
 
-FX_ENTRY void FX_CALL
-grFogColorValue(GrColor_t fogcolor)
+void gfxFogColorValue(gfxColor_t fogcolor)
 {
     WriteTrace(TraceResolution, TraceDebug, "fogcolor: %x", fogcolor);
 
@@ -1618,7 +1617,7 @@ grFogColorValue(GrColor_t fogcolor)
         fogColor[3] = (fogcolor & 0xFF) / 255.0f;
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grFogColorValue: unknown color format : %x", lfb_color_fmt);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxFogColorValue: unknown color format : %x", lfb_color_fmt);
     }
 
     //glFogfv(GL_FOG_COLOR, color);
