@@ -1982,7 +1982,7 @@ void update()
             if ((rdp.fog_multiplier > 0) && (bl.c1_m1a == 3 || bl.c1_m2a == 3 || bl.c2_m1a == 3 || bl.c2_m2a == 3))
             {
                 gfxFogColorValue(rdp.fog_color);
-                grFogMode(GR_FOG_WITH_TABLE_ON_FOGCOORD_EXT);
+                gfxFogMode(GR_FOG_WITH_TABLE_ON_FOGCOORD_EXT);
                 rdp.fog_mode = CRDP::fog_enabled;
                 WriteTrace(TraceRDP, TraceDebug, "fog enabled ");
             }
@@ -1990,20 +1990,20 @@ void update()
             {
                 WriteTrace(TraceRDP, TraceDebug, "fog disabled in blender");
                 rdp.fog_mode = CRDP::fog_disabled;
-                grFogMode(GR_FOG_DISABLE);
+                gfxFogMode(GR_FOG_DISABLE);
             }
         }
         else if (blender == 0xc410 || blender == 0xc411 || blender == 0xf500)
         {
             gfxFogColorValue(rdp.fog_color);
-            grFogMode(GR_FOG_WITH_TABLE_ON_FOGCOORD_EXT);
+            gfxFogMode(GR_FOG_WITH_TABLE_ON_FOGCOORD_EXT);
             rdp.fog_mode = CRDP::fog_blend;
             WriteTrace(TraceRDP, TraceDebug, "fog blend ");
         }
         else if (blender == 0x04d1)
         {
             gfxFogColorValue(rdp.fog_color);
-            grFogMode(GR_FOG_WITH_TABLE_ON_FOGCOORD_EXT);
+            gfxFogMode(GR_FOG_WITH_TABLE_ON_FOGCOORD_EXT);
             rdp.fog_mode = CRDP::fog_blend_inverse;
             WriteTrace(TraceRDP, TraceDebug, "fog blend ");
         }
@@ -2011,7 +2011,7 @@ void update()
         {
             WriteTrace(TraceRDP, TraceDebug, "fog disabled");
             rdp.fog_mode = CRDP::fog_disabled;
-            grFogMode(GR_FOG_DISABLE);
+            gfxFogMode(GR_FOG_DISABLE);
         }
     }
 
@@ -2080,5 +2080,5 @@ void set_message_combiner(void)
         voodoo.tex_min_addr[GR_TMU0] + offset_font,
         GR_MIPMAPLEVELMASK_BOTH,
         &fontTex);
-    grFogMode(GR_FOG_DISABLE);
+    gfxFogMode(GR_FOG_DISABLE);
 }

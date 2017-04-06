@@ -1544,8 +1544,7 @@ grAlphaTestFunction(GrCmpFnc_t function)
 
 // fog
 
-FX_ENTRY void FX_CALL
-grFogMode(GrFogMode_t mode)
+void gfxFogMode(GfxFogMode_t mode)
 {
     WriteTrace(TraceResolution, TraceDebug, "mode: %d", mode);
     switch (mode)
@@ -1565,16 +1564,9 @@ grFogMode(GrFogMode_t mode)
         g_fog_enabled = 2;
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grFogMode : unknown mode : %x", mode);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxFogMode : unknown mode : %x", mode);
     }
     need_to_compile = 1;
-}
-
-FX_ENTRY float FX_CALL
-guFogTableIndexToW(int i)
-{
-    WriteTrace(TraceResolution, TraceDebug, "i: %d", i);
-    return (float)(pow(2.0, 3.0 + (double)(i >> 2)) / (8 - (i & 3)));
 }
 
 void gfxFogGenerateLinear(float nearZ, float farZ)

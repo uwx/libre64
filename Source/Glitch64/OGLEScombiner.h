@@ -8,7 +8,9 @@ typedef int32_t gfxCombineLocal_t;
 typedef int32_t gfxCombineOther_t;
 typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
+typedef int32_t GfxFogMode_t;
 
+void gfxFogMode(GfxFogMode_t mode);
 void gfxFogGenerateLinear(float nearZ, float farZ);
 void gfxFogColorValue(gfxColor_t fogcolor);
 void gfxChromakeyMode(gfxChromakeyMode_t mode);
