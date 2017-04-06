@@ -1,6 +1,7 @@
 #pragma once
 #include <Common/stdtypes.h>
 
+typedef int32_t gfxAlphaBlendFnc_t;
 typedef uint8_t gfxAlpha_t;
 typedef int32_t gfxCmpFnc_t;
 typedef uint32_t gfxColor_t;
@@ -12,6 +13,7 @@ typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
 typedef int32_t GfxFogMode_t;
 
+void gfxAlphaBlendFunction(gfxAlphaBlendFnc_t rgb_sf, gfxAlphaBlendFnc_t rgb_df, gfxAlphaBlendFnc_t alpha_sf, gfxAlphaBlendFnc_t alpha_df);
 void gfxAlphaTestReferenceValue(gfxAlpha_t value);
 void gfxAlphaTestFunction(gfxCmpFnc_t function);
 void gfxFogMode(GfxFogMode_t mode);
