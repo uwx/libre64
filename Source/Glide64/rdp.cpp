@@ -2578,7 +2578,7 @@ void rdp_fillrect()
 
         grAlphaBlendFunction(GR_BLEND_ONE, GR_BLEND_ZERO, GR_BLEND_ONE, GR_BLEND_ZERO);
 
-        grAlphaTestFunction(GR_CMP_ALWAYS);
+        gfxAlphaTestFunction(GR_CMP_ALWAYS);
         gfxStippleMode(GFX_STIPPLE_DISABLE);
 
         grCullMode(GR_CULL_DISABLE);
@@ -3253,7 +3253,7 @@ void SetWireframeCol()
         break;
     }
 
-    grAlphaTestFunction(GR_CMP_ALWAYS);
+    gfxAlphaTestFunction(GR_CMP_ALWAYS);
     grCullMode(GR_CULL_DISABLE);
 
     rdp.update |= UPDATE_COMBINE | UPDATE_ALPHA_COMPARE;

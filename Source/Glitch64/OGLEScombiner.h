@@ -1,6 +1,7 @@
 #pragma once
 #include <Common/stdtypes.h>
 
+typedef int32_t gfxCmpFnc_t;
 typedef uint32_t gfxColor_t;
 typedef int32_t gfxCombineFunction_t;
 typedef int32_t gfxCombineFactor_t;
@@ -10,6 +11,7 @@ typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
 typedef int32_t GfxFogMode_t;
 
+void gfxAlphaTestFunction(gfxCmpFnc_t function);
 void gfxFogMode(GfxFogMode_t mode);
 void gfxFogGenerateLinear(float nearZ, float farZ);
 void gfxFogColorValue(gfxColor_t fogcolor);
