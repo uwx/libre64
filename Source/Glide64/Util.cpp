@@ -1895,7 +1895,7 @@ void update()
         {
             uint8_t reference = (uint8_t)(rdp.blend_color & 0xFF);
             gfxAlphaTestFunction(reference ? GR_CMP_GEQUAL : GR_CMP_GREATER);
-            grAlphaTestReferenceValue(reference);
+            gfxAlphaTestReferenceValue(reference);
             WriteTrace(TraceRDP, TraceDebug, " |- alpha compare: blend: %02lx", reference);
         }
         else
@@ -1905,7 +1905,7 @@ void update()
                 if ((rdp.othermode_l & 0x5000) != 0x5000)
                 {
                     gfxAlphaTestFunction(GR_CMP_GEQUAL);
-                    grAlphaTestReferenceValue(0x20);//0xA0);
+                    gfxAlphaTestReferenceValue(0x20);//0xA0);
                     WriteTrace(TraceRDP, TraceDebug, " |- alpha compare: 0x20");
                 }
                 else
@@ -1913,12 +1913,12 @@ void update()
                     gfxAlphaTestFunction(GR_CMP_GREATER);
                     if (rdp.acmp == 3)
                     {
-                        grAlphaTestReferenceValue((uint8_t)(rdp.blend_color & 0xFF));
+                        gfxAlphaTestReferenceValue((uint8_t)(rdp.blend_color & 0xFF));
                         WriteTrace(TraceRDP, TraceDebug, " |- alpha compare: blend: %02lx", rdp.blend_color & 0xFF);
                     }
                     else
                     {
-                        grAlphaTestReferenceValue(0x00);
+                        gfxAlphaTestReferenceValue(0x00);
                         WriteTrace(TraceRDP, TraceDebug, " |- alpha compare: 0x00");
                     }
                 }

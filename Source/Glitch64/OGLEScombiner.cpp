@@ -1508,8 +1508,7 @@ grAlphaBlendFunction(
     glBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
 }
 
-FX_ENTRY void FX_CALL
-grAlphaTestReferenceValue(GrAlpha_t value)
+void gfxAlphaTestReferenceValue(gfxAlpha_t value)
 {
     WriteTrace(TraceResolution, TraceDebug, "value: %d", value);
     g_alpha_ref = value;

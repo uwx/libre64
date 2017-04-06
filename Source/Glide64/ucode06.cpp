@@ -114,7 +114,7 @@ float set_sprite_combine_mode()
         if (rdp.othermode_l & 1)
         {
             gfxAlphaTestFunction(GR_CMP_GEQUAL);
-            grAlphaTestReferenceValue(0x80);
+            gfxAlphaTestReferenceValue(0x80);
         }
         else
         {
