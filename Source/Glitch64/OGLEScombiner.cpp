@@ -33,7 +33,7 @@
 #include <Glide64/Settings.h>
 #include <Glide64/Gfx_1.3.h>
 #include <vector>
-#include "OGLEScombiner.h"
+#include <Glitch64/OGLEScombiner.h>
 
 void vbo_draw();
 
@@ -947,12 +947,7 @@ void writeGLSLAlphaFactor(int factor, int local, int need_local, int other, int 
     }
 }
 
-FX_ENTRY void FX_CALL
-grAlphaCombine(
-    GrCombineFunction_t function, GrCombineFactor_t factor,
-    GrCombineLocal_t local, GrCombineOther_t other,
-    FxBool invert
-)
+void gfxAlphaCombine(gfxCombineFunction_t function, gfxCombineFactor_t factor, gfxCombineLocal_t local, gfxCombineOther_t other, bool invert)
 {
     WriteTrace(TraceResolution, TraceDebug, "function: %d factor: %d local: %d other: %d invert: %d", function, factor, local, other, invert);
     static int last_function = 0;
@@ -970,7 +965,7 @@ grAlphaCombine(
     last_local = local;
     last_other = other;
 
-    if (invert) WriteTrace(TraceGlitch, TraceWarning, "grAlphaCombine : inverted result");
+    if (invert) WriteTrace(TraceGlitch, TraceWarning, "gfxAlphaCombine : inverted result");
 
     alpha_combiner_key = function | (factor << 4) | (local << 8) | (other << 10);
     chroma_other_alpha = other;
@@ -1036,7 +1031,7 @@ grAlphaCombine(
         strcat(fragment_shader_alpha_combiner, "gl_FragColor.a = alpha_factor * (-alpha_local) + alpha_local; \n");
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grAlphaCombine : unknown function : %x", function);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxAlphaCombine : unknown function : %x", function);
     }
 
     //compile_shader();

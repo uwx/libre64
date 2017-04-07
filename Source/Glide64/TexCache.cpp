@@ -45,6 +45,7 @@
 #include <Glide64/trace.h>
 #include <Glitch64/glitchmain.h>
 #include <Glitch64/OGLEScombiner.h>
+#include <Glitch64/OGLEStextures.h>
 
 void LoadTex(int id, int tmu);
 
@@ -689,7 +690,7 @@ void TexCache()
             else
             {
                 gfxColorCombine(cmb.c_fnc, cmb.c_fac, cmb.c_loc, cmb.c_oth, FXFALSE);
-                grAlphaCombine(cmb.a_fnc, cmb.a_fac, cmb.a_loc, cmb.a_oth, FXFALSE);
+                gfxAlphaCombine(cmb.a_fnc, cmb.a_fac, cmb.a_loc, cmb.a_oth, FXFALSE);
             }
             gfxConstantColorValue(cmb.ccolor);
             gfxAlphaBlendFunction(cmb.abf1, cmb.abf2, GR_BLEND_ZERO, GR_BLEND_ZERO);
@@ -892,7 +893,7 @@ void TexCache()
                     mode_t = GR_TEXTURECLAMP_WRAP;
                 }
 
-                grTexClampMode(tmu,
+                gfxTexClampMode(tmu,
                     mode_s,
                     mode_t);
             }

@@ -60,6 +60,7 @@
 #include "trace.h"
 #include "ScreenResolution.h"
 #include <Glitch64/OGLEScombiner.h>
+#include <Glitch64/OGLEStextures.h>
 
 #ifdef _WIN32
 #include <commctrl.h>
@@ -475,8 +476,8 @@ int InitGfx()
     grDepthMask(FXFALSE);
     grTexFilterMode(0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
     grTexFilterMode(1, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
-    grTexClampMode(0, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
-    grTexClampMode(1, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
+    gfxTexClampMode(0, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
+    gfxTexClampMode(1, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
     grClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
     rdp.update |= UPDATE_SCISSOR | UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
 

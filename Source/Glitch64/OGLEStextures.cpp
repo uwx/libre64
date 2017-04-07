@@ -27,6 +27,7 @@
 #include "glitchmain.h"
 #include <stdio.h>
 #include <Glide64/trace.h>
+#include <Glitch64/OGLEStextures.h>
 
 /* Napalm extensions to GrTextureFormat_t */
 #define GR_TEXFMT_ARGB_CMP_FXT1           0x11
@@ -608,12 +609,7 @@ grTexFilterMode(
     }
 }
 
-FX_ENTRY void FX_CALL
-grTexClampMode(
-    GrChipID_t tmu,
-    GrTextureClampMode_t s_clampmode,
-    GrTextureClampMode_t t_clampmode
-)
+void gfxTexClampMode(gfxChipID_t tmu, gfxTextureClampMode_t s_clampmode, gfxTextureClampMode_t t_clampmode)
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, s_clampmode: %d t_clampmode: %d", tmu, s_clampmode, t_clampmode);
     if (tmu == GR_TMU1)
@@ -630,7 +626,7 @@ grTexClampMode(
             wrap_s0 = GL_MIRRORED_REPEAT;
             break;
         default:
-            WriteTrace(TraceGlitch, TraceWarning, "grTexClampMode : unknown s_clampmode : %x", s_clampmode);
+            WriteTrace(TraceGlitch, TraceWarning, "gfxTexClampMode : unknown s_clampmode : %x", s_clampmode);
         }
         switch (t_clampmode)
         {
@@ -644,7 +640,7 @@ grTexClampMode(
             wrap_t0 = GL_MIRRORED_REPEAT;
             break;
         default:
-            WriteTrace(TraceGlitch, TraceWarning, "grTexClampMode : unknown t_clampmode : %x", t_clampmode);
+            WriteTrace(TraceGlitch, TraceWarning, "gfxTexClampMode : unknown t_clampmode : %x", t_clampmode);
         }
         glActiveTexture(GL_TEXTURE0);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_s0);
@@ -664,7 +660,7 @@ grTexClampMode(
             wrap_s1 = GL_MIRRORED_REPEAT;
             break;
         default:
-            WriteTrace(TraceGlitch, TraceWarning, "grTexClampMode : unknown s_clampmode : %x", s_clampmode);
+            WriteTrace(TraceGlitch, TraceWarning, "gfxTexClampMode : unknown s_clampmode : %x", s_clampmode);
         }
         switch (t_clampmode)
         {
@@ -678,7 +674,7 @@ grTexClampMode(
             wrap_t1 = GL_MIRRORED_REPEAT;
             break;
         default:
-            WriteTrace(TraceGlitch, TraceWarning, "grTexClampMode : unknown t_clampmode : %x", t_clampmode);
+            WriteTrace(TraceGlitch, TraceWarning, "gfxTexClampMode : unknown t_clampmode : %x", t_clampmode);
         }
         glActiveTexture(GL_TEXTURE1);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_s1);

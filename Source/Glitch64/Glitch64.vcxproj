@@ -54,8 +54,10 @@
     <ClInclude Include="glitchmain.h" />
     <ClInclude Include="inc\glide.h" />
     <ClInclude Include="OGLEScombiner.h" />
+    <ClInclude Include="OGLEStextures.h" />
     <ClInclude Include="OGLESwrappers.h" />
     <ClInclude Include="opengl.h" />
+    <ClInclude Include="types.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\3rdParty\angle\src\libGLESv2\libGLESv2.vcxproj">

@@ -47,6 +47,7 @@
 #include "TexCache.h"
 #include <Glide64/trace.h>
 #include <Glitch64/OGLEScombiner.h>
+#include <Glitch64/OGLEStextures.h>
 
 static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
 {
@@ -91,7 +92,7 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
     }
     int filter = (rdp.filter_mode != 2) ? GR_TEXTUREFILTER_POINT_SAMPLED : GR_TEXTUREFILTER_BILINEAR;
     grTexFilterMode(tmu, filter, filter);
-    grTexClampMode(tmu,
+    gfxTexClampMode(tmu,
         GR_TEXTURECLAMP_CLAMP,
         GR_TEXTURECLAMP_CLAMP);
     //  gfxConstantColorValue (0xFFFFFFFF);
@@ -101,7 +102,7 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
         GR_COMBINE_OTHER_TEXTURE,
         //    GR_COMBINE_OTHER_CONSTANT,
         FXFALSE);
-    grAlphaCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
+    gfxAlphaCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_TEXTURE,
