@@ -2064,13 +2064,13 @@ void set_message_combiner(void)
     gfxAlphaTestFunction(GR_CMP_ALWAYS);
     gfxStippleMode(GFX_STIPPLE_DISABLE);
     grTexFilterMode(0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
-    grTexCombine(GR_TMU1,
+    gfxTexCombine(GR_TMU1,
         GR_COMBINE_FUNCTION_NONE,
         GR_COMBINE_FACTOR_NONE,
         GR_COMBINE_FUNCTION_NONE,
         GR_COMBINE_FACTOR_NONE,
         FXFALSE, FXFALSE);
-    grTexCombine(GR_TMU0,
+    gfxTexCombine(GR_TMU0,
         GR_COMBINE_FUNCTION_LOCAL,
         GR_COMBINE_FACTOR_NONE,
         GR_COMBINE_FUNCTION_LOCAL,

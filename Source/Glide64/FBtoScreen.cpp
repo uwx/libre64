@@ -54,14 +54,14 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
     if (voodoo.tmem_ptr[GR_TMU0] + texture_size < voodoo.tex_max_addr[0])
     {
         tmu = GR_TMU0;
-        grTexCombine(GR_TMU1,
+        gfxTexCombine(GR_TMU1,
             GR_COMBINE_FUNCTION_NONE,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_FUNCTION_NONE,
             GR_COMBINE_FACTOR_NONE,
             FXFALSE,
             FXFALSE);
-        grTexCombine(GR_TMU0,
+        gfxTexCombine(GR_TMU0,
             GR_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_FUNCTION_LOCAL,
@@ -74,14 +74,14 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
         if (voodoo.tmem_ptr[GR_TMU1] + texture_size >= voodoo.tex_max_addr[1])
             ClearCache();
         tmu = GR_TMU1;
-        grTexCombine(GR_TMU1,
+        gfxTexCombine(GR_TMU1,
             GR_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             FXFALSE,
             FXFALSE);
-        grTexCombine(GR_TMU0,
+        gfxTexCombine(GR_TMU0,
             GR_COMBINE_FUNCTION_SCALE_OTHER,
             GR_COMBINE_FACTOR_ONE,
             GR_COMBINE_FUNCTION_SCALE_OTHER,
@@ -499,75 +499,6 @@ static void DrawDepthBufferToScreen256(FB_TO_SCREEN_INFO & fb_info)
             grDrawTriangle(&v[2], &v[3], &v[1]);
         }
     }
-}
-
-static void DrawHiresDepthBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
-{
-    WriteTrace(TraceRDP, TraceDebug, "DrawHiresDepthBufferToScreen. ul_x=%d, ul_y=%d, lr_x=%d, lr_y=%d, size=%d, addr=%08lx", fb_info.ul_x, fb_info.ul_y, fb_info.lr_x, fb_info.lr_y, fb_info.size, fb_info.addr);
-    GrTexInfo t_info;
-    float scale = 0.25f;
-    GrLOD_t LOD = GR_LOD_LOG2_1024;
-    if (g_settings->scr_res_x() > 1024)
-    {
-        scale = 0.125f;
-        LOD = GR_LOD_LOG2_2048;
-    }
-    t_info.format = GR_TEXFMT_ALPHA_INTENSITY_88;
-    t_info.smallLodLog2 = t_info.largeLodLog2 = LOD;
-    t_info.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
-    gfxConstantColorValue(rdp.fog_color);
-    gfxColorCombine(GR_COMBINE_FUNCTION_LOCAL,
-        GR_COMBINE_FACTOR_NONE,
-        GR_COMBINE_LOCAL_CONSTANT,
-        GR_COMBINE_OTHER_NONE,
-        FXFALSE);
-    grAlphaCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
-        GR_COMBINE_FACTOR_ONE,
-        GR_COMBINE_LOCAL_NONE,
-        GR_COMBINE_OTHER_TEXTURE,
-        FXFALSE);
-    gfxAlphaBlendFunction(GR_BLEND_SRC_ALPHA,
-        GR_BLEND_ONE_MINUS_SRC_ALPHA,
-        GR_BLEND_ONE,
-        GR_BLEND_ZERO);
-    grDepthBufferFunction(GR_CMP_ALWAYS);
-    grDepthMask(FXFALSE);
-    grCullMode(GR_CULL_DISABLE);
-    grTexCombine(GR_TMU1,
-        GR_COMBINE_FUNCTION_NONE,
-        GR_COMBINE_FACTOR_NONE,
-        GR_COMBINE_FUNCTION_NONE,
-        GR_COMBINE_FACTOR_NONE,
-        FXFALSE,
-        FXFALSE);
-    grTexCombine(GR_TMU0,
-        GR_COMBINE_FUNCTION_LOCAL,
-        GR_COMBINE_FACTOR_NONE,
-        GR_COMBINE_FUNCTION_LOCAL,
-        GR_COMBINE_FACTOR_NONE,
-        FXFALSE,
-        FXFALSE);
-    //  grAuxBufferExt( GR_BUFFER_AUXBUFFER );
-    grTexSource(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, GR_MIPMAPLEVELMASK_BOTH, &(t_info));
-    float ul_x = (float)rdp.scissor.ul_x;
-    float ul_y = (float)rdp.scissor.ul_y;
-    float lr_x = (float)rdp.scissor.lr_x;
-    float lr_y = (float)rdp.scissor.lr_y;
-    float ul_u = (float)rdp.scissor.ul_x * scale;
-    float ul_v = (float)rdp.scissor.ul_y * scale;
-    float lr_u = (float)rdp.scissor.lr_x * scale;
-    float lr_v = (float)rdp.scissor.lr_y * scale;
-    // Make the vertices
-    VERTEX v[4] = {
-        { ul_x, ul_y, 1, 1, ul_u, ul_v, ul_u, ul_v, { ul_u, ul_v, ul_u, ul_v } },
-        { lr_x, ul_y, 1, 1, lr_u, ul_v, lr_u, ul_v, { lr_u, ul_v, lr_u, ul_v } },
-        { ul_x, lr_y, 1, 1, ul_u, lr_v, ul_u, lr_v, { ul_u, lr_v, ul_u, lr_v } },
-        { lr_x, lr_y, 1, 1, lr_u, lr_v, lr_u, lr_v, { lr_u, lr_v, lr_u, lr_v } }
-    };
-    grDrawTriangle(&v[0], &v[2], &v[1]);
-    grDrawTriangle(&v[2], &v[3], &v[1]);
-    //  grAuxBufferExt( GR_BUFFER_TEXTUREAUXBUFFER_EXT );
-    rdp.update |= UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
 }
 
 void DrawDepthBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
