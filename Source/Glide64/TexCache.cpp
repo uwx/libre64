@@ -719,7 +719,7 @@ void TexCache()
                     gfxConstantColorValueExt(tmu_1, 0);
                 }
             }
-            grTexDetailControl(tmu_1, cmb.dc1_lodbias, cmb.dc1_detailscale, cmb.dc1_detailmax);
+            gfxTexDetailControl(tmu_1, cmb.dc1_lodbias, cmb.dc1_detailscale, cmb.dc1_detailmax);
         }
         if (tmu_0 < 2)
         {
@@ -742,7 +742,7 @@ void TexCache()
                     gfxConstantColorValueExt(tmu_0, 0);
                 }
             }
-            grTexDetailControl(tmu_0, cmb.dc0_lodbias, cmb.dc0_detailscale, cmb.dc0_detailmax);
+            gfxTexDetailControl(tmu_0, cmb.dc0_lodbias, cmb.dc0_detailscale, cmb.dc0_detailmax);
         }
     }
 
