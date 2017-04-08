@@ -321,7 +321,7 @@ void DisplayLoadProgress(const wchar_t *format, ...)
     x = (1024 - len) / 2.0f;
     output(x, 360, 1, buf);
     grBufferSwap(0);
-    grColorMask(FXTRUE, FXTRUE);
+    gfxColorMask(FXTRUE, FXTRUE);
     grBufferClear(0, 0, 0xFFFF);
 }
 
@@ -461,7 +461,7 @@ int InitGfx()
     grDepthBufferMode(GR_DEPTHBUFFER_ZBUFFER);
     grDepthBufferFunction(GR_CMP_ALWAYS);
     grRenderBuffer(GR_BUFFER_BACKBUFFER);
-    grColorMask(FXTRUE, FXTRUE);
+    gfxColorMask(FXTRUE, FXTRUE);
     grDepthMask(FXTRUE);
     grBufferClear(0, 0, 0xFFFF);
     grBufferSwap(0);
@@ -998,7 +998,7 @@ static void DrawFrameBuffer()
         GoToFullScreen();
 
     grDepthMask(FXTRUE);
-    grColorMask(FXTRUE, FXTRUE);
+    gfxColorMask(FXTRUE, FXTRUE);
     grBufferClear(0, 0, 0xFFFF);
     drawViRegBG();
 }

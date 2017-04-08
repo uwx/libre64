@@ -189,8 +189,7 @@ void gfxClipWindow(uint32_t minx, uint32_t miny, uint32_t maxx, uint32_t maxy)
     glEnable(GL_SCISSOR_TEST);
 }
 
-FX_ENTRY void FX_CALL
-grColorMask(FxBool rgb, FxBool a)
+void gfxColorMask(bool rgb, bool a)
 {
     WriteTrace(TraceGlitch, TraceDebug, "rgb = %d, a: %d", rgb, a);
     glColorMask(rgb, rgb, rgb, a);

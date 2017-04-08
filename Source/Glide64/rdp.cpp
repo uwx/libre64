@@ -54,6 +54,7 @@
 #include "SettingsID.h"
 #include "turbo3D.h"
 #include <Glitch64/OGLEScombiner.h>
+#include <Glitch64/OGLESglitchmain.h>
 
 #ifdef _WIN32
 #include <Common/CriticalSection.h>
@@ -2458,9 +2459,9 @@ void rdp_fillrect()
         {
             update_scissor();
             grDepthMask(FXTRUE);
-            grColorMask(FXFALSE, FXFALSE);
+            gfxColorMask(FXFALSE, FXFALSE);
             grBufferClear(0, 0, rdp.fill_color ? rdp.fill_color & 0xFFFF : 0xFFFF);
-            grColorMask(FXTRUE, FXTRUE);
+            gfxColorMask(FXTRUE, FXTRUE);
             rdp.update |= UPDATE_ZBUF_ENABLED;
         }
         ul_x = minval(maxval(ul_x, rdp.scissor_o.ul_x), rdp.scissor_o.lr_x);
@@ -3046,7 +3047,7 @@ void rdp_setcolorimage()
                 /*
                 else  //just clear buffer
                 {
-                grColorMask(FXTRUE, FXTRUE);
+                gfxColorMask(FXTRUE, FXTRUE);
                 grBufferClear (0, 0, 0xFFFF);
                 }
                 */
