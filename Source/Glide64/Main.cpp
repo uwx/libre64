@@ -61,6 +61,7 @@
 #include "ScreenResolution.h"
 #include <Glitch64/OGLEScombiner.h>
 #include <Glitch64/OGLEStextures.h>
+#include <Glitch64/OGLESglitchmain.h>
 
 #ifdef _WIN32
 #include <commctrl.h>
@@ -470,7 +471,7 @@ int InitGfx()
     gfxTexFilterMode(1, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
     gfxTexClampMode(0, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
     gfxTexClampMode(1, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
-    grClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
+    gfxClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
     rdp.update |= UPDATE_SCISSOR | UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
 
     if (!g_ghq_use)
@@ -1189,7 +1190,7 @@ void newSwapBuffers()
     WriteTrace(TraceRDP, TraceDebug, "swapped");
 
     rdp.update |= UPDATE_SCISSOR | UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
-    grClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
+    gfxClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
     grDepthBufferFunction(GR_CMP_ALWAYS);
     grDepthMask(FXFALSE);
     grCullMode(GR_CULL_DISABLE);

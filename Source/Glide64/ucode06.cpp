@@ -40,6 +40,7 @@
 #include <Glide64/Gfx_1.3.h>
 #include <Glide64/trace.h>
 #include <Glide64/ucode.h>
+#include <Glitch64/OGLESglitchmain.h>
 #include <Glitch64/OGLEScombiner.h>
 #include <Glitch64/OGLEStextures.h>
 #include "Combine.h"
@@ -432,11 +433,11 @@ void DrawImage(DRAWIMAGE & d)
         rdp.allow_combine = 0;
 
     if (rdp.ci_width == 512 && !no_dlist)
-        grClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
+        gfxClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
     else if (d.scaleX == 1.0f && d.scaleY == 1.0f)
-        grClipWindow(rdp.scissor.ul_x, rdp.scissor.ul_y, rdp.scissor.lr_x, rdp.scissor.lr_y);
+        gfxClipWindow(rdp.scissor.ul_x, rdp.scissor.ul_y, rdp.scissor.lr_x, rdp.scissor.lr_y);
     else
-        grClipWindow(rdp.scissor.ul_x, rdp.scissor.ul_y, minval(rdp.scissor.lr_x, (uint32_t)((d.frameX + d.imageW / d.scaleX + 0.5f)*rdp.scale_x)), minval(rdp.scissor.lr_y, (uint32_t)((d.frameY + d.imageH / d.scaleY + 0.5f)*rdp.scale_y)));
+        gfxClipWindow(rdp.scissor.ul_x, rdp.scissor.ul_y, minval(rdp.scissor.lr_x, (uint32_t)((d.frameX + d.imageW / d.scaleX + 0.5f)*rdp.scale_x)), minval(rdp.scissor.lr_y, (uint32_t)((d.frameY + d.imageH / d.scaleY + 0.5f)*rdp.scale_y)));
     rdp.update |= UPDATE_SCISSOR;
 
     // Texture ()
@@ -584,7 +585,7 @@ void DrawHiresImage(DRAWIMAGE & d, int screensize)
     setTBufTex(rdp.tbuff_tex->t_mem, rdp.tbuff_tex->width << rdp.tbuff_tex->size >> 1);
 
     const float Z = set_sprite_combine_mode();
-    grClipWindow(0, 0, g_settings->res_x(), g_settings->res_y());
+    gfxClipWindow(0, 0, g_settings->res_x(), g_settings->res_y());
 
     if (d.imageW % 2 == 1) d.imageW -= 1;
     if (d.imageH % 2 == 1) d.imageH -= 1;

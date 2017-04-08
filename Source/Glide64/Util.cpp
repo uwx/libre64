@@ -50,6 +50,7 @@
 #include <Glide64/trace.h>
 #include <Glitch64/OGLEScombiner.h>
 #include <Glitch64/OGLEStextures.h>
+#include <Glitch64/OGLESglitchmain.h>
 
 VERTEX *vtx_list1[32];  // vertex indexing
 VERTEX *vtx_list2[32];
@@ -1716,10 +1717,10 @@ void update_scissor()
         rdp.scissor.lr_x = (uint32_t)maxval(minval((rdp.scissor_o.lr_x * rdp.scale_x + rdp.offset_x + 0.01f), g_settings->res_x()), 0);
         rdp.scissor.ul_y = (uint32_t)maxval(minval((rdp.scissor_o.ul_y * rdp.scale_y + rdp.offset_y + 0.01f), g_settings->res_y()), 0);
         rdp.scissor.lr_y = (uint32_t)maxval(minval((rdp.scissor_o.lr_y * rdp.scale_y + rdp.offset_y + 0.01f), g_settings->res_y()), 0);
-        //grClipWindow specifies the hardware clipping window. Any pixels outside the clipping window are rejected.
+        //gfxClipWindow specifies the hardware clipping window. Any pixels outside the clipping window are rejected.
         //Values are inclusive for minimum x and y values and exclusive for maximum x and y values.
         //    grClipWindow (rdp.scissor.ul_x?rdp.scissor.ul_x+1:0, rdp.scissor.ul_y?rdp.scissor.ul_y+1:0, rdp.scissor.lr_x, rdp.scissor.lr_y);
-        grClipWindow(rdp.scissor.ul_x, rdp.scissor.ul_y, rdp.scissor.lr_x, rdp.scissor.lr_y);
+        gfxClipWindow(rdp.scissor.ul_x, rdp.scissor.ul_y, rdp.scissor.lr_x, rdp.scissor.lr_y);
         WriteTrace(TraceRDP, TraceDebug, " |- scissor - (%d, %d) -> (%d, %d)", rdp.scissor.ul_x, rdp.scissor.ul_y, rdp.scissor.lr_x, rdp.scissor.lr_y);
     }
 }
@@ -2034,7 +2035,7 @@ void update()
             rdp.scissor.lr_x = (uint32_t)rdp.clip_max_x;
             rdp.scissor.ul_y = (uint32_t)rdp.clip_min_y;
             rdp.scissor.lr_y = (uint32_t)rdp.clip_max_y;
-            grClipWindow(rdp.scissor.ul_x, rdp.scissor.ul_y, rdp.scissor.lr_x, rdp.scissor.lr_y);
+            gfxClipWindow(rdp.scissor.ul_x, rdp.scissor.ul_y, rdp.scissor.lr_x, rdp.scissor.lr_y);
         }
     }
 

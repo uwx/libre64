@@ -153,8 +153,7 @@ void display_error()
 }
 #endif // _WIN32
 
-FX_ENTRY void FX_CALL
-grClipWindow(FxU32 minx, FxU32 miny, FxU32 maxx, FxU32 maxy)
+void gfxClipWindow(uint32_t minx, uint32_t miny, uint32_t maxx, uint32_t maxy)
 {
     WriteTrace(TraceGlitch, TraceDebug, "minx = %d, miny: %d maxy: %d", minx, miny, maxy);
 

@@ -54,6 +54,7 @@
     <ClInclude Include="glitchmain.h" />
     <ClInclude Include="inc\glide.h" />
     <ClInclude Include="OGLEScombiner.h" />
+    <ClInclude Include="OGLESglitchmain.h" />
     <ClInclude Include="OGLEStextures.h" />
     <ClInclude Include="OGLESwrappers.h" />
     <ClInclude Include="opengl.h" />
