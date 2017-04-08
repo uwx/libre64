@@ -1679,7 +1679,7 @@ void LoadTex(int id, int tmu)
         t_info->largeLodLog2 = lod;
         t_info->aspectRatioLog2 = aspect;
 
-        uint32_t texture_size = grTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, t_info);
+        uint32_t texture_size = gfxTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, t_info);
 
         // Check for end of memory (too many textures to fit, clear cache)
         if (voodoo.tmem_ptr[tmu] + texture_size >= voodoo.tex_max_addr[tmu])

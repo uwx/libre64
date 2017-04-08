@@ -172,11 +172,11 @@ grTexMaxAddress(GrChipID_t tmu)
     return TMU_SIZE * 2 - 1;
 }
 
-uint32_t grTexTextureMemRequired(uint32_t evenOdd, gfxTexInfo *info)
+uint32_t gfxTexTextureMemRequired(uint32_t evenOdd, gfxTexInfo *info)
 {
     WriteTrace(TraceGlitch, TraceDebug, "evenOdd = %d", evenOdd);
     int width, height;
-    if (info->largeLodLog2 != info->smallLodLog2) WriteTrace(TraceGlitch, TraceWarning, "grTexTextureMemRequired : loading more than one LOD");
+    if (info->largeLodLog2 != info->smallLodLog2) WriteTrace(TraceGlitch, TraceWarning, "gfxTexTextureMemRequired : loading more than one LOD");
 
     if (info->aspectRatioLog2 < 0)
     {
@@ -214,19 +214,16 @@ uint32_t grTexTextureMemRequired(uint32_t evenOdd, gfxTexInfo *info)
     case GR_TEXFMT_ARGB_CMP_FXT1:
         return ((((width + 0x7)&~0x7)*((height + 0x3)&~0x3)) >> 1);
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grTexTextureMemRequired : unknown texture format: %x", info->format);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxTexTextureMemRequired : unknown texture format: %x", info->format);
     }
     return 0;
 }
 
-FX_ENTRY FxU32 FX_CALL
-grTexCalcMemRequired(
-    GrLOD_t lodmin, GrLOD_t lodmax,
-    GrAspectRatio_t aspect, GrTextureFormat_t fmt)
+uint32_t gfxTexCalcMemRequired(gfxLOD_t lodmin, gfxLOD_t lodmax, gfxAspectRatio_t aspect, gfxTextureFormat_t fmt)
 {
     WriteTrace(TraceGlitch, TraceDebug, "lodmin = %d, lodmax: %d aspect: %d fmt: %d", lodmin, lodmax, aspect, fmt);
     int width, height;
-    if (lodmax != lodmin) WriteTrace(TraceGlitch, TraceWarning, "grTexCalcMemRequired : loading more than one LOD");
+    if (lodmax != lodmin) WriteTrace(TraceGlitch, TraceWarning, "gfxTexCalcMemRequired : loading more than one LOD");
 
     if (aspect < 0)
     {
@@ -264,7 +261,7 @@ grTexCalcMemRequired(
     case GR_TEXFMT_ARGB_CMP_FXT1:
         return ((((width + 0x7)&~0x7)*((height + 0x3)&~0x3)) >> 1);
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grTexTextureMemRequired : unknown texture format: %x", fmt);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxTexCalcMemRequired : unknown texture format: %x", fmt);
     }
     return 0;
 }
