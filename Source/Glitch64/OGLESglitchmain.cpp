@@ -44,6 +44,7 @@
 #include "glitchmain.h"
 #include <Glide64/trace.h>
 #include <Glide64/Settings.h>
+#include <Glitch64/OGLEStextures.h>
 
 int screen_width, screen_height;
 
@@ -390,7 +391,7 @@ grSstWinClose(GrContext_t context)
             glDeleteFramebuffers(1, &(fbs[i].fbid));
             glDeleteRenderbuffers(1, &(fbs[i].zbid));
         }
-    }
+}
 #endif
     nb_fb = 0;
 
@@ -949,7 +950,7 @@ grAuxBufferExt(GrBuffer_t buffer)
         glDisable(GL_CULL_FACE);
         //glDisable(GL_ALPHA_TEST);
         glDepthMask(GL_TRUE);
-        grTexFilterMode(GR_TMU1, GR_TEXTUREFILTER_POINT_SAMPLED, GR_TEXTUREFILTER_POINT_SAMPLED);
+        gfxTexFilterMode(GR_TMU1, GR_TEXTUREFILTER_POINT_SAMPLED, GR_TEXTUREFILTER_POINT_SAMPLED);
     }
     else
     {

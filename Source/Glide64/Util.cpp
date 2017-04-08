@@ -49,6 +49,7 @@
 #include "DepthBufferRender.h"
 #include <Glide64/trace.h>
 #include <Glitch64/OGLEScombiner.h>
+#include <Glitch64/OGLEStextures.h>
 
 VERTEX *vtx_list1[32];  // vertex indexing
 VERTEX *vtx_list2[32];
@@ -2063,7 +2064,7 @@ void set_message_combiner(void)
         GR_BLEND_ZERO);
     gfxAlphaTestFunction(GR_CMP_ALWAYS);
     gfxStippleMode(GFX_STIPPLE_DISABLE);
-    grTexFilterMode(0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
+    gfxTexFilterMode(0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
     gfxTexCombine(GR_TMU1,
         GR_COMBINE_FUNCTION_NONE,
         GR_COMBINE_FACTOR_NONE,

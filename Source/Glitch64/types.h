@@ -14,3 +14,4 @@ typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
 typedef int32_t GfxFogMode_t;
 typedef int32_t gfxTextureClampMode_t;
+typedef int32_t gfxTextureFilterMode_t;
