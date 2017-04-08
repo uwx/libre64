@@ -433,8 +433,8 @@ int InitGfx()
     to_fullscreen = FALSE;
 
     // get maximal texture size
-    voodoo.tex_min_addr[0] = voodoo.tex_min_addr[1] = grTexMinAddress(GR_TMU0);
-    voodoo.tex_max_addr[0] = voodoo.tex_max_addr[1] = grTexMaxAddress(GR_TMU0);
+    voodoo.tex_min_addr[0] = voodoo.tex_min_addr[1] = gfxTexMinAddress(GR_TMU0);
+    voodoo.tex_max_addr[0] = voodoo.tex_max_addr[1] = gfxTexMaxAddress(GR_TMU0);
 
     srand(g_settings->stipple_pattern());
     setPattern();

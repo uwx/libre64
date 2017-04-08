@@ -1,6 +1,8 @@
 #pragma once
 #include "types.h"
 
+uint32_t gfxTexMinAddress(gfxChipID_t tmu);
+uint32_t gfxTexMaxAddress(gfxChipID_t tmu);
 uint32_t gfxTexCalcMemRequired(gfxLOD_t lodmin, gfxLOD_t lodmax, gfxAspectRatio_t aspect, gfxTextureFormat_t fmt);
 uint32_t gfxTexTextureMemRequired(uint32_t evenOdd, gfxTexInfo *info);
 void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenOdd, gfxTexInfo *info);

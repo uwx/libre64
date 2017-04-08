@@ -158,15 +158,13 @@ void free_textures()
     }
 }
 
-FX_ENTRY FxU32 FX_CALL
-grTexMinAddress(GrChipID_t tmu)
+uint32_t gfxTexMinAddress(gfxChipID_t tmu)
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d", tmu);
     return 0;
 }
 
-FX_ENTRY FxU32 FX_CALL
-grTexMaxAddress(GrChipID_t tmu)
+uint32_t gfxTexMaxAddress(gfxChipID_t tmu)
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d", tmu);
     return TMU_SIZE * 2 - 1;
