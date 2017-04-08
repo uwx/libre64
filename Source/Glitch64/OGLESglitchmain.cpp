@@ -381,7 +381,7 @@ bool gfxSstWinClose(gfxContext_t context)
             glDeleteFramebuffers(1, &(fbs[i].fbid));
             glDeleteRenderbuffers(1, &(fbs[i].zbid));
         }
-}
+    }
 #endif
     nb_fb = 0;
 
@@ -397,19 +397,13 @@ bool gfxSstWinClose(gfxContext_t context)
     return FXTRUE;
 }
 
-FX_ENTRY void FX_CALL grTextureBufferExt(GrChipID_t  		tmu,
-    FxU32 				startAddress,
-    GrLOD_t 			lodmin,
-    GrLOD_t 			lodmax,
-    GrAspectRatio_t 	aspect,
-    GrTextureFormat_t 	fmt,
-    FxU32 				evenOdd)
+void gfxTextureBufferExt(gfxChipID_t tmu, uint32_t startAddress, gfxLOD_t lodmin, gfxLOD_t lodmax, gfxAspectRatio_t aspect, gfxTextureFormat_t fmt, uint32_t evenOdd)
 {
     int i;
     static int fbs_init = 0;
 
     WriteTrace(TraceGlitch, TraceDebug, "tmu: %d startAddress: %d lodmin: %d lodmax: %d aspect: %d fmt: %d evenOdd: %d", tmu, startAddress, lodmin, lodmax, aspect, fmt, evenOdd);
-    if (lodmin != lodmax) WriteTrace(TraceGlitch, TraceWarning, "grTextureBufferExt : loading more than one LOD");
+    if (lodmin != lodmax) WriteTrace(TraceGlitch, TraceWarning, "gfxTextureBufferExt : loading more than one LOD");
     if (!use_fbo) {
         if (!render_to_texture) { //initialization
             return;
