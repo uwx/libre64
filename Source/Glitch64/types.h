@@ -21,6 +21,7 @@ typedef int32_t gfxTextureFormat_t;
 typedef int32_t gfxContext_t;
 typedef int32_t gfxColorFormat_t;
 typedef int32_t gfxOriginLocation_t;
+typedef int32_t gfxBuffer_t;
 
 typedef struct {
     gfxLOD_t           smallLodLog2;

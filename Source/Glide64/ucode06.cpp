@@ -218,12 +218,12 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
     }
     gfxTextureBufferExt(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, LOD, LOD,
         GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
-    grRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
+    gfxRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
     grAuxBufferExt(GR_BUFFER_AUXBUFFER);
     grBufferClear(0, 0, 0xFFFF);
     grDrawTriangle(&v[0], &v[2], &v[1]);
     grDrawTriangle(&v[2], &v[3], &v[1]);
-    grRenderBuffer(GR_BUFFER_BACKBUFFER);
+    gfxRenderBuffer(GR_BUFFER_BACKBUFFER);
     grAuxBufferExt(GR_BUFFER_TEXTUREAUXBUFFER_EXT);
     grDepthMask(FXTRUE);
 }

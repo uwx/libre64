@@ -209,9 +209,9 @@ void guLoadTextures()
             GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
         tbuf_size = gfxTexCalcMemRequired(GR_LOD_LOG2_1024, GR_LOD_LOG2_1024,
             GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565);
-        grRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
+        gfxRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
         grBufferClear(0, 0, 0xFFFF);
-        grRenderBuffer(GR_BUFFER_BACKBUFFER);
+        gfxRenderBuffer(GR_BUFFER_BACKBUFFER);
     }
     else
     {
@@ -219,9 +219,9 @@ void guLoadTextures()
             GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
         tbuf_size = gfxTexCalcMemRequired(GR_LOD_LOG2_2048, GR_LOD_LOG2_2048,
             GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565);
-        grRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
+        gfxRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
         grBufferClear(0, 0, 0xFFFF);
-        grRenderBuffer(GR_BUFFER_BACKBUFFER);
+        gfxRenderBuffer(GR_BUFFER_BACKBUFFER);
     }
 
     rdp.texbufs(0).tmu = GR_TMU0;
@@ -460,7 +460,7 @@ int InitGfx()
     grCullMode(GR_CULL_DISABLE);
     grDepthBufferMode(GR_DEPTHBUFFER_ZBUFFER);
     grDepthBufferFunction(GR_CMP_ALWAYS);
-    grRenderBuffer(GR_BUFFER_BACKBUFFER);
+    gfxRenderBuffer(GR_BUFFER_BACKBUFFER);
     gfxColorMask(FXTRUE, FXTRUE);
     grDepthMask(FXTRUE);
     grBufferClear(0, 0, 0xFFFF);
