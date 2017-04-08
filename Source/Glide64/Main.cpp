@@ -101,8 +101,8 @@ VOODOO voodoo = { 0, 0, 0, 0,
 0, 0,
 };
 
-GrTexInfo fontTex;
-GrTexInfo cursorTex;
+gfxTexInfo fontTex;
+gfxTexInfo cursorTex;
 uint32_t   offset_font = 0;
 uint32_t   offset_cursor = 0;
 uint32_t   offset_textures = 0;
@@ -268,11 +268,7 @@ void guLoadTextures()
         }
     }
 
-    grTexDownloadMipMap(GR_TMU0,
-        voodoo.tex_min_addr[GR_TMU0] + offset_font,
-        GR_MIPMAPLEVELMASK_BOTH,
-        &fontTex);
-
+    gfxTexDownloadMipMap(GR_TMU0, voodoo.tex_min_addr[GR_TMU0] + offset_font, GR_MIPMAPLEVELMASK_BOTH, &fontTex);
     offset_cursor = offset_font + grTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, &fontTex);
 
     free(fontTex.data);
@@ -296,14 +292,10 @@ void guLoadTextures()
         *(tex16++) = (uint16_t)(((cur & 0x00FF0000) >> 8) | ((cur & 0xFF000000) >> 24));
     }
 
-    grTexDownloadMipMap(GR_TMU0,
-        voodoo.tex_min_addr[GR_TMU0] + offset_cursor,
-        GR_MIPMAPLEVELMASK_BOTH,
-        &cursorTex);
+    gfxTexDownloadMipMap(GR_TMU0, voodoo.tex_min_addr[GR_TMU0] + offset_cursor, GR_MIPMAPLEVELMASK_BOTH, &cursorTex);
 
     // Round to higher 16
-    offset_textures = ((offset_cursor + grTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, &cursorTex))
-        & 0xFFFFFFF0) + 16;
+    offset_textures = ((offset_cursor + grTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, &cursorTex)) & 0xFFFFFFF0) + 16;
     free(cursorTex.data);
 }
 
@@ -540,7 +532,7 @@ int InitGfx()
         }
     }
     return TRUE;
-}
+    }
 
 void ReleaseGfx()
 {

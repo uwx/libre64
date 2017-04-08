@@ -391,7 +391,7 @@ grSstWinClose(GrContext_t context)
             glDeleteFramebuffers(1, &(fbs[i].fbid));
             glDeleteRenderbuffers(1, &(fbs[i].zbid));
         }
-}
+    }
 #endif
     nb_fb = 0;
 
@@ -637,7 +637,7 @@ FX_ENTRY void FX_CALL grTextureBufferExt(GrChipID_t  		tmu,
     }
 }
 
-int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, GrTexInfo *info)
+int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, gfxTexInfo *info)
 {
     int found, i;
     if (!use_fbo)

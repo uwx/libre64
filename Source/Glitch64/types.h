@@ -15,3 +15,14 @@ typedef int32_t gfxChromakeyMode_t;
 typedef int32_t GfxFogMode_t;
 typedef int32_t gfxTextureClampMode_t;
 typedef int32_t gfxTextureFilterMode_t;
+typedef int32_t gfxLOD_t;
+typedef int32_t gfxAspectRatio_t;
+typedef int32_t gfxTextureFormat_t;
+
+typedef struct {
+    gfxLOD_t           smallLodLog2;
+    gfxLOD_t           largeLodLog2;
+    gfxAspectRatio_t   aspectRatioLog2;
+    gfxTextureFormat_t format;
+    void               *data;
+} gfxTexInfo;

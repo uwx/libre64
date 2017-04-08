@@ -172,9 +172,7 @@ grTexMaxAddress(GrChipID_t tmu)
     return TMU_SIZE * 2 - 1;
 }
 
-FX_ENTRY FxU32 FX_CALL
-grTexTextureMemRequired(FxU32     evenOdd,
-    GrTexInfo *info)
+uint32_t grTexTextureMemRequired(uint32_t evenOdd, gfxTexInfo *info)
 {
     WriteTrace(TraceGlitch, TraceDebug, "evenOdd = %d", evenOdd);
     int width, height;
@@ -279,18 +277,14 @@ int grTexFormat2GLPackedFmt(int fmt, int * gltexfmt, int * glpixfmt, int * glpac
     return 0;
 }
 
-FX_ENTRY void FX_CALL
-grTexDownloadMipMap(GrChipID_t tmu,
-    FxU32      startAddress,
-    FxU32      evenOdd,
-    GrTexInfo  *info)
+void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenOdd, gfxTexInfo *info)
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, startAddress: %d evenOdd: %d", tmu, startAddress, evenOdd);
     int width, height, i, j;
     int factor;
     int glformat = 0;
     int gltexfmt, glpixfmt, glpackfmt;
-    if (info->largeLodLog2 != info->smallLodLog2) WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadMipMap : loading more than one LOD");
+    if (info->largeLodLog2 != info->smallLodLog2) WriteTrace(TraceGlitch, TraceWarning, "gfxTexDownloadMipMap : loading more than one LOD");
 
     if (info->aspectRatioLog2 < 0)
     {
@@ -453,7 +447,7 @@ grTexDownloadMipMap(GrChipID_t tmu,
             glformat = GL_RGBA;
             break;
         default:
-            WriteTrace(TraceGlitch, TraceWarning, "grTexDownloadMipMap : unknown texture format: %x", info->format);
+            WriteTrace(TraceGlitch, TraceWarning, "gfxTexDownloadMipMap : unknown texture format: %x", info->format);
             factor = 0;
         }
     }
@@ -483,13 +477,9 @@ grTexDownloadMipMap(GrChipID_t tmu,
     glBindTexture(GL_TEXTURE_2D, default_texture);
 }
 
-int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, GrTexInfo *info);
+int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, gfxTexInfo *info);
 
-FX_ENTRY void FX_CALL
-grTexSource(GrChipID_t tmu,
-    FxU32      startAddress,
-    FxU32      evenOdd,
-    GrTexInfo  *info)
+void gfxTexSource(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenOdd, gfxTexInfo *info)
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, startAddress: %d evenOdd: %d", tmu, startAddress, evenOdd);
 

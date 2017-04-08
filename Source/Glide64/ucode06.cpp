@@ -41,6 +41,7 @@
 #include <Glide64/trace.h>
 #include <Glide64/ucode.h>
 #include <Glitch64/OGLEScombiner.h>
+#include <Glitch64/OGLEStextures.h>
 #include "Combine.h"
 #include "Util.h"
 #include "TexCache.h"
@@ -156,21 +157,15 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
         }
         dst += (512 - d.imageW);
     }
-    GrTexInfo t_info;
+    gfxTexInfo t_info;
     t_info.format = GR_TEXFMT_RGB_565;
     t_info.data = image;
     t_info.smallLodLog2 = GR_LOD_LOG2_512;
     t_info.largeLodLog2 = GR_LOD_LOG2_512;
     t_info.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
 
-    grTexDownloadMipMap(rdp.texbufs(1).tmu,
-        rdp.texbufs(1).begin,
-        GR_MIPMAPLEVELMASK_BOTH,
-        &t_info);
-    grTexSource(rdp.texbufs(1).tmu,
-        rdp.texbufs(1).begin,
-        GR_MIPMAPLEVELMASK_BOTH,
-        &t_info);
+    gfxTexDownloadMipMap(rdp.texbufs(1).tmu, rdp.texbufs(1).begin, GR_MIPMAPLEVELMASK_BOTH, &t_info);
+    gfxTexSource(rdp.texbufs(1).tmu, rdp.texbufs(1).begin, GR_MIPMAPLEVELMASK_BOTH, &t_info);
     gfxTexCombine(GR_TMU1,
         GR_COMBINE_FUNCTION_LOCAL,
         GR_COMBINE_FACTOR_NONE,

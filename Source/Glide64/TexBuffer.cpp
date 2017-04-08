@@ -48,6 +48,7 @@
 #include "CRC.h"
 #include <Glide64/trace.h>
 #include <Glitch64/OGLEScombiner.h>
+#include <Glitch64/OGLEStextures.h>
 
 static TBUFF_COLOR_IMAGE * AllocateTextureBuffer(COLOR_IMAGE & cimage)
 {
@@ -459,7 +460,7 @@ int CloseTextureBuffer(int draw)
         { lr_x, lr_y, 1, 1, lr_u, lr_v, lr_u, lr_v, { lr_u, lr_v, lr_u, lr_v } }
     };
 
-    grTexSource(rdp.tbuff_tex->tmu, rdp.tbuff_tex->tex_addr, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
+    gfxTexSource(rdp.tbuff_tex->tmu, rdp.tbuff_tex->tex_addr, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
     grClipWindow(0, 0, g_settings->res_x(), g_settings->res_y());
     grDrawTriangle(&v[0], &v[2], &v[1]);
     grDrawTriangle(&v[2], &v[3], &v[1]);
@@ -514,7 +515,7 @@ int CopyTextureBuffer(COLOR_IMAGE & fb_from, COLOR_IMAGE & fb_to)
         { lr_x, lr_y, 1, 1, lr_u, lr_v, lr_u, lr_v, { lr_u, lr_v, lr_u, lr_v } }
     };
 
-    grTexSource(rdp.tbuff_tex->tmu, rdp.tbuff_tex->tex_addr, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
+    gfxTexSource(rdp.tbuff_tex->tmu, rdp.tbuff_tex->tex_addr, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
     grDrawTriangle(&v[0], &v[2], &v[1]);
     grDrawTriangle(&v[2], &v[3], &v[1]);
     grRenderBuffer(GR_BUFFER_BACKBUFFER);
@@ -571,7 +572,7 @@ int CopyDepthBuffer()
     };
 
     grAuxBufferExt(GR_BUFFER_AUXBUFFER);
-    grTexSource(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
+    gfxTexSource(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
     grRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
     grTextureBufferExt(rdp.texbufs(1).tmu, rdp.texbufs(1).begin, LOD, LOD,
         GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
@@ -625,7 +626,7 @@ int SwapTextureBuffer()
         { lr_x, lr_y, 1, 1, lr_u, lr_v, lr_u, lr_v, { lr_u, lr_v, lr_u, lr_v } }
     };
 
-    grTexSource(rdp.tbuff_tex->tmu, rdp.tbuff_tex->tex_addr, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
+    gfxTexSource(rdp.tbuff_tex->tmu, rdp.tbuff_tex->tex_addr, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
     texbuf->tile_uls = rdp.tbuff_tex->tile_uls;
     texbuf->tile_ult = rdp.tbuff_tex->tile_ult;
     texbuf->v_shift = rdp.tbuff_tex->v_shift;
