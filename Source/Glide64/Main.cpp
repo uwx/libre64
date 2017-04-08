@@ -419,7 +419,7 @@ int InitGfx()
 #ifndef ANDROID
     SetWindowDisplaySize(gfx.hWnd);
 #endif
-    gfx_context = grSstWinOpen(GR_COLORFORMAT_RGBA, GR_ORIGIN_UPPER_LEFT, 2, 1);
+    gfx_context = gfxSstWinOpen(GR_COLORFORMAT_RGBA, GR_ORIGIN_UPPER_LEFT, 2, 1);
     if (!gfx_context)
     {
 #ifdef _WIN32
@@ -542,7 +542,7 @@ void ReleaseGfx()
     rdp.free();
 
     // Release graphics
-    grSstWinClose(gfx_context);
+    gfxSstWinClose(gfx_context);
 
     GfxInitDone = FALSE;
     rdp.window_changed = TRUE;

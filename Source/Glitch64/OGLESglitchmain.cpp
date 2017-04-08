@@ -348,13 +348,13 @@ gfxContext_t gfxSstWinOpen(gfxColorFormat_t color_format, gfxOriginLocation_t or
     return 1;
 }
 
-FX_ENTRY FxBool FX_CALL
-grSstWinClose(GrContext_t context)
+bool gfxSstWinClose(gfxContext_t context)
 {
     int i, clear_texbuff = use_fbo;
     WriteTrace(TraceGlitch, TraceDebug, "context: %d", context);
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++)
+    {
         tmu_usage[i].min = 0xfffffff;
         tmu_usage[i].max = 0;
         invtex[i] = 0;
@@ -381,7 +381,7 @@ grSstWinClose(GrContext_t context)
             glDeleteFramebuffers(1, &(fbs[i].fbid));
             glDeleteRenderbuffers(1, &(fbs[i].zbid));
         }
-    }
+}
 #endif
     nb_fb = 0;
 
