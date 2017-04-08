@@ -18,6 +18,9 @@ typedef int32_t gfxTextureFilterMode_t;
 typedef int32_t gfxLOD_t;
 typedef int32_t gfxAspectRatio_t;
 typedef int32_t gfxTextureFormat_t;
+typedef int32_t gfxContext_t;
+typedef int32_t gfxColorFormat_t;
+typedef int32_t gfxOriginLocation_t;
 
 typedef struct {
     gfxLOD_t           smallLodLog2;

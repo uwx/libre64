@@ -226,14 +226,6 @@ int isExtensionSupported(const char *extension)
     return 0;
 }
 
-#define GrPixelFormat_t int
-
-FX_ENTRY GrContext_t FX_CALL grSstWinOpenExt(GrColorFormat_t color_format, GrOriginLocation_t origin_location, GrPixelFormat_t pixelformat, int nColBuffers, int nAuxBuffers)
-{
-    WriteTrace(TraceGlitch, TraceDebug, "color_format: %d, origin_location: %d, nColBuffers: %d, nAuxBuffers: %d", color_format, origin_location, nColBuffers, nAuxBuffers);
-    return grSstWinOpen(color_format, origin_location, nColBuffers, nAuxBuffers);
-}
-
 #ifndef ANDROID
 std::unique_ptr<EGLWindow> mEGLWindow;
 
@@ -243,7 +235,7 @@ void SwapBuffers(void)
 }
 #endif
 
-FX_ENTRY GrContext_t FX_CALL grSstWinOpen(GrColorFormat_t color_format, GrOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
+gfxContext_t gfxSstWinOpen(gfxColorFormat_t color_format, gfxOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
 {
     static int show_warning = 1;
     GLCache::ResetCache();
