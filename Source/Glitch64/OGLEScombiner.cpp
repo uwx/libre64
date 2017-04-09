@@ -1731,16 +1731,16 @@ void gfxColorCombineExt(gfxCCUColor_t a, gfxCombineMode_t a_mode, gfxCCUColor_t 
 
     switch (a_mode)
     {
-    case GR_FUNC_MODE_ZERO:
+    case GFX_FUNC_MODE_ZERO:
         strcat(fragment_shader_color_combiner, "vec4 c_a = vec4(0.0); \n");
         break;
-    case GR_FUNC_MODE_X:
+    case GFX_FUNC_MODE_X:
         strcat(fragment_shader_color_combiner, "vec4 c_a = cs_a; \n");
         break;
-    case GR_FUNC_MODE_ONE_MINUS_X:
+    case GFX_FUNC_MODE_ONE_MINUS_X:
         strcat(fragment_shader_color_combiner, "vec4 c_a = vec4(1.0) - cs_a; \n");
         break;
-    case GR_FUNC_MODE_NEGATIVE_X:
+    case GFX_FUNC_MODE_NEGATIVE_X:
         strcat(fragment_shader_color_combiner, "vec4 c_a = -cs_a; \n");
         break;
     default:
@@ -1778,16 +1778,16 @@ void gfxColorCombineExt(gfxCCUColor_t a, gfxCombineMode_t a_mode, gfxCCUColor_t 
 
     switch (b_mode)
     {
-    case GR_FUNC_MODE_ZERO:
+    case GFX_FUNC_MODE_ZERO:
         strcat(fragment_shader_color_combiner, "vec4 c_b = vec4(0.0); \n");
         break;
-    case GR_FUNC_MODE_X:
+    case GFX_FUNC_MODE_X:
         strcat(fragment_shader_color_combiner, "vec4 c_b = cs_b; \n");
         break;
-    case GR_FUNC_MODE_ONE_MINUS_X:
+    case GFX_FUNC_MODE_ONE_MINUS_X:
         strcat(fragment_shader_color_combiner, "vec4 c_b = vec4(1.0) - cs_b; \n");
         break;
-    case GR_FUNC_MODE_NEGATIVE_X:
+    case GFX_FUNC_MODE_NEGATIVE_X:
         strcat(fragment_shader_color_combiner, "vec4 c_b = -cs_b; \n");
         break;
     default:
@@ -1899,16 +1899,16 @@ void gfxAlphaCombineExt(gfxACUColor_t a, gfxCombineMode_t a_mode, gfxACUColor_t 
 
     switch (a_mode)
     {
-    case GR_FUNC_MODE_ZERO:
+    case GFX_FUNC_MODE_ZERO:
         strcat(fragment_shader_alpha_combiner, "float a_a = 0.0; \n");
         break;
-    case GR_FUNC_MODE_X:
+    case GFX_FUNC_MODE_X:
         strcat(fragment_shader_alpha_combiner, "float a_a = as_a; \n");
         break;
-    case GR_FUNC_MODE_ONE_MINUS_X:
+    case GFX_FUNC_MODE_ONE_MINUS_X:
         strcat(fragment_shader_alpha_combiner, "float a_a = 1.0 - as_a; \n");
         break;
-    case GR_FUNC_MODE_NEGATIVE_X:
+    case GFX_FUNC_MODE_NEGATIVE_X:
         strcat(fragment_shader_alpha_combiner, "float a_a = -as_a; \n");
         break;
     default:
@@ -1937,16 +1937,16 @@ void gfxAlphaCombineExt(gfxACUColor_t a, gfxCombineMode_t a_mode, gfxACUColor_t 
 
     switch (b_mode)
     {
-    case GR_FUNC_MODE_ZERO:
+    case GFX_FUNC_MODE_ZERO:
         strcat(fragment_shader_alpha_combiner, "float a_b = 0.0; \n");
         break;
-    case GR_FUNC_MODE_X:
+    case GFX_FUNC_MODE_X:
         strcat(fragment_shader_alpha_combiner, "float a_b = as_b; \n");
         break;
-    case GR_FUNC_MODE_ONE_MINUS_X:
+    case GFX_FUNC_MODE_ONE_MINUS_X:
         strcat(fragment_shader_alpha_combiner, "float a_b = 1.0 - as_b; \n");
         break;
-    case GR_FUNC_MODE_NEGATIVE_X:
+    case GFX_FUNC_MODE_NEGATIVE_X:
         strcat(fragment_shader_alpha_combiner, "float a_b = -as_b; \n");
         break;
     default:
@@ -2108,25 +2108,25 @@ void gfxTexColorCombineExt(GrChipID_t tmu, gfxTCCUColor_t a, gfxCombineMode_t a_
 
     switch (a_mode)
     {
-    case GR_FUNC_MODE_ZERO:
+    case GFX_FUNC_MODE_ZERO:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "vec4 ctex0_a = vec4(0.0); \n");
         else
             strcat(fragment_shader_texture1, "vec4 ctex1_a = vec4(0.0); \n");
         break;
-    case GR_FUNC_MODE_X:
+    case GFX_FUNC_MODE_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "vec4 ctex0_a = ctex0s_a; \n");
         else
             strcat(fragment_shader_texture1, "vec4 ctex1_a = ctex1s_a; \n");
         break;
-    case GR_FUNC_MODE_ONE_MINUS_X:
+    case GFX_FUNC_MODE_ONE_MINUS_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "vec4 ctex0_a = vec4(1.0) - ctex0s_a; \n");
         else
             strcat(fragment_shader_texture1, "vec4 ctex1_a = vec4(1.0) - ctex1s_a; \n");
         break;
-    case GR_FUNC_MODE_NEGATIVE_X:
+    case GFX_FUNC_MODE_NEGATIVE_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "vec4 ctex0_a = -ctex0s_a; \n");
         else
@@ -2206,25 +2206,25 @@ void gfxTexColorCombineExt(GrChipID_t tmu, gfxTCCUColor_t a, gfxCombineMode_t a_
 
     switch (b_mode)
     {
-    case GR_FUNC_MODE_ZERO:
+    case GFX_FUNC_MODE_ZERO:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "vec4 ctex0_b = vec4(0.0); \n");
         else
             strcat(fragment_shader_texture1, "vec4 ctex1_b = vec4(0.0); \n");
         break;
-    case GR_FUNC_MODE_X:
+    case GFX_FUNC_MODE_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "vec4 ctex0_b = ctex0s_b; \n");
         else
             strcat(fragment_shader_texture1, "vec4 ctex1_b = ctex1s_b; \n");
         break;
-    case GR_FUNC_MODE_ONE_MINUS_X:
+    case GFX_FUNC_MODE_ONE_MINUS_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "vec4 ctex0_b = vec4(1.0) - ctex0s_b; \n");
         else
             strcat(fragment_shader_texture1, "vec4 ctex1_b = vec4(1.0) - ctex1s_b; \n");
         break;
-    case GR_FUNC_MODE_NEGATIVE_X:
+    case GFX_FUNC_MODE_NEGATIVE_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "vec4 ctex0_b = -ctex0s_b; \n");
         else
@@ -2433,25 +2433,25 @@ void gfxTexAlphaCombineExt(GrChipID_t tmu, gfxTACUColor_t a, gfxCombineMode_t a_
 
     switch (a_mode)
     {
-    case GR_FUNC_MODE_ZERO:
+    case GFX_FUNC_MODE_ZERO:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "ctex0_a.a = 0.0; \n");
         else
             strcat(fragment_shader_texture1, "ctex1_a.a = 0.0; \n");
         break;
-    case GR_FUNC_MODE_X:
+    case GFX_FUNC_MODE_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "ctex0_a.a = ctex0s_a.a; \n");
         else
             strcat(fragment_shader_texture1, "ctex1_a.a = ctex1s_a.a; \n");
         break;
-    case GR_FUNC_MODE_ONE_MINUS_X:
+    case GFX_FUNC_MODE_ONE_MINUS_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "ctex0_a.a = 1.0 - ctex0s_a.a; \n");
         else
             strcat(fragment_shader_texture1, "ctex1_a.a = 1.0 - ctex1s_a.a; \n");
         break;
-    case GR_FUNC_MODE_NEGATIVE_X:
+    case GFX_FUNC_MODE_NEGATIVE_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "ctex0_a.a = -ctex0s_a.a; \n");
         else
@@ -2501,25 +2501,25 @@ void gfxTexAlphaCombineExt(GrChipID_t tmu, gfxTACUColor_t a, gfxCombineMode_t a_
 
     switch (b_mode)
     {
-    case GR_FUNC_MODE_ZERO:
+    case GFX_FUNC_MODE_ZERO:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "ctex0_b.a = 0.0; \n");
         else
             strcat(fragment_shader_texture1, "ctex1_b.a = 0.0; \n");
         break;
-    case GR_FUNC_MODE_X:
+    case GFX_FUNC_MODE_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "ctex0_b.a = ctex0s_b.a; \n");
         else
             strcat(fragment_shader_texture1, "ctex1_b.a = ctex1s_b.a; \n");
         break;
-    case GR_FUNC_MODE_ONE_MINUS_X:
+    case GFX_FUNC_MODE_ONE_MINUS_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "ctex0_b.a = 1.0 - ctex0s_b.a; \n");
         else
             strcat(fragment_shader_texture1, "ctex1_b.a = 1.0 - ctex1s_b.a; \n");
         break;
-    case GR_FUNC_MODE_NEGATIVE_X:
+    case GFX_FUNC_MODE_NEGATIVE_X:
         if (num_tex == 0)
             strcat(fragment_shader_texture0, "ctex0_b.a = -ctex0s_b.a; \n");
         else
