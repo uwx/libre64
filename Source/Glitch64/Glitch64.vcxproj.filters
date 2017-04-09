@@ -58,5 +58,8 @@
     <ClInclude Include="OGLESglitchmain.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="OGLESgeometry.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

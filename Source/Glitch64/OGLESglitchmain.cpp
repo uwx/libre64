@@ -45,6 +45,7 @@
 #include <Glide64/trace.h>
 #include <Glide64/Settings.h>
 #include <Glitch64/OGLEStextures.h>
+#include <Glitch64/OGLESgeometry.h>
 
 int screen_width, screen_height;
 
@@ -832,7 +833,7 @@ void gfxRenderBuffer(gfxBuffer_t buffer)
             updateTexture();
 
             inverted_culling = 0;
-            grCullMode(culling_mode);
+            gfxCullMode(culling_mode);
 
             g_width = savedWidth;
             g_height = savedHeight;
@@ -907,7 +908,7 @@ void gfxRenderBuffer(gfxBuffer_t buffer)
             else
             {
                 inverted_culling = 1;
-                grCullMode(culling_mode);
+                gfxCullMode(culling_mode);
             }
         }
         render_to_texture = 1;

@@ -123,8 +123,7 @@ void init_geometry()
     glDisable(GL_DEPTH_TEST);
 }
 
-FX_ENTRY void FX_CALL
-grCullMode(GrCullMode_t mode)
+void gfxCullMode(gfxCullMode_t mode)
 {
     WriteTrace(TraceGlitch, TraceDebug, "mode: %d", mode);
     static int oldmode = -1, oldinv = -1;

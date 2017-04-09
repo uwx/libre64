@@ -62,6 +62,7 @@
 #include <Glitch64/OGLEScombiner.h>
 #include <Glitch64/OGLEStextures.h>
 #include <Glitch64/OGLESglitchmain.h>
+#include <Glitch64/OGLESgeometry.h>
 
 #ifdef _WIN32
 #include <commctrl.h>
@@ -441,7 +442,7 @@ int InitGfx()
     setPattern();
 
     InitCombine();
-    grCullMode(GR_CULL_NEGATIVE);
+    gfxCullMode(GR_CULL_NEGATIVE);
 
     if (g_settings->fog())
     {
@@ -457,7 +458,7 @@ int InitGfx()
     guLoadTextures();
     ClearCache();
 
-    grCullMode(GR_CULL_DISABLE);
+    gfxCullMode(GR_CULL_DISABLE);
     grDepthBufferMode(GR_DEPTHBUFFER_ZBUFFER);
     grDepthBufferFunction(GR_CMP_ALWAYS);
     gfxRenderBuffer(GR_BUFFER_BACKBUFFER);
@@ -1186,7 +1187,7 @@ void newSwapBuffers()
     gfxClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
     grDepthBufferFunction(GR_CMP_ALWAYS);
     grDepthMask(FXFALSE);
-    grCullMode(GR_CULL_DISABLE);
+    gfxCullMode(GR_CULL_DISABLE);
 
     if (g_capture_screen)
     {

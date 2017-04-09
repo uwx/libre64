@@ -50,6 +50,7 @@
 #include <Glitch64/OGLEScombiner.h>
 #include <Glitch64/OGLEStextures.h>
 #include <Glitch64/OGLESglitchmain.h>
+#include <Glitch64/OGLESgeometry.h>
 
 static TBUFF_COLOR_IMAGE * AllocateTextureBuffer(COLOR_IMAGE & cimage)
 {
@@ -375,7 +376,7 @@ static GrTextureFormat_t TexBufSetupCombiner(int force_rgb = FALSE)
     gfxClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
     grDepthBufferFunction(GR_CMP_ALWAYS);
     grDepthMask(FXFALSE);
-    grCullMode(GR_CULL_DISABLE);
+    gfxCullMode(GR_CULL_DISABLE);
     gfxFogMode(GR_FOG_DISABLE);
     GrTextureFormat_t buf_format = (rdp.tbuff_tex) ? rdp.tbuff_tex->info.format : GR_TEXFMT_RGB_565;
     GrCombineFunction_t color_source = GR_COMBINE_FUNCTION_LOCAL;

@@ -48,6 +48,7 @@
 #include <Glide64/trace.h>
 #include <Glitch64/OGLEScombiner.h>
 #include <Glitch64/OGLEStextures.h>
+#include <Glitch64/OGLESgeometry.h>
 
 static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
 {
@@ -123,7 +124,7 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
             GR_BLEND_ZERO);
     }
     grDepthBufferFunction(GR_CMP_ALWAYS);
-    grCullMode(GR_CULL_DISABLE);
+    gfxCullMode(GR_CULL_DISABLE);
     grDepthMask(FXFALSE);
     rdp.update |= UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
     return tmu;

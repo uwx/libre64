@@ -43,6 +43,7 @@
 #include <Glitch64/OGLESglitchmain.h>
 #include <Glitch64/OGLEScombiner.h>
 #include <Glitch64/OGLEStextures.h>
+#include <Glitch64/OGLESgeometry.h>
 #include "Combine.h"
 #include "Util.h"
 #include "TexCache.h"
@@ -93,7 +94,7 @@ float set_sprite_combine_mode()
         WriteTrace(TraceRDP, TraceDebug, "z compare not used, using 0");
     }
 
-    grCullMode(GR_CULL_DISABLE);
+    gfxCullMode(GR_CULL_DISABLE);
     gfxFogMode(GR_FOG_DISABLE);
     rdp.update |= UPDATE_CULL_MODE | UPDATE_FOG_ENABLED;
 

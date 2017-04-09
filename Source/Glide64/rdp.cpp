@@ -55,6 +55,7 @@
 #include "turbo3D.h"
 #include <Glitch64/OGLEScombiner.h>
 #include <Glitch64/OGLESglitchmain.h>
+#include <Glitch64/OGLESgeometry.h>
 
 #ifdef _WIN32
 #include <Common/CriticalSection.h>
@@ -2568,7 +2569,7 @@ void rdp_fillrect()
         gfxAlphaTestFunction(GR_CMP_ALWAYS);
         gfxStippleMode(GFX_STIPPLE_DISABLE);
 
-        grCullMode(GR_CULL_DISABLE);
+        gfxCullMode(GR_CULL_DISABLE);
         gfxFogMode(GR_FOG_DISABLE);
         grDepthBufferFunction(GR_CMP_ALWAYS);
         grDepthMask(FXFALSE);
@@ -3233,7 +3234,7 @@ void SetWireframeCol()
     }
 
     gfxAlphaTestFunction(GR_CMP_ALWAYS);
-    grCullMode(GR_CULL_DISABLE);
+    gfxCullMode(GR_CULL_DISABLE);
 
     rdp.update |= UPDATE_COMBINE | UPDATE_ALPHA_COMPARE;
 }
@@ -4014,7 +4015,7 @@ void lle_triangle(uint32_t w1, uint32_t w2, int shade, int texture, int zbuffer,
         apply_shade_mods(v);
     }
     ConvertCoordsConvert(vtxbuf, nbVtxs);
-    grCullMode(GR_CULL_DISABLE);
+    gfxCullMode(GR_CULL_DISABLE);
     grDrawVertexArrayContiguous(GR_TRIANGLE_STRIP, nbVtxs - 1, vtxbuf, sizeof(VERTEX));
 }
 
