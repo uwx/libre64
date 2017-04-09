@@ -1641,7 +1641,7 @@ static void render_tri(uint16_t linew, int old_interpolate)
         {
             j = i + 1;
             if (j == n) j = 0;
-            grDrawLine(&vtxbuf[i], &vtxbuf[j]);
+            gfxDrawLine(&vtxbuf[i], &vtxbuf[j]);
         }
     }
     else
