@@ -237,8 +237,7 @@ void gfxDepthMask(bool mask)
     glDepthMask(mask);
 }
 
-FX_ENTRY void FX_CALL
-grDepthBiasLevel(FxI32 level)
+void gfxDepthBiasLevel(int32_t level)
 {
     WriteTrace(TraceGlitch, TraceDebug, "level: %d", level);
     if (level)
@@ -259,8 +258,6 @@ grDepthBiasLevel(FxI32 level)
         glDisable(GL_POLYGON_OFFSET_FILL);
     }
 }
-
-// draw
 
 FX_ENTRY void FX_CALL
 grDrawTriangle(const void *a, const void *b, const void *c)

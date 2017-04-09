@@ -86,8 +86,10 @@ float set_sprite_combine_mode()
         WriteTrace(TraceRDP, TraceDebug, "prim_depth = %d, prim_dz = %d", rdp.prim_depth, rdp.prim_dz);
         Z = ScaleZ(Z);
 
-        if (rdp.othermode_l & 0x00000400)
-            grDepthBiasLevel(rdp.prim_dz);
+        if ((rdp.othermode_l & 0x00000400) != 0)
+        {
+            gfxDepthBiasLevel(rdp.prim_dz);
+        }
     }
     else
     {
