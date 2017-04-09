@@ -31,7 +31,15 @@ typedef uint32_t gfxCCUColor_t;
 typedef uint32_t gfxACUColor_t;
 typedef uint32_t gfxTCCUColor_t;
 typedef uint32_t gfxTACUColor_t;
-typedef uint32_t gfxCombineMode_t;
+
+enum gfxCombineMode_t
+{
+    GFX_FUNC_MODE_ZERO = 0x00,
+    GFX_FUNC_MODE_X = 0x01,
+    GFX_FUNC_MODE_ONE_MINUS_X = 0x02,
+    GFX_FUNC_MODE_NEGATIVE_X = 0x03,
+    GFX_FUNC_MODE_X_MINUS_HALF = 0x04,
+};
 
 typedef struct {
     gfxLOD_t           smallLodLog2;
@@ -48,15 +56,6 @@ typedef struct {
     gfxLfbWriteMode_t   writeMode;
     gfxOriginLocation_t origin;
 } gfxLfbInfo_t;
-
-enum GFX_FUNC
-{
-    GFX_FUNC_MODE_ZERO = 0x00,
-    GFX_FUNC_MODE_X = 0x01,
-    GFX_FUNC_MODE_ONE_MINUS_X = 0x02,
-    GFX_FUNC_MODE_NEGATIVE_X = 0x03,
-    GFX_FUNC_MODE_X_MINUS_HALF = 0x04,
-};
 
 enum GFX_CMBX
 {
