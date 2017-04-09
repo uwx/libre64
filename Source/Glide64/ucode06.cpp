@@ -257,7 +257,7 @@ void DrawDepthImage(const DRAWIMAGE & d)
             dst[x + y*dst_width] = src[(int(x*scale_x_src) + int(y*scale_y_src)*src_width) ^ 1];
         }
     }
-    grLfbWriteRegion(GR_BUFFER_AUXBUFFER,
+    gfxLfbWriteRegion(GR_BUFFER_AUXBUFFER,
         0,
         0,
         GR_LFB_SRC_FMT_ZA16,

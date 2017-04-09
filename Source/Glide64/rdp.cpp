@@ -934,7 +934,7 @@ EXPORT void CALL ProcessDList(void)
             } while (!rdp.halt);
         }
 #ifdef CATCH_EXCEPTIONS
-        }
+    }
     catch (...) {
         if (g_fullscreen)
         {
@@ -962,7 +962,7 @@ EXPORT void CALL ProcessDList(void)
     {
         rdp.scale_x = rdp.scale_x_bak;
         rdp.scale_y = rdp.scale_y_bak;
-        }
+    }
 
     if (g_settings->hacks(CSettings::hack_OoT))
     {
@@ -984,7 +984,7 @@ EXPORT void CALL ProcessDList(void)
         CI_SET = FALSE;
     }
     WriteTrace(TraceRDP, TraceDebug, "ProcessDList end");
-    }
+}
 
 // undef - undefined instruction, always ignore
 void undef()
@@ -3018,7 +3018,7 @@ void rdp_setcolorimage()
                             ptr_dst[x + y * width] = c;
                         }
                     }
-                    grLfbWriteRegion(GR_BUFFER_BACKBUFFER,
+                    gfxLfbWriteRegion(GR_BUFFER_BACKBUFFER,
                         (uint32_t)rdp.offset_x,
                         (uint32_t)rdp.offset_y,
                         GR_LFB_SRC_FMT_555,

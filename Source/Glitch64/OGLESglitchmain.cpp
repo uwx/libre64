@@ -1122,13 +1122,7 @@ bool gfxLfbReadRegion(gfxBuffer_t src_buffer, uint32_t src_x, uint32_t src_y, ui
     return FXTRUE;
 }
 
-FX_ENTRY FxBool FX_CALL
-grLfbWriteRegion(GrBuffer_t dst_buffer,
-    FxU32 dst_x, FxU32 dst_y,
-    GrLfbSrcFmt_t src_format,
-    FxU32 src_width, FxU32 src_height,
-    FxBool pixelPipeline,
-    FxI32 src_stride, void *src_data)
+bool gfxLfbWriteRegion(gfxBuffer_t dst_buffer, uint32_t dst_x, uint32_t dst_y, gfxLfbSrcFmt_t src_format, uint32_t src_width, uint32_t src_height, bool pixelPipeline, int32_t src_stride, void *src_data)
 {
     unsigned char *buf;
     unsigned int i, j;
@@ -1151,7 +1145,7 @@ grLfbWriteRegion(GrBuffer_t dst_buffer,
         //glDrawBuffer(current_buffer);
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grLfbWriteRegion : unknown buffer : %x", dst_buffer);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxLfbWriteRegion : unknown buffer : %x", dst_buffer);
     }
 
     if (dst_buffer != GR_BUFFER_AUXBUFFER)
@@ -1204,7 +1198,7 @@ grLfbWriteRegion(GrBuffer_t dst_buffer,
             }
             break;
         default:
-            WriteTrace(TraceGlitch, TraceWarning, "grLfbWriteRegion : unknown format : %d", src_format);
+            WriteTrace(TraceGlitch, TraceWarning, "gfxLfbWriteRegion : unknown format : %d", src_format);
         }
 
         glBindTexture(GL_TEXTURE_2D, default_texture);
