@@ -285,11 +285,10 @@ void gfxDrawLine(const void *a, const void *b)
 {
 }
 
-FX_ENTRY void FX_CALL
-grDrawVertexArray(FxU32 mode, FxU32 Count, void *pointers2)
+void gfxDrawVertexArray(uint32_t mode, uint32_t Count, void *pointers2)
 {
     void **pointers = (void**)pointers2;
-    WriteTrace(TraceGlitch, TraceDebug, "grDrawVertexArray(%d,%d)\r\n", mode, Count);
+    WriteTrace(TraceGlitch, TraceDebug, "gfxDrawVertexArray(%d,%d)\r\n", mode, Count);
 
     reloadTexture();
 
@@ -297,7 +296,7 @@ grDrawVertexArray(FxU32 mode, FxU32 Count, void *pointers2)
 
     if (mode != GR_TRIANGLE_FAN)
     {
-        WriteTrace(TraceGlitch, TraceWarning, "grDrawVertexArray : unknown mode : %x", mode);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxDrawVertexArray : unknown mode : %x", mode);
     }
 
     vbo_enable();
