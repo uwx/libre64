@@ -7,3 +7,4 @@ void gfxDepthBufferFunction(gfxCmpFnc_t function);
 void gfxDepthMask(bool mask);
 void gfxDepthBiasLevel(int32_t level);
 void gfxDrawLine(const void *a, const void *b);
+void gfxDrawTriangle(const void *a, const void *b, const void *c);

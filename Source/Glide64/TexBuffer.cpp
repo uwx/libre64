@@ -462,8 +462,8 @@ int CloseTextureBuffer(int draw)
 
     gfxTexSource(rdp.tbuff_tex->tmu, rdp.tbuff_tex->tex_addr, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
     gfxClipWindow(0, 0, g_settings->res_x(), g_settings->res_y());
-    grDrawTriangle(&v[0], &v[2], &v[1]);
-    grDrawTriangle(&v[2], &v[3], &v[1]);
+    gfxDrawTriangle(&v[0], &v[2], &v[1]);
+    gfxDrawTriangle(&v[2], &v[3], &v[1]);
     rdp.update |= UPDATE_ZBUF_ENABLED | UPDATE_COMBINE | UPDATE_TEXTURE | UPDATE_ALPHA_COMPARE;
     if (g_settings->fog() && (rdp.flags & FOG_ENABLED))
     {
@@ -516,16 +516,16 @@ int CopyTextureBuffer(COLOR_IMAGE & fb_from, COLOR_IMAGE & fb_to)
     };
 
     gfxTexSource(rdp.tbuff_tex->tmu, rdp.tbuff_tex->tex_addr, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
-    grDrawTriangle(&v[0], &v[2], &v[1]);
-    grDrawTriangle(&v[2], &v[3], &v[1]);
+    gfxDrawTriangle(&v[0], &v[2], &v[1]);
+    gfxDrawTriangle(&v[2], &v[3], &v[1]);
     gfxRenderBuffer(GR_BUFFER_BACKBUFFER);
     rdp.offset_x = rdp.offset_x_bak;
     rdp.offset_y = rdp.offset_y_bak;
     rdp.offset_x_bak = rdp.offset_y_bak = 0;
     AddOffset(v, 4);
     gfxClipWindow(0, 0, g_settings->res_x(), g_settings->res_y());
-    grDrawTriangle(&v[0], &v[2], &v[1]);
-    grDrawTriangle(&v[2], &v[3], &v[1]);
+    gfxDrawTriangle(&v[0], &v[2], &v[1]);
+    gfxDrawTriangle(&v[2], &v[3], &v[1]);
     rdp.tbuff_tex->info.format = buf_format;
 
     rdp.update |= UPDATE_ZBUF_ENABLED | UPDATE_COMBINE | UPDATE_TEXTURE | UPDATE_ALPHA_COMPARE;
@@ -576,8 +576,8 @@ int CopyDepthBuffer()
     gfxRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
     gfxTextureBufferExt(rdp.texbufs(1).tmu, rdp.texbufs(1).begin, LOD, LOD,
         GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
-    grDrawTriangle(&v[0], &v[2], &v[1]);
-    grDrawTriangle(&v[2], &v[3], &v[1]);
+    gfxDrawTriangle(&v[0], &v[2], &v[1]);
+    gfxDrawTriangle(&v[2], &v[3], &v[1]);
     gfxRenderBuffer(GR_BUFFER_BACKBUFFER);
     gfxAuxBufferExt(GR_BUFFER_TEXTUREAUXBUFFER_EXT);
 
@@ -633,8 +633,8 @@ int SwapTextureBuffer()
     gfxRenderBuffer(GR_BUFFER_TEXTUREBUFFER_EXT);
     gfxTextureBufferExt(texbuf->tmu, texbuf->tex_addr, texbuf->info.smallLodLog2, texbuf->info.largeLodLog2,
         texbuf->info.aspectRatioLog2, texbuf->info.format, GR_MIPMAPLEVELMASK_BOTH);
-    grDrawTriangle(&v[0], &v[2], &v[1]);
-    grDrawTriangle(&v[2], &v[3], &v[1]);
+    gfxDrawTriangle(&v[0], &v[2], &v[1]);
+    gfxDrawTriangle(&v[2], &v[3], &v[1]);
     rdp.texbufs(rdp.tbuff_tex->tmu).clear_allowed = TRUE;
     rdp.texbufs(rdp.tbuff_tex->tmu).count = 0;
     texbuf->tile_uls = rdp.tbuff_tex->tile_uls;
