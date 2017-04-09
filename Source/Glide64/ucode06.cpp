@@ -197,7 +197,7 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
         GR_BLEND_ONE,
         GR_BLEND_ZERO);
     gfxDepthBufferFunction(GR_CMP_ALWAYS);
-    grDepthMask(FXFALSE);
+    gfxDepthMask(FXFALSE);
 
     GrLOD_t LOD = g_settings->scr_res_x() > 1024 ? GR_LOD_LOG2_2048 : GR_LOD_LOG2_1024;
 
@@ -226,7 +226,7 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
     grDrawTriangle(&v[2], &v[3], &v[1]);
     gfxRenderBuffer(GR_BUFFER_BACKBUFFER);
     gfxAuxBufferExt(GR_BUFFER_TEXTUREAUXBUFFER_EXT);
-    grDepthMask(FXTRUE);
+    gfxDepthMask(FXTRUE);
 }
 
 void DrawDepthImage(const DRAWIMAGE & d)

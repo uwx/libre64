@@ -125,7 +125,7 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
     }
     gfxDepthBufferFunction(GR_CMP_ALWAYS);
     gfxCullMode(GR_CULL_DISABLE);
-    grDepthMask(FXFALSE);
+    gfxDepthMask(FXFALSE);
     rdp.update |= UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
     return tmu;
 }
