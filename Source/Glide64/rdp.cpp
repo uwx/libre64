@@ -2954,7 +2954,7 @@ void rdp_setcolorimage()
             {
                 if (g_settings->fb_hwfbe_enabled() && !rdp.copy_ci_index && (rdp.copy_zi_index || g_settings->hacks(CSettings::hack_BAR)))
                 {
-                    GrLOD_t LOD = g_settings->scr_res_x() > 1024 ? GR_LOD_LOG2_1024 : GR_LOD_LOG2_2048;
+                    GrLOD_t LOD = g_settings->scr_res_x() > 1024 ? GFX_LOD_LOG2_1024 : GFX_LOD_LOG2_2048;
                     gfxAuxBufferExt(GR_BUFFER_TEXTUREAUXBUFFER_EXT);
                     WriteTrace(TraceRDP, TraceDebug, "rdp_setcolorimage - set texture depth buffer to TMU0");
                 }
@@ -3761,7 +3761,7 @@ void lle_triangle(uint32_t w1, uint32_t w2, int shade, int texture, int zbuffer,
 #define WSCALE(w) (rdp.Persp_en? 65536.0f/float((w+ 0xffff)>>16) : 1.0f)
 #define CSCALE(c) (((c)>0x3ff0000? 0x3ff0000:((c)<0? 0 : (c)))>>18)
 #define _PERSP(w) ( w )
-#define PERSP(s, w) ( ((int64)(s) << 20) / (_PERSP(w)? _PERSP(w):1) )
+#define PERSP(s, w) ( ((int64_t)(s) << 20) / (_PERSP(w)? _PERSP(w):1) )
 #define SSCALE(s, _w) (rdp.Persp_en? float(PERSP(s, _w))/(1 << 10) : float(s)/(1<<21))
 #define TSCALE(s, w) (rdp.Persp_en? float(PERSP(s, w))/(1 << 10) : float(s)/(1<<21))
 

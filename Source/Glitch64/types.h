@@ -15,7 +15,6 @@ typedef int32_t gfxChromakeyMode_t;
 typedef int32_t GfxFogMode_t;
 typedef int32_t gfxTextureClampMode_t;
 typedef int32_t gfxTextureFilterMode_t;
-typedef int32_t gfxLOD_t;
 typedef int32_t gfxAspectRatio_t;
 typedef int32_t gfxTextureFormat_t;
 typedef int32_t gfxContext_t;
@@ -39,6 +38,22 @@ enum gfxCombineMode_t
     GFX_FUNC_MODE_ONE_MINUS_X = 0x02,
     GFX_FUNC_MODE_NEGATIVE_X = 0x03,
     GFX_FUNC_MODE_X_MINUS_HALF = 0x04,
+};
+
+enum gfxLOD_t
+{
+    GFX_LOD_LOG2_1 = 0x0,
+    GFX_LOD_LOG2_2 = 0x1,
+    GFX_LOD_LOG2_4 = 0x2,
+    GFX_LOD_LOG2_8 = 0x3,
+    GFX_LOD_LOG2_16 = 0x4,
+    GFX_LOD_LOG2_32 = 0x5,
+    GFX_LOD_LOG2_64 = 0x6,
+    GFX_LOD_LOG2_128 = 0x7,
+    GFX_LOD_LOG2_256 = 0x8,
+    GFX_LOD_LOG2_512 = 0x9,
+    GFX_LOD_LOG2_1024 = 0xa,
+    GFX_LOD_LOG2_2048 = 0xb,
 };
 
 typedef struct {

@@ -75,7 +75,7 @@ typedef struct TEXINFO_t
     uint32_t crc;
     uint32_t flags;
     int splits, splitheight;
-    uint64 ricecrc;
+    uint64_t ricecrc;
 } TEXINFO;
 
 TEXINFO texinfo[2];
@@ -947,7 +947,8 @@ void LoadTex(int id, int tmu)
     WriteTrace(TraceRDP, TraceDebug, " | |-+ LoadTex (id: %d, tmu: %d)", id, tmu);
 
     int td = rdp.cur_tile + id;
-    int lod, aspect;
+    gfxLOD_t lod;
+    int aspect;
     CACHE_LUT *cache;
 
     if (texinfo[id].width < 0 || texinfo[id].height < 0)
@@ -1039,47 +1040,47 @@ void LoadTex(int id, int tmu)
     switch (size_max)
     {
     case 1:
-        lod = GR_LOD_LOG2_1;
+        lod = GFX_LOD_LOG2_1;
         cache->scale = 256.0f;
         break;
     case 2:
-        lod = GR_LOD_LOG2_2;
+        lod = GFX_LOD_LOG2_2;
         cache->scale = 128.0f;
         break;
     case 4:
-        lod = GR_LOD_LOG2_4;
+        lod = GFX_LOD_LOG2_4;
         cache->scale = 64.0f;
         break;
     case 8:
-        lod = GR_LOD_LOG2_8;
+        lod = GFX_LOD_LOG2_8;
         cache->scale = 32.0f;
         break;
     case 16:
-        lod = GR_LOD_LOG2_16;
+        lod = GFX_LOD_LOG2_16;
         cache->scale = 16.0f;
         break;
     case 32:
-        lod = GR_LOD_LOG2_32;
+        lod = GFX_LOD_LOG2_32;
         cache->scale = 8.0f;
         break;
     case 64:
-        lod = GR_LOD_LOG2_64;
+        lod = GFX_LOD_LOG2_64;
         cache->scale = 4.0f;
         break;
     case 128:
-        lod = GR_LOD_LOG2_128;
+        lod = GFX_LOD_LOG2_128;
         cache->scale = 2.0f;
         break;
     case 256:
-        lod = GR_LOD_LOG2_256;
+        lod = GFX_LOD_LOG2_256;
         cache->scale = 1.0f;
         break;
     case 512:
-        lod = GR_LOD_LOG2_512;
+        lod = GFX_LOD_LOG2_512;
         cache->scale = 0.5f;
         break;
     default:
-        lod = GR_LOD_LOG2_1024;
+        lod = GFX_LOD_LOG2_1024;
         cache->scale = 0.25f;
         break;
     }
@@ -1294,7 +1295,7 @@ void LoadTex(int id, int tmu)
 
         cache->ricecrc = ext_ghq_checksum(addr, tile_width, tile_height, (unsigned short)(rdp.tiles(td).format << 8 | rdp.tiles(td).size), bpl, paladdr);
         WriteTrace(TraceRDP, TraceDebug, "CI RICE CRC. format: %d, size: %d, CRC: %08lx, PalCRC: %08lx", rdp.tiles(td).format, rdp.tiles(td).size, (uint32_t)(cache->ricecrc & 0xFFFFFFFF), (uint32_t)(cache->ricecrc >> 32));
-        if (ext_ghq_hirestex((uint64)g64_crc, cache->ricecrc, palette, &ghqTexInfo))
+        if (ext_ghq_hirestex((uint64_t)g64_crc, cache->ricecrc, palette, &ghqTexInfo))
         {
             cache->is_hires_tex = ghqTexInfo.is_hires_tex;
             if (!ghqTexInfo.is_hires_tex && aspect != ghqTexInfo.aspectRatioLog2)
@@ -1562,14 +1563,14 @@ void LoadTex(int id, int tmu)
         {
             if (!ghqTexInfo.data)
                 if (!g_settings->ghq_enht_nobg() || !rdp.texrecting || (texinfo[id].splits == 1 && texinfo[id].width <= 256))
-                    ext_ghq_txfilter((unsigned char*)texture, (int)real_x, (int)real_y, LOWORD(result), (uint64)g64_crc, &ghqTexInfo);
+                    ext_ghq_txfilter((unsigned char*)texture, (int)real_x, (int)real_y, LOWORD(result), (uint64_t)g64_crc, &ghqTexInfo);
 
             if (ghqTexInfo.data)
             {
                 if (ghqTexInfo.aspectRatioLog2 < GR_ASPECT_LOG2_1x8 ||
                     ghqTexInfo.aspectRatioLog2 > GR_ASPECT_LOG2_8x1 ||
-                    ghqTexInfo.largeLodLog2 > GR_LOD_LOG2_2048 ||
-                    ghqTexInfo.largeLodLog2 < GR_LOD_LOG2_1)
+                    ghqTexInfo.largeLodLog2 > GFX_LOD_LOG2_2048 ||
+                    ghqTexInfo.largeLodLog2 < GFX_LOD_LOG2_1)
                 {
                     /* invalid dimensions */
                 }
