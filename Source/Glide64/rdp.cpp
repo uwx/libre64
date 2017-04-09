@@ -2452,7 +2452,7 @@ void rdp_fillrect()
             update_scissor();
             grDepthMask(FXTRUE);
             gfxColorMask(FXFALSE, FXFALSE);
-            grBufferClear(0, 0, rdp.fill_color ? rdp.fill_color & 0xFFFF : 0xFFFF);
+            gfxBufferClear(0, 0, rdp.fill_color ? rdp.fill_color & 0xFFFF : 0xFFFF);
             gfxColorMask(FXTRUE, FXTRUE);
             rdp.update |= UPDATE_ZBUF_ENABLED;
         }
@@ -2493,7 +2493,7 @@ void rdp_fillrect()
                 ((uint32_t)((float)((color & 0x003E) >> 1) / 31.0f * 255.0f) << 8);
         }
         grDepthMask(FXFALSE);
-        grBufferClear(color, 0, 0xFFFF);
+        gfxBufferClear(color, 0, 0xFFFF);
         grDepthMask(FXTRUE);
         rdp.update |= UPDATE_ZBUF_ENABLED;
         WriteTrace(TraceRDP, TraceDebug, "Fillrect - cleared the texture buffer");
@@ -2775,11 +2775,10 @@ static void RestoreScale()
     rdp.view_trans[0] *= rdp.scale_x;
     rdp.view_trans[1] *= rdp.scale_y;
     rdp.update |= UPDATE_VIEWPORT | UPDATE_SCISSOR;
-    //*
+
     grDepthMask(FXFALSE);
-    grBufferClear(0, 0, 0xFFFF);
+    gfxBufferClear(0, 0, 0xFFFF);
     grDepthMask(FXTRUE);
-    //*/
 }
 
 static uint32_t swapped_addr = 0;
@@ -3036,13 +3035,6 @@ void rdp_setcolorimage()
                         ptr_dst);
                     delete[] ptr_dst;
                 }
-                /*
-                else  //just clear buffer
-                {
-                gfxColorMask(FXTRUE, FXTRUE);
-                grBufferClear (0, 0, 0xFFFF);
-                }
-                */
             }
         }
 

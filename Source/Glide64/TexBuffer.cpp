@@ -294,7 +294,7 @@ int OpenTextureBuffer(COLOR_IMAGE & cimage)
                         gfxTextureBufferExt(texbuf->tmu, texbuf->tex_addr, texbuf->info.smallLodLog2, texbuf->info.largeLodLog2,
                             texbuf->info.aspectRatioLog2, texbuf->info.format, GR_MIPMAPLEVELMASK_BOTH);
                         grDepthMask(FXFALSE);
-                        grBufferClear(0, 0, 0xFFFF);
+                        gfxBufferClear(0, 0, 0xFFFF);
                         grDepthMask(FXTRUE);
                         gfxRenderBuffer(GR_BUFFER_BACKBUFFER);
                         rdp.texbufs(i).count--;
@@ -336,11 +336,9 @@ int OpenTextureBuffer(COLOR_IMAGE & cimage)
     {
         rdp.cur_image->clear = FALSE;
         grDepthMask(FXFALSE);
-        grBufferClear(0, 0, 0xFFFF);
+        gfxBufferClear(0, 0, 0xFFFF);
         grDepthMask(FXTRUE);
     }
-    //*/
-    //  memset(gfx.RDRAM+cimage.addr, 0, cimage.width*cimage.height*cimage.size);
     WriteTrace(TraceRDP, TraceDebug, "  texaddr: %08lx, tex_width: %d, tex_height: %d, cur_tex_buf: %d, texformat: %d, motionblur: %d", rdp.cur_image->tex_addr, rdp.cur_image->tex_width, rdp.cur_image->tex_height, rdp.cur_tex_buf, rdp.cur_image->info.format, rdp.motionblur);
     if (!rdp.offset_x_bak)
     {
