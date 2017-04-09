@@ -977,9 +977,7 @@ grBufferClear(GrColor_t color, GrAlpha_t alpha, FxU32 depth)
     buffer_cleared = 1;
 }
 
-// #include <unistd.h>
-FX_ENTRY void FX_CALL
-grBufferSwap(FxU32 swap_interval)
+void gfxBufferSwap(uint32_t swap_interval)
 {
     vbo_draw();
     int i;
@@ -1000,8 +998,6 @@ grBufferSwap(FxU32 swap_interval)
         fbs[i].buff_clear = 1;
     }
 }
-
-// frame buffer
 
 FX_ENTRY FxBool FX_CALL
 grLfbLock(GrLock_t type, GrBuffer_t buffer, GrLfbWriteMode_t writeMode,

@@ -320,7 +320,7 @@ void DisplayLoadProgress(const wchar_t *format, ...)
     int len = minval((int)strlen(buf) * 8, 1024);
     x = (1024 - len) / 2.0f;
     output(x, 360, 1, buf);
-    grBufferSwap(0);
+    gfxBufferSwap(0);
     gfxColorMask(FXTRUE, FXTRUE);
     grBufferClear(0, 0, 0xFFFF);
 }
@@ -464,7 +464,7 @@ int InitGfx()
     gfxColorMask(FXTRUE, FXTRUE);
     grDepthMask(FXTRUE);
     grBufferClear(0, 0, 0xFFFF);
-    grBufferSwap(0);
+    gfxBufferSwap(0);
     grBufferClear(0, 0, 0xFFFF);
     grDepthMask(FXFALSE);
     gfxTexFilterMode(0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
@@ -1282,7 +1282,7 @@ void newSwapBuffers()
         grAuxBufferExt(GR_BUFFER_AUXBUFFER);
     }
     WriteTrace(TraceGlide64, TraceDebug, "BUFFER SWAPPED");
-    grBufferSwap(g_settings->vsync());
+    gfxBufferSwap(g_settings->vsync());
 
     if (g_settings->wireframe() || g_settings->buff_clear() || (g_settings->hacks(CSettings::hack_PPL) && g_settings->ucode() == CSettings::ucode_S2DEX))
     {
