@@ -20,7 +20,6 @@ typedef int32_t gfxTextureFormat_t;
 typedef int32_t gfxContext_t;
 typedef int32_t gfxColorFormat_t;
 typedef int32_t gfxOriginLocation_t;
-typedef int32_t gfxBuffer_t;
 typedef int32_t gfxLock_t;
 typedef int32_t gfxLfbWriteMode_t;
 typedef uint32_t gfxLfbSrcFmt_t;
@@ -54,6 +53,18 @@ enum gfxLOD_t
     GFX_LOD_LOG2_512 = 0x9,
     GFX_LOD_LOG2_1024 = 0xa,
     GFX_LOD_LOG2_2048 = 0xb,
+};
+
+enum gfxBuffer_t
+{
+    GFX_BUFFER_FRONTBUFFER = 0x0,
+    GFX_BUFFER_BACKBUFFER = 0x1,
+    GFX_BUFFER_AUXBUFFER = 0x2,
+    GFX_BUFFER_DEPTHBUFFER = 0x3,
+    GFX_BUFFER_ALPHABUFFER = 0x4,
+    GFX_BUFFER_TRIPLEBUFFER = 0x5,
+    GFX_BUFFER_TEXTUREBUFFER_EXT = 0x6,
+    GFX_BUFFER_TEXTUREAUXBUFFER_EXT = 0x7,
 };
 
 typedef struct {

@@ -827,7 +827,7 @@ void gfxRenderBuffer(gfxBuffer_t buffer)
 
     switch (buffer)
     {
-    case GR_BUFFER_BACKBUFFER:
+    case GFX_BUFFER_BACKBUFFER:
         if (render_to_texture)
         {
             updateTexture();
@@ -922,7 +922,7 @@ void gfxAuxBufferExt(gfxBuffer_t buffer)
 {
     WriteTrace(TraceGlitch, TraceDebug, "buffer: %d", buffer);
 
-    if (buffer == GR_BUFFER_AUXBUFFER)
+    if (buffer == GFX_BUFFER_AUXBUFFER)
     {
         invtex[0] = 0;
         invtex[1] = 0;
@@ -1012,17 +1012,17 @@ bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode,
 
         switch (buffer)
         {
-        case GR_BUFFER_FRONTBUFFER:
+        case GFX_BUFFER_FRONTBUFFER:
             //glReadBuffer(GL_FRONT);
             break;
-        case GR_BUFFER_BACKBUFFER:
+        case GFX_BUFFER_BACKBUFFER:
             //glReadBuffer(GL_BACK);
             break;
         default:
             WriteTrace(TraceGlitch, TraceWarning, "gfxLfbLock : unknown buffer : %x", buffer);
         }
 
-        if (buffer != GR_BUFFER_AUXBUFFER)
+        if (buffer != GFX_BUFFER_AUXBUFFER)
         {
             if (writeMode == GR_LFBWRITEMODE_888) {
                 //printf("LfbLock GR_LFBWRITEMODE_888\n");
@@ -1077,15 +1077,15 @@ bool gfxLfbReadRegion(gfxBuffer_t src_buffer, uint32_t src_x, uint32_t src_y, ui
 
     switch (src_buffer)
     {
-    case GR_BUFFER_FRONTBUFFER:
+    case GFX_BUFFER_FRONTBUFFER:
         break;
-    case GR_BUFFER_BACKBUFFER:
+    case GFX_BUFFER_BACKBUFFER:
         break;
     default:
         WriteTrace(TraceGlitch, TraceWarning, "grReadRegion : unknown buffer : %x", src_buffer);
     }
 
-    if (src_buffer != GR_BUFFER_AUXBUFFER)
+    if (src_buffer != GFX_BUFFER_AUXBUFFER)
     {
         buf = (unsigned char*)malloc(src_width*src_height * 4);
 
@@ -1139,17 +1139,17 @@ bool gfxLfbWriteRegion(gfxBuffer_t dst_buffer, uint32_t dst_x, uint32_t dst_y, g
 
     switch (dst_buffer)
     {
-    case GR_BUFFER_BACKBUFFER:
+    case GFX_BUFFER_BACKBUFFER:
         //glDrawBuffer(GL_BACK);
         break;
-    case GR_BUFFER_AUXBUFFER:
+    case GFX_BUFFER_AUXBUFFER:
         //glDrawBuffer(current_buffer);
         break;
     default:
         WriteTrace(TraceGlitch, TraceWarning, "gfxLfbWriteRegion : unknown buffer : %x", dst_buffer);
     }
 
-    if (dst_buffer != GR_BUFFER_AUXBUFFER)
+    if (dst_buffer != GFX_BUFFER_AUXBUFFER)
     {
         buf = (unsigned char*)malloc(tex_width*tex_height * 4);
 
