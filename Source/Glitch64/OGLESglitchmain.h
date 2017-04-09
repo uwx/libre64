@@ -11,3 +11,4 @@ void gfxBufferSwap(uint32_t swap_interval);
 bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode, gfxOriginLocation_t origin, bool pixelPipeline, gfxLfbInfo_t *info);
 void gfxAuxBufferExt(gfxBuffer_t buffer);
 void gfxBufferClear(gfxColor_t color, gfxAlpha_t alpha, uint32_t depth);
+bool gfxLfbReadRegion(gfxBuffer_t src_buffer, uint32_t src_x, uint32_t src_y, uint32_t src_width, uint32_t src_height, uint32_t dst_stride, void *dst_data);

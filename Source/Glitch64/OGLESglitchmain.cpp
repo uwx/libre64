@@ -1066,11 +1066,7 @@ bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode,
     return FXTRUE;
 }
 
-FX_ENTRY FxBool FX_CALL
-grLfbReadRegion(GrBuffer_t src_buffer,
-    FxU32 src_x, FxU32 src_y,
-    FxU32 src_width, FxU32 src_height,
-    FxU32 dst_stride, void *dst_data)
+bool gfxLfbReadRegion(gfxBuffer_t src_buffer, uint32_t src_x, uint32_t src_y, uint32_t src_width, uint32_t src_height, uint32_t dst_stride, void *dst_data)
 {
     unsigned char *buf;
     unsigned int i, j;

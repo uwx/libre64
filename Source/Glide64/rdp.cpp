@@ -654,13 +654,7 @@ static void CopyFrameBuffer(GrBuffer_t buffer = GR_BUFFER_BACKBUFFER)
     if (rdp.scale_x < 1.1f)
     {
         uint16_t * ptr_src = new uint16_t[width*height];
-        if (grLfbReadRegion(buffer,
-            (uint32_t)rdp.offset_x,
-            (uint32_t)rdp.offset_y,//rdp.ci_upper_bound,
-            width,
-            height,
-            width << 1,
-            ptr_src))
+        if (gfxLfbReadRegion(buffer, (uint32_t)rdp.offset_x, (uint32_t)rdp.offset_y, width, height, width << 1, ptr_src))
         {
             uint16_t *ptr_dst = (uint16_t*)(gfx.RDRAM + rdp.cimg);
             uint32_t *ptr_dst32 = (uint32_t*)(gfx.RDRAM + rdp.cimg);
@@ -940,7 +934,7 @@ EXPORT void CALL ProcessDList(void)
             } while (!rdp.halt);
         }
 #ifdef CATCH_EXCEPTIONS
-    }
+        }
     catch (...) {
         if (g_fullscreen)
         {
@@ -968,7 +962,7 @@ EXPORT void CALL ProcessDList(void)
     {
         rdp.scale_x = rdp.scale_x_bak;
         rdp.scale_y = rdp.scale_y_bak;
-    }
+        }
 
     if (g_settings->hacks(CSettings::hack_OoT))
     {
@@ -990,7 +984,7 @@ EXPORT void CALL ProcessDList(void)
         CI_SET = FALSE;
     }
     WriteTrace(TraceRDP, TraceDebug, "ProcessDList end");
-}
+    }
 
 // undef - undefined instruction, always ignore
 void undef()
