@@ -741,9 +741,6 @@ static void CopyFrameBuffer(GrBuffer_t buffer = GR_BUFFER_BACKBUFFER)
                             ptr_dst32[x + y * width] = RGBA16TO32(c);
                     }
                 }
-
-                // Unlock the backbuffer
-                grLfbUnlock(GR_LFB_READ_ONLY, buffer);
                 WriteTrace(TraceRDP, TraceDebug, "LfbLock.  Framebuffer copy complete.");
             }
             else
@@ -905,7 +902,7 @@ EXPORT void CALL ProcessDList(void)
         if (g_settings->ucode() == CSettings::ucode_Turbo3d)
         {
             Turbo3D();
-        }
+    }
         else
         {
             // MAIN PROCESSING LOOP
@@ -943,7 +940,7 @@ EXPORT void CALL ProcessDList(void)
             } while (!rdp.halt);
         }
 #ifdef CATCH_EXCEPTIONS
-    }
+}
     catch (...) {
         if (g_fullscreen)
         {
@@ -993,7 +990,7 @@ EXPORT void CALL ProcessDList(void)
         CI_SET = FALSE;
     }
     WriteTrace(TraceRDP, TraceDebug, "ProcessDList end");
-}
+    }
 
 // undef - undefined instruction, always ignore
 void undef()

@@ -647,8 +647,6 @@ void CALL ReadScreen(void **dest, int *width, int *height)
                 offset_src -= info.strideInBytes;
             }
         }
-        // Unlock the frontbuffer
-        grLfbUnlock(GR_LFB_READ_ONLY, GR_BUFFER_FRONTBUFFER);
     }
     WriteTrace(TraceGlide64, TraceDebug, "Success");
 }
@@ -1260,8 +1258,6 @@ void newSwapBuffers()
                     offset_src += info.strideInBytes;
                 }
             }
-            // Unlock the backbuffer
-            grLfbUnlock(GR_LFB_READ_ONLY, GR_BUFFER_BACKBUFFER);
             write_png_file(path, image_width, image_height, ssimg);
             g_capture_screen = false;
         }
