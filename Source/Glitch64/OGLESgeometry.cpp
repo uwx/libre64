@@ -303,10 +303,9 @@ void gfxDrawVertexArray(uint32_t mode, uint32_t Count, void *pointers2)
     vbo_buffer(GL_TRIANGLE_FAN, 0, Count, pointers[0]);
 }
 
-FX_ENTRY void FX_CALL
-grDrawVertexArrayContiguous(FxU32 mode, FxU32 Count, void *pointers, FxU32 stride)
+void gfxDrawVertexArrayContiguous(uint32_t mode, uint32_t Count, void *pointers, uint32_t stride)
 {
-    WriteTrace(TraceGlitch, TraceDebug, "grDrawVertexArrayContiguous(%d,%d,%d)\r\n", mode, Count, stride);
+    WriteTrace(TraceGlitch, TraceDebug, "gfxDrawVertexArrayContiguous(%d,%d,%d)\r\n", mode, Count, stride);
 
     if (stride != 156)
     {
@@ -328,6 +327,6 @@ grDrawVertexArrayContiguous(FxU32 mode, FxU32 Count, void *pointers, FxU32 strid
         vbo_buffer(GL_TRIANGLE_FAN, 0, Count, pointers);
         break;
     default:
-        WriteTrace(TraceGlitch, TraceWarning, "grDrawVertexArrayContiguous : unknown mode : %x", mode);
+        WriteTrace(TraceGlitch, TraceWarning, "gfxDrawVertexArrayContiguous : unknown mode : %x", mode);
     }
 }

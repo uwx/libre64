@@ -9,3 +9,4 @@ void gfxDepthBiasLevel(int32_t level);
 void gfxDrawLine(const void *a, const void *b);
 void gfxDrawTriangle(const void *a, const void *b, const void *c);
 void gfxDrawVertexArray(uint32_t mode, uint32_t Count, void *pointers2);
+void gfxDrawVertexArrayContiguous(uint32_t mode, uint32_t Count, void *pointers, uint32_t stride);
