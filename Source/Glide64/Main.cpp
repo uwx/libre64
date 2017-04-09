@@ -599,14 +599,9 @@ void CALL ReadScreen(void **dest, int *width, int *height)
     uint8_t * line = buff;
     *dest = (void*)buff;
 
-    GrLfbInfo_t info;
-    info.size = sizeof(GrLfbInfo_t);
-    if (grLfbLock(GR_LFB_READ_ONLY,
-        GR_BUFFER_FRONTBUFFER,
-        GR_LFBWRITEMODE_565,
-        GR_ORIGIN_UPPER_LEFT,
-        FXFALSE,
-        &info))
+    gfxLfbInfo_t info;
+    info.size = sizeof(info);
+    if (gfxLfbLock(GR_LFB_READ_ONLY, GR_BUFFER_FRONTBUFFER, GR_LFBWRITEMODE_565, GR_ORIGIN_UPPER_LEFT, FXFALSE, &info))
     {
         uint32_t offset_src = info.strideInBytes*(g_settings->scr_res_y() - 1);
 
@@ -1221,9 +1216,9 @@ void newSwapBuffers()
         const uint32_t image_width = g_settings->scr_res_x() - offset_x * 2;
         const uint32_t image_height = g_settings->scr_res_y() - offset_y * 2;
 
-        GrLfbInfo_t info;
-        info.size = sizeof(GrLfbInfo_t);
-        if (grLfbLock(GR_LFB_READ_ONLY, GR_BUFFER_BACKBUFFER, GR_LFBWRITEMODE_565, GR_ORIGIN_UPPER_LEFT, FXFALSE, &info))
+        gfxLfbInfo_t info;
+        info.size = sizeof(info);
+        if (gfxLfbLock(GR_LFB_READ_ONLY, GR_BUFFER_BACKBUFFER, GR_LFBWRITEMODE_565, GR_ORIGIN_UPPER_LEFT, FXFALSE, &info))
         {
             AUTO_PTR<uint8_t> ssimg_buffer(new uint8_t[image_width * image_height * 3]);
             uint8_t * ssimg = ssimg_buffer.get();

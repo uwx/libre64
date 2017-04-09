@@ -999,15 +999,12 @@ void gfxBufferSwap(uint32_t swap_interval)
     }
 }
 
-FX_ENTRY FxBool FX_CALL
-grLfbLock(GrLock_t type, GrBuffer_t buffer, GrLfbWriteMode_t writeMode,
-    GrOriginLocation_t origin, FxBool pixelPipeline,
-    GrLfbInfo_t *info)
+bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode, gfxOriginLocation_t origin, bool pixelPipeline, gfxLfbInfo_t *info)
 {
     WriteTrace(TraceGlitch, TraceDebug, "type: %d buffer: %d writeMode: %d origin: %d pixelPipeline: %d", type, buffer, writeMode, origin, pixelPipeline);
     if (type == GR_LFB_WRITE_ONLY)
     {
-        WriteTrace(TraceGlitch, TraceWarning, "grLfbLock : write only");
+        WriteTrace(TraceGlitch, TraceWarning, "gfxLfbLock : write only");
     }
     else
     {
@@ -1023,7 +1020,7 @@ grLfbLock(GrLock_t type, GrBuffer_t buffer, GrLfbWriteMode_t writeMode,
             //glReadBuffer(GL_BACK);
             break;
         default:
-            WriteTrace(TraceGlitch, TraceWarning, "grLfbLock : unknown buffer : %x", buffer);
+            WriteTrace(TraceGlitch, TraceWarning, "gfxLfbLock : unknown buffer : %x", buffer);
         }
 
         if (buffer != GR_BUFFER_AUXBUFFER)

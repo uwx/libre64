@@ -8,3 +8,4 @@ bool gfxSstWinClose(gfxContext_t context);
 void gfxTextureBufferExt(gfxChipID_t tmu, uint32_t startAddress, gfxLOD_t lodmin, gfxLOD_t lodmax, gfxAspectRatio_t aspect, gfxTextureFormat_t fmt, uint32_t evenOdd);
 void gfxRenderBuffer(gfxBuffer_t buffer);
 void gfxBufferSwap(uint32_t swap_interval);
+bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode, gfxOriginLocation_t origin, bool pixelPipeline, gfxLfbInfo_t *info);

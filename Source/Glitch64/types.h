@@ -22,6 +22,8 @@ typedef int32_t gfxContext_t;
 typedef int32_t gfxColorFormat_t;
 typedef int32_t gfxOriginLocation_t;
 typedef int32_t gfxBuffer_t;
+typedef int32_t gfxLock_t;
+typedef int32_t gfxLfbWriteMode_t;
 
 typedef struct {
     gfxLOD_t           smallLodLog2;
@@ -30,3 +32,11 @@ typedef struct {
     gfxTextureFormat_t format;
     void               *data;
 } gfxTexInfo;
+
+typedef struct {
+    int32_t            size;
+    void               *lfbPtr;
+    uint32_t           strideInBytes;
+    gfxLfbWriteMode_t   writeMode;
+    gfxOriginLocation_t origin;
+} gfxLfbInfo_t;
