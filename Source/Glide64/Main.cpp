@@ -1270,7 +1270,7 @@ void newSwapBuffers()
 
     if (g_settings->fb_hwfbe_enabled() && !g_settings->hacks(CSettings::hack_RE2) && !true)
     {
-        grAuxBufferExt(GR_BUFFER_AUXBUFFER);
+        gfxAuxBufferExt(GR_BUFFER_AUXBUFFER);
     }
     WriteTrace(TraceGlide64, TraceDebug, "BUFFER SWAPPED");
     gfxBufferSwap(g_settings->vsync());

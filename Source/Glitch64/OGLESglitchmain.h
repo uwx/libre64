@@ -9,3 +9,4 @@ void gfxTextureBufferExt(gfxChipID_t tmu, uint32_t startAddress, gfxLOD_t lodmin
 void gfxRenderBuffer(gfxBuffer_t buffer);
 void gfxBufferSwap(uint32_t swap_interval);
 bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode, gfxOriginLocation_t origin, bool pixelPipeline, gfxLfbInfo_t *info);
+void gfxAuxBufferExt(gfxBuffer_t buffer);

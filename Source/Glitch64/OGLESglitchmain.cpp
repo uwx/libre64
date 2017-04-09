@@ -917,8 +917,7 @@ void gfxRenderBuffer(gfxBuffer_t buffer)
     }
 }
 
-FX_ENTRY void FX_CALL
-grAuxBufferExt(GrBuffer_t buffer)
+void gfxAuxBufferExt(gfxBuffer_t buffer)
 {
     WriteTrace(TraceGlitch, TraceDebug, "buffer: %d", buffer);
 

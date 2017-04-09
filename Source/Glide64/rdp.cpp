@@ -902,7 +902,7 @@ EXPORT void CALL ProcessDList(void)
         if (g_settings->ucode() == CSettings::ucode_Turbo3d)
         {
             Turbo3D();
-    }
+        }
         else
         {
             // MAIN PROCESSING LOOP
@@ -940,7 +940,7 @@ EXPORT void CALL ProcessDList(void)
             } while (!rdp.halt);
         }
 #ifdef CATCH_EXCEPTIONS
-}
+    }
     catch (...) {
         if (g_fullscreen)
         {
@@ -990,7 +990,7 @@ EXPORT void CALL ProcessDList(void)
         CI_SET = FALSE;
     }
     WriteTrace(TraceRDP, TraceDebug, "ProcessDList end");
-    }
+}
 
 // undef - undefined instruction, always ignore
 void undef()
@@ -2961,7 +2961,7 @@ void rdp_setcolorimage()
                 if (g_settings->fb_hwfbe_enabled() && !rdp.copy_ci_index && (rdp.copy_zi_index || g_settings->hacks(CSettings::hack_BAR)))
                 {
                     GrLOD_t LOD = g_settings->scr_res_x() > 1024 ? GR_LOD_LOG2_1024 : GR_LOD_LOG2_2048;
-                    grAuxBufferExt(GR_BUFFER_TEXTUREAUXBUFFER_EXT);
+                    gfxAuxBufferExt(GR_BUFFER_TEXTUREAUXBUFFER_EXT);
                     WriteTrace(TraceRDP, TraceDebug, "rdp_setcolorimage - set texture depth buffer to TMU0");
                 }
             }
