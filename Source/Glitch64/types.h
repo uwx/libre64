@@ -26,6 +26,7 @@ typedef int32_t gfxLock_t;
 typedef int32_t gfxLfbWriteMode_t;
 typedef uint32_t gfxLfbSrcFmt_t;
 typedef int32_t gfxCullMode_t;
+typedef int32_t gfxDepthBufferMode_t;
 
 typedef struct {
     gfxLOD_t           smallLodLog2;

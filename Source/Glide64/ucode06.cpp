@@ -196,7 +196,7 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
         GR_BLEND_ZERO,
         GR_BLEND_ONE,
         GR_BLEND_ZERO);
-    grDepthBufferFunction(GR_CMP_ALWAYS);
+    gfxDepthBufferFunction(GR_CMP_ALWAYS);
     grDepthMask(FXFALSE);
 
     GrLOD_t LOD = g_settings->scr_res_x() > 1024 ? GR_LOD_LOG2_2048 : GR_LOD_LOG2_1024;
