@@ -11,7 +11,6 @@ typedef int32_t gfxCombineLocal_t;
 typedef int32_t gfxCombineOther_t;
 typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
-typedef int32_t GfxFogMode_t;
 typedef int32_t gfxTextureClampMode_t;
 typedef int32_t gfxTextureFilterMode_t;
 typedef int32_t gfxContext_t;
@@ -131,7 +130,20 @@ enum gfxCombineFunction_t
     GFX_COMBINE_FUNCTION_SCALE_MINUS_LOCAL_ADD_LOCAL_ALPHA = 0x10,
 };
 
-typedef struct {
+enum GfxFogMode_t
+{
+    GFX_FOG_DISABLE = 0x0,
+    GFX_FOG_WITH_TABLE_ON_FOGCOORD_EXT = 0x1,
+    GFX_FOG_WITH_TABLE_ON_Q = 0x2,
+    GFX_FOG_WITH_TABLE_ON_W = GFX_FOG_WITH_TABLE_ON_Q,
+    GFX_FOG_WITH_ITERATED_Z = 0x3,
+    GFX_FOG_WITH_ITERATED_ALPHA_EXT = 0x4,
+    GFX_FOG_MULT2 = 0x100,
+    GFX_FOG_ADD2 = 0x200,
+};
+
+typedef struct
+{
     gfxLOD_t           smallLodLog2;
     gfxLOD_t           largeLodLog2;
     gfxAspectRatio_t   aspectRatioLog2;
