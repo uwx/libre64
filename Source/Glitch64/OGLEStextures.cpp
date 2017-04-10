@@ -30,17 +30,6 @@
 #include <Glitch64/OGLEStextures.h>
 
 /* Napalm extensions to GrTextureFormat_t */
-#define GR_TEXFMT_ARGB_CMP_FXT1           0x11
-#define GR_TEXFMT_ARGB_8888               0x12
-#define GR_TEXFMT_YUYV_422                0x13
-#define GR_TEXFMT_UYVY_422                0x14
-#define GR_TEXFMT_AYUV_444                0x15
-#define GR_TEXFMT_ARGB_CMP_DXT1           0x16
-#define GR_TEXFMT_ARGB_CMP_DXT2           0x17
-#define GR_TEXFMT_ARGB_CMP_DXT3           0x18
-#define GR_TEXFMT_ARGB_CMP_DXT4           0x19
-#define GR_TEXFMT_ARGB_CMP_DXT5           0x1A
-#define GR_TEXTFMT_RGB_888                0xFF
 
 int TMU_SIZE = 8 * 2048 * 2048;
 static unsigned char* texture = NULL;
@@ -189,27 +178,27 @@ uint32_t gfxTexTextureMemRequired(uint32_t evenOdd, gfxTexInfo *info)
 
     switch (info->format)
     {
-    case GR_TEXFMT_ALPHA_8:
-    case GR_TEXFMT_INTENSITY_8: // I8 support - H.Morii
-    case GR_TEXFMT_ALPHA_INTENSITY_44:
+    case GFX_TEXFMT_ALPHA_8:
+    case GFX_TEXFMT_INTENSITY_8: // I8 support - H.Morii
+    case GFX_TEXFMT_ALPHA_INTENSITY_44:
         return width*height;
         break;
-    case GR_TEXFMT_ARGB_1555:
-    case GR_TEXFMT_ARGB_4444:
-    case GR_TEXFMT_ALPHA_INTENSITY_88:
-    case GR_TEXFMT_RGB_565:
+    case GFX_TEXFMT_ARGB_1555:
+    case GFX_TEXFMT_ARGB_4444:
+    case GFX_TEXFMT_ALPHA_INTENSITY_88:
+    case GFX_TEXFMT_RGB_565:
         return (width*height) << 1;
         break;
-    case GR_TEXFMT_ARGB_8888:
+    case GFX_TEXFMT_ARGB_8888:
         return (width*height) << 2;
         break;
-    case GR_TEXFMT_ARGB_CMP_DXT1:  // FXT1,DXT1,5 support - H.Morii
+    case GFX_TEXFMT_ARGB_CMP_DXT1:  // FXT1,DXT1,5 support - H.Morii
         return ((((width + 0x3)&~0x3)*((height + 0x3)&~0x3)) >> 1);
-    case GR_TEXFMT_ARGB_CMP_DXT3:
+    case GFX_TEXFMT_ARGB_CMP_DXT3:
         return ((width + 0x3)&~0x3)*((height + 0x3)&~0x3);
-    case GR_TEXFMT_ARGB_CMP_DXT5:
+    case GFX_TEXFMT_ARGB_CMP_DXT5:
         return ((width + 0x3)&~0x3)*((height + 0x3)&~0x3);
-    case GR_TEXFMT_ARGB_CMP_FXT1:
+    case GFX_TEXFMT_ARGB_CMP_FXT1:
         return ((((width + 0x7)&~0x7)*((height + 0x3)&~0x3)) >> 1);
     default:
         WriteTrace(TraceGlitch, TraceWarning, "gfxTexTextureMemRequired : unknown texture format: %x", info->format);
@@ -236,27 +225,27 @@ uint32_t gfxTexCalcMemRequired(gfxLOD_t lodmin, gfxLOD_t lodmax, gfxAspectRatio_
 
     switch (fmt)
     {
-    case GR_TEXFMT_ALPHA_8:
-    case GR_TEXFMT_INTENSITY_8: // I8 support - H.Morii
-    case GR_TEXFMT_ALPHA_INTENSITY_44:
+    case GFX_TEXFMT_ALPHA_8:
+    case GFX_TEXFMT_INTENSITY_8: // I8 support - H.Morii
+    case GFX_TEXFMT_ALPHA_INTENSITY_44:
         return width*height;
         break;
-    case GR_TEXFMT_ARGB_1555:
-    case GR_TEXFMT_ARGB_4444:
-    case GR_TEXFMT_ALPHA_INTENSITY_88:
-    case GR_TEXFMT_RGB_565:
+    case GFX_TEXFMT_ARGB_1555:
+    case GFX_TEXFMT_ARGB_4444:
+    case GFX_TEXFMT_ALPHA_INTENSITY_88:
+    case GFX_TEXFMT_RGB_565:
         return (width*height) << 1;
         break;
-    case GR_TEXFMT_ARGB_8888:
+    case GFX_TEXFMT_ARGB_8888:
         return (width*height) << 2;
         break;
-    case GR_TEXFMT_ARGB_CMP_DXT1:  // FXT1,DXT1,5 support - H.Morii
+    case GFX_TEXFMT_ARGB_CMP_DXT1:  // FXT1,DXT1,5 support - H.Morii
         return ((((width + 0x3)&~0x3)*((height + 0x3)&~0x3)) >> 1);
-    case GR_TEXFMT_ARGB_CMP_DXT3:
+    case GFX_TEXFMT_ARGB_CMP_DXT3:
         return ((width + 0x3)&~0x3)*((height + 0x3)&~0x3);
-    case GR_TEXFMT_ARGB_CMP_DXT5:
+    case GFX_TEXFMT_ARGB_CMP_DXT5:
         return ((width + 0x3)&~0x3)*((height + 0x3)&~0x3);
-    case GR_TEXFMT_ARGB_CMP_FXT1:
+    case GFX_TEXFMT_ARGB_CMP_FXT1:
         return ((((width + 0x7)&~0x7)*((height + 0x3)&~0x3)) >> 1);
     default:
         WriteTrace(TraceGlitch, TraceWarning, "gfxTexCalcMemRequired : unknown texture format: %x", fmt);
@@ -303,7 +292,7 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
         register int n = 0, m = 0;
         switch (info->format)
         {
-        case GR_TEXFMT_ALPHA_8:
+        case GFX_TEXFMT_ALPHA_8:
             for (i = 0; i < height; i++)
             {
                 for (j = 0; j < width; j++)
@@ -319,7 +308,7 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
             factor = 1;
             glformat = GL_RGBA;
             break;
-        case GR_TEXFMT_INTENSITY_8: // I8 support - H.Morii
+        case GFX_TEXFMT_INTENSITY_8: // I8 support - H.Morii
             for (i = 0; i < height; i++)
             {
                 for (j = 0; j < width; j++)
@@ -334,7 +323,7 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
             factor = 1;
             glformat = GL_ALPHA;
             break;
-        case GR_TEXFMT_ALPHA_INTENSITY_44:
+        case GFX_TEXFMT_ALPHA_INTENSITY_44:
             for (i = 0; i < height; i++)
             {
                 for (j = 0; j < width; j++)
@@ -353,7 +342,7 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
             factor = 1;
             glformat = GL_LUMINANCE_ALPHA;
             break;
-        case GR_TEXFMT_RGB_565:
+        case GFX_TEXFMT_RGB_565:
             for (i = 0; i < height; i++)
             {
                 for (j = 0; j < width; j++)
@@ -371,7 +360,7 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
             factor = 2;
             glformat = GL_RGB;
             break;
-        case GR_TEXFMT_ARGB_1555:
+        case GFX_TEXFMT_ARGB_1555:
             for (i = 0; i < height; i++)
             {
                 for (j = 0; j < width; j++)
@@ -389,7 +378,7 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
             factor = 2;
             glformat = GL_RGBA;
             break;
-        case GR_TEXFMT_ALPHA_INTENSITY_88:
+        case GFX_TEXFMT_ALPHA_INTENSITY_88:
             for (i = 0; i < height; i++)
             {
                 for (j = 0; j < width; j++)
@@ -404,7 +393,7 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
             factor = 2;
             glformat = GL_LUMINANCE_ALPHA;
             break;
-        case GR_TEXFMT_ARGB_4444:
+        case GFX_TEXFMT_ARGB_4444:
 
             for (i = 0; i < height; i++)
             {
@@ -423,7 +412,7 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
             factor = 2;
             glformat = GL_RGBA;
             break;
-        case GR_TEXFMT_ARGB_8888:
+        case GFX_TEXFMT_ARGB_8888:
             for (i = 0; i < height; i++)
             {
                 for (j = 0; j < width; j++)
@@ -451,10 +440,10 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
 
     switch (info->format)
     {
-    case GR_TEXFMT_ARGB_CMP_DXT1:
-    case GR_TEXFMT_ARGB_CMP_DXT3:
-    case GR_TEXFMT_ARGB_CMP_DXT5:
-    case GR_TEXFMT_ARGB_CMP_FXT1:
+    case GFX_TEXFMT_ARGB_CMP_DXT1:
+    case GFX_TEXFMT_ARGB_CMP_DXT3:
+    case GFX_TEXFMT_ARGB_CMP_DXT5:
+    case GFX_TEXFMT_ARGB_CMP_FXT1:
         remove_tex(startAddress + 1, startAddress + 1 + ((width*height*factor) >> 4));
         break;
     default:

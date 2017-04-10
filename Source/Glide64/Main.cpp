@@ -207,9 +207,9 @@ void guLoadTextures()
     if (g_settings->scr_res_x() <= 1024)
     {
         gfxTextureBufferExt(GR_TMU0, voodoo.tex_min_addr[GR_TMU0], GFX_LOD_LOG2_1024, GFX_LOD_LOG2_1024,
-            GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
+            GR_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
         tbuf_size = gfxTexCalcMemRequired(GFX_LOD_LOG2_1024, GFX_LOD_LOG2_1024,
-            GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565);
+            GR_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565);
         gfxRenderBuffer(GFX_BUFFER_TEXTUREBUFFER_EXT);
         gfxBufferClear(0, 0, 0xFFFF);
         gfxRenderBuffer(GFX_BUFFER_BACKBUFFER);
@@ -217,9 +217,9 @@ void guLoadTextures()
     else
     {
         gfxTextureBufferExt(GR_TMU0, voodoo.tex_min_addr[GR_TMU0], GFX_LOD_LOG2_2048, GFX_LOD_LOG2_2048,
-            GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
+            GR_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
         tbuf_size = gfxTexCalcMemRequired(GFX_LOD_LOG2_2048, GFX_LOD_LOG2_2048,
-            GR_ASPECT_LOG2_1x1, GR_TEXFMT_RGB_565);
+            GR_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565);
         gfxRenderBuffer(GFX_BUFFER_TEXTUREBUFFER_EXT);
         gfxBufferClear(0, 0, 0xFFFF);
         gfxRenderBuffer(GFX_BUFFER_BACKBUFFER);
@@ -247,7 +247,7 @@ void guLoadTextures()
 
     fontTex.smallLodLog2 = fontTex.largeLodLog2 = GFX_LOD_LOG2_256;
     fontTex.aspectRatioLog2 = GR_ASPECT_LOG2_4x1;
-    fontTex.format = GR_TEXFMT_ALPHA_8;
+    fontTex.format = GFX_TEXFMT_ALPHA_8;
     fontTex.data = tex8;
 
     // Decompression: [1-bit inverse alpha --> 8-bit alpha]
@@ -283,7 +283,7 @@ void guLoadTextures()
 
     cursorTex.smallLodLog2 = cursorTex.largeLodLog2 = GFX_LOD_LOG2_32;
     cursorTex.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
-    cursorTex.format = GR_TEXFMT_ARGB_1555;
+    cursorTex.format = GFX_TEXFMT_ARGB_1555;
     cursorTex.data = tex16;
 
     // Conversion: [16-bit 1555 (swapped) --> 16-bit 1555]

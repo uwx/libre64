@@ -33,6 +33,7 @@
 #include <zlib/zlib.h>
 #include <Common/path.h>
 #include <Common/StdString.h>
+#include <Glitch64/types.h>
 
 TxCache::~TxCache()
 {
@@ -112,7 +113,7 @@ TxCache::add(uint64 checksum, GHQTexInfo *info, int dataSize)
             {
                 DBG_INFO(80, "zlib compressed: %.02fkb->%.02fkb\n", (float)dataSize / 1000, (float)destLen / 1000);
                 dataSize = destLen;
-                format |= GR_TEXFMT_GZ;
+                format |= GFX_TEXFMT_GZ;
             }
         }
     }
@@ -234,7 +235,7 @@ TxCache::get(uint64 checksum, GHQTexInfo *info)
         }
 
         /* zlib decompress it */
-        if (info->format & GR_TEXFMT_GZ)
+        if (info->format & GFX_TEXFMT_GZ)
         {
             uLongf destLen = _gzdestLen;
             uint8 *dest = (_gzdest0 == info->data) ? _gzdest1 : _gzdest0;
@@ -244,7 +245,7 @@ TxCache::get(uint64 checksum, GHQTexInfo *info)
                 return 0;
             }
             info->data = dest;
-            info->format &= ~GR_TEXFMT_GZ;
+            info->format &= ~GFX_TEXFMT_GZ;
             DBG_INFO(80, "zlib decompressed: %.02fkb->%.02fkb\n", (float)(((*itMap).second)->size) / 1000, (float)destLen / 1000);
         }
         return 1;
@@ -277,17 +278,17 @@ boolean TxCache::save(const char *path, const char *filename, int config)
                  * texture data in a zlib compressed state. if the GZ_TEXCACHE or GZ_HIRESTEXCACHE
                  * option is toggled, the cache will need to be rebuilt.
                  */
-                /*if (format & GR_TEXFMT_GZ) {
-                  dest = _gzdest0;
-                  destLen = _gzdestLen;
-                  if (dest && destLen) {
-                  if (uncompress(dest, &destLen, (*itMap).second->info.data, (*itMap).second->size) != Z_OK) {
-                  dest = NULL;
-                  destLen = 0;
-                  }
-                  format &= ~GR_TEXFMT_GZ;
-                  }
-                  }*/
+                 /*if (format & GFX_TEXFMT_GZ) {
+                   dest = _gzdest0;
+                   destLen = _gzdestLen;
+                   if (dest && destLen) {
+                   if (uncompress(dest, &destLen, (*itMap).second->info.data, (*itMap).second->size) != Z_OK) {
+                   dest = NULL;
+                   destLen = 0;
+                   }
+                   format &= ~GFX_TEXFMT_GZ;
+                   }
+                   }*/
 
                 if (dest && destLen)
                 {
@@ -372,7 +373,7 @@ boolean TxCache::load(const char *path, const char *filename, int config)
                     gzread(gzfp, tmpInfo.data, dataSize);
 
                     /* add to memory cache */
-                    add(checksum, &tmpInfo, (tmpInfo.format & GR_TEXFMT_GZ) ? dataSize : 0);
+                    add(checksum, &tmpInfo, (tmpInfo.format & GFX_TEXFMT_GZ) ? dataSize : 0);
 
                     free(tmpInfo.data);
                 }

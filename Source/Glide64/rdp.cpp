@@ -2409,7 +2409,7 @@ void rdp_settile()
                     if (rdp.aTBuffTex[i]->size == tile->size)
                     {
                         rdp.aTBuffTex[i]->tile = rdp.last_tile;
-                        rdp.aTBuffTex[i]->info.format = tile->format == 0 ? GR_TEXFMT_RGB_565 : GR_TEXFMT_ALPHA_INTENSITY_88;
+                        rdp.aTBuffTex[i]->info.format = tile->format == 0 ? GFX_TEXFMT_RGB_565 : GFX_TEXFMT_ALPHA_INTENSITY_88;
                         WriteTrace(TraceRDP, TraceDebug, "rdp.aTBuffTex[%d] tile=%d, format=%s", i, rdp.last_tile, tile->format == 0 ? "RGB565" : "Alpha88");
                     }
                     else
