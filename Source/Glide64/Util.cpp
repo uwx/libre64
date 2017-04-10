@@ -1852,27 +1852,27 @@ void update()
                 switch ((rdp.rm & 0xC00) >> 10) {
                 case 0:
                     gfxDepthBiasLevel(0);
-                    gfxDepthBufferFunction(g_settings->zmode_compare_less() ? GR_CMP_LESS : GR_CMP_LEQUAL);
+                    gfxDepthBufferFunction(g_settings->zmode_compare_less() ? GFX_CMP_LESS : GFX_CMP_LEQUAL);
                     break;
                 case 1:
                     gfxDepthBiasLevel(-4);
-                    gfxDepthBufferFunction(g_settings->zmode_compare_less() ? GR_CMP_LESS : GR_CMP_LEQUAL);
+                    gfxDepthBufferFunction(g_settings->zmode_compare_less() ? GFX_CMP_LESS : GFX_CMP_LEQUAL);
                     break;
                 case 2:
                     gfxDepthBiasLevel(g_settings->ucode() == CSettings::ucode_PerfectDark ? -4 : 0);
-                    gfxDepthBufferFunction(GR_CMP_LESS);
+                    gfxDepthBufferFunction(GFX_CMP_LESS);
                     break;
                 case 3:
                     // will be set dynamically per polygon
                     //gfxDepthBiasLevel(-deltaZ);
-                    gfxDepthBufferFunction(GR_CMP_LEQUAL);
+                    gfxDepthBufferFunction(GFX_CMP_LEQUAL);
                     break;
                 }
             }
             else
             {
                 gfxDepthBiasLevel(0);
-                gfxDepthBufferFunction(GR_CMP_ALWAYS);
+                gfxDepthBufferFunction(GFX_CMP_ALWAYS);
             }
 
             if (rdp.flags & ZBUF_UPDATE)
@@ -1883,7 +1883,7 @@ void update()
         else
         {
             gfxDepthBiasLevel(0);
-            gfxDepthBufferFunction(GR_CMP_ALWAYS);
+            gfxDepthBufferFunction(GFX_CMP_ALWAYS);
             gfxDepthMask(FXFALSE);
         }
     }
@@ -1899,7 +1899,7 @@ void update()
         if (rdp.acmp == 1 && !(rdp.othermode_l & 0x00002000) && (!(rdp.othermode_l & 0x00004000) || (rdp.blend_color & 0xFF)))
         {
             uint8_t reference = (uint8_t)(rdp.blend_color & 0xFF);
-            gfxAlphaTestFunction(reference ? GR_CMP_GEQUAL : GR_CMP_GREATER);
+            gfxAlphaTestFunction(reference ? GFX_CMP_GEQUAL : GFX_CMP_GREATER);
             gfxAlphaTestReferenceValue(reference);
             WriteTrace(TraceRDP, TraceDebug, " |- alpha compare: blend: %02lx", reference);
         }
@@ -1909,13 +1909,13 @@ void update()
             {
                 if ((rdp.othermode_l & 0x5000) != 0x5000)
                 {
-                    gfxAlphaTestFunction(GR_CMP_GEQUAL);
+                    gfxAlphaTestFunction(GFX_CMP_GEQUAL);
                     gfxAlphaTestReferenceValue(0x20);//0xA0);
                     WriteTrace(TraceRDP, TraceDebug, " |- alpha compare: 0x20");
                 }
                 else
                 {
-                    gfxAlphaTestFunction(GR_CMP_GREATER);
+                    gfxAlphaTestFunction(GFX_CMP_GREATER);
                     if (rdp.acmp == 3)
                     {
                         gfxAlphaTestReferenceValue((uint8_t)(rdp.blend_color & 0xFF));
@@ -1930,7 +1930,7 @@ void update()
             }
             else
             {
-                gfxAlphaTestFunction(GR_CMP_ALWAYS);
+                gfxAlphaTestFunction(GFX_CMP_ALWAYS);
                 WriteTrace(TraceRDP, TraceDebug, " |- alpha compare: none");
             }
         }
@@ -2066,7 +2066,7 @@ void set_message_combiner(void)
         GFX_BLEND_ZERO,
         GFX_BLEND_ZERO,
         GFX_BLEND_ZERO);
-    gfxAlphaTestFunction(GR_CMP_ALWAYS);
+    gfxAlphaTestFunction(GFX_CMP_ALWAYS);
     gfxStippleMode(GFX_STIPPLE_DISABLE);
     gfxTexFilterMode(0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
     gfxTexCombine(GR_TMU1,

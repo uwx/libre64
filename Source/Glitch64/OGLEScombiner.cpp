@@ -37,7 +37,8 @@
 
 void vbo_draw();
 
-static int g_alpha_ref, g_alpha_func;
+static gfxAlpha_t g_alpha_ref;
+static gfxCmpFnc_t g_alpha_func;
 static bool g_alpha_test = 0;
 
 static float g_texture_env_color[4];
@@ -611,7 +612,7 @@ void free_combiners()
     g_shader_programs.clear();
 
     g_alpha_ref = 0;
-    g_alpha_func = 0;
+    g_alpha_func = GFX_CMP_NEVER;
     g_alpha_test = 0;
 
     memset(g_texture_env_color, 0, sizeof(g_texture_env_color));
@@ -1503,13 +1504,13 @@ void gfxAlphaTestFunction(gfxCmpFnc_t function)
     g_alpha_func = function;
     switch (function)
     {
-    case GR_CMP_GREATER:
+    case GFX_CMP_GREATER:
         //glAlphaFunc(GL_GREATER, g_alpha_ref/255.0f);
         break;
-    case GR_CMP_GEQUAL:
+    case GFX_CMP_GEQUAL:
         //glAlphaFunc(GL_GEQUAL, g_alpha_ref/255.0f);
         break;
-    case GR_CMP_ALWAYS:
+    case GFX_CMP_ALWAYS:
         //glAlphaFunc(GL_ALWAYS, g_alpha_ref/255.0f);
         //glDisable(GL_ALPHA_TEST);
         g_alpha_test = false;

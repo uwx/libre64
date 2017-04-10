@@ -72,13 +72,13 @@ CSettings::CSettings() :
     m_force_calc_sphere(false), //use spheric mapping only, Ridge Racer 64
     m_pal230(false),    //set special scale for PAL games
     m_correct_viewport(false), //correct viewport values
-    m_zmode_compare_less(false), //force GR_CMP_LESS for zmode=0 (opaque)and zmode=1 (interpenetrating)
+    m_zmode_compare_less(false), //force GFX_CMP_LESS for zmode=0 (opaque)and zmode=1 (interpenetrating)
     m_old_style_adither(false), //apply alpha dither regardless of alpha_dither_mode
     m_n64_z_scale(false), //scale vertex z value before writing to depth buffer, as N64 does.
 
     m_hacks((hacks_t)0),
 
-//wrapper settings
+    //wrapper settings
 #ifndef ANDROID
     m_FullScreenRes(0),
 #endif
@@ -196,7 +196,6 @@ void CSettings::RegisterSettings(void)
     game_setting_default(Set_fb_render, "fb_render", Set_fb_render_default);
 
     SettingsRegisterChange(false, Set_Resolution, this, stSettingsChanged);
-
 }
 
 void CSettings::SetTexenhOptions(bool value)
@@ -554,7 +553,6 @@ void CSettings::UpdateAspectRatio(void)
 
     m_res_x += (uint32_t)(m_scr_res_x - m_res_x) / 2.0f;
     m_res_y += (uint32_t)(m_scr_res_y - m_res_y) / 2.0f;
-
 }
 
 void CSettings::ReadSettings()
@@ -586,7 +584,7 @@ void CSettings::ReadSettings()
     m_ghq_enht = (TextureEnhancement_t)GetSetting(Set_ghq_enht);
     m_ghq_hirs = (HiResPackFormat_t)GetSetting(Set_ghq_hirs);
     m_ghq_enht_cmpr = GetSetting(Set_ghq_enht_cmpr) != 0;
-    m_ghq_enht_f16bpp = GetSetting(Set_ghq_enht_f16bpp) !=0;
+    m_ghq_enht_f16bpp = GetSetting(Set_ghq_enht_f16bpp) != 0;
     m_ghq_enht_gz = GetSetting(Set_ghq_enht_gz) != 0;
     m_ghq_enht_nobg = GetSetting(Set_ghq_enht_nobg) != 0;
     m_ghq_hirs_cmpr = GetSetting(Set_ghq_hirs_cmpr) != 0;
