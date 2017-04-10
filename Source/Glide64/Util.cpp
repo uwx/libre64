@@ -2053,12 +2053,12 @@ void update()
 void set_message_combiner(void)
 {
     gfxColorCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
-        GR_COMBINE_FACTOR_ONE,
+        GFX_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_TEXTURE,
         FXFALSE);
     gfxAlphaCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
-        GR_COMBINE_FACTOR_ONE,
+        GFX_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_TEXTURE,
         FXFALSE);
@@ -2071,15 +2071,15 @@ void set_message_combiner(void)
     gfxTexFilterMode(0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
     gfxTexCombine(GR_TMU1,
         GFX_COMBINE_FUNCTION_NONE,
+        GFX_COMBINE_FACTOR_ZERO,
         GFX_COMBINE_FUNCTION_NONE,
-        GFX_COMBINE_FUNCTION_NONE,
-        GR_COMBINE_FACTOR_NONE,
+        GFX_COMBINE_FACTOR_NONE,
         FXFALSE, FXFALSE);
     gfxTexCombine(GR_TMU0,
         GFX_COMBINE_FUNCTION_LOCAL,
-        GFX_COMBINE_FUNCTION_NONE,
+        GFX_COMBINE_FACTOR_ZERO,
         GFX_COMBINE_FUNCTION_LOCAL,
-        GR_COMBINE_FACTOR_NONE,
+        GFX_COMBINE_FACTOR_NONE,
         FXFALSE, FXFALSE);
     gfxTexSource(GR_TMU0, voodoo.tex_min_addr[GR_TMU0] + offset_font, GR_MIPMAPLEVELMASK_BOTH, &fontTex);
     gfxFogMode(GFX_FOG_DISABLE);

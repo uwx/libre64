@@ -575,9 +575,10 @@ void TexCache()
     WriteTrace(TraceRDP, TraceDebug, " | | |- tmu_0_mode = %d\n | | |- tmu_1_mode = %d",
         tmu_0_mode, tmu_1_mode);
 
-    if (tmu_0_mode == TMUMODE_PASSTHRU) {
+    if (tmu_0_mode == TMUMODE_PASSTHRU)
+    {
         cmb.tmu0_func = cmb.tmu0_a_func = GFX_COMBINE_FUNCTION_SCALE_OTHER;
-        cmb.tmu0_fac = cmb.tmu0_a_fac = GR_COMBINE_FACTOR_ONE;
+        cmb.tmu0_fac = cmb.tmu0_a_fac = GFX_COMBINE_FACTOR_ONE;
         if (cmb.tex_cmb_ext_use)
         {
             cmb.t0c_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
@@ -600,7 +601,7 @@ void TexCache()
     }
     else if (tmu_0_mode == TMUMODE_NONE) {
         cmb.tmu0_func = cmb.tmu0_a_func = GFX_COMBINE_FUNCTION_NONE;
-        cmb.tmu0_fac = cmb.tmu0_a_fac = GR_COMBINE_FACTOR_NONE;
+        cmb.tmu0_fac = cmb.tmu0_a_fac = GFX_COMBINE_FACTOR_NONE;
         if (cmb.tex_cmb_ext_use)
         {
             cmb.t0c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB;
@@ -623,7 +624,7 @@ void TexCache()
     }
     if (tmu_1_mode == TMUMODE_PASSTHRU) {
         cmb.tmu1_func = cmb.tmu1_a_func = GFX_COMBINE_FUNCTION_SCALE_OTHER;
-        cmb.tmu1_fac = cmb.tmu1_a_fac = GR_COMBINE_FACTOR_ONE;
+        cmb.tmu1_fac = cmb.tmu1_a_fac = GFX_COMBINE_FACTOR_ONE;
         if (cmb.tex_cmb_ext_use)
         {
             cmb.t1c_ext_a = GFX_CMBX_OTHER_TEXTURE_RGB;
@@ -646,7 +647,7 @@ void TexCache()
     }
     else if (tmu_1_mode == TMUMODE_NONE) {
         cmb.tmu1_func = cmb.tmu1_a_func = GFX_COMBINE_FUNCTION_NONE;
-        cmb.tmu1_fac = cmb.tmu1_a_fac = GR_COMBINE_FACTOR_NONE;
+        cmb.tmu1_fac = cmb.tmu1_a_fac = GFX_COMBINE_FACTOR_NONE;
         if (cmb.tex_cmb_ext_use)
         {
             cmb.t1c_ext_a = GFX_CMBX_LOCAL_TEXTURE_RGB;
