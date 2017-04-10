@@ -84,7 +84,7 @@ struct GHQTexInfo
 
     int smallLodLog2;
     gfxLOD_t largeLodLog2;
-    int aspectRatioLog2;
+    gfxAspectRatio_t aspectRatioLog2;
 
     int tiles;
     int untiled_width;

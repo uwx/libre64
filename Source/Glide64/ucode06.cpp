@@ -166,7 +166,7 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
     t_info.data = image;
     t_info.smallLodLog2 = GFX_LOD_LOG2_512;
     t_info.largeLodLog2 = GFX_LOD_LOG2_512;
-    t_info.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
+    t_info.aspectRatioLog2 = GFX_ASPECT_LOG2_1x1;
 
     gfxTexDownloadMipMap(rdp.texbufs(1).tmu, rdp.texbufs(1).begin, GR_MIPMAPLEVELMASK_BOTH, &t_info);
     gfxTexSource(rdp.texbufs(1).tmu, rdp.texbufs(1).begin, GR_MIPMAPLEVELMASK_BOTH, &t_info);
@@ -220,7 +220,7 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
         v[i].vc(0) = v[i].vc(1) = v[i].v0;
     }
     gfxTextureBufferExt(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, LOD, LOD,
-        GR_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
+        GFX_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
     gfxRenderBuffer(GFX_BUFFER_TEXTUREBUFFER_EXT);
     gfxAuxBufferExt(GFX_BUFFER_AUXBUFFER);
     gfxBufferClear(0, 0, 0xFFFF);

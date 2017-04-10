@@ -15,7 +15,6 @@ typedef int32_t gfxChromakeyMode_t;
 typedef int32_t GfxFogMode_t;
 typedef int32_t gfxTextureClampMode_t;
 typedef int32_t gfxTextureFilterMode_t;
-typedef int32_t gfxAspectRatio_t;
 typedef int32_t gfxContext_t;
 typedef int32_t gfxColorFormat_t;
 typedef int32_t gfxOriginLocation_t;
@@ -101,6 +100,17 @@ enum gfxTextureFormat_t
     GFX_TEXFMT_ARGB_CMP_DXT5 = 0x1A,
     GFX_TEXFMT_RGB_888 = 0xFF,
     GFX_TEXFMT_GZ = 0x8000,
+};
+
+enum gfxAspectRatio_t
+{
+    GFX_ASPECT_LOG2_8x1 = 3,       /* 8W x 1H */
+    GFX_ASPECT_LOG2_4x1 = 2,       /* 4W x 1H */
+    GFX_ASPECT_LOG2_2x1 = 1,       /* 2W x 1H */
+    GFX_ASPECT_LOG2_1x1 = 0,       /* 1W x 1H */
+    GFX_ASPECT_LOG2_1x2 = -1,       /* 1W x 2H */
+    GFX_ASPECT_LOG2_1x4 = -2,       /* 1W x 4H */
+    GFX_ASPECT_LOG2_1x8 = -3,       /* 1W x 8H */
 };
 
 typedef struct {

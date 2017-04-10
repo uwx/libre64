@@ -115,13 +115,13 @@ static TBUFF_COLOR_IMAGE * AllocateTextureBuffer(COLOR_IMAGE & cimage)
     {
         if ((texbuf.scr_width / texbuf.scr_height) >= 2)
         {
-            texbuf.info.aspectRatioLog2 = GR_ASPECT_LOG2_2x1;
+            texbuf.info.aspectRatioLog2 = GFX_ASPECT_LOG2_2x1;
             texbuf.tex_width = tex_size;
             texbuf.tex_height = tex_size >> 1;
         }
         else
         {
-            texbuf.info.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
+            texbuf.info.aspectRatioLog2 = GFX_ASPECT_LOG2_1x1;
             texbuf.tex_width = texbuf.tex_height = tex_size;
         }
     }
@@ -129,13 +129,13 @@ static TBUFF_COLOR_IMAGE * AllocateTextureBuffer(COLOR_IMAGE & cimage)
     {
         if ((texbuf.scr_height / texbuf.scr_width) >= 2)
         {
-            texbuf.info.aspectRatioLog2 = GR_ASPECT_LOG2_1x2;
+            texbuf.info.aspectRatioLog2 = GFX_ASPECT_LOG2_1x2;
             texbuf.tex_width = tex_size >> 1;
             texbuf.tex_height = tex_size;
         }
         else
         {
-            texbuf.info.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
+            texbuf.info.aspectRatioLog2 = GFX_ASPECT_LOG2_1x1;
             texbuf.tex_width = texbuf.tex_height = tex_size;
         }
     }
@@ -552,7 +552,7 @@ int CopyDepthBuffer()
     rdp.tbuff_tex->tmu = rdp.texbufs(0).tmu;
     rdp.tbuff_tex->info.format = GFX_TEXFMT_RGB_565;
     rdp.tbuff_tex->info.smallLodLog2 = rdp.tbuff_tex->info.largeLodLog2 = LOD;
-    rdp.tbuff_tex->info.aspectRatioLog2 = GR_ASPECT_LOG2_1x1;
+    rdp.tbuff_tex->info.aspectRatioLog2 = GFX_ASPECT_LOG2_1x1;
     TexBufSetupCombiner(TRUE);
     float ul_x = 0.0f;
     float ul_y = 0.0f;
@@ -575,7 +575,7 @@ int CopyDepthBuffer()
     gfxTexSource(rdp.texbufs(0).tmu, rdp.texbufs(0).begin, GR_MIPMAPLEVELMASK_BOTH, &(rdp.tbuff_tex->info));
     gfxRenderBuffer(GFX_BUFFER_TEXTUREBUFFER_EXT);
     gfxTextureBufferExt(rdp.texbufs(1).tmu, rdp.texbufs(1).begin, LOD, LOD,
-        GR_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
+        GFX_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565, GR_MIPMAPLEVELMASK_BOTH);
     gfxDrawTriangle(&v[0], &v[2], &v[1]);
     gfxDrawTriangle(&v[2], &v[3], &v[1]);
     gfxRenderBuffer(GFX_BUFFER_BACKBUFFER);

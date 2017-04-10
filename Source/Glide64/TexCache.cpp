@@ -948,7 +948,7 @@ void LoadTex(int id, int tmu)
 
     int td = rdp.cur_tile + id;
     gfxLOD_t lod;
-    int aspect;
+    gfxAspectRatio_t aspect;
     CACHE_LUT *cache;
 
     if (texinfo[id].width < 0 || texinfo[id].height < 0)
@@ -1092,24 +1092,24 @@ void LoadTex(int id, int tmu)
         switch (ratio)
         {
         case 1:
-            aspect = GR_ASPECT_LOG2_1x1;
+            aspect = GFX_ASPECT_LOG2_1x1;
             cache->scale_x = 1.0f;
             cache->scale_y = 1.0f;
             break;
         case 2:
-            aspect = GR_ASPECT_LOG2_2x1;
+            aspect = GFX_ASPECT_LOG2_2x1;
             cache->scale_x = 1.0f;
             cache->scale_y = 0.5f;
             real_y >>= 1;
             break;
         case 4:
-            aspect = GR_ASPECT_LOG2_4x1;
+            aspect = GFX_ASPECT_LOG2_4x1;
             cache->scale_x = 1.0f;
             cache->scale_y = 0.25f;
             real_y >>= 2;
             break;
         default:
-            aspect = GR_ASPECT_LOG2_8x1;
+            aspect = GFX_ASPECT_LOG2_8x1;
             cache->scale_x = 1.0f;
             cache->scale_y = 0.125f;
             real_y >>= 3;
@@ -1122,19 +1122,19 @@ void LoadTex(int id, int tmu)
         switch (ratio)
         {
         case 2:
-            aspect = GR_ASPECT_LOG2_1x2;
+            aspect = GFX_ASPECT_LOG2_1x2;
             cache->scale_x = 0.5f;
             cache->scale_y = 1.0f;
             real_x >>= 1;
             break;
         case 4:
-            aspect = GR_ASPECT_LOG2_1x4;
+            aspect = GFX_ASPECT_LOG2_1x4;
             cache->scale_x = 0.25f;
             cache->scale_y = 1.0f;
             real_x >>= 2;
             break;
         default:
-            aspect = GR_ASPECT_LOG2_1x8;
+            aspect = GFX_ASPECT_LOG2_1x8;
             cache->scale_x = 0.125f;
             cache->scale_y = 1.0f;
             real_x >>= 3;
@@ -1567,8 +1567,8 @@ void LoadTex(int id, int tmu)
 
             if (ghqTexInfo.data)
             {
-                if (ghqTexInfo.aspectRatioLog2 < GR_ASPECT_LOG2_1x8 ||
-                    ghqTexInfo.aspectRatioLog2 > GR_ASPECT_LOG2_8x1 ||
+                if (ghqTexInfo.aspectRatioLog2 < GFX_ASPECT_LOG2_1x8 ||
+                    ghqTexInfo.aspectRatioLog2 > GFX_ASPECT_LOG2_8x1 ||
                     ghqTexInfo.largeLodLog2 > GFX_LOD_LOG2_2048 ||
                     ghqTexInfo.largeLodLog2 < GFX_LOD_LOG2_1)
                 {
