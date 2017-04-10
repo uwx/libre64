@@ -88,9 +88,9 @@ public:
 
 CGlide64WtlModule * WtlModule = NULL;
 
-void ConfigInit(HINSTANCE hinst)
+void ConfigInit(void * hinst)
 {
-    WtlModule = new CGlide64WtlModule(hinst);
+    WtlModule = new CGlide64WtlModule((HINSTANCE)hinst);
 }
 
 void ConfigCleanup(void)

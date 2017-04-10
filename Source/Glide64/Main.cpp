@@ -418,13 +418,13 @@ int InitGfx()
 
     g_settings->UpdateScreenSize(ev_fullscreen);
 #ifndef ANDROID
-    SetWindowDisplaySize(gfx.hWnd);
+    SetWindowDisplaySize((HWND)gfx.hWnd);
 #endif
     gfx_context = gfxSstWinOpen(GR_COLORFORMAT_RGBA, GR_ORIGIN_UPPER_LEFT, 2, 1);
     if (!gfx_context)
     {
 #ifdef _WIN32
-        MessageBox(gfx.hWnd, "Error setting display mode", "Error", MB_OK | MB_ICONEXCLAMATION);
+        MessageBox((HWND)gfx.hWnd, "Error setting display mode", "Error", MB_OK | MB_ICONEXCLAMATION);
 #else
         fprintf(stderr, "Error setting display mode\n");
 #endif

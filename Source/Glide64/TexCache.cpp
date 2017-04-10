@@ -576,7 +576,7 @@ void TexCache()
         tmu_0_mode, tmu_1_mode);
 
     if (tmu_0_mode == TMUMODE_PASSTHRU) {
-        cmb.tmu0_func = cmb.tmu0_a_func = GR_COMBINE_FUNCTION_SCALE_OTHER;
+        cmb.tmu0_func = cmb.tmu0_a_func = GFX_COMBINE_FUNCTION_SCALE_OTHER;
         cmb.tmu0_fac = cmb.tmu0_a_fac = GR_COMBINE_FACTOR_ONE;
         if (cmb.tex_cmb_ext_use)
         {
@@ -599,7 +599,7 @@ void TexCache()
         }
     }
     else if (tmu_0_mode == TMUMODE_NONE) {
-        cmb.tmu0_func = cmb.tmu0_a_func = GR_COMBINE_FUNCTION_NONE;
+        cmb.tmu0_func = cmb.tmu0_a_func = GFX_COMBINE_FUNCTION_NONE;
         cmb.tmu0_fac = cmb.tmu0_a_fac = GR_COMBINE_FACTOR_NONE;
         if (cmb.tex_cmb_ext_use)
         {
@@ -622,7 +622,7 @@ void TexCache()
         }
     }
     if (tmu_1_mode == TMUMODE_PASSTHRU) {
-        cmb.tmu1_func = cmb.tmu1_a_func = GR_COMBINE_FUNCTION_SCALE_OTHER;
+        cmb.tmu1_func = cmb.tmu1_a_func = GFX_COMBINE_FUNCTION_SCALE_OTHER;
         cmb.tmu1_fac = cmb.tmu1_a_fac = GR_COMBINE_FACTOR_ONE;
         if (cmb.tex_cmb_ext_use)
         {
@@ -645,7 +645,7 @@ void TexCache()
         }
     }
     else if (tmu_1_mode == TMUMODE_NONE) {
-        cmb.tmu1_func = cmb.tmu1_a_func = GR_COMBINE_FUNCTION_NONE;
+        cmb.tmu1_func = cmb.tmu1_a_func = GFX_COMBINE_FUNCTION_NONE;
         cmb.tmu1_fac = cmb.tmu1_a_fac = GR_COMBINE_FACTOR_NONE;
         if (cmb.tex_cmb_ext_use)
         {

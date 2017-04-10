@@ -57,16 +57,16 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
     {
         tmu = GR_TMU0;
         gfxTexCombine(GR_TMU1,
-            GR_COMBINE_FUNCTION_NONE,
+            GFX_COMBINE_FUNCTION_NONE,
             GR_COMBINE_FACTOR_NONE,
-            GR_COMBINE_FUNCTION_NONE,
+            GFX_COMBINE_FUNCTION_NONE,
             GR_COMBINE_FACTOR_NONE,
             FXFALSE,
             FXFALSE);
         gfxTexCombine(GR_TMU0,
-            GR_COMBINE_FUNCTION_LOCAL,
+            GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
-            GR_COMBINE_FUNCTION_LOCAL,
+            GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             FXFALSE,
             FXFALSE);
@@ -77,16 +77,16 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
             ClearCache();
         tmu = GR_TMU1;
         gfxTexCombine(GR_TMU1,
-            GR_COMBINE_FUNCTION_LOCAL,
+            GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
-            GR_COMBINE_FUNCTION_LOCAL,
+            GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             FXFALSE,
             FXFALSE);
         gfxTexCombine(GR_TMU0,
-            GR_COMBINE_FUNCTION_SCALE_OTHER,
+            GFX_COMBINE_FUNCTION_SCALE_OTHER,
             GR_COMBINE_FACTOR_ONE,
-            GR_COMBINE_FUNCTION_SCALE_OTHER,
+            GFX_COMBINE_FUNCTION_SCALE_OTHER,
             GR_COMBINE_FACTOR_ONE,
             FXFALSE,
             FXFALSE);
@@ -97,13 +97,13 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
         GR_TEXTURECLAMP_CLAMP,
         GR_TEXTURECLAMP_CLAMP);
     //  gfxConstantColorValue (0xFFFFFFFF);
-    gfxColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
+    gfxColorCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_TEXTURE,
         //    GR_COMBINE_OTHER_CONSTANT,
         FXFALSE);
-    gfxAlphaCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
+    gfxAlphaCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_TEXTURE,
@@ -436,7 +436,7 @@ static void DrawDepthBufferToScreen256(FB_TO_SCREEN_INFO & fb_info)
     uint32_t tex_size = gfxTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, &t_info);
     int tmu = SetupFBtoScreenCombiner(tex_size*width256*height256, fb_info.opaque);
     gfxConstantColorValue(rdp.fog_color);
-    gfxColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
+    gfxColorCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_CONSTANT,
@@ -544,7 +544,7 @@ void DrawDepthBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
 
     int tmu = SetupFBtoScreenCombiner(gfxTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, &t_info), fb_info.opaque);
     gfxConstantColorValue(rdp.fog_color);
-    gfxColorCombine(GR_COMBINE_FUNCTION_SCALE_OTHER,
+    gfxColorCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
         GR_COMBINE_FACTOR_ONE,
         GR_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_CONSTANT,

@@ -552,7 +552,7 @@ void microcheck()
             ReleaseGfx();
             WriteTrace(TraceGlide64, TraceError, "uCode crc not found in INI, using currently selected uCode %08lx", (unsigned long)uc_crc);
 #ifdef _WIN32
-            MessageBox(gfx.hWnd, stdstr_f("Error: uCode crc not found in INI, using currently selected uCode\n\n%08lx", uc_crc).c_str(), "Error", MB_OK | MB_ICONEXCLAMATION);
+            MessageBox((HWND)gfx.hWnd, stdstr_f("Error: uCode crc not found in INI, using currently selected uCode\n\n%08lx", uc_crc).c_str(), "Error", MB_OK | MB_ICONEXCLAMATION);
 #endif
             g_ucode_error_report = false; // don't report any more ucode errors from this game
         }
@@ -564,7 +564,7 @@ void microcheck()
             ReleaseGfx();
             WriteTrace(TraceGlide64, TraceError, "Unsupported uCode! crc: %08lx", (unsigned long)uc_crc);
 #ifdef _WIN32
-            MessageBox(gfx.hWnd, stdstr_f("Error: Unsupported uCode!\n\ncrc: %08lx", uc_crc).c_str(), "Error", MB_OK | MB_ICONEXCLAMATION);
+            MessageBox((HWND)gfx.hWnd, stdstr_f("Error: Unsupported uCode!\n\ncrc: %08lx", uc_crc).c_str(), "Error", MB_OK | MB_ICONEXCLAMATION);
 #endif
             g_ucode_error_report = FALSE; // don't report any more ucode errors from this game
         }
@@ -2552,13 +2552,13 @@ void rdp_fillrect()
 
         gfxConstantColorValue(color);
 
-        gfxColorCombine(GR_COMBINE_FUNCTION_LOCAL,
+        gfxColorCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
 
-        gfxAlphaCombine(GR_COMBINE_FUNCTION_LOCAL,
+        gfxAlphaCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
@@ -2590,7 +2590,7 @@ void rdp_fillrect()
         }
         if ((rdp.othermode_l & 0x4000) && ((rdp.othermode_l >> 16) == 0x0550)) //special blender mode for Bomberman64
         {
-            gfxAlphaCombine(GR_COMBINE_FUNCTION_LOCAL,
+            gfxAlphaCombine(GFX_COMBINE_FUNCTION_LOCAL,
                 GR_COMBINE_FACTOR_NONE,
                 GR_COMBINE_LOCAL_CONSTANT,
                 GR_COMBINE_OTHER_NONE,
@@ -3175,12 +3175,12 @@ void SetWireframeCol()
     {
         //case CSettings::wfmode_NormalColors: // normal colors, don't do anything
     case CSettings::wfmode_VertexColors:
-        gfxColorCombine(GR_COMBINE_FUNCTION_LOCAL,
+        gfxColorCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_LOCAL_ITERATED,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
-        gfxAlphaCombine(GR_COMBINE_FUNCTION_LOCAL,
+        gfxAlphaCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_LOCAL_ITERATED,
             GR_COMBINE_OTHER_NONE,
@@ -3190,25 +3190,25 @@ void SetWireframeCol()
             GR_BLEND_ZERO,
             GR_BLEND_ZERO);
         gfxTexCombine(GR_TMU0,
-            GR_COMBINE_FUNCTION_ZERO,
-            GR_COMBINE_FACTOR_NONE,
-            GR_COMBINE_FUNCTION_ZERO,
+            GFX_COMBINE_FUNCTION_ZERO,
+            GFX_COMBINE_FUNCTION_NONE,
+            GFX_COMBINE_FUNCTION_ZERO,
             GR_COMBINE_FACTOR_NONE,
             FXFALSE, FXFALSE);
         gfxTexCombine(GR_TMU1,
-            GR_COMBINE_FUNCTION_ZERO,
-            GR_COMBINE_FACTOR_NONE,
-            GR_COMBINE_FUNCTION_ZERO,
+            GFX_COMBINE_FUNCTION_ZERO,
+            GFX_COMBINE_FUNCTION_NONE,
+            GFX_COMBINE_FUNCTION_ZERO,
             GR_COMBINE_FACTOR_NONE,
             FXFALSE, FXFALSE);
         break;
     case CSettings::wfmode_RedOnly:
-        gfxColorCombine(GR_COMBINE_FUNCTION_LOCAL,
+        gfxColorCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
-        gfxAlphaCombine(GR_COMBINE_FUNCTION_LOCAL,
+        gfxAlphaCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GR_COMBINE_FACTOR_NONE,
             GR_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
@@ -3219,15 +3219,15 @@ void SetWireframeCol()
             GR_BLEND_ZERO,
             GR_BLEND_ZERO);
         gfxTexCombine(GR_TMU0,
-            GR_COMBINE_FUNCTION_ZERO,
-            GR_COMBINE_FACTOR_NONE,
-            GR_COMBINE_FUNCTION_ZERO,
+            GFX_COMBINE_FUNCTION_ZERO,
+            GFX_COMBINE_FUNCTION_NONE,
+            GFX_COMBINE_FUNCTION_ZERO,
             GR_COMBINE_FACTOR_NONE,
             FXFALSE, FXFALSE);
         gfxTexCombine(GR_TMU1,
-            GR_COMBINE_FUNCTION_ZERO,
-            GR_COMBINE_FACTOR_NONE,
-            GR_COMBINE_FUNCTION_ZERO,
+            GFX_COMBINE_FUNCTION_ZERO,
+            GFX_COMBINE_FUNCTION_NONE,
+            GFX_COMBINE_FUNCTION_ZERO,
             GR_COMBINE_FACTOR_NONE,
             FXFALSE, FXFALSE);
         break;

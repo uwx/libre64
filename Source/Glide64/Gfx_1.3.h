@@ -154,10 +154,10 @@ extern "C" {
 
     typedef struct
     {
-        HWND hWnd;			/* Render window */
-        HWND hStatusBar;    /* if render window does not have a status bar then this is NULL */
+        void * hWnd;			/* Render window */
+        void * hStatusBar;    /* if render window does not have a status bar then this is NULL */
 
-        int MemoryBswaped;    // If this is set to TRUE, then the memory has been pre
+        int32_t MemoryBswaped;    // If this is set to TRUE, then the memory has been pre
         //   bswap on a dword (32 bits) boundry
         //	eg. the first 8 bytes are stored like this:
         //        4 3 2 1   8 7 6 5
@@ -244,7 +244,7 @@ extern "C" {
     input:    a handle to the window that calls this function
     output:   none
     *******************************************************************/
-    EXPORT void CALL DllAbout(HWND hParent);
+    EXPORT void CALL DllAbout(void * hParent);
 
     /******************************************************************
     Function: DllConfig
@@ -253,7 +253,7 @@ extern "C" {
     input:    a handle to the window that calls this function
     output:   none
     *******************************************************************/
-    EXPORT void CALL DllConfig(HWND hParent);
+    EXPORT void CALL DllConfig(void * hParent);
 
     /******************************************************************
     Function: DllTest
@@ -262,7 +262,7 @@ extern "C" {
     input:    a handle to the window that calls this function
     output:   none
     *******************************************************************/
-    EXPORT void CALL DllTest(HWND hParent);
+    EXPORT void CALL DllTest(void * hParent);
 
     EXPORT void CALL ReadScreen(void **dest, int *width, int *height);
 
