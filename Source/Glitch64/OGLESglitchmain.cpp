@@ -395,7 +395,7 @@ bool gfxSstWinClose(gfxContext_t context)
 #ifdef _WIN32
     ExitFullScreen();
 #endif
-    return FXTRUE;
+    return true;
 }
 
 void gfxTextureBufferExt(gfxChipID_t tmu, uint32_t startAddress, gfxLOD_t lodmin, gfxLOD_t lodmax, gfxAspectRatio_t aspect, gfxTextureFormat_t fmt, uint32_t evenOdd)
@@ -1064,7 +1064,7 @@ bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode,
         }
     }
 
-    return FXTRUE;
+    return true;
 }
 
 bool gfxLfbReadRegion(gfxBuffer_t src_buffer, uint32_t src_x, uint32_t src_y, uint32_t src_width, uint32_t src_height, uint32_t dst_stride, void *dst_data)
@@ -1120,7 +1120,7 @@ bool gfxLfbReadRegion(gfxBuffer_t src_buffer, uint32_t src_x, uint32_t src_y, ui
         free(buf);
     }
 
-    return FXTRUE;
+    return true;
 }
 
 bool gfxLfbWriteRegion(gfxBuffer_t dst_buffer, uint32_t dst_x, uint32_t dst_y, gfxLfbSrcFmt_t src_format, uint32_t src_width, uint32_t src_height, bool pixelPipeline, int32_t src_stride, void *src_data)
@@ -1241,5 +1241,5 @@ bool gfxLfbWriteRegion(gfxBuffer_t dst_buffer, uint32_t dst_x, uint32_t dst_y, g
         glDepthMask(1);
         free(buf);
     }
-    return FXTRUE;
+    return true;
 }

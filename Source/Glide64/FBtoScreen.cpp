@@ -61,15 +61,15 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
             GFX_COMBINE_FACTOR_NONE,
             GFX_COMBINE_FUNCTION_NONE,
             GFX_COMBINE_FACTOR_NONE,
-            FXFALSE,
-            FXFALSE);
+            false,
+            false);
         gfxTexCombine(GR_TMU0,
             GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
             GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
-            FXFALSE,
-            FXFALSE);
+            false,
+            false);
     }
     else
     {
@@ -81,15 +81,15 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
             GFX_COMBINE_FACTOR_NONE,
             GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
-            FXFALSE,
-            FXFALSE);
+            false,
+            false);
         gfxTexCombine(GR_TMU0,
             GFX_COMBINE_FUNCTION_SCALE_OTHER,
             GFX_COMBINE_FACTOR_ONE,
             GFX_COMBINE_FUNCTION_SCALE_OTHER,
             GFX_COMBINE_FACTOR_ONE,
-            FXFALSE,
-            FXFALSE);
+            false,
+            false);
     }
     int filter = (rdp.filter_mode != 2) ? GR_TEXTUREFILTER_POINT_SAMPLED : GR_TEXTUREFILTER_BILINEAR;
     gfxTexFilterMode(tmu, filter, filter);
@@ -102,12 +102,12 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
         GFX_COMBINE_LOCAL_NONE,
         GFX_COMBINE_OTHER_TEXTURE,
         //    GFX_COMBINE_OTHER_CONSTANT,
-        FXFALSE);
+        false);
     gfxAlphaCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
         GFX_COMBINE_FACTOR_ONE,
         GFX_COMBINE_LOCAL_NONE,
         GFX_COMBINE_OTHER_TEXTURE,
-        FXFALSE);
+        false);
     if (opaque)
     {
         gfxAlphaTestFunction(GFX_CMP_ALWAYS);
@@ -125,7 +125,7 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
     }
     gfxDepthBufferFunction(GFX_CMP_ALWAYS);
     gfxCullMode(GFX_CULL_DISABLE);
-    gfxDepthMask(FXFALSE);
+    gfxDepthMask(false);
     rdp.update |= UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
     return tmu;
 }
@@ -440,7 +440,7 @@ static void DrawDepthBufferToScreen256(FB_TO_SCREEN_INFO & fb_info)
         GFX_COMBINE_FACTOR_ONE,
         GFX_COMBINE_LOCAL_NONE,
         GFX_COMBINE_OTHER_CONSTANT,
-        FXFALSE);
+        false);
     uint16_t * src = (uint16_t*)image;
     src += fb_info.ul_x + fb_info.ul_y * fb_info.width;
     uint32_t w_tail = width % 256;
@@ -548,7 +548,7 @@ void DrawDepthBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
         GFX_COMBINE_FACTOR_ONE,
         GFX_COMBINE_LOCAL_NONE,
         GFX_COMBINE_OTHER_CONSTANT,
-        FXFALSE);
+        false);
     gfxTexDownloadMipMap(tmu, voodoo.tex_min_addr[tmu] + voodoo.tmem_ptr[tmu], GR_MIPMAPLEVELMASK_BOTH, &t_info);
     gfxTexSource(tmu, voodoo.tex_min_addr[tmu] + voodoo.tmem_ptr[tmu], GR_MIPMAPLEVELMASK_BOTH, &t_info);
     float ul_x = fb_info.ul_x * rdp.scale_x + rdp.offset_x;
