@@ -46,7 +46,7 @@ extern int g_width, g_height, widtho, heighto;
 extern int tex0_width, tex0_height, tex1_width, tex1_height;
 extern float lambda;
 extern int inverted_culling;
-extern int culling_mode;
+extern gfxCullMode_t culling_mode;
 extern int render_to_texture;
 extern int lfb_color_fmt;
 extern int need_to_compile;

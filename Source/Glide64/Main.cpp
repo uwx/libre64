@@ -442,7 +442,7 @@ int InitGfx()
     setPattern();
 
     InitCombine();
-    gfxCullMode(GR_CULL_NEGATIVE);
+    gfxCullMode(GFX_CULL_NEGATIVE);
 
     if (g_settings->fog())
     {
@@ -458,7 +458,7 @@ int InitGfx()
     guLoadTextures();
     ClearCache();
 
-    gfxCullMode(GR_CULL_DISABLE);
+    gfxCullMode(GFX_CULL_DISABLE);
     gfxDepthBufferMode(GR_DEPTHBUFFER_ZBUFFER);
     gfxDepthBufferFunction(GR_CMP_ALWAYS);
     gfxRenderBuffer(GFX_BUFFER_BACKBUFFER);
@@ -1187,7 +1187,7 @@ void newSwapBuffers()
     gfxClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
     gfxDepthBufferFunction(GR_CMP_ALWAYS);
     gfxDepthMask(FXFALSE);
-    gfxCullMode(GR_CULL_DISABLE);
+    gfxCullMode(GFX_CULL_DISABLE);
 
     if (g_capture_screen)
     {

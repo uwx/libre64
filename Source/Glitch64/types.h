@@ -18,7 +18,6 @@ typedef int32_t gfxOriginLocation_t;
 typedef int32_t gfxLock_t;
 typedef int32_t gfxLfbWriteMode_t;
 typedef uint32_t gfxLfbSrcFmt_t;
-typedef int32_t gfxCullMode_t;
 typedef int32_t gfxDepthBufferMode_t;
 typedef uint32_t gfxCCUColor_t;
 typedef uint32_t gfxACUColor_t;
@@ -159,6 +158,13 @@ enum gfxCombineFactor_t
     GFX_COMBINE_FACTOR_ONE_MINUS_TEXTURE_ALPHA = 0xc,
     GFX_COMBINE_FACTOR_ONE_MINUS_DETAIL_FACTOR = GFX_COMBINE_FACTOR_ONE_MINUS_TEXTURE_ALPHA,
     GFX_COMBINE_FACTOR_ONE_MINUS_LOD_FRACTION = 0xd,
+};
+
+enum gfxCullMode_t
+{
+    GFX_CULL_DISABLE = 0x0,
+    GFX_CULL_NEGATIVE = 0x1,
+    GFX_CULL_POSITIVE = 0x2,
 };
 
 typedef struct

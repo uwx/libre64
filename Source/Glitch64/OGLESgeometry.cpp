@@ -34,7 +34,7 @@
 
 int w_buffer_mode;
 int inverted_culling;
-int culling_mode;
+gfxCullMode_t culling_mode;
 
 #define VERTEX_BUFFER_SIZE 1500 //Max amount of vertices to buffer, this seems large enough.
 static VERTEX vertex_buffer[VERTEX_BUFFER_SIZE];
@@ -136,17 +136,17 @@ void gfxCullMode(gfxCullMode_t mode)
     oldinv = inverted_culling;
     switch (mode)
     {
-    case GR_CULL_DISABLE:
+    case GFX_CULL_DISABLE:
         glDisable(GL_CULL_FACE);
         break;
-    case GR_CULL_NEGATIVE:
+    case GFX_CULL_NEGATIVE:
         if (!inverted_culling)
             glCullFace(GL_FRONT);
         else
             glCullFace(GL_BACK);
         glEnable(GL_CULL_FACE);
         break;
-    case GR_CULL_POSITIVE:
+    case GFX_CULL_POSITIVE:
         if (!inverted_culling)
             glCullFace(GL_BACK);
         else
