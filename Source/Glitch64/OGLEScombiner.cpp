@@ -1429,16 +1429,16 @@ void gfxAlphaBlendFunction(gfxAlphaBlendFnc_t rgb_sf, gfxAlphaBlendFnc_t rgb_df,
 
     switch (rgb_sf)
     {
-    case GR_BLEND_ZERO:
+    case GFX_BLEND_ZERO:
         sfactorRGB = GL_ZERO;
         break;
-    case GR_BLEND_SRC_ALPHA:
+    case GFX_BLEND_SRC_ALPHA:
         sfactorRGB = GL_SRC_ALPHA;
         break;
-    case GR_BLEND_ONE:
+    case GFX_BLEND_ONE:
         sfactorRGB = GL_ONE;
         break;
-    case GR_BLEND_ONE_MINUS_SRC_ALPHA:
+    case GFX_BLEND_ONE_MINUS_SRC_ALPHA:
         sfactorRGB = GL_ONE_MINUS_SRC_ALPHA;
         break;
     default:
@@ -1447,16 +1447,16 @@ void gfxAlphaBlendFunction(gfxAlphaBlendFnc_t rgb_sf, gfxAlphaBlendFnc_t rgb_df,
 
     switch (rgb_df)
     {
-    case GR_BLEND_ZERO:
+    case GFX_BLEND_ZERO:
         dfactorRGB = GL_ZERO;
         break;
-    case GR_BLEND_SRC_ALPHA:
+    case GFX_BLEND_SRC_ALPHA:
         dfactorRGB = GL_SRC_ALPHA;
         break;
-    case GR_BLEND_ONE:
+    case GFX_BLEND_ONE:
         dfactorRGB = GL_ONE;
         break;
-    case GR_BLEND_ONE_MINUS_SRC_ALPHA:
+    case GFX_BLEND_ONE_MINUS_SRC_ALPHA:
         dfactorRGB = GL_ONE_MINUS_SRC_ALPHA;
         break;
     default:
@@ -1465,10 +1465,10 @@ void gfxAlphaBlendFunction(gfxAlphaBlendFnc_t rgb_sf, gfxAlphaBlendFnc_t rgb_df,
 
     switch (alpha_sf)
     {
-    case GR_BLEND_ZERO:
+    case GFX_BLEND_ZERO:
         sfactorAlpha = GL_ZERO;
         break;
-    case GR_BLEND_ONE:
+    case GFX_BLEND_ONE:
         sfactorAlpha = GL_ONE;
         break;
     default:
@@ -1477,10 +1477,10 @@ void gfxAlphaBlendFunction(gfxAlphaBlendFnc_t rgb_sf, gfxAlphaBlendFnc_t rgb_df,
 
     switch (alpha_df)
     {
-    case GR_BLEND_ZERO:
+    case GFX_BLEND_ZERO:
         dfactorAlpha = GL_ZERO;
         break;
-    case GR_BLEND_ONE:
+    case GFX_BLEND_ONE:
         dfactorAlpha = GL_ONE;
         break;
     default:

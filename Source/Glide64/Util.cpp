@@ -2062,10 +2062,10 @@ void set_message_combiner(void)
         GFX_COMBINE_LOCAL_NONE,
         GFX_COMBINE_OTHER_TEXTURE,
         FXFALSE);
-    gfxAlphaBlendFunction(GR_BLEND_ONE,
-        GR_BLEND_ZERO,
-        GR_BLEND_ZERO,
-        GR_BLEND_ZERO);
+    gfxAlphaBlendFunction(GFX_BLEND_ONE,
+        GFX_BLEND_ZERO,
+        GFX_BLEND_ZERO,
+        GFX_BLEND_ZERO);
     gfxAlphaTestFunction(GR_CMP_ALWAYS);
     gfxStippleMode(GFX_STIPPLE_DISABLE);
     gfxTexFilterMode(0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);

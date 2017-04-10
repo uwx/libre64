@@ -111,17 +111,17 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
     if (opaque)
     {
         gfxAlphaTestFunction(GR_CMP_ALWAYS);
-        gfxAlphaBlendFunction(GR_BLEND_ONE,
-            GR_BLEND_ZERO,
-            GR_BLEND_ONE,
-            GR_BLEND_ZERO);
+        gfxAlphaBlendFunction(GFX_BLEND_ONE,
+            GFX_BLEND_ZERO,
+            GFX_BLEND_ONE,
+            GFX_BLEND_ZERO);
     }
     else
     {
-        gfxAlphaBlendFunction(GR_BLEND_SRC_ALPHA,
-            GR_BLEND_ONE_MINUS_SRC_ALPHA,
-            GR_BLEND_ONE,
-            GR_BLEND_ZERO);
+        gfxAlphaBlendFunction(GFX_BLEND_SRC_ALPHA,
+            GFX_BLEND_ONE_MINUS_SRC_ALPHA,
+            GFX_BLEND_ONE,
+            GFX_BLEND_ZERO);
     }
     gfxDepthBufferFunction(GR_CMP_ALWAYS);
     gfxCullMode(GFX_CULL_DISABLE);
