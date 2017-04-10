@@ -622,7 +622,7 @@ void gfxTextureBufferExt(gfxChipID_t tmu, uint32_t startAddress, gfxLOD_t lodmin
     }
 }
 
-int CheckTextureBufferFormat(GrChipID_t tmu, FxU32 startAddress, gfxTexInfo *info)
+int CheckTextureBufferFormat(gfxChipID_t tmu, FxU32 startAddress, gfxTexInfo *info)
 {
     int found, i;
     if (!use_fbo)

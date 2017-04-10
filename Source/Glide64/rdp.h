@@ -323,7 +323,7 @@ typedef struct
 
 typedef struct
 {
-    GrChipID_t tmu;
+    gfxChipID_t tmu;
     uint32_t addr;  //address of color image
     uint32_t end_addr;
     uint32_t tex_addr; //address in video memory
@@ -354,7 +354,7 @@ typedef struct
 
 typedef struct
 {
-    GrChipID_t tmu;
+    gfxChipID_t tmu;
     uint32_t begin; //start of the block in video memory
     uint32_t end;   //end of the block in video memory
     uint8_t count;  //number of allocated texture buffers

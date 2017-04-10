@@ -16263,7 +16263,7 @@ void AlphaCombinerToExtension()
     }
 }
 
-void TexColorCombinerToExtension(GrChipID_t tmu)
+void TexColorCombinerToExtension(gfxChipID_t tmu)
 {
     uint32_t tc_ext_a, tc_ext_b, tc_ext_c, tc_ext_d;
     gfxCombineMode_t tc_ext_a_mode, tc_ext_b_mode;
@@ -16463,7 +16463,7 @@ void TexColorCombinerToExtension(GrChipID_t tmu)
     }
 }
 
-void TexAlphaCombinerToExtension(GrChipID_t tmu)
+void TexAlphaCombinerToExtension(gfxChipID_t tmu)
 {
     uint32_t ta_ext_a, ta_ext_b, ta_ext_c, ta_ext_d;
     gfxCombineMode_t ta_ext_a_mode, ta_ext_b_mode;
