@@ -370,13 +370,13 @@ void compile_chroma_shader()
 
     switch (chroma_other_alpha)
     {
-    case GR_COMBINE_OTHER_ITERATED:
+    case GFX_COMBINE_OTHER_ITERATED:
         strcat(fragment_shader_chroma, "float alpha = vFrontColor.a; \n");
         break;
-    case GR_COMBINE_OTHER_TEXTURE:
+    case GFX_COMBINE_OTHER_TEXTURE:
         strcat(fragment_shader_chroma, "float alpha = ctexture1.a; \n");
         break;
-    case GR_COMBINE_OTHER_CONSTANT:
+    case GFX_COMBINE_OTHER_CONSTANT:
         strcat(fragment_shader_chroma, "float alpha = constant_color.a; \n");
         break;
     default:
@@ -385,13 +385,13 @@ void compile_chroma_shader()
 
     switch (chroma_other_color)
     {
-    case GR_COMBINE_OTHER_ITERATED:
+    case GFX_COMBINE_OTHER_ITERATED:
         strcat(fragment_shader_chroma, "vec4 color = vec4(vec3(vFrontColor),alpha); \n");
         break;
-    case GR_COMBINE_OTHER_TEXTURE:
+    case GFX_COMBINE_OTHER_TEXTURE:
         strcat(fragment_shader_chroma, "vec4 color = vec4(vec3(ctexture1),alpha); \n");
         break;
-    case GR_COMBINE_OTHER_CONSTANT:
+    case GFX_COMBINE_OTHER_CONSTANT:
         strcat(fragment_shader_chroma, "vec4 color = vec4(vec3(constant_color),alpha); \n");
         break;
     default:
@@ -702,13 +702,13 @@ void writeGLSLColorOther(int other)
 {
     switch (other)
     {
-    case GR_COMBINE_OTHER_ITERATED:
+    case GFX_COMBINE_OTHER_ITERATED:
         strcat(fragment_shader_color_combiner, "vec4 color_other = vFrontColor; \n");
         break;
-    case GR_COMBINE_OTHER_TEXTURE:
+    case GFX_COMBINE_OTHER_TEXTURE:
         strcat(fragment_shader_color_combiner, "vec4 color_other = ctexture1; \n");
         break;
-    case GR_COMBINE_OTHER_CONSTANT:
+    case GFX_COMBINE_OTHER_CONSTANT:
         strcat(fragment_shader_color_combiner, "vec4 color_other = constant_color; \n");
         break;
     default:
@@ -873,13 +873,13 @@ void writeGLSLAlphaOther(int other)
 {
     switch (other)
     {
-    case GR_COMBINE_OTHER_ITERATED:
+    case GFX_COMBINE_OTHER_ITERATED:
         strcat(fragment_shader_alpha_combiner, "float alpha_other = vFrontColor.a; \n");
         break;
-    case GR_COMBINE_OTHER_TEXTURE:
+    case GFX_COMBINE_OTHER_TEXTURE:
         strcat(fragment_shader_alpha_combiner, "float alpha_other = ctexture1.a; \n");
         break;
-    case GR_COMBINE_OTHER_CONSTANT:
+    case GFX_COMBINE_OTHER_CONSTANT:
         strcat(fragment_shader_alpha_combiner, "float alpha_other = constant_color.a; \n");
         break;
     default:

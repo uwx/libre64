@@ -73,11 +73,11 @@ typedef struct
     gfxCombineFunction_t c_fnc;
     gfxCombineFactor_t c_fac;
     gfxCombineLocal_t c_loc;
-    uint32_t c_oth;  // grColorCombine flags
+    gfxCombineOther_t c_oth;  // grColorCombine flags
     gfxCombineFunction_t a_fnc;
     gfxCombineFactor_t a_fac;
     gfxCombineLocal_t a_loc;
-    uint32_t a_oth;  // gfxAlphaCombine flags
+    gfxCombineOther_t a_oth;  // gfxAlphaCombine flags
     uint32_t tex;
     gfxCombineFunction_t tmu0_func;
     gfxCombineFactor_t tmu0_fac;

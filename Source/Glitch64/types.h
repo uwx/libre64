@@ -6,7 +6,6 @@ typedef int32_t gfxAlphaBlendFnc_t;
 typedef uint8_t gfxAlpha_t;
 typedef int32_t gfxCmpFnc_t;
 typedef uint32_t gfxColor_t;
-typedef int32_t gfxCombineOther_t;
 typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
 typedef int32_t gfxTextureClampMode_t;
@@ -172,6 +171,14 @@ enum gfxCombineLocal_t
     GFX_COMBINE_LOCAL_CONSTANT = 0x1,
     GFX_COMBINE_LOCAL_NONE = GFX_COMBINE_LOCAL_CONSTANT,
     GFX_COMBINE_LOCAL_DEPTH = 0x2,
+};
+
+enum gfxCombineOther_t
+{
+    GFX_COMBINE_OTHER_ITERATED = 0x0,
+    GFX_COMBINE_OTHER_TEXTURE = 0x1,
+    GFX_COMBINE_OTHER_CONSTANT = 0x2,
+    GFX_COMBINE_OTHER_NONE = GFX_COMBINE_OTHER_CONSTANT,
 };
 
 typedef struct
