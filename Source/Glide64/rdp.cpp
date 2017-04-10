@@ -2554,13 +2554,13 @@ void rdp_fillrect()
 
         gfxColorCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
-            GR_COMBINE_LOCAL_CONSTANT,
+            GFX_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
 
         gfxAlphaCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
-            GR_COMBINE_LOCAL_CONSTANT,
+            GFX_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
 
@@ -2592,7 +2592,7 @@ void rdp_fillrect()
         {
             gfxAlphaCombine(GFX_COMBINE_FUNCTION_LOCAL,
                 GFX_COMBINE_FACTOR_NONE,
-                GR_COMBINE_LOCAL_CONSTANT,
+                GFX_COMBINE_LOCAL_CONSTANT,
                 GR_COMBINE_OTHER_NONE,
                 FXFALSE);
             gfxConstantColorValue((cmb.ccolor & 0xFFFFFF00) | (rdp.fog_color & 0xFF));
@@ -3177,12 +3177,12 @@ void SetWireframeCol()
     case CSettings::wfmode_VertexColors:
         gfxColorCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
-            GR_COMBINE_LOCAL_ITERATED,
+            GFX_COMBINE_LOCAL_ITERATED,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
         gfxAlphaCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
-            GR_COMBINE_LOCAL_ITERATED,
+            GFX_COMBINE_LOCAL_ITERATED,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
         gfxAlphaBlendFunction(GR_BLEND_ONE,
@@ -3205,12 +3205,12 @@ void SetWireframeCol()
     case CSettings::wfmode_RedOnly:
         gfxColorCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
-            GR_COMBINE_LOCAL_CONSTANT,
+            GFX_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
         gfxAlphaCombine(GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
-            GR_COMBINE_LOCAL_CONSTANT,
+            GFX_COMBINE_LOCAL_CONSTANT,
             GR_COMBINE_OTHER_NONE,
             FXFALSE);
         gfxConstantColorValue(0xFF0000FF);

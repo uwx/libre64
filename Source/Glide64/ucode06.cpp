@@ -104,12 +104,12 @@ float set_sprite_combine_mode()
     {
         gfxColorCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
             GFX_COMBINE_FACTOR_ONE,
-            GR_COMBINE_LOCAL_NONE,
+            GFX_COMBINE_LOCAL_NONE,
             GR_COMBINE_OTHER_TEXTURE,
             FXFALSE);
         gfxAlphaCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
             GFX_COMBINE_FACTOR_ONE,
-            GR_COMBINE_LOCAL_NONE,
+            GFX_COMBINE_LOCAL_NONE,
             GR_COMBINE_OTHER_TEXTURE,
             FXFALSE);
         gfxAlphaBlendFunction(GR_BLEND_ONE,
@@ -186,12 +186,12 @@ void DrawHiresDepthImage(const DRAWIMAGE & d)
         FXFALSE);
     gfxColorCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
         GFX_COMBINE_FACTOR_ONE,
-        GR_COMBINE_LOCAL_NONE,
+        GFX_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_TEXTURE,
         FXFALSE);
     gfxAlphaCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
         GFX_COMBINE_FACTOR_ONE,
-        GR_COMBINE_LOCAL_NONE,
+        GFX_COMBINE_LOCAL_NONE,
         GR_COMBINE_OTHER_TEXTURE,
         FXFALSE);
     gfxAlphaBlendFunction(GR_BLEND_ONE,

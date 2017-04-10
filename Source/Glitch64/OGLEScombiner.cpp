@@ -720,10 +720,10 @@ void writeGLSLColorLocal(int local)
 {
     switch (local)
     {
-    case GR_COMBINE_LOCAL_ITERATED:
+    case GFX_COMBINE_LOCAL_ITERATED:
         strcat(fragment_shader_color_combiner, "vec4 color_local = vFrontColor; \n");
         break;
-    case GR_COMBINE_LOCAL_CONSTANT:
+    case GFX_COMBINE_LOCAL_CONSTANT:
         strcat(fragment_shader_color_combiner, "vec4 color_local = constant_color; \n");
         break;
     default:
@@ -891,10 +891,10 @@ void writeGLSLAlphaLocal(int local)
 {
     switch (local)
     {
-    case GR_COMBINE_LOCAL_ITERATED:
+    case GFX_COMBINE_LOCAL_ITERATED:
         strcat(fragment_shader_alpha_combiner, "float alpha_local = vFrontColor.a; \n");
         break;
-    case GR_COMBINE_LOCAL_CONSTANT:
+    case GFX_COMBINE_LOCAL_CONSTANT:
         strcat(fragment_shader_alpha_combiner, "float alpha_local = constant_color.a; \n");
         break;
     default:
