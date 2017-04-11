@@ -159,7 +159,7 @@ uint32_t gfxTexMaxAddress(gfxChipID_t tmu)
     return TMU_SIZE * 2 - 1;
 }
 
-uint32_t gfxTexTextureMemRequired(uint32_t evenOdd, gfxTexInfo *info)
+uint32_t gfxTexTextureMemRequired(gfxMipMapLevelMask_t evenOdd, gfxTexInfo *info)
 {
     WriteTrace(TraceGlitch, TraceDebug, "evenOdd = %d", evenOdd);
     int width, height;

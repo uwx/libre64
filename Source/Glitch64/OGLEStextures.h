@@ -4,7 +4,7 @@
 uint32_t gfxTexMinAddress(gfxChipID_t tmu);
 uint32_t gfxTexMaxAddress(gfxChipID_t tmu);
 uint32_t gfxTexCalcMemRequired(gfxLOD_t lodmin, gfxLOD_t lodmax, gfxAspectRatio_t aspect, gfxTextureFormat_t fmt);
-uint32_t gfxTexTextureMemRequired(uint32_t evenOdd, gfxTexInfo *info);
+uint32_t gfxTexTextureMemRequired(gfxMipMapLevelMask_t evenOdd, gfxTexInfo *info);
 void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenOdd, gfxTexInfo *info);
 void gfxTexSource(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenOdd, gfxTexInfo *info);
 void gfxTexDetailControl(gfxChipID_t tmu, int lod_bias, uint8_t detail_scale, float detail_max);

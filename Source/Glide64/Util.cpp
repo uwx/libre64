@@ -2081,6 +2081,6 @@ void set_message_combiner(void)
         GFX_COMBINE_FUNCTION_LOCAL,
         GFX_COMBINE_FACTOR_NONE,
         false, false);
-    gfxTexSource(GR_TMU0, voodoo.tex_min_addr[GR_TMU0] + offset_font, GR_MIPMAPLEVELMASK_BOTH, &fontTex);
+    gfxTexSource(GR_TMU0, voodoo.tex_min_addr[GR_TMU0] + offset_font, GFX_MIPMAPLEVELMASK_BOTH, &fontTex);
     gfxFogMode(GFX_FOG_DISABLE);
 }

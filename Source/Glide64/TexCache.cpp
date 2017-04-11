@@ -504,7 +504,7 @@ int ChooseBestTmu(int tmu1, int tmu2)
 static void SelectTBuffTex(TBUFF_COLOR_IMAGE * pTBuffTex)
 {
     WriteTrace(TraceRDP, TraceDebug, "SelectTBuffTex: tex: %d, tmu: %d, tile: %d", rdp.tex, pTBuffTex->tmu, pTBuffTex->tile);
-    gfxTexSource(pTBuffTex->tile, pTBuffTex->tex_addr, GR_MIPMAPLEVELMASK_BOTH, &(pTBuffTex->info));
+    gfxTexSource(pTBuffTex->tile, pTBuffTex->tex_addr, GFX_MIPMAPLEVELMASK_BOTH, &(pTBuffTex->info));
 }
 
 //****************************************************************
@@ -771,7 +771,7 @@ void TexCache()
                 rdp.cur_cache(0)->uses = rdp.debug_n;
                 gfxTexSource(tmu_0,
                     (voodoo.tex_min_addr[tmu_0] + cache->tmem_addr),
-                    GR_MIPMAPLEVELMASK_BOTH,
+                    GFX_MIPMAPLEVELMASK_BOTH,
                     &cache->t_info);
             }
         }
@@ -802,7 +802,7 @@ void TexCache()
                 rdp.cur_cache(1)->uses = rdp.debug_n;
                 gfxTexSource(tmu_1,
                     (voodoo.tex_min_addr[tmu_1] + cache->tmem_addr),
-                    GR_MIPMAPLEVELMASK_BOTH,
+                    GFX_MIPMAPLEVELMASK_BOTH,
                     &cache->t_info);
             }
         }
@@ -1681,7 +1681,7 @@ void LoadTex(int id, int tmu)
         t_info->largeLodLog2 = lod;
         t_info->aspectRatioLog2 = aspect;
 
-        uint32_t texture_size = gfxTexTextureMemRequired(GR_MIPMAPLEVELMASK_BOTH, t_info);
+        uint32_t texture_size = gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, t_info);
 
         // Check for end of memory (too many textures to fit, clear cache)
         if (voodoo.tmem_ptr[tmu] + texture_size >= voodoo.tex_max_addr[tmu])
@@ -1701,8 +1701,8 @@ void LoadTex(int id, int tmu)
         voodoo.tmem_ptr[0] += texture_size;
         voodoo.tmem_ptr[1] = voodoo.tmem_ptr[0];
 
-        gfxTexDownloadMipMap(tmu, tex_addr, GR_MIPMAPLEVELMASK_BOTH, t_info);
-        gfxTexSource(tmu, tex_addr, GR_MIPMAPLEVELMASK_BOTH, t_info);
+        gfxTexDownloadMipMap(tmu, tex_addr, GFX_MIPMAPLEVELMASK_BOTH, t_info);
+        gfxTexSource(tmu, tex_addr, GFX_MIPMAPLEVELMASK_BOTH, t_info);
     }
 
     WriteTrace(TraceRDP, TraceDebug, " | | +- LoadTex end");
