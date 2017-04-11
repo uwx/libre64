@@ -40,7 +40,6 @@
 
 #include <Common/stdtypes.h>
 #include <Glitch64/OGLEStextures.h>
-#include "glide.h"
 
 extern char out_buf[2048];
 
