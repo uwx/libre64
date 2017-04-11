@@ -704,7 +704,7 @@ static void CopyFrameBuffer(gfxBuffer_t buffer = GFX_BUFFER_BACKBUFFER)
             gfxLfbInfo_t info;
             info.size = sizeof(info);
 
-            if (gfxLfbLock(GR_LFB_READ_ONLY, buffer, GR_LFBWRITEMODE_565, GR_ORIGIN_UPPER_LEFT, false, &info))
+            if (gfxLfbLock(GR_LFB_READ_ONLY, buffer, GFX_LFBWRITEMODE_565, GR_ORIGIN_UPPER_LEFT, false, &info))
             {
                 uint16_t *ptr_src = (uint16_t*)info.lfbPtr;
                 uint16_t *ptr_dst = (uint16_t*)(gfx.RDRAM + rdp.cimg);

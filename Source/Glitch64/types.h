@@ -10,7 +10,6 @@ typedef int32_t gfxTextureFilterMode_t;
 typedef int32_t gfxColorFormat_t;
 typedef int32_t gfxOriginLocation_t;
 typedef int32_t gfxLock_t;
-typedef int32_t gfxLfbWriteMode_t;
 typedef uint32_t gfxLfbSrcFmt_t;
 typedef uint32_t gfxCCUColor_t;
 typedef uint32_t gfxACUColor_t;
@@ -254,6 +253,27 @@ enum gfxDepthBufferMode_t
     GFX_DEPTHBUFFER_WBUFFER = 0x2,
     GFX_DEPTHBUFFER_ZBUFFER_COMPARE_TO_BIAS = 0x3,
     GFX_DEPTHBUFFER_WBUFFER_COMPARE_TO_BIAS = 0x4,
+};
+
+enum gfxLfbWriteMode_t
+{
+    GFX_LFBWRITEMODE_565 = 0x0, /* RGB:RGB */
+    GFX_LFBWRITEMODE_555 = 0x1, /* RGB:RGB */
+    GFX_LFBWRITEMODE_1555 = 0x2, /* ARGB:ARGB */
+    GFX_LFBWRITEMODE_RESERVED1 = 0x3,
+    GFX_LFBWRITEMODE_888 = 0x4, /* RGB */
+    GFX_LFBWRITEMODE_8888 = 0x5, /* ARGB */
+    GFX_LFBWRITEMODE_RESERVED2 = 0x6,
+    GFX_LFBWRITEMODE_RESERVED3 = 0x7,
+    GFX_LFBWRITEMODE_RESERVED4 = 0x8,
+    GFX_LFBWRITEMODE_RESERVED5 = 0x9,
+    GFX_LFBWRITEMODE_RESERVED6 = 0xa,
+    GFX_LFBWRITEMODE_RESERVED7 = 0xb,
+    GFX_LFBWRITEMODE_565_DEPTH = 0xc, /* RGB:DEPTH */
+    GFX_LFBWRITEMODE_555_DEPTH = 0xd, /* RGB:DEPTH */
+    GFX_LFBWRITEMODE_1555_DEPTH = 0xe, /* ARGB:DEPTH */
+    GFX_LFBWRITEMODE_ZA16 = 0xf, /* DEPTH:DEPTH */
+    GFX_LFBWRITEMODE_ANY = 0xFF,
 };
 
 typedef struct
