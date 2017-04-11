@@ -1704,7 +1704,7 @@ static void render_tri(uint16_t linew, int old_interpolate)
             {
                 gfxDepthBiasLevel(-deltaZ);
             }
-            gfxDrawVertexArray(GR_TRIANGLE_FAN, n, rdp.vtx_buffer ? (&vtx_list2) : (&vtx_list1));
+            gfxDrawVertexArray(GFX_TRIANGLE_FAN, n, rdp.vtx_buffer ? (&vtx_list2) : (&vtx_list1));
         }
     }
 }

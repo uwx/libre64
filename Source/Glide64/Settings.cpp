@@ -911,6 +911,7 @@ void CSettings::SettingsChanged(void)
     m_ScreenRes = GetSetting(Set_Resolution);
 }
 
+#include <Windows.h>
 void UseUnregisteredSetting(int /*SettingID*/)
 {
 #ifdef _WIN32
