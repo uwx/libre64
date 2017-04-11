@@ -447,7 +447,7 @@ int InitGfx()
         gfxFogGenerateLinear(0.0f, 255.0f);
     }
 
-    gfxDepthBufferMode(GR_DEPTHBUFFER_ZBUFFER);
+    gfxDepthBufferMode(GFX_DEPTHBUFFER_ZBUFFER);
     gfxDepthBufferFunction(GFX_CMP_LESS);
     gfxDepthMask(true);
 
@@ -457,7 +457,7 @@ int InitGfx()
     ClearCache();
 
     gfxCullMode(GFX_CULL_DISABLE);
-    gfxDepthBufferMode(GR_DEPTHBUFFER_ZBUFFER);
+    gfxDepthBufferMode(GFX_DEPTHBUFFER_ZBUFFER);
     gfxDepthBufferFunction(GFX_CMP_ALWAYS);
     gfxRenderBuffer(GFX_BUFFER_BACKBUFFER);
     gfxColorMask(true, true);

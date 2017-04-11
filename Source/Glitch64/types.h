@@ -12,7 +12,6 @@ typedef int32_t gfxOriginLocation_t;
 typedef int32_t gfxLock_t;
 typedef int32_t gfxLfbWriteMode_t;
 typedef uint32_t gfxLfbSrcFmt_t;
-typedef int32_t gfxDepthBufferMode_t;
 typedef uint32_t gfxCCUColor_t;
 typedef uint32_t gfxACUColor_t;
 typedef uint32_t gfxTCCUColor_t;
@@ -246,6 +245,15 @@ enum gfxChipID_t
     GFX_TMU0 = 0x0,
     GFX_TMU1 = 0x1,
     GFX_TMU2 = 0x2,
+};
+
+enum gfxDepthBufferMode_t
+{
+    GFX_DEPTHBUFFER_DISABLE = 0x0,
+    GFX_DEPTHBUFFER_ZBUFFER = 0x1,
+    GFX_DEPTHBUFFER_WBUFFER = 0x2,
+    GFX_DEPTHBUFFER_ZBUFFER_COMPARE_TO_BIAS = 0x3,
+    GFX_DEPTHBUFFER_WBUFFER_COMPARE_TO_BIAS = 0x4,
 };
 
 typedef struct
