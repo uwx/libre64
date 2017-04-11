@@ -1182,7 +1182,7 @@ void gfxTexCombine(gfxChipID_t tmu, gfxCombineFunction_t rgb_function, gfxCombin
     WriteTrace(TraceResolution, TraceDebug, "tmu: %d rgb_function: %d rgb_factor: %d alpha_function: %d alpha_factor: %d rgb_invert: %d alpha_invert: %d", tmu, rgb_function, rgb_factor, alpha_function, alpha_factor, rgb_invert, alpha_invert);
     int num_tex;
 
-    if (tmu == GR_TMU0) num_tex = 1;
+    if (tmu == GFX_TMU0) num_tex = 1;
     else num_tex = 0;
 
     if (num_tex == 0)
@@ -2021,7 +2021,7 @@ void gfxTexColorCombineExt(gfxChipID_t tmu, gfxTCCUColor_t a, gfxCombineMode_t a
     if (invert) WriteTrace(TraceGlitch, TraceWarning, "gfxTexColorCombineExt : inverted result");
     if (shift) WriteTrace(TraceGlitch, TraceWarning, "gfxTexColorCombineExt : shift = %d", shift);
 
-    if (tmu == GR_TMU0) num_tex = 1;
+    if (tmu == GFX_TMU0) num_tex = 1;
     else num_tex = 0;
 
     if (num_tex == 0)
@@ -2380,7 +2380,7 @@ void gfxTexAlphaCombineExt(gfxChipID_t tmu, gfxTACUColor_t a, gfxCombineMode_t a
     if (invert) WriteTrace(TraceGlitch, TraceWarning, "gfxTexAlphaCombineExt : inverted result");
     if (shift) WriteTrace(TraceGlitch, TraceWarning, "gfxTexAlphaCombineExt : shift = %d", shift);
 
-    if (tmu == GR_TMU0) num_tex = 1;
+    if (tmu == GFX_TMU0) num_tex = 1;
     else num_tex = 0;
 
     if (num_tex == 0)
@@ -2655,7 +2655,7 @@ void gfxConstantColorValueExt(gfxChipID_t tmu, GrColor_t value)
     int num_tex;
     WriteTrace(TraceResolution, TraceDebug, "tmu: %d value: %d", tmu, value);
 
-    num_tex = tmu == GR_TMU0 ? 1 : 0;
+    num_tex = tmu == GFX_TMU0 ? 1 : 0;
 
     switch (lfb_color_fmt)
     {

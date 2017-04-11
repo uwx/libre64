@@ -467,7 +467,7 @@ void gfxTexSource(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenOdd, gfxT
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, startAddress: %d evenOdd: %d", tmu, startAddress, evenOdd);
 
-    if (tmu == GR_TMU1)
+    if (tmu == GFX_TMU1)
     {
         glActiveTexture(GL_TEXTURE0);
 
@@ -546,7 +546,7 @@ void gfxTexDetailControl(gfxChipID_t tmu, int lod_bias, uint8_t detail_scale, fl
 void gfxTexFilterMode(gfxChipID_t tmu, gfxTextureFilterMode_t minfilter_mode, gfxTextureFilterMode_t magfilter_mode)
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, bias: %d magfilter_mode: %d", tmu, minfilter_mode, magfilter_mode);
-    if (tmu == GR_TMU1)
+    if (tmu == GFX_TMU1)
     {
         if (minfilter_mode == GR_TEXTUREFILTER_POINT_SAMPLED) min_filter0 = GL_NEAREST;
         else min_filter0 = GL_LINEAR;
@@ -575,7 +575,7 @@ void gfxTexFilterMode(gfxChipID_t tmu, gfxTextureFilterMode_t minfilter_mode, gf
 void gfxTexClampMode(gfxChipID_t tmu, gfxTextureClampMode_t s_clampmode, gfxTextureClampMode_t t_clampmode)
 {
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, s_clampmode: %d t_clampmode: %d", tmu, s_clampmode, t_clampmode);
-    if (tmu == GR_TMU1)
+    if (tmu == GFX_TMU1)
     {
         switch (s_clampmode)
         {

@@ -1,7 +1,6 @@
 #pragma once
 #include <Common/stdtypes.h>
 
-typedef int32_t gfxChipID_t;
 typedef uint8_t gfxAlpha_t;
 typedef uint32_t gfxColor_t;
 typedef int32_t gfxStippleMode_t;
@@ -220,23 +219,6 @@ enum gfxCmpFnc_t
     GFX_CMP_ALWAYS = 0x7,
 };
 
-typedef struct
-{
-    gfxLOD_t           smallLodLog2;
-    gfxLOD_t           largeLodLog2;
-    gfxAspectRatio_t   aspectRatioLog2;
-    gfxTextureFormat_t format;
-    void               *data;
-} gfxTexInfo;
-
-typedef struct {
-    int32_t            size;
-    void               *lfbPtr;
-    uint32_t           strideInBytes;
-    gfxLfbWriteMode_t   writeMode;
-    gfxOriginLocation_t origin;
-} gfxLfbInfo_t;
-
 enum GFX_CMBX
 {
     GFX_CMBX_ZERO = 0x00,
@@ -258,3 +240,27 @@ enum GFX_CMBX
     GFX_CMBX_TMU_CALPHA = 0x10,
     GFX_CMBX_TMU_CCOLOR = 0x11,
 };
+
+enum gfxChipID_t
+{
+    GFX_TMU0 = 0x0,
+    GFX_TMU1 = 0x1,
+    GFX_TMU2 = 0x2,
+};
+
+typedef struct
+{
+    gfxLOD_t           smallLodLog2;
+    gfxLOD_t           largeLodLog2;
+    gfxAspectRatio_t   aspectRatioLog2;
+    gfxTextureFormat_t format;
+    void               *data;
+} gfxTexInfo;
+
+typedef struct {
+    int32_t            size;
+    void               *lfbPtr;
+    uint32_t           strideInBytes;
+    gfxLfbWriteMode_t   writeMode;
+    gfxOriginLocation_t origin;
+} gfxLfbInfo_t;

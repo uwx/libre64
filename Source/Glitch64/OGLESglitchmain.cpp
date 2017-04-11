@@ -482,7 +482,7 @@ void gfxTextureBufferExt(gfxChipID_t tmu, uint32_t startAddress, gfxLOD_t lodmin
         curBufferAddr = pBufferAddress = startAddress + 1;
         pBufferFmt = fmt;
 
-        int rtmu = startAddress < gfxTexMinAddress(GR_TMU1) ? 0 : 1;
+        int rtmu = startAddress < gfxTexMinAddress(GFX_TMU1) ? 0 : 1;
         int size = pBufferWidth*pBufferHeight * 2;
         if ((unsigned int)tmu_usage[rtmu].min > pBufferAddress)
             tmu_usage[rtmu].min = pBufferAddress;
@@ -932,7 +932,7 @@ void gfxAuxBufferExt(gfxBuffer_t buffer)
         glDisable(GL_CULL_FACE);
         //glDisable(GL_ALPHA_TEST);
         glDepthMask(GL_TRUE);
-        gfxTexFilterMode(GR_TMU1, GR_TEXTUREFILTER_POINT_SAMPLED, GR_TEXTUREFILTER_POINT_SAMPLED);
+        gfxTexFilterMode(GFX_TMU1, GR_TEXTUREFILTER_POINT_SAMPLED, GR_TEXTUREFILTER_POINT_SAMPLED);
     }
     else
     {

@@ -385,16 +385,16 @@ static gfxTextureFormat_t TexBufSetupCombiner(int force_rgb = FALSE)
         color_source = GFX_COMBINE_FUNCTION_LOCAL_ALPHA;
         buf_format = GFX_TEXFMT_ALPHA_INTENSITY_88;
     }
-    if (rdp.tbuff_tex->tmu == GR_TMU0)
+    if (rdp.tbuff_tex->tmu == GFX_TMU0)
     {
-        gfxTexCombine(GR_TMU1,
+        gfxTexCombine(GFX_TMU1,
             GFX_COMBINE_FUNCTION_NONE,
             GFX_COMBINE_FACTOR_NONE,
             GFX_COMBINE_FUNCTION_NONE,
             GFX_COMBINE_FACTOR_NONE,
             false,
             false);
-        gfxTexCombine(GR_TMU0,
+        gfxTexCombine(GFX_TMU0,
             color_source,
             GFX_COMBINE_FACTOR_NONE,
             GFX_COMBINE_FUNCTION_ZERO,
@@ -404,14 +404,14 @@ static gfxTextureFormat_t TexBufSetupCombiner(int force_rgb = FALSE)
     }
     else
     {
-        gfxTexCombine(GR_TMU1,
+        gfxTexCombine(GFX_TMU1,
             color_source,
             GFX_COMBINE_FACTOR_NONE,
             GFX_COMBINE_FUNCTION_ZERO,
             GFX_COMBINE_FACTOR_NONE,
             false,
             true);
-        gfxTexCombine(GR_TMU0,
+        gfxTexCombine(GFX_TMU0,
             GFX_COMBINE_FUNCTION_SCALE_OTHER,
             GFX_COMBINE_FACTOR_ONE,
             GFX_COMBINE_FUNCTION_SCALE_OTHER,

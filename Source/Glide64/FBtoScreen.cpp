@@ -50,20 +50,20 @@
 #include <Glitch64/OGLEStextures.h>
 #include <Glitch64/OGLESgeometry.h>
 
-static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
+static gfxChipID_t SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
 {
-    int tmu;
-    if (voodoo.tmem_ptr[GR_TMU0] + texture_size < voodoo.tex_max_addr[0])
+    gfxChipID_t tmu;
+    if (voodoo.tmem_ptr[GFX_TMU0] + texture_size < voodoo.tex_max_addr[0])
     {
-        tmu = GR_TMU0;
-        gfxTexCombine(GR_TMU1,
+        tmu = GFX_TMU0;
+        gfxTexCombine(GFX_TMU1,
             GFX_COMBINE_FUNCTION_NONE,
             GFX_COMBINE_FACTOR_NONE,
             GFX_COMBINE_FUNCTION_NONE,
             GFX_COMBINE_FACTOR_NONE,
             false,
             false);
-        gfxTexCombine(GR_TMU0,
+        gfxTexCombine(GFX_TMU0,
             GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
             GFX_COMBINE_FUNCTION_LOCAL,
@@ -73,17 +73,17 @@ static int SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
     }
     else
     {
-        if (voodoo.tmem_ptr[GR_TMU1] + texture_size >= voodoo.tex_max_addr[1])
+        if (voodoo.tmem_ptr[GFX_TMU1] + texture_size >= voodoo.tex_max_addr[1])
             ClearCache();
-        tmu = GR_TMU1;
-        gfxTexCombine(GR_TMU1,
+        tmu = GFX_TMU1;
+        gfxTexCombine(GFX_TMU1,
             GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
             GFX_COMBINE_FUNCTION_LOCAL,
             GFX_COMBINE_FACTOR_NONE,
             false,
             false);
-        gfxTexCombine(GR_TMU0,
+        gfxTexCombine(GFX_TMU0,
             GFX_COMBINE_FUNCTION_SCALE_OTHER,
             GFX_COMBINE_FACTOR_ONE,
             GFX_COMBINE_FUNCTION_SCALE_OTHER,
@@ -180,7 +180,7 @@ static void DrawRE2Video256(FB_TO_SCREEN_INFO & fb_info)
     }
     t_info.format = GFX_TEXFMT_RGB_565;
     t_info.data = tex;
-    int tmu = SetupFBtoScreenCombiner(gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &t_info), fb_info.opaque);
+    gfxChipID_t tmu = SetupFBtoScreenCombiner(gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &t_info), fb_info.opaque);
     gfxTexDownloadMipMap(tmu, voodoo.tex_min_addr[tmu] + voodoo.tmem_ptr[tmu], GFX_MIPMAPLEVELMASK_BOTH, &t_info);
     gfxTexSource(tmu, voodoo.tex_min_addr[tmu] + voodoo.tmem_ptr[tmu], GFX_MIPMAPLEVELMASK_BOTH, &t_info);
     DrawRE2Video(fb_info, 1.0f);
@@ -206,7 +206,7 @@ static void DrawFrameBufferToScreen256(FB_TO_SCREEN_INFO & fb_info)
     uint16_t * tex = (uint16_t*)texture_buffer;
     t_info.data = tex;
     uint32_t tex_size = gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &t_info);
-    int tmu = SetupFBtoScreenCombiner(tex_size*width256*height256, fb_info.opaque);
+    gfxChipID_t tmu = SetupFBtoScreenCombiner(tex_size*width256*height256, fb_info.opaque);
     uint16_t * src = (uint16_t*)image;
     src += fb_info.ul_x + fb_info.ul_y * fb_info.width;
     uint32_t * src32 = (uint32_t*)image;
@@ -391,7 +391,7 @@ bool DrawFrameBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
         t_info.data = tex;
     }
 
-    int tmu = SetupFBtoScreenCombiner(gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &t_info), fb_info.opaque);
+    gfxChipID_t tmu = SetupFBtoScreenCombiner(gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &t_info), fb_info.opaque);
     gfxTexDownloadMipMap(tmu, voodoo.tex_min_addr[tmu] + voodoo.tmem_ptr[tmu], GFX_MIPMAPLEVELMASK_BOTH, &t_info);
     gfxTexSource(tmu, voodoo.tex_min_addr[tmu] + voodoo.tmem_ptr[tmu], GFX_MIPMAPLEVELMASK_BOTH, &t_info);
     if (g_settings->hacks(CSettings::hack_RE2))
@@ -434,7 +434,7 @@ static void DrawDepthBufferToScreen256(FB_TO_SCREEN_INFO & fb_info)
     uint16_t * tex = (uint16_t*)texture_buffer;
     t_info.data = tex;
     uint32_t tex_size = gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &t_info);
-    int tmu = SetupFBtoScreenCombiner(tex_size*width256*height256, fb_info.opaque);
+    gfxChipID_t tmu = SetupFBtoScreenCombiner(tex_size*width256*height256, fb_info.opaque);
     gfxConstantColorValue(rdp.fog_color);
     gfxColorCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
         GFX_COMBINE_FACTOR_ONE,
@@ -542,7 +542,7 @@ void DrawDepthBufferToScreen(FB_TO_SCREEN_INFO & fb_info)
     t_info.format = GFX_TEXFMT_ALPHA_INTENSITY_88;
     t_info.data = tex;
 
-    int tmu = SetupFBtoScreenCombiner(gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &t_info), fb_info.opaque);
+    gfxChipID_t tmu = SetupFBtoScreenCombiner(gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &t_info), fb_info.opaque);
     gfxConstantColorValue(rdp.fog_color);
     gfxColorCombine(GFX_COMBINE_FUNCTION_SCALE_OTHER,
         GFX_COMBINE_FACTOR_ONE,

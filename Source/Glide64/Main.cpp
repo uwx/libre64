@@ -205,7 +205,7 @@ void guLoadTextures()
     int tbuf_size = 0;
     if (g_settings->scr_res_x() <= 1024)
     {
-        gfxTextureBufferExt(GR_TMU0, voodoo.tex_min_addr[GR_TMU0], GFX_LOD_LOG2_1024, GFX_LOD_LOG2_1024,
+        gfxTextureBufferExt(GFX_TMU0, voodoo.tex_min_addr[GFX_TMU0], GFX_LOD_LOG2_1024, GFX_LOD_LOG2_1024,
             GFX_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565, GFX_MIPMAPLEVELMASK_BOTH);
         tbuf_size = gfxTexCalcMemRequired(GFX_LOD_LOG2_1024, GFX_LOD_LOG2_1024,
             GFX_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565);
@@ -215,7 +215,7 @@ void guLoadTextures()
     }
     else
     {
-        gfxTextureBufferExt(GR_TMU0, voodoo.tex_min_addr[GR_TMU0], GFX_LOD_LOG2_2048, GFX_LOD_LOG2_2048,
+        gfxTextureBufferExt(GFX_TMU0, voodoo.tex_min_addr[GFX_TMU0], GFX_LOD_LOG2_2048, GFX_LOD_LOG2_2048,
             GFX_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565, GFX_MIPMAPLEVELMASK_BOTH);
         tbuf_size = gfxTexCalcMemRequired(GFX_LOD_LOG2_2048, GFX_LOD_LOG2_2048,
             GFX_ASPECT_LOG2_1x1, GFX_TEXFMT_RGB_565);
@@ -224,13 +224,13 @@ void guLoadTextures()
         gfxRenderBuffer(GFX_BUFFER_BACKBUFFER);
     }
 
-    rdp.texbufs(0).tmu = GR_TMU0;
-    rdp.texbufs(0).begin = voodoo.tex_min_addr[GR_TMU0];
+    rdp.texbufs(0).tmu = GFX_TMU0;
+    rdp.texbufs(0).begin = voodoo.tex_min_addr[GFX_TMU0];
     rdp.texbufs(0).end = rdp.texbufs(0).begin + tbuf_size;
     rdp.texbufs(0).count = 0;
     rdp.texbufs(0).clear_allowed = TRUE;
     offset_font = tbuf_size;
-    rdp.texbufs(1).tmu = GR_TMU1;
+    rdp.texbufs(1).tmu = GFX_TMU1;
     rdp.texbufs(1).begin = rdp.texbufs(0).end;
     rdp.texbufs(1).end = rdp.texbufs(1).begin + tbuf_size;
     rdp.texbufs(1).count = 0;
@@ -269,7 +269,7 @@ void guLoadTextures()
         }
     }
 
-    gfxTexDownloadMipMap(GR_TMU0, voodoo.tex_min_addr[GR_TMU0] + offset_font, GFX_MIPMAPLEVELMASK_BOTH, &fontTex);
+    gfxTexDownloadMipMap(GFX_TMU0, voodoo.tex_min_addr[GFX_TMU0] + offset_font, GFX_MIPMAPLEVELMASK_BOTH, &fontTex);
     offset_cursor = offset_font + gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &fontTex);
 
     free(fontTex.data);
@@ -293,7 +293,7 @@ void guLoadTextures()
         *(tex16++) = (uint16_t)(((cur & 0x00FF0000) >> 8) | ((cur & 0xFF000000) >> 24));
     }
 
-    gfxTexDownloadMipMap(GR_TMU0, voodoo.tex_min_addr[GR_TMU0] + offset_cursor, GFX_MIPMAPLEVELMASK_BOTH, &cursorTex);
+    gfxTexDownloadMipMap(GFX_TMU0, voodoo.tex_min_addr[GFX_TMU0] + offset_cursor, GFX_MIPMAPLEVELMASK_BOTH, &cursorTex);
 
     // Round to higher 16
     offset_textures = ((offset_cursor + gfxTexTextureMemRequired(GFX_MIPMAPLEVELMASK_BOTH, &cursorTex)) & 0xFFFFFFF0) + 16;
@@ -433,8 +433,8 @@ int InitGfx()
     to_fullscreen = FALSE;
 
     // get maximal texture size
-    voodoo.tex_min_addr[0] = voodoo.tex_min_addr[1] = gfxTexMinAddress(GR_TMU0);
-    voodoo.tex_max_addr[0] = voodoo.tex_max_addr[1] = gfxTexMaxAddress(GR_TMU0);
+    voodoo.tex_min_addr[0] = voodoo.tex_min_addr[1] = gfxTexMinAddress(GFX_TMU0);
+    voodoo.tex_max_addr[0] = voodoo.tex_max_addr[1] = gfxTexMaxAddress(GFX_TMU0);
 
     srand(g_settings->stipple_pattern());
     setPattern();
@@ -466,10 +466,10 @@ int InitGfx()
     gfxBufferSwap(0);
     gfxBufferClear(0, 0, 0xFFFF);
     gfxDepthMask(false);
-    gfxTexFilterMode(0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
-    gfxTexFilterMode(1, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
-    gfxTexClampMode(0, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
-    gfxTexClampMode(1, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
+    gfxTexFilterMode(GFX_TMU0, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
+    gfxTexFilterMode(GFX_TMU1, GR_TEXTUREFILTER_BILINEAR, GR_TEXTUREFILTER_BILINEAR);
+    gfxTexClampMode(GFX_TMU0, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
+    gfxTexClampMode(GFX_TMU1, GR_TEXTURECLAMP_CLAMP, GR_TEXTURECLAMP_CLAMP);
     gfxClipWindow(0, 0, g_settings->scr_res_x(), g_settings->scr_res_y());
     rdp.update |= UPDATE_SCISSOR | UPDATE_COMBINE | UPDATE_ZBUF_ENABLED | UPDATE_CULL_MODE;
 

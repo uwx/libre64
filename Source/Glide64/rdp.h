@@ -530,7 +530,7 @@ public:
     int     last_tile;   // last tile set
     int     last_tile_size;   // last tile size set
 
-    int     t0, t1;
+    gfxChipID_t t0, t1;
     int     best_tex; // if no 2-tmus, which texture? (0 or 1)
     int     tex;
     int     filter_mode;
