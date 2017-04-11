@@ -1,5 +1,6 @@
 #pragma once
-#include "opengl.h"
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
 void vbo_draw();
 
 class GLCache
