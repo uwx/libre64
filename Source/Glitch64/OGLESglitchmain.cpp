@@ -1000,7 +1000,7 @@ void gfxBufferSwap(uint32_t swap_interval)
 bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode, gfxOriginLocation_t origin, bool pixelPipeline, gfxLfbInfo_t *info)
 {
     WriteTrace(TraceGlitch, TraceDebug, "type: %d buffer: %d writeMode: %d origin: %d pixelPipeline: %d", type, buffer, writeMode, origin, pixelPipeline);
-    if (type == GR_LFB_WRITE_ONLY)
+    if (type == GFX_LFB_WRITE_ONLY)
     {
         WriteTrace(TraceGlitch, TraceWarning, "gfxLfbLock : write only");
     }
