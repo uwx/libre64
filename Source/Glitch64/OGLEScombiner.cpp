@@ -2650,7 +2650,7 @@ void gfxTexAlphaCombineExt(gfxChipID_t tmu, gfxTACUColor_t a, gfxCombineMode_t a
     need_to_compile = 1;
 }
 
-void gfxConstantColorValueExt(gfxChipID_t tmu, GrColor_t value)
+void gfxConstantColorValueExt(gfxChipID_t tmu, gfxColor_t value)
 {
     int num_tex;
     WriteTrace(TraceResolution, TraceDebug, "tmu: %d value: %d", tmu, value);
