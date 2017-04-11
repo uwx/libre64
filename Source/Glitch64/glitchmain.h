@@ -17,7 +17,6 @@ extern int buffer_cleared; // mark that the buffer has been cleared, used to che
 #endif
 
 #include "OGLESwrappers.h"
-#include "glide.h"
 #include "types.h"
 
 void init_geometry();

@@ -39,8 +39,6 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
-#include "glide.h"
-#include "g3ext.h"
 #include "glitchmain.h"
 #include <Glide64/trace.h>
 #include <Glide64/Settings.h>

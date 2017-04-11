@@ -27,7 +27,6 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "glide.h"
 #include "glitchmain.h"
 #include <Glide64/trace.h>
 #include <Glide64/Settings.h>
