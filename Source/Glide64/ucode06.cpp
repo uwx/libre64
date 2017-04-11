@@ -263,7 +263,7 @@ void DrawDepthImage(const DRAWIMAGE & d)
     gfxLfbWriteRegion(GFX_BUFFER_AUXBUFFER,
         0,
         0,
-        GR_LFB_SRC_FMT_ZA16,
+        GFX_LFB_SRC_FMT_ZA16,
         dst_width,
         dst_height,
         false,

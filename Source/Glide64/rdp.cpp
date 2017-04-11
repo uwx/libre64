@@ -3022,7 +3022,7 @@ void rdp_setcolorimage()
                     gfxLfbWriteRegion(GFX_BUFFER_BACKBUFFER,
                         (uint32_t)rdp.offset_x,
                         (uint32_t)rdp.offset_y,
-                        GR_LFB_SRC_FMT_555,
+                        GFX_LFB_SRC_FMT_555,
                         width,
                         height,
                         false,

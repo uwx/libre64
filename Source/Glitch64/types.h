@@ -5,7 +5,6 @@ typedef uint8_t gfxAlpha_t;
 typedef uint32_t gfxColor_t;
 typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
-typedef uint32_t gfxLfbSrcFmt_t;
 typedef uint32_t gfxCCUColor_t;
 typedef uint32_t gfxACUColor_t;
 typedef uint32_t gfxTCCUColor_t;
@@ -318,6 +317,20 @@ enum gfxTextureClampMode_t
     GFX_TEXTURECLAMP_WRAP = 0x0,
     GFX_TEXTURECLAMP_CLAMP = 0x1,
     GFX_TEXTURECLAMP_MIRROR_EXT = 0x2,
+};
+
+enum gfxLfbSrcFmt_t
+{
+    GFX_LFB_SRC_FMT_565 = 0x00,
+    GFX_LFB_SRC_FMT_555 = 0x01,
+    GFX_LFB_SRC_FMT_1555 = 0x02,
+    GFX_LFB_SRC_FMT_888 = 0x04,
+    GFX_LFB_SRC_FMT_8888 = 0x05,
+    GFX_LFB_SRC_FMT_565_DEPTH = 0x0c,
+    GFX_LFB_SRC_FMT_555_DEPTH = 0x0d,
+    GFX_LFB_SRC_FMT_1555_DEPTH = 0x0e,
+    GFX_LFB_SRC_FMT_ZA16 = 0x0f,
+    GFX_LFB_SRC_FMT_RLE16 = 0x80,
 };
 
 typedef struct

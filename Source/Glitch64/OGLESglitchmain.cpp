@@ -1158,7 +1158,7 @@ bool gfxLfbWriteRegion(gfxBuffer_t dst_buffer, uint32_t dst_x, uint32_t dst_y, g
         const unsigned int half_stride = src_stride / 2;
         switch (src_format)
         {
-        case GR_LFB_SRC_FMT_1555:
+        case GFX_LFB_SRC_FMT_1555:
             for (j = 0; j < src_height; j++)
             {
                 for (i = 0; i < src_width; i++)
