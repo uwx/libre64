@@ -64,7 +64,6 @@ int nbAuxBuffers, current_buffer;
 int g_width, widtho, heighto, g_height;
 int saved_width, saved_height;
 int blend_func_separate_support;
-int npot_support;
 int render_to_texture = 0;
 int texture_unit;
 int use_fbo;
@@ -194,37 +193,6 @@ void gfxColorMask(bool rgb, bool a)
     glColorMask(rgb, rgb, rgb, a);
 }
 
-int isExtensionSupported(const char *extension)
-{
-    return 0;
-    const GLubyte *extensions = NULL;
-    const GLubyte *start;
-    GLubyte *where, *terminator;
-
-    where = (GLubyte *)strchr(extension, ' ');
-    if (where || *extension == '\0')
-        return 0;
-
-    extensions = glGetString(GL_EXTENSIONS);
-
-    start = extensions;
-    for (;;)
-    {
-        where = (GLubyte *)strstr((const char *)start, extension);
-        if (!where)
-            break;
-
-        terminator = where + strlen(extension);
-        if (where == start || *(where - 1) == ' ')
-            if (*terminator == ' ' || *terminator == '\0')
-                return 1;
-
-        start = terminator;
-    }
-
-    return 0;
-}
-
 #ifndef ANDROID
 std::unique_ptr<EGLWindow> mEGLWindow;
 
@@ -236,7 +204,6 @@ void SwapBuffers(void)
 
 bool gfxSstWinOpen(gfxColorFormat_t color_format, gfxOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
 {
-    static int show_warning = 1;
     GLCache::ResetCache();
 
     // ZIGGY
@@ -275,34 +242,12 @@ bool gfxSstWinOpen(gfxColorFormat_t color_format, gfxOriginLocation_t origin_loc
     if (nColBuffers != 2) WriteTrace(TraceGlitch, TraceWarning, "number of color buffer is not 2");
     if (nAuxBuffers != 1) WriteTrace(TraceGlitch, TraceWarning, "number of auxiliary buffer is not 1");
 
-    if (isExtensionSupported("GL_ARB_texture_env_combine") == 0 &&
-        isExtensionSupported("GL_EXT_texture_env_combine") == 0 &&
-        show_warning)
-        WriteTrace(TraceGlitch, TraceWarning, "Your video card doesn't support GL_ARB_texture_env_combine extension");
-    if (isExtensionSupported("GL_ARB_multitexture") == 0 && show_warning)
-        WriteTrace(TraceGlitch, TraceWarning, "Your video card doesn't support GL_ARB_multitexture extension");
-    if (isExtensionSupported("GL_ARB_texture_mirrored_repeat") == 0 && show_warning)
-        WriteTrace(TraceGlitch, TraceWarning, "Your video card doesn't support GL_ARB_texture_mirrored_repeat extension");
-    show_warning = 0;
-
     nbAuxBuffers = 4;
-    //glGetIntegerv(GL_AUX_BUFFERS, &nbAuxBuffers);
 
     blend_func_separate_support = 1;
     packed_pixels_support = 0;
-    if (isExtensionSupported("GL_ARB_texture_non_power_of_two") == 0)
-        npot_support = 0;
-    else {
-        printf("NPOT extension used\n");
-        npot_support = 1;
-    }
 
     use_fbo = g_settings->wrpFBO();
-
-    if (isExtensionSupported("GL_EXT_texture_compression_s3tc") == 0 && show_warning)
-        WriteTrace(TraceGlitch, TraceWarning, "Your video card doesn't support GL_EXT_texture_compression_s3tc extension");
-    if (isExtensionSupported("GL_3DFX_texture_compression_FXT1") == 0 && show_warning)
-        WriteTrace(TraceGlitch, TraceWarning, "Your video card doesn't support GL_3DFX_texture_compression_FXT1 extension");
 
     glViewport(0, g_viewport_offset, g_width, g_height);
     viewport_width = g_width;
@@ -320,18 +265,16 @@ bool gfxSstWinOpen(gfxColorFormat_t color_format, gfxOriginLocation_t origin_loc
     {
         int i;
         for (i = 0; i < NB_TEXBUFS; i++)
+        {
             texbufs[i].start = texbufs[i].end = 0xffffffff;
+        }
     }
 
-    if (!use_fbo && nbAuxBuffers == 0) {
+    if (!use_fbo && nbAuxBuffers == 0)
+    {
         // create the framebuffer saving texture
         int w = g_width, h = g_height;
         glBindTexture(GL_TEXTURE_2D, color_texture);
-        if (!npot_support) {
-            w = h = 1;
-            while (w < g_width) w *= 2;
-            while (h < g_height) h *= 2;
-        }
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
         glBindTexture(GL_TEXTURE_2D, 0);
         save_w = save_h = 0;
@@ -846,27 +789,20 @@ void gfxRenderBuffer(gfxBuffer_t buffer)
             glScissor(0, g_viewport_offset, g_width, g_height);
 
 #ifdef SAVE_CBUFFER
-            if (!use_fbo && render_to_texture == 2) {
+            if (!use_fbo && render_to_texture == 2)
+            {
                 // restore color buffer
-                if (nbAuxBuffers > 0) {
-                    //glDrawBuffer(GL_BACK);
+                if (nbAuxBuffers > 0)
+                {
                     current_buffer = GL_BACK;
                 }
-                else if (save_w) {
+                else if (save_w)
+                {
                     int tw = 1, th = 1;
-                    //printf("restore %dx%d\n", save_w, save_h);
-                    if (npot_support) {
-                        tw = screen_width;
-                        th = screen_height;
-                    }
-                    else {
-                        while (tw < screen_width) tw <<= 1;
-                        while (th < screen_height) th <<= 1;
-                    }
 
-                    //glPushAttrib(GL_ALL_ATTRIB_BITS);
-                    //glDisable(GL_ALPHA_TEST);
-                    //glDrawBuffer(GL_BACK);
+                    while (tw < screen_width) tw <<= 1;
+                    while (th < screen_height) th <<= 1;
+
                     glActiveTexture(texture_unit);
                     glBindTexture(GL_TEXTURE_2D, color_texture);
                     glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
