@@ -8,7 +8,6 @@ typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
 typedef int32_t gfxTextureClampMode_t;
 typedef int32_t gfxTextureFilterMode_t;
-typedef int32_t gfxContext_t;
 typedef int32_t gfxColorFormat_t;
 typedef int32_t gfxOriginLocation_t;
 typedef int32_t gfxLock_t;

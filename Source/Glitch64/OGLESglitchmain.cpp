@@ -236,7 +236,7 @@ void SwapBuffers(void)
 }
 #endif
 
-gfxContext_t gfxSstWinOpen(gfxColorFormat_t color_format, gfxOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
+bool gfxSstWinOpen(gfxColorFormat_t color_format, gfxOriginLocation_t origin_location, int nColBuffers, int nAuxBuffers)
 {
     static int show_warning = 1;
     GLCache::ResetCache();
@@ -342,17 +342,16 @@ gfxContext_t gfxSstWinOpen(gfxColorFormat_t color_format, gfxOriginLocation_t or
     init_geometry();
     if (!init_textures())
     {
-        return 0;
+        return false;
     }
     init_combiner();
 
-    return 1;
+    return true;
 }
 
-bool gfxSstWinClose(gfxContext_t context)
+bool gfxSstWinClose(void)
 {
     int i, clear_texbuff = use_fbo;
-    WriteTrace(TraceGlitch, TraceDebug, "context: %d", context);
 
     for (i = 0; i < 2; i++)
     {
