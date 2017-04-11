@@ -7,7 +7,6 @@ typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
 typedef int32_t gfxTextureClampMode_t;
 typedef int32_t gfxTextureFilterMode_t;
-typedef int32_t gfxColorFormat_t;
 typedef int32_t gfxOriginLocation_t;
 typedef int32_t gfxLock_t;
 typedef uint32_t gfxLfbSrcFmt_t;
@@ -287,6 +286,14 @@ enum gfxDrawMode_t
     GFX_TRIANGLES = 6,
     GFX_TRIANGLE_STRIP_CONTINUE = 7,
     GFX_TRIANGLE_FAN_CONTINUE = 8,
+};
+
+enum gfxColorFormat_t
+{
+    GFX_COLORFORMAT_ARGB = 0x0,
+    GFX_COLORFORMAT_ABGR = 0x1,
+    GFX_COLORFORMAT_RGBA = 0x2,
+    GFX_COLORFORMAT_BGRA = 0x3,
 };
 
 typedef struct

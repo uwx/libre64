@@ -947,13 +947,13 @@ void gfxBufferClear(gfxColor_t color, gfxAlpha_t alpha, uint32_t depth)
     vbo_draw();
     switch (lfb_color_fmt)
     {
-    case GR_COLORFORMAT_ARGB:
+    case GFX_COLORFORMAT_ARGB:
         glClearColor(((color >> 16) & 0xFF) / 255.0f,
             ((color >> 8) & 0xFF) / 255.0f,
             (color & 0xFF) / 255.0f,
             alpha / 255.0f);
         break;
-    case GR_COLORFORMAT_RGBA:
+    case GFX_COLORFORMAT_RGBA:
         glClearColor(((color >> 24) & 0xFF) / 255.0f,
             ((color >> 16) & 0xFF) / 255.0f,
             (color & 0xFF) / 255.0f,

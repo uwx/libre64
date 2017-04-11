@@ -419,7 +419,7 @@ int InitGfx()
 #ifndef ANDROID
     SetWindowDisplaySize((HWND)gfx.hWnd);
 #endif
-    if (!gfxSstWinOpen(GR_COLORFORMAT_RGBA, GR_ORIGIN_UPPER_LEFT, 2, 1))
+    if (!gfxSstWinOpen(GFX_COLORFORMAT_RGBA, GR_ORIGIN_UPPER_LEFT, 2, 1))
     {
 #ifdef _WIN32
         MessageBox((HWND)gfx.hWnd, "Error setting display mode", "Error", MB_OK | MB_ICONEXCLAMATION);
