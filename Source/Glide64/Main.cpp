@@ -419,7 +419,7 @@ int InitGfx()
 #ifndef ANDROID
     SetWindowDisplaySize((HWND)gfx.hWnd);
 #endif
-    if (!gfxSstWinOpen(GFX_COLORFORMAT_RGBA, GR_ORIGIN_UPPER_LEFT, 2, 1))
+    if (!gfxSstWinOpen(GFX_COLORFORMAT_RGBA, GFX_ORIGIN_UPPER_LEFT, 2, 1))
     {
 #ifdef _WIN32
         MessageBox((HWND)gfx.hWnd, "Error setting display mode", "Error", MB_OK | MB_ICONEXCLAMATION);
@@ -600,7 +600,7 @@ void CALL ReadScreen(void **dest, int *width, int *height)
 
     gfxLfbInfo_t info;
     info.size = sizeof(info);
-    if (gfxLfbLock(GFX_LFB_READ_ONLY, GFX_BUFFER_FRONTBUFFER, GFX_LFBWRITEMODE_565, GR_ORIGIN_UPPER_LEFT, false, &info))
+    if (gfxLfbLock(GFX_LFB_READ_ONLY, GFX_BUFFER_FRONTBUFFER, GFX_LFBWRITEMODE_565, GFX_ORIGIN_UPPER_LEFT, false, &info))
     {
         uint32_t offset_src = info.strideInBytes*(g_settings->scr_res_y() - 1);
 
@@ -1215,7 +1215,7 @@ void newSwapBuffers()
 
         gfxLfbInfo_t info;
         info.size = sizeof(info);
-        if (gfxLfbLock(GFX_LFB_READ_ONLY, GFX_BUFFER_BACKBUFFER, GFX_LFBWRITEMODE_565, GR_ORIGIN_UPPER_LEFT, false, &info))
+        if (gfxLfbLock(GFX_LFB_READ_ONLY, GFX_BUFFER_BACKBUFFER, GFX_LFBWRITEMODE_565, GFX_ORIGIN_UPPER_LEFT, false, &info))
         {
             AUTO_PTR<uint8_t> ssimg_buffer(new uint8_t[image_width * image_height * 3]);
             uint8_t * ssimg = ssimg_buffer.get();

@@ -7,7 +7,6 @@ typedef int32_t gfxStippleMode_t;
 typedef int32_t gfxChromakeyMode_t;
 typedef int32_t gfxTextureClampMode_t;
 typedef int32_t gfxTextureFilterMode_t;
-typedef int32_t gfxOriginLocation_t;
 typedef uint32_t gfxLfbSrcFmt_t;
 typedef uint32_t gfxCCUColor_t;
 typedef uint32_t gfxACUColor_t;
@@ -301,6 +300,13 @@ enum gfxLock_t
     GFX_LFB_WRITE_ONLY = 0x01,
     GFX_LFB_IDLE = 0x00,
     GFX_LFB_NOIDLE = 0x10,
+};
+
+enum gfxOriginLocation_t
+{
+    GFX_ORIGIN_UPPER_LEFT = 0x0,
+    GFX_ORIGIN_LOWER_LEFT = 0x1,
+    GFX_ORIGIN_ANY = 0xFF,
 };
 
 typedef struct
