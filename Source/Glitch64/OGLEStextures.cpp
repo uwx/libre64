@@ -548,10 +548,10 @@ void gfxTexFilterMode(gfxChipID_t tmu, gfxTextureFilterMode_t minfilter_mode, gf
     WriteTrace(TraceGlitch, TraceDebug, "tmu = %d, bias: %d magfilter_mode: %d", tmu, minfilter_mode, magfilter_mode);
     if (tmu == GFX_TMU1)
     {
-        if (minfilter_mode == GR_TEXTUREFILTER_POINT_SAMPLED) min_filter0 = GL_NEAREST;
+        if (minfilter_mode == GFX_TEXTUREFILTER_POINT_SAMPLED) min_filter0 = GL_NEAREST;
         else min_filter0 = GL_LINEAR;
 
-        if (magfilter_mode == GR_TEXTUREFILTER_POINT_SAMPLED) mag_filter0 = GL_NEAREST;
+        if (magfilter_mode == GFX_TEXTUREFILTER_POINT_SAMPLED) mag_filter0 = GL_NEAREST;
         else mag_filter0 = GL_LINEAR;
 
         glActiveTexture(GL_TEXTURE0);
@@ -560,10 +560,10 @@ void gfxTexFilterMode(gfxChipID_t tmu, gfxTextureFilterMode_t minfilter_mode, gf
     }
     else
     {
-        if (minfilter_mode == GR_TEXTUREFILTER_POINT_SAMPLED) min_filter1 = GL_NEAREST;
+        if (minfilter_mode == GFX_TEXTUREFILTER_POINT_SAMPLED) min_filter1 = GL_NEAREST;
         else min_filter1 = GL_LINEAR;
 
-        if (magfilter_mode == GR_TEXTUREFILTER_POINT_SAMPLED) mag_filter1 = GL_NEAREST;
+        if (magfilter_mode == GFX_TEXTUREFILTER_POINT_SAMPLED) mag_filter1 = GL_NEAREST;
         else mag_filter1 = GL_LINEAR;
 
         glActiveTexture(GL_TEXTURE1);
@@ -579,13 +579,13 @@ void gfxTexClampMode(gfxChipID_t tmu, gfxTextureClampMode_t s_clampmode, gfxText
     {
         switch (s_clampmode)
         {
-        case GR_TEXTURECLAMP_WRAP:
+        case GFX_TEXTURECLAMP_WRAP:
             wrap_s0 = GL_REPEAT;
             break;
-        case GR_TEXTURECLAMP_CLAMP:
+        case GFX_TEXTURECLAMP_CLAMP:
             wrap_s0 = GL_CLAMP_TO_EDGE;
             break;
-        case GR_TEXTURECLAMP_MIRROR_EXT:
+        case GFX_TEXTURECLAMP_MIRROR_EXT:
             wrap_s0 = GL_MIRRORED_REPEAT;
             break;
         default:
@@ -593,13 +593,13 @@ void gfxTexClampMode(gfxChipID_t tmu, gfxTextureClampMode_t s_clampmode, gfxText
         }
         switch (t_clampmode)
         {
-        case GR_TEXTURECLAMP_WRAP:
+        case GFX_TEXTURECLAMP_WRAP:
             wrap_t0 = GL_REPEAT;
             break;
-        case GR_TEXTURECLAMP_CLAMP:
+        case GFX_TEXTURECLAMP_CLAMP:
             wrap_t0 = GL_CLAMP_TO_EDGE;
             break;
-        case GR_TEXTURECLAMP_MIRROR_EXT:
+        case GFX_TEXTURECLAMP_MIRROR_EXT:
             wrap_t0 = GL_MIRRORED_REPEAT;
             break;
         default:
@@ -613,13 +613,13 @@ void gfxTexClampMode(gfxChipID_t tmu, gfxTextureClampMode_t s_clampmode, gfxText
     {
         switch (s_clampmode)
         {
-        case GR_TEXTURECLAMP_WRAP:
+        case GFX_TEXTURECLAMP_WRAP:
             wrap_s1 = GL_REPEAT;
             break;
-        case GR_TEXTURECLAMP_CLAMP:
+        case GFX_TEXTURECLAMP_CLAMP:
             wrap_s1 = GL_CLAMP_TO_EDGE;
             break;
-        case GR_TEXTURECLAMP_MIRROR_EXT:
+        case GFX_TEXTURECLAMP_MIRROR_EXT:
             wrap_s1 = GL_MIRRORED_REPEAT;
             break;
         default:
@@ -627,13 +627,13 @@ void gfxTexClampMode(gfxChipID_t tmu, gfxTextureClampMode_t s_clampmode, gfxText
         }
         switch (t_clampmode)
         {
-        case GR_TEXTURECLAMP_WRAP:
+        case GFX_TEXTURECLAMP_WRAP:
             wrap_t1 = GL_REPEAT;
             break;
-        case GR_TEXTURECLAMP_CLAMP:
+        case GFX_TEXTURECLAMP_CLAMP:
             wrap_t1 = GL_CLAMP_TO_EDGE;
             break;
-        case GR_TEXTURECLAMP_MIRROR_EXT:
+        case GFX_TEXTURECLAMP_MIRROR_EXT:
             wrap_t1 = GL_MIRRORED_REPEAT;
             break;
         default:

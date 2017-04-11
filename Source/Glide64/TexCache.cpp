@@ -818,18 +818,18 @@ void TexCache()
 
             if (g_settings->filtering() == CSettings::Filter_Automatic)
             {
-                int filter = (rdp.filter_mode != 2) ? GR_TEXTUREFILTER_POINT_SAMPLED : GR_TEXTUREFILTER_BILINEAR;
+                gfxTextureFilterMode_t filter = (rdp.filter_mode != 2) ? GFX_TEXTUREFILTER_POINT_SAMPLED : GFX_TEXTUREFILTER_BILINEAR;
                 gfxTexFilterMode(tmu, filter, filter);
             }
             else
             {
-                int filter = (g_settings->filtering() == CSettings::Filter_ForceBilinear) ? GR_TEXTUREFILTER_BILINEAR : GR_TEXTUREFILTER_POINT_SAMPLED;
+                gfxTextureFilterMode_t filter = (g_settings->filtering() == CSettings::Filter_ForceBilinear) ? GFX_TEXTUREFILTER_BILINEAR : GFX_TEXTUREFILTER_POINT_SAMPLED;
                 gfxTexFilterMode(tmu, filter, filter);
             }
 
             if (rdp.cur_cache(i))
             {
-                uint32_t mode_s, mode_t;
+                gfxTextureClampMode_t mode_s, mode_t;
                 int clamp_s, clamp_t;
                 if (rdp.force_wrap && !rdp.texrecting)
                 {
@@ -846,52 +846,51 @@ void TexCache()
 
                 if (rdp.cur_cache(i)->f_mirror_s)
                 {
-                    mode_s = GR_TEXTURECLAMP_MIRROR_EXT;
+                    mode_s = GFX_TEXTURECLAMP_MIRROR_EXT;
                 }
                 else if (rdp.cur_cache(i)->f_wrap_s)
                 {
-                    mode_s = GR_TEXTURECLAMP_WRAP;
+                    mode_s = GFX_TEXTURECLAMP_WRAP;
                 }
                 else if (clamp_s)
                 {
-                    mode_s = GR_TEXTURECLAMP_CLAMP;
+                    mode_s = GFX_TEXTURECLAMP_CLAMP;
                 }
                 else if (rdp.tiles(tile).mirror_s && !g_settings->hacks(CSettings::hack_Zelda))
                 {
-                    mode_s = GR_TEXTURECLAMP_MIRROR_EXT;
+                    mode_s = GFX_TEXTURECLAMP_MIRROR_EXT;
                 }
                 else
                 {
-                    mode_s = GR_TEXTURECLAMP_WRAP;
+                    mode_s = GFX_TEXTURECLAMP_WRAP;
                 }
 
                 if (rdp.cur_cache(i)->f_mirror_t)
                 {
-                    mode_t = GR_TEXTURECLAMP_MIRROR_EXT;
+                    mode_t = GFX_TEXTURECLAMP_MIRROR_EXT;
                 }
                 else if (rdp.cur_cache(i)->f_wrap_t)
                 {
-                    mode_t = GR_TEXTURECLAMP_WRAP;
+                    mode_t = GFX_TEXTURECLAMP_WRAP;
                 }
                 else if (clamp_t)
                 {
-                    mode_t = GR_TEXTURECLAMP_CLAMP;
+                    mode_t = GFX_TEXTURECLAMP_CLAMP;
                 }
                 else if (rdp.tiles(tile).mirror_t && !g_settings->hacks(CSettings::hack_Zelda))
                 {
-                    mode_t = GR_TEXTURECLAMP_MIRROR_EXT;
+                    mode_t = GFX_TEXTURECLAMP_MIRROR_EXT;
                 }
                 else
                 {
-                    mode_t = GR_TEXTURECLAMP_WRAP;
+                    mode_t = GFX_TEXTURECLAMP_WRAP;
                 }
-
-                gfxTexClampMode(tmu,
-                    mode_s,
-                    mode_t);
+                gfxTexClampMode(tmu, mode_s, mode_t);
             }
             if (aTBuff[i] && (rdp.tex&(i + 1)))
+            {
                 SelectTBuffTex(aTBuff[i]);
+            }
         }
     }
 
