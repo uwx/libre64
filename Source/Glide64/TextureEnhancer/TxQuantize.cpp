@@ -28,7 +28,7 @@
  /* NOTE: The codes are not optimized. They can be made faster. */
 
 #include "TxQuantize.h"
-#include <Glitch64/types.h>
+#include <Glide64/Renderer/types.h>
 
 TxQuantize::TxQuantize()
 {

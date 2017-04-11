@@ -44,7 +44,7 @@
 #include "3dmath.h"
 #include "ucode00.h"
 #include "util.h"
-#include <Glitch64/OGLESgeometry.h>
+#include <Glide64/Renderer/OGLESgeometry.h>
 
 int cur_mtx = 0;
 int billboarding = 0;

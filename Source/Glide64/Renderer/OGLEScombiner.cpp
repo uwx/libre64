@@ -32,7 +32,7 @@
 #include <Glide64/Settings.h>
 #include <Glide64/Gfx_1.3.h>
 #include <vector>
-#include <Glitch64/OGLEScombiner.h>
+#include <Glide64/Renderer/OGLEScombiner.h>
 
 void vbo_draw();
 

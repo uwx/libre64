@@ -46,9 +46,9 @@
 #include "FBtoScreen.h"
 #include "TexCache.h"
 #include <Glide64/trace.h>
-#include <Glitch64/OGLEScombiner.h>
-#include <Glitch64/OGLEStextures.h>
-#include <Glitch64/OGLESgeometry.h>
+#include <Glide64/Renderer/OGLEScombiner.h>
+#include <Glide64/Renderer/OGLEStextures.h>
+#include <Glide64/Renderer/OGLESgeometry.h>
 
 static gfxChipID_t SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
 {

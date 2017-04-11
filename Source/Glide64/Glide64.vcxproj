@@ -51,6 +51,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Gfx_1.3.h" />
+    <ClInclude Include="Renderer\EGLWindow.h" />
+    <ClInclude Include="Renderer\glitchmain.h" />
+    <ClInclude Include="Renderer\OGLEScombiner.h" />
+    <ClInclude Include="Renderer\OGLESgeometry.h" />
+    <ClInclude Include="Renderer\OGLESglitchmain.h" />
+    <ClInclude Include="Renderer\OGLEStextures.h" />
+    <ClInclude Include="Renderer\OGLESwrappers.h" />
+    <ClInclude Include="Renderer\types.h" />
     <ClInclude Include="ScreenResolution.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SettingsID.h" />
@@ -122,6 +130,12 @@
   <ItemGroup>
     <ClCompile Include="Android.cpp" />
     <ClCompile Include="CRC.cpp" />
+    <ClCompile Include="Renderer\EGLWindow.cpp" />
+    <ClCompile Include="Renderer\OGLEScombiner.cpp" />
+    <ClCompile Include="Renderer\OGLESgeometry.cpp" />
+    <ClCompile Include="Renderer\OGLESglitchmain.cpp" />
+    <ClCompile Include="Renderer\OGLEStextures.cpp" />
+    <ClCompile Include="Renderer\OGLESwrappers.cpp" />
     <ClCompile Include="ScreenResolution.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="TexCache.cpp" />
@@ -218,10 +232,6 @@
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.vcxproj">
       <Project>{b4a4b994-9111-42b1-93c2-6f1ca8bc4421}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\Glitch64\Glitch64.vcxproj">
-      <Project>{462c2608-182f-452c-944f-af201e19300b}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\Settings\Settings.vcxproj">

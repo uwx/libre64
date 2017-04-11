@@ -40,10 +40,10 @@
 #include <Glide64/Gfx_1.3.h>
 #include <Glide64/trace.h>
 #include <Glide64/ucode.h>
-#include <Glitch64/OGLESglitchmain.h>
-#include <Glitch64/OGLEScombiner.h>
-#include <Glitch64/OGLEStextures.h>
-#include <Glitch64/OGLESgeometry.h>
+#include <Glide64/Renderer/OGLESglitchmain.h>
+#include <Glide64/Renderer/OGLEScombiner.h>
+#include <Glide64/Renderer/OGLEStextures.h>
+#include <Glide64/Renderer/OGLESgeometry.h>
 #include "Combine.h"
 #include "Util.h"
 #include "TexCache.h"

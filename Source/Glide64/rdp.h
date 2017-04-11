@@ -39,7 +39,7 @@
 #pragma once
 
 #include <Common/stdtypes.h>
-#include <Glitch64/OGLEStextures.h>
+#include <Glide64/Renderer/OGLEStextures.h>
 
 extern char out_buf[2048];
 

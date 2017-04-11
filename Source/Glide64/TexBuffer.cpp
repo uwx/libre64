@@ -47,10 +47,10 @@
 #include "TexBuffer.h"
 #include "CRC.h"
 #include <Glide64/trace.h>
-#include <Glitch64/OGLEScombiner.h>
-#include <Glitch64/OGLEStextures.h>
-#include <Glitch64/OGLESglitchmain.h>
-#include <Glitch64/OGLESgeometry.h>
+#include <Glide64/Renderer/OGLEScombiner.h>
+#include <Glide64/Renderer/OGLEStextures.h>
+#include <Glide64/Renderer/OGLESglitchmain.h>
+#include <Glide64/Renderer/OGLESgeometry.h>
 
 static TBUFF_COLOR_IMAGE * AllocateTextureBuffer(COLOR_IMAGE & cimage)
 {

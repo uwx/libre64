@@ -27,7 +27,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include <Common/stdtypes.h>
-#include <Glitch64/types.h>
+#include <Glide64/Renderer/types.h>
 
  /*
   * External libraries

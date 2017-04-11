@@ -44,7 +44,7 @@
 #include "Util.h"
 #include "Debugger.h"
 
-#include <Glitch64/OGLESgeometry.h>
+#include <Glide64/Renderer/OGLESgeometry.h>
 
 #define SX(x) ((x)*rdp.scale_1024)
 #define SY(x) ((x)*rdp.scale_768)

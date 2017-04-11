@@ -53,9 +53,9 @@
 #include "trace.h"
 #include "SettingsID.h"
 #include "turbo3D.h"
-#include <Glitch64/OGLEScombiner.h>
-#include <Glitch64/OGLESglitchmain.h>
-#include <Glitch64/OGLESgeometry.h>
+#include <Glide64/Renderer/OGLEScombiner.h>
+#include <Glide64/Renderer/OGLESglitchmain.h>
+#include <Glide64/Renderer/OGLESgeometry.h>
 
 #ifdef _WIN32
 #include <Common/CriticalSection.h>

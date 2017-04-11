@@ -48,10 +48,10 @@
 #include "TexCache.h"
 #include "DepthBufferRender.h"
 #include <Glide64/trace.h>
-#include <Glitch64/OGLEScombiner.h>
-#include <Glitch64/OGLEStextures.h>
-#include <Glitch64/OGLESglitchmain.h>
-#include <Glitch64/OGLESgeometry.h>
+#include <Glide64/Renderer/OGLEScombiner.h>
+#include <Glide64/Renderer/OGLEStextures.h>
+#include <Glide64/Renderer/OGLESglitchmain.h>
+#include <Glide64/Renderer/OGLESgeometry.h>
 
 VERTEX *vtx_list1[32];  // vertex indexing
 VERTEX *vtx_list2[32];

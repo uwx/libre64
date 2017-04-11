@@ -32,7 +32,7 @@
 #include "TxReSample.h"
 #include "TxDbg.h"
 #include <stdlib.h>
-#include <Glitch64/types.h>
+#include <Glide64/Renderer/types.h>
 
 boolean TxImage::getPNGInfo(FILE *fp, png_structp *png_ptr, png_infop *info_ptr)
 {

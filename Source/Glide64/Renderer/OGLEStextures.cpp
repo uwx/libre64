@@ -26,7 +26,7 @@
 #include "glitchmain.h"
 #include <stdio.h>
 #include <Glide64/trace.h>
-#include <Glitch64/OGLEStextures.h>
+#include <Glide64/Renderer/OGLEStextures.h>
 
 /* Napalm extensions to GrTextureFormat_t */
 

@@ -22,7 +22,7 @@
  */
 
 #pragma once
-#include <Glitch64/types.h>
+#include <Glide64/Renderer/types.h>
 #include <Common/stdtypes.h>
 
 #define NO_OPTIONS          0x00000000

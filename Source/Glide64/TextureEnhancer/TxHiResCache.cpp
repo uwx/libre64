@@ -62,7 +62,7 @@
 #include <string>
 #include <Common/path.h>
 #include <Common/StdString.h>
-#include <Glitch64/types.h>
+#include <Glide64/Renderer/types.h>
 #ifdef _WIN32
 #include <io.h>
 #endif

@@ -42,8 +42,8 @@
 #include "glitchmain.h"
 #include <Glide64/trace.h>
 #include <Glide64/Settings.h>
-#include <Glitch64/OGLEStextures.h>
-#include <Glitch64/OGLESgeometry.h>
+#include <Glide64/Renderer/OGLEStextures.h>
+#include <Glide64/Renderer/OGLESgeometry.h>
 
 int screen_width, screen_height;
 

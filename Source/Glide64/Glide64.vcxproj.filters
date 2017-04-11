@@ -38,6 +38,12 @@
     <Filter Include="Header Files\TextureEnhancer\tc-1.1+">
       <UniqueIdentifier>{ef31745a-038b-4799-985c-950554d2bbc5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Renderer">
+      <UniqueIdentifier>{90e3d3cb-0e42-41f5-b77c-d5135dab1229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer">
+      <UniqueIdentifier>{0d1122a5-5900-49f2-a292-7ae2b5607204}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CRC.h">
@@ -212,6 +218,30 @@
     <ClInclude Include="TextureEnhancer\tc-1.1+\types.h">
       <Filter>Header Files\TextureEnhancer\tc-1.1+</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\EGLWindow.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\glitchmain.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\OGLEScombiner.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\OGLESgeometry.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\OGLESglitchmain.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\OGLEStextures.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\OGLESwrappers.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\types.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CRC.cpp">
@@ -332,6 +362,24 @@
     </ClCompile>
     <ClCompile Include="TextureEnhancer\tc-1.1+\wrapper.c">
       <Filter>Source Files\TextureEnhancer\tc-1.1+</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\EGLWindow.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\OGLEScombiner.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\OGLESgeometry.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\OGLESglitchmain.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\OGLEStextures.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\OGLESwrappers.cpp">
+      <Filter>Source Files\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
