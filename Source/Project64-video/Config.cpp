@@ -779,7 +779,7 @@ to allow the user to configure the dll
 input:    a handle to the window that calls this function
 output:   none
 *******************************************************************/
-void CALL DllConfig(HWND hParent)
+void CALL DllConfig(void * hParent)
 {
     WriteTrace(TraceGlide64, TraceDebug, "-");
 #ifdef _WIN32
@@ -803,7 +803,7 @@ void CALL DllConfig(HWND hParent)
         ZLUT_init();
     }
 
-    COptionsSheet("Glide64 settings").DoModal(hParent);
+    COptionsSheet("Glide64 settings").DoModal((HWND)hParent);
     CloseConfig();
 #endif
 }
@@ -854,7 +854,7 @@ to give further information about the DLL.
 input:    a handle to the window that calls this function
 output:   none
 *******************************************************************/
-void CALL DllAbout(HWND /*hParent*/)
+void CALL DllAbout(void * /*hParent*/)
 {
 #ifdef _WIN32
     CAboutDlg dlg;
