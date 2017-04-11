@@ -63,8 +63,8 @@ Thumbs.db
 /Plugin64/GFX/pdb
 /Plugin64/GFX/PJ64Glide64.dll
 /Plugin64/GFX/PJ64Glide64_d.dll
-/Plugin64/GFX/Project64Video.dll
-/Plugin64/GFX/Project64Video_d.dll
+/Plugin64/GFX/Project64-video.dll
+/Plugin64/GFX/Project64-video_d.dll
 /Plugin64/Input/lib
 /Plugin64/Input/map
 /Plugin64/Input/pdb
@@ -86,4 +86,3 @@ Thumbs.db
 /Source/3rdParty/wx/lib/vc_lib/mswud/wx/msw/rcdefs.h
 /Source/3rdParty/wx/lib/vc_lib/mswud/wx/setup.h
 /Save
-
