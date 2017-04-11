@@ -461,7 +461,7 @@ void gfxTexDownloadMipMap(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenO
     glBindTexture(GL_TEXTURE_2D, default_texture);
 }
 
-int CheckTextureBufferFormat(gfxChipID_t tmu, FxU32 startAddress, gfxTexInfo *info);
+int CheckTextureBufferFormat(gfxChipID_t tmu, uint32_t startAddress, gfxTexInfo *info);
 
 void gfxTexSource(gfxChipID_t tmu, uint32_t startAddress, uint32_t evenOdd, gfxTexInfo *info)
 {

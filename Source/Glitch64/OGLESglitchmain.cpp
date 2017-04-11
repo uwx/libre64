@@ -99,7 +99,7 @@ static unsigned int curBufferAddr = 0;
 struct TMU_USAGE { int min, max; } tmu_usage[2] = { { 0xfffffff, 0 }, { 0xfffffff, 0 } };
 
 struct texbuf_t {
-    FxU32 start, end;
+    uint32_t start, end;
     int fmt;
 };
 #define NB_TEXBUFS 128 // MUST be a power of two
@@ -174,9 +174,9 @@ void gfxClipWindow(uint32_t minx, uint32_t miny, uint32_t maxx, uint32_t maxy)
             th = screen_height;
         maxy = th - maxy;
         miny = th - miny;
-        FxU32 tmp = maxy; maxy = miny; miny = tmp;
-        if (maxx > (FxU32)g_width) maxx = g_width;
-        if (maxy > (FxU32)g_height) maxy = g_height;
+        uint32_t tmp = maxy; maxy = miny; miny = tmp;
+        if (maxx > (uint32_t)g_width) maxx = g_width;
+        if (maxy > (uint32_t)g_height) maxy = g_height;
         if (int(minx) < 0) minx = 0;
         if (int(miny) < 0) miny = 0;
         if (maxx < minx) maxx = minx;
@@ -621,14 +621,14 @@ void gfxTextureBufferExt(gfxChipID_t tmu, uint32_t startAddress, gfxLOD_t lodmin
     }
 }
 
-int CheckTextureBufferFormat(gfxChipID_t tmu, FxU32 startAddress, gfxTexInfo *info)
+int CheckTextureBufferFormat(gfxChipID_t tmu, uint32_t startAddress, gfxTexInfo *info)
 {
     int found, i;
     if (!use_fbo)
     {
         for (found = i = 0; i < 2; i++)
         {
-            if ((FxU32)tmu_usage[i].min <= startAddress && (FxU32)tmu_usage[i].max > startAddress)
+            if ((uint32_t)tmu_usage[i].min <= startAddress && (uint32_t)tmu_usage[i].max > startAddress)
             {
                 //printf("tmu %d == framebuffer %x\n", tmu, startAddress);
                 found = 1;
