@@ -1,3 +1,13 @@
+/****************************************************************************
+*                                                                           *
+* Project64-video - A Nintendo 64 gfx plugin.                               *
+* http://www.pj64-emu.com/                                                  *
+* Copyright (C) 2017 Project64. All rights reserved.                        *
+*                                                                           *
+* License:                                                                  *
+* GNU/GPLv2 http://www.gnu.org/licenses/gpl-2.0.html                        *
+*                                                                           *
+****************************************************************************/
 #pragma once
 #ifdef _WIN32
 
@@ -25,8 +35,8 @@ class EGLWindow
 {
 public:
     EGLWindow(EGLint glesMajorVersion,
-              EGLint glesMinorVersion,
-              const EGLPlatformParameters &platform);
+        EGLint glesMinorVersion,
+        const EGLPlatformParameters &platform);
 
     ~EGLWindow();
 

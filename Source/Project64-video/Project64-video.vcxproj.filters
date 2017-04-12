@@ -10,10 +10,6 @@
     <Filter Include="Config">
       <UniqueIdentifier>{0e996a30-185f-4191-b77d-b88d86055b8c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Doc">
-      <UniqueIdentifier>{a8253215-16b6-4579-9f98-538ad5f4a6c3}</UniqueIdentifier>
-      <Extensions>txt</Extensions>
-    </Filter>
     <Filter Include="Icons">
       <UniqueIdentifier>{a4bb9cf1-305d-4c72-bb6e-c494301dcdad}</UniqueIdentifier>
     </Filter>
@@ -154,9 +150,6 @@
     </ClInclude>
     <ClInclude Include="ucodeFB.h">
       <Filter>ucode</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureEnhancer\bldno.h">
-      <Filter>Header Files\TextureEnhancer</Filter>
     </ClInclude>
     <ClInclude Include="TextureEnhancer\Ext_TxFilter.h">
       <Filter>Header Files\TextureEnhancer</Filter>
@@ -381,11 +374,6 @@
     <ClCompile Include="Renderer\OGLESwrappers.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="gpl.txt">
-      <Filter>Doc</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="australia.xpm">

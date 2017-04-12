@@ -62,7 +62,6 @@
     <ClInclude Include="ScreenResolution.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SettingsID.h" />
-    <ClInclude Include="TextureEnhancer\bldno.h" />
     <ClInclude Include="TextureEnhancer\Ext_TxFilter.h" />
     <ClInclude Include="TextureEnhancer\tc-1.1+\dxtn.h" />
     <ClInclude Include="TextureEnhancer\tc-1.1+\fxt1.h" />
@@ -183,9 +182,6 @@
     <ClCompile Include="ucode09rdp.cpp" />
     <ClCompile Include="ucodeFB.cpp" />
     <ClCompile Include="Util.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="gpl.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="australia.xpm" />

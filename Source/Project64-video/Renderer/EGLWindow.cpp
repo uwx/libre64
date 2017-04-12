@@ -1,3 +1,13 @@
+/****************************************************************************
+*                                                                           *
+* Project64-video - A Nintendo 64 gfx plugin.                               *
+* http://www.pj64-emu.com/                                                  *
+* Copyright (C) 2017 Project64. All rights reserved.                        *
+*                                                                           *
+* License:                                                                  *
+* GNU/GPLv2 http://www.gnu.org/licenses/gpl-2.0.html                        *
+*                                                                           *
+****************************************************************************/
 #include "EGLWindow.h"
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
@@ -6,19 +16,19 @@
 
 EGLPlatformParameters::EGLPlatformParameters()
     : renderer(EGL_PLATFORM_ANGLE_TYPE_DEFAULT_ANGLE),
-      majorVersion(EGL_DONT_CARE),
-      minorVersion(EGL_DONT_CARE),
-      deviceType(EGL_DONT_CARE),
-      presentPath(EGL_DONT_CARE)
+    majorVersion(EGL_DONT_CARE),
+    minorVersion(EGL_DONT_CARE),
+    deviceType(EGL_DONT_CARE),
+    presentPath(EGL_DONT_CARE)
 {
 }
 
 EGLPlatformParameters::EGLPlatformParameters(EGLint renderer)
     : renderer(renderer),
-      majorVersion(EGL_DONT_CARE),
-      minorVersion(EGL_DONT_CARE),
-      deviceType(EGL_DONT_CARE),
-      presentPath(EGL_DONT_CARE)
+    majorVersion(EGL_DONT_CARE),
+    minorVersion(EGL_DONT_CARE),
+    deviceType(EGL_DONT_CARE),
+    presentPath(EGL_DONT_CARE)
 {
     if (renderer == EGL_PLATFORM_ANGLE_TYPE_D3D9_ANGLE ||
         renderer == EGL_PLATFORM_ANGLE_TYPE_D3D11_ANGLE)
@@ -28,50 +38,50 @@ EGLPlatformParameters::EGLPlatformParameters(EGLint renderer)
 }
 
 EGLPlatformParameters::EGLPlatformParameters(EGLint renderer,
-                                             EGLint majorVersion,
-                                             EGLint minorVersion,
-                                             EGLint useWarp)
+    EGLint majorVersion,
+    EGLint minorVersion,
+    EGLint useWarp)
     : renderer(renderer),
-      majorVersion(majorVersion),
-      minorVersion(minorVersion),
-      deviceType(useWarp),
-      presentPath(EGL_DONT_CARE)
+    majorVersion(majorVersion),
+    minorVersion(minorVersion),
+    deviceType(useWarp),
+    presentPath(EGL_DONT_CARE)
 {
 }
 
 EGLPlatformParameters::EGLPlatformParameters(EGLint renderer,
-                                             EGLint majorVersion,
-                                             EGLint minorVersion,
-                                             EGLint useWarp,
-                                             EGLint presentPath)
+    EGLint majorVersion,
+    EGLint minorVersion,
+    EGLint useWarp,
+    EGLint presentPath)
     : renderer(renderer),
-      majorVersion(majorVersion),
-      minorVersion(minorVersion),
-      deviceType(useWarp),
-      presentPath(presentPath)
+    majorVersion(majorVersion),
+    minorVersion(minorVersion),
+    deviceType(useWarp),
+    presentPath(presentPath)
 {
 }
 
 EGLWindow::EGLWindow(EGLint glesMajorVersion,
-                     EGLint glesMinorVersion,
-                     const EGLPlatformParameters &platform)
+    EGLint glesMinorVersion,
+    const EGLPlatformParameters &platform)
     : mConfig(NULL),
-      mDisplay(EGL_NO_DISPLAY),
-      mSurface(EGL_NO_SURFACE),
-      mContext(EGL_NO_CONTEXT),
-      mClientMajorVersion(glesMajorVersion),
-      mClientMinorVersion(glesMinorVersion),
-      mPlatform(platform),
-      mRedBits(-1),
-      mGreenBits(-1),
-      mBlueBits(-1),
-      mAlphaBits(-1),
-      mDepthBits(-1),
-      mStencilBits(-1),
-      mMultisample(false),
-      mDebug(false),
-      mNoError(false),
-      mSwapInterval(-1)
+    mDisplay(EGL_NO_DISPLAY),
+    mSurface(EGL_NO_SURFACE),
+    mContext(EGL_NO_CONTEXT),
+    mClientMajorVersion(glesMajorVersion),
+    mClientMinorVersion(glesMinorVersion),
+    mPlatform(platform),
+    mRedBits(-1),
+    mGreenBits(-1),
+    mBlueBits(-1),
+    mAlphaBits(-1),
+    mDepthBits(-1),
+    mStencilBits(-1),
+    mMultisample(false),
+    mDebug(false),
+    mNoError(false),
+    mSwapInterval(-1)
 {
 }
 
@@ -149,11 +159,11 @@ bool EGLWindow::initializeGL(void * hwnd)
 
     const EGLint configAttributes[] =
     {
-        EGL_RED_SIZE,       (mRedBits >= 0)     ? mRedBits     : EGL_DONT_CARE,
-        EGL_GREEN_SIZE,     (mGreenBits >= 0)   ? mGreenBits   : EGL_DONT_CARE,
-        EGL_BLUE_SIZE,      (mBlueBits >= 0)    ? mBlueBits    : EGL_DONT_CARE,
-        EGL_ALPHA_SIZE,     (mAlphaBits >= 0)   ? mAlphaBits   : EGL_DONT_CARE,
-        EGL_DEPTH_SIZE,     (mDepthBits >= 0)   ? mDepthBits   : EGL_DONT_CARE,
+        EGL_RED_SIZE,       (mRedBits >= 0) ? mRedBits : EGL_DONT_CARE,
+        EGL_GREEN_SIZE,     (mGreenBits >= 0) ? mGreenBits : EGL_DONT_CARE,
+        EGL_BLUE_SIZE,      (mBlueBits >= 0) ? mBlueBits : EGL_DONT_CARE,
+        EGL_ALPHA_SIZE,     (mAlphaBits >= 0) ? mAlphaBits : EGL_DONT_CARE,
+        EGL_DEPTH_SIZE,     (mDepthBits >= 0) ? mDepthBits : EGL_DONT_CARE,
         EGL_STENCIL_SIZE,   (mStencilBits >= 0) ? mStencilBits : EGL_DONT_CARE,
         EGL_SAMPLE_BUFFERS, mMultisample ? 1 : 0,
         EGL_NONE

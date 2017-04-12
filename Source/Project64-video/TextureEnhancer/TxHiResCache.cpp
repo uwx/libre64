@@ -1,45 +1,34 @@
-/*
- * Texture Filtering
- * Version:  1.0
- *
- * Copyright (C) 2007  Hiroshi Morii   All Rights Reserved.
- * Email koolsmoky(at)users.sourceforge.net
- * Web   http://www.3dfxzone.it/koolsmoky
- *
- * this is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * this is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with GNU Make; see the file COPYING.  If not, write to
- * the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
- */
-
- /* 2007 Gonetz <gonetz(at)ngs.ru>
-  * Added callback to display hires texture info. */
+/***************************************************************************
+*                                                                          *
+* Project64-video - A Nintendo 64 gfx plugin.                              *
+* http://www.pj64-emu.com/                                                 *
+* Copyright (C) 2017 Project64. All rights reserved.                       *
+* Copyright (C) 2003-2009  Sergey 'Gonetz' Lipski                          *
+* Copyright (C) 2007 Hiroshi Morii                                         *
+* Copyright (C) 2003 Rice1964                                              *
+*                                                                          *
+* License:                                                                 *
+* GNU/GPLv2 http://www.gnu.org/licenses/gpl-2.0.html                       *
+* version 2 of the License, or (at your option) any later version.         *
+*                                                                          *
+****************************************************************************/
 
 #ifdef _WIN32
 #pragma warning(disable: 4786)
 #endif
 
-  /* dump processed hirestextures to disk
-   * (0:disable, 1:enable) */
+/* dump processed hirestextures to disk
+ * (0:disable, 1:enable) */
 #define DUMP_CACHE 1
 
-   /* handle oversized textures by
-    *   0: minification
-    *   1: Glide64 style tiling
-    */
+ /* handle oversized textures by
+  *   0: minification
+  *   1: Glide64 style tiling
+  */
 #define TEXTURE_TILING 1
 
-    /* use power of 2 texture size
-     * (0:disable, 1:enable, 2:3dfx) */
+  /* use power of 2 texture size
+   * (0:disable, 1:enable, 2:3dfx) */
 #define POW2_TEXTURES 2
 
 #if TEXTURE_TILING
@@ -47,13 +36,13 @@
 #define POW2_TEXTURES 2
 #endif
 
-     /* hack to reduce texture footprint to achieve
-      * better performace on midrange gfx cards.
-      * (0:disable, 1:enable) */
+   /* hack to reduce texture footprint to achieve
+    * better performace on midrange gfx cards.
+    * (0:disable, 1:enable) */
 #define REDUCE_TEXTURE_FOOTPRINT 0
 
-      /* use aggressive format assumption for quantization
-       * (0:disable, 1:enable, 2:extreme) */
+    /* use aggressive format assumption for quantization
+     * (0:disable, 1:enable, 2:extreme) */
 #define AGGRESSIVE_QUANTIZATION 1
 
 #include "TxHiResCache.h"
@@ -263,7 +252,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                 INFO(80, "Error: not png or bmp or dds!\n");
                 continue;
-            }
+        }
             pfname = strstr(fname, ident.c_str());
             if (pfname != fname) pfname = 0;
             if (pfname) {
@@ -282,7 +271,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                 INFO(80, "Error: not Rice texture naming convention!\n");
                 continue;
-            }
+    }
             if (!chksum) {
 #if !DEBUG
                 INFO(80, "-----\n");
@@ -291,7 +280,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                 INFO(80, "Error: crc32 = 0!\n");
                 continue;
-            }
+}
 
             /* check if we already have it in hires texture cache */
             if (!replace) {
@@ -306,7 +295,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                     INFO(80, "Error: already cached! duplicate texture!\n");
                     continue;
-                }
+            }
             }
 
             DBG_INFO(80, "rom: %ls chksum:%08X %08X fmt:%x size:%x\n", _ident.c_str(), chksum, palchksum, fmt, siz);
@@ -346,8 +335,8 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                         INFO(80, "Error: missing _rgb.*! _a.* must be paired with _rgb.*!\n");
                         continue;
-                    }
                 }
+            }
                 /* _a.png */
                 strcpy(pfname, "_a.png");
                 TargetFile = CPath(dir_path, fname);
@@ -403,7 +392,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
                         tex = NULL;
                         tmptex = NULL;
                         continue;
-                    }
+                }
                 }
                 /* make adjustments */
                 if (tex) {
@@ -927,7 +916,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
                             if (_txQuantize->quantize(tex, tmptex, width, height, GFX_TEXFMT_ARGB_8888, destformat, 0))
                                 _txQuantize->quantize(tmptex, tex, width, height, destformat, GFX_TEXFMT_ARGB_8888, 0);
                             free(tmptex);
-                        }
+                }
 #endif
                         tmptex = (uint8 *)malloc(dataSize);
                         if (tmptex) {
@@ -945,7 +934,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
                                 free(tmptex);
                             }
                         }
-                    }
+            }
                 }
                 else {
 #if POW2_TEXTURES

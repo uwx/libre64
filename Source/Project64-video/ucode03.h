@@ -1,12 +1,15 @@
-/****************************************************************************
-*                                                                           *
-* Project64 - A Nintendo 64 emulator.                                       *
-* http://www.pj64-emu.com/                                                  *
-* Copyright (C) 2012 Project64. All rights reserved.                        *
-*                                                                           *
-* License:                                                                  *
-* GNU/GPLv2 http://www.gnu.org/licenses/gpl-2.0.html                        *
-*                                                                           *
+/***************************************************************************
+*                                                                          *
+* Project64-video - A Nintendo 64 gfx plugin.                              *
+* http://www.pj64-emu.com/                                                 *
+* Copyright (C) 2017 Project64. All rights reserved.                       *
+* Copyright (C) 2003-2009  Sergey 'Gonetz' Lipski                          *
+* Copyright (C) 2002 Dave2001                                              *
+*                                                                          *
+* License:                                                                 *
+* GNU/GPLv2 http://www.gnu.org/licenses/gpl-2.0.html                       *
+* version 2 of the License, or (at your option) any later version.         *
+*                                                                          *
 ****************************************************************************/
 #pragma once
 
@@ -14,4 +17,3 @@ void uc3_tri1();
 void uc3_tri2();
 void uc3_quad3d();
 void uc3_vertex();
-
