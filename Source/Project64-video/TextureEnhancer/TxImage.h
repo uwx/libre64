@@ -19,7 +19,6 @@
 #include <png/png.h>
 #include "TxInternal.h"
 
-#ifndef WIN32
 typedef struct tagBITMAPFILEHEADER {
     unsigned short bfType;
     unsigned long  bfSize;
@@ -41,10 +40,6 @@ typedef struct tagBITMAPINFOHEADER {
     unsigned long  biClrUsed;
     unsigned long  biClrImportant;
 } BITMAPINFOHEADER;
-#else
-typedef struct tagBITMAPFILEHEADER BITMAPFILEHEADER;
-typedef struct tagBITMAPINFOHEADER BITMAPINFOHEADER;
-#endif
 
 #define DDSD_CAPS	0x00000001
 #define DDSD_HEIGHT	0x00000002
@@ -92,14 +87,14 @@ typedef struct tagDDSFILEHEADER {
 class TxImage
 {
 private:
-    boolean getPNGInfo(FILE *fp, png_structp *png_ptr, png_infop *info_ptr);
-    boolean getBMPInfo(FILE *fp, BITMAPFILEHEADER *bmp_fhdr, BITMAPINFOHEADER *bmp_ihdr);
-    boolean getDDSInfo(FILE *fp, DDSFILEHEADER *dds_fhdr);
+    bool getPNGInfo(FILE *fp, png_structp *png_ptr, png_infop *info_ptr);
+    bool getBMPInfo(FILE *fp, BITMAPFILEHEADER *bmp_fhdr, BITMAPINFOHEADER *bmp_ihdr);
+    bool getDDSInfo(FILE *fp, DDSFILEHEADER *dds_fhdr);
 public:
     TxImage() {}
     ~TxImage() {}
     uint8* readPNG(FILE* fp, int* width, int* height, uint16* format);
-    boolean writePNG(uint8* src, FILE* fp, int width, int height, int rowStride, uint16 format, uint8 *palette);
+    bool writePNG(uint8* src, FILE* fp, int width, int height, int rowStride, uint16 format, uint8 *palette);
     uint8* readBMP(FILE* fp, int* width, int* height, uint16* format);
     uint8* readDDS(FILE* fp, int* width, int* height, uint16* format);
 };

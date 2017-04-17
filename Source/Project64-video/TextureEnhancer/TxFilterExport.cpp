@@ -24,7 +24,7 @@ TxFilter *txFilter = NULL;
 extern "C" {
 #endif
 
-    TAPI boolean TAPIENTRY
+    TAPI bool TAPIENTRY
         txfilter_init(int maxwidth, int maxheight, int maxbpp, int options, int cachesize,
             const char *path, const char * ident,
             dispInfoFuncExt callback)
@@ -44,9 +44,9 @@ extern "C" {
         txFilter = NULL;
     }
 
-    TAPI boolean TAPIENTRY
+    TAPI bool TAPIENTRY
         txfilter(uint8 *src, int srcwidth, int srcheight, uint16 srcformat,
-            uint64 g64crc, GHQTexInfo *info)
+            uint64_t g64crc, GHQTexInfo *info)
     {
         if (txFilter)
             return txFilter->filter(src, srcwidth, srcheight, srcformat,
@@ -55,8 +55,8 @@ extern "C" {
         return 0;
     }
 
-    TAPI boolean TAPIENTRY
-        txfilter_hirestex(uint64 g64crc, uint64 r_crc64, uint16 *palette, GHQTexInfo *info)
+    TAPI bool TAPIENTRY
+        txfilter_hirestex(uint64_t g64crc, uint64_t r_crc64, uint16 *palette, GHQTexInfo *info)
     {
         if (txFilter)
             return txFilter->hirestex(g64crc, r_crc64, palette, info);
@@ -64,7 +64,7 @@ extern "C" {
         return 0;
     }
 
-    TAPI uint64 TAPIENTRY
+    TAPI uint64_t TAPIENTRY
         txfilter_checksum(uint8 *src, int width, int height, int size, int rowStride, uint8 *palette)
     {
         if (txFilter)
@@ -73,8 +73,8 @@ extern "C" {
         return 0;
     }
 
-    TAPI boolean TAPIENTRY
-        txfilter_dmptx(uint8 *src, int width, int height, int rowStridePixel, uint16 gfmt, uint16 n64fmt, uint64 r_crc64)
+    TAPI bool TAPIENTRY
+        txfilter_dmptx(uint8 *src, int width, int height, int rowStridePixel, uint16 gfmt, uint16 n64fmt, uint64_t r_crc64)
     {
         if (txFilter)
             return txFilter->dmptx(src, width, height, rowStridePixel, gfmt, n64fmt, r_crc64);
@@ -82,7 +82,7 @@ extern "C" {
         return 0;
     }
 
-    TAPI boolean TAPIENTRY
+    TAPI bool TAPIENTRY
         txfilter_reloadhirestex()
     {
         if (txFilter)

@@ -42,7 +42,7 @@ private:
     TxHiResCache *_txHiResCache;
     TxUtil *_txUtil;
     TxImage *_txImage;
-    boolean _initialized;
+    bool _initialized;
     void clear();
 public:
     ~TxFilter();
@@ -54,19 +54,19 @@ public:
         const char *path,
         const char *ident,
         dispInfoFuncExt callback);
-    boolean filter(uint8 *src,
+    bool filter(uint8 *src,
         int srcwidth,
         int srcheight,
         uint16 srcformat,
-        uint64 g64crc, /* glide64 crc, 64bit for future use */
+        uint64_t g64crc, /* glide64 crc, 64bit for future use */
         GHQTexInfo *info);
-    boolean hirestex(uint64 g64crc, /* glide64 crc, 64bit for future use */
-        uint64 r_crc64,   /* checksum hi:palette low:texture */
+    bool hirestex(uint64_t g64crc, /* glide64 crc, 64bit for future use */
+        uint64_t r_crc64,   /* checksum hi:palette low:texture */
         uint16 *palette,
         GHQTexInfo *info);
-    uint64 checksum64(uint8 *src, int width, int height, int size, int rowStride, uint8 *palette);
-    boolean dmptx(uint8 *src, int width, int height, int rowStridePixel, uint16 gfmt, uint16 n64fmt, uint64 r_crc64);
-    boolean reloadhirestex();
+    uint64_t checksum64(uint8 *src, int width, int height, int size, int rowStride, uint8 *palette);
+    bool dmptx(uint8 *src, int width, int height, int rowStridePixel, uint16 gfmt, uint16 n64fmt, uint64_t r_crc64);
+    bool reloadhirestex();
 };
 
 #endif /* __TXFILTER_H__ */

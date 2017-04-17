@@ -39,8 +39,8 @@ TxReSample::nextPow2(int num)
     return num;
 }
 
-boolean
-TxReSample::nextPow2(uint8** image, int* width, int* height, int bpp, boolean use_3dfx = 0)
+bool
+TxReSample::nextPow2(uint8** image, int* width, int* height, int bpp, bool use_3dfx = 0)
 {
     /* NOTE: bpp must be one of the follwing: 8, 16, 24, 32 bits per pixel */
 
@@ -231,7 +231,7 @@ TxReSample::kaiser(double x)
     return sinc(x) * besselI0(alpha * sqrt(1 - ratio * ratio)) / besselI0(alpha);
 }
 
-boolean
+bool
 TxReSample::minify(uint8 **src, int *width, int *height, int ratio)
 {
     /* NOTE: src must be ARGB8888, ratio is the inverse representation */

@@ -20,6 +20,8 @@
 #include <Common/stdtypes.h>
 #include <Project64-video/Renderer/types.h>
 
+#include <windows.h>
+
 /*
  * External libraries
  ******************************************************************************/
@@ -178,7 +180,7 @@ TxUtil::checksum(uint8 *src, int width, int height, int size, int rowStride)
     return RiceCRC32(src, width, height, size, rowStride);
 }
 
-uint64
+uint64_t
 TxUtil::checksum64(uint8 *src, int width, int height, int size, int rowStride, uint8 *palette)
 {
     /* Rice CRC32 for now. We can switch this to Jabo MD5 or
@@ -188,28 +190,28 @@ TxUtil::checksum64(uint8 *src, int width, int height, int size, int rowStride, u
 
     if (!src) return 0;
 
-    uint64 crc64Ret = 0;
+    uint64_t crc64Ret = 0;
 
     if (palette) {
         uint32 crc32 = 0, cimax = 0;
         switch (size & 0xff) {
         case 1:
             if (RiceCRC32_CI8(src, width, height, size, rowStride, &crc32, &cimax)) {
-                crc64Ret = (uint64)RiceCRC32(palette, cimax + 1, 1, 2, 512);
+                crc64Ret = (uint64_t)RiceCRC32(palette, cimax + 1, 1, 2, 512);
                 crc64Ret <<= 32;
-                crc64Ret |= (uint64)crc32;
+                crc64Ret |= (uint64_t)crc32;
             }
             break;
         case 0:
             if (RiceCRC32_CI4(src, width, height, size, rowStride, &crc32, &cimax)) {
-                crc64Ret = (uint64)RiceCRC32(palette, cimax + 1, 1, 2, 32);
+                crc64Ret = (uint64_t)RiceCRC32(palette, cimax + 1, 1, 2, 32);
                 crc64Ret <<= 32;
-                crc64Ret |= (uint64)crc32;
+                crc64Ret |= (uint64_t)crc32;
             }
         }
     }
     if (!crc64Ret) {
-        crc64Ret = (uint64)RiceCRC32(src, width, height, size, rowStride);
+        crc64Ret = (uint64_t)RiceCRC32(src, width, height, size, rowStride);
     }
 
     return crc64Ret;
@@ -347,7 +349,7 @@ TxUtil::RiceCRC32(const uint8* src, int width, int height, int size, int rowStri
     return crc32Ret;
 }
 
-boolean
+bool
 TxUtil::RiceCRC32_CI4(const uint8* src, int width, int height, int size, int rowStride,
     uint32* crc32, uint32* cimax)
 {
@@ -398,7 +400,7 @@ TxUtil::RiceCRC32_CI4(const uint8* src, int width, int height, int size, int row
     return 1;
 }
 
-boolean
+bool
 TxUtil::RiceCRC32_CI8(const uint8* src, int width, int height, int size, int rowStride,
     uint32* crc32, uint32* cimax)
 {
@@ -448,7 +450,7 @@ TxUtil::log2(int num)
     return __builtin_ctz(num);
 #elif defined(_MSC_VER) && _MSC_VER >= 1400
     uint32_t i;
-    _BitScanForward((DWORD *)&i, num);
+    _BitScanForward((unsigned long *)&i, num);
     return i;
 #elif defined(__MSC__)
     __asm {
@@ -530,7 +532,7 @@ TxMemBuf::~TxMemBuf()
     shutdown();
 }
 
-boolean
+bool
 TxMemBuf::init(int maxwidth, int maxheight)
 {
     int i;

@@ -24,7 +24,7 @@
 class TxCache
 {
 private:
-    std::list<uint64> _cachelist;
+    std::list<uint64_t> _cachelist;
     uint8 *_gzdest0;
     uint8 *_gzdest1;
     uint32 _gzdestLen;
@@ -37,23 +37,23 @@ protected:
     struct TXCACHE {
         int size;
         GHQTexInfo info;
-        std::list<uint64>::iterator it;
+        std::list<uint64_t>::iterator it;
     };
     int _totalSize;
     int _cacheSize;
-    std::map<uint64, TXCACHE*> _cache;
-    boolean save(const char *path, const char *filename, const int config);
-    boolean load(const char *path, const char *filename, const int config);
-    boolean del(uint64 checksum); /* checksum hi:palette low:texture */
-    boolean is_cached(uint64 checksum); /* checksum hi:palette low:texture */
+    std::map<uint64_t, TXCACHE*> _cache;
+    bool save(const char *path, const char *filename, const int config);
+    bool load(const char *path, const char *filename, const int config);
+    bool del(uint64_t checksum); /* checksum hi:palette low:texture */
+    bool is_cached(uint64_t checksum); /* checksum hi:palette low:texture */
     void clear();
 public:
     ~TxCache();
     TxCache(int options, int cachesize, const char *path, const char *ident,
         dispInfoFuncExt callback);
-    boolean add(uint64 checksum, /* checksum hi:palette low:texture */
+    bool add(uint64_t checksum, /* checksum hi:palette low:texture */
         GHQTexInfo *info, int dataSize = 0);
-    boolean get(uint64 checksum, /* checksum hi:palette low:texture */
+    bool get(uint64_t checksum, /* checksum hi:palette low:texture */
         GHQTexInfo *info);
 };
 

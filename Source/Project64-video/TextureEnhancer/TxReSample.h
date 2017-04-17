@@ -28,8 +28,8 @@ private:
     double besselI0(double x);
     double kaiser(double x);
 public:
-    boolean minify(uint8 **src, int *width, int *height, int ratio);
-    boolean nextPow2(uint8** image, int* width, int* height, int bpp, boolean use_3dfx);
+    bool minify(uint8 **src, int *width, int *height, int ratio);
+    bool nextPow2(uint8** image, int* width, int* height, int bpp, bool use_3dfx);
     int nextPow2(int num);
 };
 

@@ -1394,7 +1394,7 @@ TxQuantize::ARGB8888_ARGB4444_ErrD(uint32* src, uint32* dst, int width, int heig
      * to producing noisy speckles for constant or step level alpha. Output
      * results should always be checked.
      */
-    boolean ditherAlpha = 0;
+    bool ditherAlpha = 0;
 
     int i, x, y;
     int qr, qg, qb, qa; /* quantized incoming values */
@@ -1519,7 +1519,7 @@ TxQuantize::ARGB8888_AI44_ErrD(uint32* src, uint32* dst, int width, int height)
      * to producing noisy speckles for constant or step level alpha. Output
      * results should always be checked.
      */
-    boolean ditherAlpha = 0;
+    bool ditherAlpha = 0;
 
     int i, x, y;
     int qi, qa; /* quantized incoming values */
@@ -1723,8 +1723,8 @@ TxQuantize::P8_16BPP(uint32* src, uint32* dest, int width, int height, uint32* p
 #endif
 }
 
-boolean
-TxQuantize::quantize(uint8* src, uint8* dest, int width, int height, uint16 srcformat, uint16 destformat, boolean fastQuantizer)
+bool
+TxQuantize::quantize(uint8* src, uint8* dest, int width, int height, uint16 srcformat, uint16 destformat, bool fastQuantizer)
 {
     typedef void (TxQuantize::*quantizerFunc)(uint32* src, uint32* dest, int width, int height);
     quantizerFunc quantizer;
@@ -1807,7 +1807,7 @@ TxQuantize::quantize(uint8* src, uint8* dest, int width, int height, uint16 srcf
     return 1;
 }
 
-boolean
+bool
 TxQuantize::FXT1(uint8 *src, uint8 *dest,
     int srcwidth, int srcheight, uint16 srcformat,
     int *destwidth, int *destheight, uint16 *destformat)
@@ -1820,7 +1820,7 @@ TxQuantize::FXT1(uint8 *src, uint8 *dest,
      * which originaly was ABGR format.
      */
 
-    boolean bRet = 0;
+    bool bRet = 0;
 
     if (_tx_compress_fxt1 &&
         srcwidth >= 8 && srcheight >= 4) {
@@ -1855,7 +1855,7 @@ TxQuantize::FXT1(uint8 *src, uint8 *dest,
     return bRet;
 }
 
-boolean
+bool
 TxQuantize::DXTn(uint8 *src, uint8 *dest,
     int srcwidth, int srcheight, uint16 srcformat,
     int *destwidth, int *destheight, uint16 *destformat)
@@ -1868,7 +1868,7 @@ TxQuantize::DXTn(uint8 *src, uint8 *dest,
      * which originaly was ABGR format.
      */
 
-    boolean bRet = 0;
+    bool bRet = 0;
 
     if (_tx_compress_dxtn &&
         srcwidth >= 4 && srcheight >= 4) {
@@ -1932,13 +1932,13 @@ TxQuantize::DXTn(uint8 *src, uint8 *dest,
     return bRet;
 }
 
-boolean
+bool
 TxQuantize::compress(uint8 *src, uint8 *dest,
     int srcwidth, int srcheight, uint16 srcformat,
     int *destwidth, int *destheight, uint16 *destformat,
     int compressionType)
 {
-    boolean bRet = 0;
+    bool bRet = 0;
 
     switch (compressionType) {
     case FXT1_COMPRESSION:

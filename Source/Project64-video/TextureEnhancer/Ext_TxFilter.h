@@ -11,39 +11,8 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
-
-#ifndef __EXT_TXFILTER_H__
-#define __EXT_TXFILTER_H__
-
-#ifdef _WIN32
-#include <windows.h>
-#define TXHMODULE HMODULE
-#define DLOPEN(a) LoadLibraryW(a)
-#define DLCLOSE(a) FreeLibrary(a)
-#define DLSYM(a, b) GetProcAddress(a, b)
-#define GETCWD(a, b) GetCurrentDirectoryW(a, b)
-#define CHDIR(a) SetCurrentDirectoryW(a)
-#else
-#include <iostream>
-#include <dlfcn.h>
-#define MAX_PATH 4095
-#define TXHMODULE void*
-#define DLOPEN(a) dlopen(a, RTLD_LAZY|RTLD_GLOBAL)
-#define DLCLOSE(a) dlclose(a)
-#define DLSYM(a, b) dlsym(a, b)
-#define GETCWD(a, b) getcwd(b, a)
-#define CHDIR(a) chdir(a)
-#endif
-
-#ifdef WIN32
-typedef __int64 int64;
-typedef unsigned __int64 uint64;
-typedef unsigned char boolean;
-#else
-typedef long long int64;
-typedef unsigned long long uint64;
-typedef unsigned char boolean;
-#endif
+#pragma once
+#include <Common/stdtypes.h>
 
 #define NO_OPTIONS          0x00000000
 
@@ -127,11 +96,12 @@ struct GHQTexInfo {
  *   printf(buf);
  * }
  */
+
 #define INFO_BUF 4095
 typedef void(*dispInfoFuncExt)(const char *format, ...);
 
 #ifndef TXFILTER_DLL
-boolean ext_ghq_init(int maxwidth, /* maximum texture width supported by hardware */
+bool ext_ghq_init(int maxwidth, /* maximum texture width supported by hardware */
     int maxheight,/* maximum texture height supported by hardware */
     int maxbpp,   /* maximum texture bpp supported by hardware */
     int options,  /* options */
@@ -143,21 +113,21 @@ boolean ext_ghq_init(int maxwidth, /* maximum texture width supported by hardwar
 
 void ext_ghq_shutdown(void);
 
-boolean ext_ghq_txfilter(unsigned char *src,        /* input texture */
+bool ext_ghq_txfilter(unsigned char *src,        /* input texture */
     int srcwidth,              /* width of input texture */
     int srcheight,             /* height of input texture */
     unsigned short srcformat,  /* format of input texture */
-    uint64 g64crc,             /* glide64 crc */
+    uint64_t g64crc,             /* glide64 crc */
     GHQTexInfo *info           /* output */
 );
 
-boolean ext_ghq_hirestex(uint64 g64crc,             /* glide64 crc */
-    uint64 r_crc64,            /* checksum hi:palette low:texture */
+bool ext_ghq_hirestex(uint64_t g64crc,             /* glide64 crc */
+    uint64_t r_crc64,            /* checksum hi:palette low:texture */
     unsigned short *palette,   /* palette for CI textures */
     GHQTexInfo *info           /* output */
 );
 
-uint64 ext_ghq_checksum(unsigned char *src, /* input texture */
+uint64_t ext_ghq_checksum(unsigned char *src, /* input texture */
     int width,          /* width of texture */
     int height,         /* height of texture */
     int size,           /* type of texture pixel */
@@ -165,16 +135,14 @@ uint64 ext_ghq_checksum(unsigned char *src, /* input texture */
     unsigned char *palette /* palette */
 );
 
-boolean ext_ghq_dmptx(unsigned char *src,   /* input texture (must be in 3Dfx Glide format) */
+bool ext_ghq_dmptx(unsigned char *src,   /* input texture (must be in 3Dfx Glide format) */
     int width,            /* width of texture */
     int height,           /* height of texture */
     int rowStridePixel,   /* row stride of input texture in pixels */
     unsigned short gfmt,  /* glide format of input texture */
     unsigned short n64fmt,/* N64 format hi:format low:size */
-    uint64 r_crc64        /* checksum hi:palette low:texture */
+    uint64_t r_crc64        /* checksum hi:palette low:texture */
 );
 
-boolean ext_ghq_reloadhirestex();
+bool ext_ghq_reloadhirestex();
 #endif /* TXFILTER_DLL */
-
-#endif /* __EXT_TXFILTER_H__ */

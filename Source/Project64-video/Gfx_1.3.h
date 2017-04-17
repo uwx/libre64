@@ -25,7 +25,6 @@
 #include "Settings.h"
 
 #if defined __VISUALC__
-typedef unsigned char boolean;
 #define GLIDE64_TRY __try
 #define GLIDE64_CATCH __except (EXCEPTION_EXECUTE_HANDLER)
 #else
@@ -427,5 +426,5 @@ extern "C" {
     EXPORT void CALL PluginLoaded(void);
 
 #if defined(__cplusplus)
-    }
+}
 #endif

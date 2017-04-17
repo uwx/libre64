@@ -164,8 +164,8 @@ TxFilter::TxFilter(int maxwidth, int maxheight, int maxbpp, int options,
         _initialized = 1;
 }
 
-boolean
-TxFilter::filter(uint8 *src, int srcwidth, int srcheight, uint16 srcformat, uint64 g64crc, GHQTexInfo *info)
+bool
+TxFilter::filter(uint8 *src, int srcwidth, int srcheight, uint16 srcformat, uint64_t g64crc, GHQTexInfo *info)
 {
     uint8 *texture = src;
     uint8 *tmptex = _tex1;
@@ -178,7 +178,7 @@ TxFilter::filter(uint8 *src, int srcwidth, int srcheight, uint16 srcformat, uint
     if (_cacheSize) {
         /* calculate checksum of source texture */
         if (!g64crc)
-            g64crc = (uint64)(_txUtil->checksumTx(texture, srcwidth, srcheight, srcformat));
+            g64crc = (uint64_t)(_txUtil->checksumTx(texture, srcwidth, srcheight, srcformat));
 
         DBG_INFO(80, "filter: crc:%08X %08X %d x %d gfmt:%x\n",
             (uint32)(g64crc >> 32), (uint32)(g64crc & 0xffffffff), srcwidth, srcheight, srcformat);
@@ -434,8 +434,8 @@ TxFilter::filter(uint8 *src, int srcwidth, int srcheight, uint16 srcformat, uint
     return 1;
 }
 
-boolean
-TxFilter::hirestex(uint64 g64crc, uint64 r_crc64, uint16 *palette, GHQTexInfo *info)
+bool
+TxFilter::hirestex(uint64_t g64crc, uint64_t r_crc64, uint16 *palette, GHQTexInfo *info)
 {
     /* NOTE: Rice CRC32 sometimes return the same value for different textures.
      * As a workaround, Glide64 CRC32 is used for the key for NON-hires
@@ -572,7 +572,7 @@ TxFilter::hirestex(uint64 g64crc, uint64 r_crc64, uint16 *palette, GHQTexInfo *i
     return 0;
 }
 
-uint64
+uint64_t
 TxFilter::checksum64(uint8 *src, int width, int height, int size, int rowStride, uint8 *palette)
 {
     if (_options & (HIRESTEXTURES_MASK | DUMP_TEX))
@@ -582,8 +582,8 @@ TxFilter::checksum64(uint8 *src, int width, int height, int size, int rowStride,
     return 0;
 }
 
-boolean
-TxFilter::dmptx(uint8 *src, int width, int height, int rowStridePixel, uint16 gfmt, uint16 n64fmt, uint64 r_crc64)
+bool
+TxFilter::dmptx(uint8 *src, int width, int height, int rowStridePixel, uint16 gfmt, uint16 n64fmt, uint64_t r_crc64)
 {
     if (!_initialized)
     {
@@ -649,7 +649,7 @@ TxFilter::dmptx(uint8 *src, int width, int height, int rowStridePixel, uint16 gf
     return 0;
 }
 
-boolean TxFilter::reloadhirestex()
+bool TxFilter::reloadhirestex()
 {
     DBG_INFO(80, "Reload hires textures from texture pack.\n");
 

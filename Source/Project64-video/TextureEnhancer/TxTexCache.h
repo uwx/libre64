@@ -23,7 +23,7 @@ public:
     ~TxTexCache();
     TxTexCache(int options, int cachesize, const char *path, const char *ident,
         dispInfoFuncExt callback);
-    boolean add(uint64 checksum, /* checksum hi:palette low:texture */
+    bool add(uint64_t checksum, /* checksum hi:palette low:texture */
         GHQTexInfo *info);
 };
 

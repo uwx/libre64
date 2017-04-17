@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <Project64-video/Renderer/types.h>
 
-boolean TxImage::getPNGInfo(FILE *fp, png_structp *png_ptr, png_infop *info_ptr)
+bool TxImage::getPNGInfo(FILE *fp, png_structp *png_ptr, png_infop *info_ptr)
 {
     unsigned char sig[PNG_CHK_BYTES];
 
@@ -235,7 +235,7 @@ TxImage::readPNG(FILE* fp, int* width, int* height, uint16* format)
     return image;
 }
 
-boolean
+bool
 TxImage::writePNG(uint8* src, FILE* fp, int width, int height, int rowStride, uint16 format, uint8 *palette)
 {
     png_structp png_ptr;
@@ -387,7 +387,7 @@ TxImage::writePNG(uint8* src, FILE* fp, int width, int height, int rowStride, ui
     return 1;
 }
 
-boolean
+bool
 TxImage::getBMPInfo(FILE* fp, BITMAPFILEHEADER* bmp_fhdr, BITMAPINFOHEADER* bmp_ihdr)
 {
     /*
@@ -648,7 +648,7 @@ TxImage::readBMP(FILE* fp, int* width, int* height, uint16* format)
     return image;
 }
 
-boolean
+bool
 TxImage::getDDSInfo(FILE *fp, DDSFILEHEADER *dds_fhdr)
 {
     /*

@@ -71,9 +71,9 @@ private:
     uint32 Adler32(const uint8* data, int Len, uint32 Adler);
     uint32 Adler32(const uint8* src, int width, int height, int size, int rowStride);
     uint32 RiceCRC32(const uint8* src, int width, int height, int size, int rowStride);
-    boolean RiceCRC32_CI4(const uint8* src, int width, int height, int size, int rowStride,
+    bool RiceCRC32_CI4(const uint8* src, int width, int height, int size, int rowStride,
         uint32* crc32, uint32* cimax);
-    boolean RiceCRC32_CI8(const uint8* src, int width, int height, int size, int rowStride,
+    bool RiceCRC32_CI8(const uint8* src, int width, int height, int size, int rowStride,
         uint32* crc32, uint32* cimax);
     int log2(int num);
 public:
@@ -85,7 +85,7 @@ public:
     uint32 chkAlpha(uint32* src, int width, int height);
 #endif
     uint32 checksum(uint8 *src, int width, int height, int size, int rowStride);
-    uint64 checksum64(uint8 *src, int width, int height, int size, int rowStride, uint8 *palette);
+    uint64_t checksum64(uint8 *src, int width, int height, int size, int rowStride, uint8 *palette);
     int grLodLog2(int w, int h);
     int grAspectRatioLog2(int w, int h);
     int getNumberofProcessors();
@@ -103,7 +103,7 @@ public:
         return &txMemBuf;
     }
     ~TxMemBuf();
-    boolean init(int maxwidth, int maxheight);
+    bool init(int maxwidth, int maxheight);
     void shutdown(void);
     uint8 *get(unsigned int num);
     uint32 size_of(unsigned int num);

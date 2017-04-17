@@ -119,14 +119,14 @@ TxHiResCache::TxHiResCache(int maxwidth, int maxheight, int maxbpp, int options,
     if (!_haveCache) TxHiResCache::load(0);
 }
 
-boolean
+bool
 TxHiResCache::empty()
 {
     return _cache.empty();
 }
 
-boolean
-TxHiResCache::load(boolean replace) /* 0 : reload, 1 : replace partial */
+bool
+TxHiResCache::load(bool replace) /* 0 : reload, 1 : replace partial */
 {
     if (!_path.empty() && !_ident.empty())
     {
@@ -158,7 +158,7 @@ TxHiResCache::load(boolean replace) /* 0 : reload, 1 : replace partial */
     return 0;
 }
 
-boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
+bool TxHiResCache::loadHiResTextures(const char * dir_path, bool replace)
 {
 #ifdef _WIN32
     DBG_INFO(80, "-----\n");
@@ -188,12 +188,6 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
     {
         do
         {
-            if (KBHIT(0x1B))
-            {
-                _abortLoad = 1;
-                if (_callback) (*_callback)("Aborted loading hiresolution texture!\n");
-                INFO(80, "Error: aborted loading hiresolution texture!\n");
-            }
             if (_abortLoad) break;
 
             DBG_INFO(80, "-----\n");
@@ -211,7 +205,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
             /* Rice hi-res textures: begin
             */
             uint32 chksum = 0, fmt = 0, siz = 0, palchksum = 0;
-            char *pfname = NULL, fname[MAX_PATH];
+            char *pfname = NULL, fname[260];
             std::string ident;
             FILE *fp = NULL;
 
@@ -230,7 +224,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
             /* read in Rice's file naming convention */
 #define CRCFMTSIZ_LEN 13
 #define PALCRC_LEN 9
-            wcstombs(fname, stdstr(TextureDir.GetNameExtension()).ToUTF16().c_str(), MAX_PATH);
+            wcstombs(fname, stdstr(TextureDir.GetNameExtension()).ToUTF16().c_str(), 260);
             /* XXX case sensitivity fiasco!
             * files must use _a, _rgb, _all, _allciByRGBA, _ciByRGBA, _ci
             * and file extensions must be in lower case letters! */
@@ -252,7 +246,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                 INFO(80, "Error: not png or bmp or dds!\n");
                 continue;
-        }
+            }
             pfname = strstr(fname, ident.c_str());
             if (pfname != fname) pfname = 0;
             if (pfname) {
@@ -271,7 +265,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                 INFO(80, "Error: not Rice texture naming convention!\n");
                 continue;
-    }
+            }
             if (!chksum) {
 #if !DEBUG
                 INFO(80, "-----\n");
@@ -280,13 +274,13 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                 INFO(80, "Error: crc32 = 0!\n");
                 continue;
-}
+            }
 
             /* check if we already have it in hires texture cache */
             if (!replace) {
-                uint64 chksum64 = (uint64)palchksum;
+                uint64_t chksum64 = (uint64_t)palchksum;
                 chksum64 <<= 32;
-                chksum64 |= (uint64)chksum;
+                chksum64 |= (uint64_t)chksum;
                 if (TxCache::is_cached(chksum64)) {
 #if !DEBUG
                     INFO(80, "-----\n");
@@ -295,7 +289,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                     INFO(80, "Error: already cached! duplicate texture!\n");
                     continue;
-            }
+                }
             }
 
             DBG_INFO(80, "rom: %ls chksum:%08X %08X fmt:%x size:%x\n", _ident.c_str(), chksum, palchksum, fmt, siz);
@@ -335,8 +329,8 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
                         INFO(80, "Error: missing _rgb.*! _a.* must be paired with _rgb.*!\n");
                         continue;
+                    }
                 }
-            }
                 /* _a.png */
                 strcpy(pfname, "_a.png");
                 TargetFile = CPath(dir_path, fname);
@@ -392,7 +386,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
                         tex = NULL;
                         tmptex = NULL;
                         continue;
-                }
+                    }
                 }
                 /* make adjustments */
                 if (tex) {
@@ -535,7 +529,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
                 int i;
                 int alphabits = 0;
                 int fullalpha = 0;
-                boolean intensity = 1;
+                bool intensity = 1;
 
                 if (!(_options & LET_TEXARTISTS_FLY)) {
                     /* HACK ALERT! */
@@ -741,7 +735,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 
                 /* tiling */
                 if ((_options & TILE_HIRESTEX) && _maxwidth >= 256 && _maxheight >= 256) {
-                    boolean usetile = 0;
+                    bool usetile = 0;
 
                     /* to tile or not to tile, that is the question */
                     if (width > 256 && height <= 128 && (((width - 1) >> 8) + 1) * height <= 256) {
@@ -916,7 +910,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
                             if (_txQuantize->quantize(tex, tmptex, width, height, GFX_TEXFMT_ARGB_8888, destformat, 0))
                                 _txQuantize->quantize(tmptex, tex, width, height, destformat, GFX_TEXFMT_ARGB_8888, 0);
                             free(tmptex);
-                }
+                        }
 #endif
                         tmptex = (uint8 *)malloc(dataSize);
                         if (tmptex) {
@@ -934,7 +928,7 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
                                 free(tmptex);
                             }
                         }
-            }
+                    }
                 }
                 else {
 #if POW2_TEXTURES
@@ -1020,9 +1014,9 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 
             /* load it into hires texture cache. */
             {
-                uint64 chksum64 = (uint64)palchksum;
+                uint64_t chksum64 = (uint64_t)palchksum;
                 chksum64 <<= 32;
-                chksum64 |= (uint64)chksum;
+                chksum64 |= (uint64_t)chksum;
 
                 GHQTexInfo tmpInfo;
                 memset(&tmpInfo, 0, sizeof(GHQTexInfo));
@@ -1038,7 +1032,8 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 
 #if TEXTURE_TILING
                 /* Glide64 style texture tiling. */
-                if (untiled_width && untiled_height) {
+                if (untiled_width && untiled_height)
+                {
                     tmpInfo.tiles = ((untiled_width - 1) >> 8) + 1;
                     tmpInfo.untiled_width = untiled_width;
                     tmpInfo.untiled_height = untiled_height;
@@ -1046,17 +1041,20 @@ boolean TxHiResCache::loadHiResTextures(const char * dir_path, boolean replace)
 #endif
 
                 /* remove redundant in cache */
-                if (replace && TxCache::del(chksum64)) {
+                if (replace && TxCache::del(chksum64))
+                {
                     DBG_INFO(80, "removed duplicate old cache.\n");
                 }
 
                 /* add to cache */
-                if (TxCache::add(chksum64, &tmpInfo)) {
+                if (TxCache::add(chksum64, &tmpInfo))
+                {
                     /* Callback to display hires texture info.
                      * Gonetz <gonetz(at)ngs.ru> */
-                    if (_callback) {
-                        wchar_t tmpbuf[MAX_PATH];
-                        mbstowcs(tmpbuf, fname, MAX_PATH);
+                    if (_callback)
+                    {
+                        wchar_t tmpbuf[260];
+                        mbstowcs(tmpbuf, fname, 260);
                         (*_callback)("[%d] total mem:%.2fmb - %ls\n", _cache.size(), (float)_totalSize / 1000000, tmpbuf);
                     }
                     DBG_INFO(80, "texture loaded!\n");

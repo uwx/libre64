@@ -32,19 +32,19 @@ private:
     int _maxwidth;
     int _maxheight;
     int _maxbpp;
-    boolean _haveCache;
-    boolean _abortLoad;
+    bool _haveCache;
+    bool _abortLoad;
     TxImage *_txImage;
     TxQuantize *_txQuantize;
     TxReSample *_txReSample;
-    boolean loadHiResTextures(const char * dir_path, boolean replace);
+    bool loadHiResTextures(const char * dir_path, bool replace);
 public:
     ~TxHiResCache();
     TxHiResCache(int maxwidth, int maxheight, int maxbpp, int options,
         const char *path, const char *ident,
         dispInfoFuncExt callback);
-    boolean empty();
-    boolean load(boolean replace);
+    bool empty();
+    bool load(bool replace);
 };
 
 #endif /* __TXHIRESCACHE_H__ */

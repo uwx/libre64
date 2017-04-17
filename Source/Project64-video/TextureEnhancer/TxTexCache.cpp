@@ -65,7 +65,7 @@ TxTexCache::TxTexCache(int options, int cachesize, const char *path, const char 
 #endif
 }
 
-boolean TxTexCache::add(uint64 checksum, GHQTexInfo *info)
+bool TxTexCache::add(uint64_t checksum, GHQTexInfo *info)
 {
     if (_cacheSize <= 0) return 0;
 

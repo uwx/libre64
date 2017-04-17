@@ -74,8 +74,8 @@ TxCache::TxCache(int options, int cachesize, const char *path, const char *ident
     }
 }
 
-boolean
-TxCache::add(uint64 checksum, GHQTexInfo *info, int dataSize)
+bool
+TxCache::add(uint64_t checksum, GHQTexInfo *info, int dataSize)
 {
     /* NOTE: dataSize must be provided if info->data is zlib compressed. */
 
@@ -116,11 +116,11 @@ TxCache::add(uint64 checksum, GHQTexInfo *info, int dataSize)
         if ((_totalSize > _cacheSize) && !_cachelist.empty())
         {
             /* _cachelist is arranged so that frequently used textures are in the back */
-            std::list<uint64>::iterator itList = _cachelist.begin();
+            std::list<uint64_t>::iterator itList = _cachelist.begin();
             while (itList != _cachelist.end())
             {
                 /* find it in _cache */
-                std::map<uint64, TXCACHE*>::iterator itMap = _cache.find(*itList);
+                std::map<uint64_t, TXCACHE*>::iterator itMap = _cache.find(*itList);
                 if (itMap != _cache.end())
                 {
                     /* yep we have it. remove it. */
@@ -168,7 +168,7 @@ TxCache::add(uint64 checksum, GHQTexInfo *info, int dataSize)
                 txCache->it = --(_cachelist.end());
             }
             /* _cache[checksum] = txCache; */
-            _cache.insert(std::map<uint64, TXCACHE*>::value_type(checksum, txCache));
+            _cache.insert(std::map<uint64_t, TXCACHE*>::value_type(checksum, txCache));
 
 #ifdef DEBUG
             DBG_INFO(80, "[%5d] added!! crc:%08X %08X %d x %d gfmt:%x total:%.02fmb\n",
@@ -205,13 +205,13 @@ TxCache::add(uint64 checksum, GHQTexInfo *info, int dataSize)
     return 0;
 }
 
-boolean
-TxCache::get(uint64 checksum, GHQTexInfo *info)
+bool
+TxCache::get(uint64_t checksum, GHQTexInfo *info)
 {
     if (!checksum || _cache.empty()) return 0;
 
     /* find a match in cache */
-    std::map<uint64, TXCACHE*>::iterator itMap = _cache.find(checksum);
+    std::map<uint64_t, TXCACHE*>::iterator itMap = _cache.find(checksum);
     if (itMap != _cache.end())
     {
         /* yep, we've got it. */
@@ -244,7 +244,7 @@ TxCache::get(uint64 checksum, GHQTexInfo *info)
     return 0;
 }
 
-boolean TxCache::save(const char *path, const char *filename, int config)
+bool TxCache::save(const char *path, const char *filename, int config)
 {
     if (!_cache.empty())
     {
@@ -257,7 +257,7 @@ boolean TxCache::save(const char *path, const char *filename, int config)
             /* write header to determine config match */
             gzwrite(gzfp, &config, 4);
 
-            std::map<uint64, TXCACHE*>::iterator itMap = _cache.begin();
+            std::map<uint64_t, TXCACHE*>::iterator itMap = _cache.begin();
             while (itMap != _cache.end())
             {
                 uint8 *dest = (*itMap).second->info.data;
@@ -317,7 +317,7 @@ boolean TxCache::save(const char *path, const char *filename, int config)
     return _cache.empty();
 }
 
-boolean TxCache::load(const char *path, const char *filename, int config)
+bool TxCache::load(const char *path, const char *filename, int config)
 {
     /* find it on disk */
     CPath cbuf(path, filename);
@@ -328,7 +328,7 @@ boolean TxCache::load(const char *path, const char *filename, int config)
     {
         /* yep, we have it. load it into memory cache. */
         int dataSize;
-        uint64 checksum;
+        uint64_t checksum;
         GHQTexInfo tmpInfo;
         int tmpconfig;
         /* read header to determine config match */
@@ -383,11 +383,11 @@ boolean TxCache::load(const char *path, const char *filename, int config)
     return !_cache.empty();
 }
 
-boolean TxCache::del(uint64 checksum)
+bool TxCache::del(uint64_t checksum)
 {
     if (!checksum || _cache.empty()) return 0;
 
-    std::map<uint64, TXCACHE*>::iterator itMap = _cache.find(checksum);
+    std::map<uint64_t, TXCACHE*>::iterator itMap = _cache.find(checksum);
     if (itMap != _cache.end())
     {
         /* for texture cache (not hi-res cache) */
@@ -407,9 +407,9 @@ boolean TxCache::del(uint64 checksum)
     return 0;
 }
 
-boolean TxCache::is_cached(uint64 checksum)
+bool TxCache::is_cached(uint64_t checksum)
 {
-    std::map<uint64, TXCACHE*>::iterator itMap = _cache.find(checksum);
+    std::map<uint64_t, TXCACHE*>::iterator itMap = _cache.find(checksum);
     if (itMap != _cache.end()) return 1;
 
     return 0;
@@ -419,7 +419,7 @@ void TxCache::clear()
 {
     if (!_cache.empty())
     {
-        std::map<uint64, TXCACHE*>::iterator itMap = _cache.begin();
+        std::map<uint64_t, TXCACHE*>::iterator itMap = _cache.begin();
         while (itMap != _cache.end())
         {
             free((*itMap).second->info.data);
