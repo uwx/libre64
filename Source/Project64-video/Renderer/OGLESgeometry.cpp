@@ -14,9 +14,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#ifdef _WIN32
-#include <windows.h>
-#endif // _WIN32
 #include "glitchmain.h"
 #include <Project64-video/winlnxdefs.h>
 #include <Project64-video/rdp.h>
