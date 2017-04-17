@@ -27,41 +27,20 @@
  ******************************************************************************/
 TxLoadLib::TxLoadLib()
 {
-#ifdef DXTN_DLL
-    if (!_dxtnlib)
-        _dxtnlib = LoadLibrary("dxtn");
-
-    if (_dxtnlib) {
-        if (!_tx_compress_dxtn)
-            _tx_compress_dxtn = (dxtCompressTexFuncExt)DLSYM(_dxtnlib, "tx_compress_dxtn");
-
-        if (!_tx_compress_fxt1)
-            _tx_compress_fxt1 = (fxtCompressTexFuncExt)DLSYM(_dxtnlib, "fxt1_encode");
-    }
-#else
     _tx_compress_dxtn = tx_compress_dxtn;
     _tx_compress_fxt1 = fxt1_encode;
-
-#endif
 }
 
 TxLoadLib::~TxLoadLib()
 {
-#ifdef DXTN_DLL
-    /* free dynamic library */
-    if (_dxtnlib)
-        FreeLibrary(_dxtnlib);
-#endif
 }
 
-fxtCompressTexFuncExt
-TxLoadLib::getfxtCompressTexFuncExt()
+fxtCompressTexFuncExt TxLoadLib::getfxtCompressTexFuncExt()
 {
     return _tx_compress_fxt1;
 }
 
-dxtCompressTexFuncExt
-TxLoadLib::getdxtCompressTexFuncExt()
+dxtCompressTexFuncExt TxLoadLib::getdxtCompressTexFuncExt()
 {
     return _tx_compress_dxtn;
 }
@@ -69,8 +48,7 @@ TxLoadLib::getdxtCompressTexFuncExt()
 /*
  * Utilities
  ******************************************************************************/
-uint32
-TxUtil::checksumTx(uint8 *src, int width, int height, uint16 format)
+uint32 TxUtil::checksumTx(uint8 *src, int width, int height, uint16 format)
 {
     int dataSize = sizeofTx(width, height, format);
 
@@ -83,8 +61,7 @@ TxUtil::checksumTx(uint8 *src, int width, int height, uint16 format)
     return (dataSize ? crc32(crc32(0L, Z_NULL, 0), src, dataSize) : 0);
 }
 
-int
-TxUtil::sizeofTx(int width, int height, uint16 format)
+int TxUtil::sizeofTx(int width, int height, uint16 format)
 {
     int dataSize = 0;
 
@@ -124,52 +101,7 @@ TxUtil::sizeofTx(int width, int height, uint16 format)
     return dataSize;
 }
 
-#if 0 /* unused */
-uint32
-TxUtil::chkAlpha(uint32* src, int width, int height)
-{
-    /* NOTE: _src must be ARGB8888
-     * return values
-     * 0x00000000: 8bit alpha
-     * 0x00000001: 1bit alpha
-     * 0xff000001: no alpha
-     */
-
-    int _size = width * height;
-    uint32 alpha = 0;
-
-    __asm {
-        mov esi, dword ptr[src];
-        mov ecx, dword ptr[_size];
-        mov ebx, 0xff000000;
-
-    tc1_loop:
-        mov eax, dword ptr[esi];
-        add esi, 4;
-
-        and eax, 0xff000000;
-        jz  alpha1bit;
-        cmp eax, 0xff000000;
-        je  alpha1bit;
-        jmp done;
-
-    alpha1bit:
-        and ebx, eax;
-        dec ecx;
-        jnz tc1_loop;
-
-        or ebx, 0x00000001;
-        mov dword ptr[alpha], ebx;
-
-    done:
-    }
-
-    return alpha;
-}
-#endif
-
-uint32
-TxUtil::checksum(uint8 *src, int width, int height, int size, int rowStride)
+uint32 TxUtil::checksum(uint8 *src, int width, int height, int size, int rowStride)
 {
     /* Rice CRC32 for now. We can switch this to Jabo MD5 or
      * any other custom checksum.
@@ -180,8 +112,7 @@ TxUtil::checksum(uint8 *src, int width, int height, int size, int rowStride)
     return RiceCRC32(src, width, height, size, rowStride);
 }
 
-uint64_t
-TxUtil::checksum64(uint8 *src, int width, int height, int size, int rowStride, uint8 *palette)
+uint64_t TxUtil::checksum64(uint8 *src, int width, int height, int size, int rowStride, uint8 *palette)
 {
     /* Rice CRC32 for now. We can switch this to Jabo MD5 or
      * any other custom checksum.
@@ -192,25 +123,30 @@ TxUtil::checksum64(uint8 *src, int width, int height, int size, int rowStride, u
 
     uint64_t crc64Ret = 0;
 
-    if (palette) {
+    if (palette)
+    {
         uint32 crc32 = 0, cimax = 0;
-        switch (size & 0xff) {
+        switch (size & 0xff)
+        {
         case 1:
-            if (RiceCRC32_CI8(src, width, height, size, rowStride, &crc32, &cimax)) {
+            if (RiceCRC32_CI8(src, width, height, size, rowStride, &crc32, &cimax))
+            {
                 crc64Ret = (uint64_t)RiceCRC32(palette, cimax + 1, 1, 2, 512);
                 crc64Ret <<= 32;
                 crc64Ret |= (uint64_t)crc32;
             }
             break;
         case 0:
-            if (RiceCRC32_CI4(src, width, height, size, rowStride, &crc32, &cimax)) {
+            if (RiceCRC32_CI4(src, width, height, size, rowStride, &crc32, &cimax))
+            {
                 crc64Ret = (uint64_t)RiceCRC32(palette, cimax + 1, 1, 2, 32);
                 crc64Ret <<= 32;
                 crc64Ret |= (uint64_t)crc32;
             }
         }
     }
-    if (!crc64Ret) {
+    if (!crc64Ret)
+    {
         crc64Ret = (uint64_t)RiceCRC32(src, width, height, size, rowStride);
     }
 
@@ -252,42 +188,20 @@ TxUtil::checksum64(uint8 *src, int width, int height, int size, int rowStride, u
 ** separately. (Any sequence of zeroes has a Fletcher checksum of zero.)
 */
 
-uint32
-TxUtil::Adler32(const uint8* data, int Len, uint32 dwAdler32)
+uint32 TxUtil::Adler32(const uint8* data, int Len, uint32 dwAdler32)
 {
-#if 1
     /* zlib adler32 */
     return adler32(dwAdler32, data, Len);
-#else
-    register uint32 s1 = dwAdler32 & 0xFFFF;
-    register uint32 s2 = (dwAdler32 >> 16) & 0xFFFF;
-    int k;
-
-    while (Len > 0) {
-        /* 5552 is the largest n such that 255n(n+1)/2 + (n+1)(BASE-1) <= 2^32-1 */
-        k = (Len < 5552 ? Len : 5552);
-        Len -= k;
-        while (k--) {
-            s1 += *data++;
-            s2 += s1;
-        }
-        /* 65521 is the largest prime smaller than 65536 */
-        s1 %= 65521;
-        s2 %= 65521;
-    }
-
-    return (s2 << 16) | s1;
-#endif
 }
 
-uint32
-TxUtil::Adler32(const uint8* src, int width, int height, int size, int rowStride)
+uint32 TxUtil::Adler32(const uint8* src, int width, int height, int size, int rowStride)
 {
     int i;
     uint32 ret = 1;
     uint32 width_in_bytes = width * size;
 
-    for (i = 0; i < height; i++) {
+    for (i = 0; i < height; i++)
+    {
         ret = Adler32(src, width_in_bytes, ret);
         src += rowStride;
     }
@@ -321,8 +235,7 @@ template<class T> static T __ROL__(T value, unsigned int count)
  *          (unsigned short)(rdp.tiles(tile).format << 8 | rdp.tiles(tile).size),
  *          bpl);
  */
-uint32
-TxUtil::RiceCRC32(const uint8* src, int width, int height, int size, int rowStride)
+uint32 TxUtil::RiceCRC32(const uint8* src, int width, int height, int size, int rowStride)
 {
     const uint8_t *row;
     uint32_t crc32Ret;
@@ -336,8 +249,10 @@ TxUtil::RiceCRC32(const uint8* src, int width, int height, int size, int rowStri
     row = src;
     crc32Ret = 0;
 
-    for (cur_height = height - 1; cur_height >= 0; cur_height--) {
-        for (pos = bytes_per_width - 4; pos < 0x80000000u; pos -= 4) {
+    for (cur_height = height - 1; cur_height >= 0; cur_height--)
+    {
+        for (pos = bytes_per_width - 4; pos < 0x80000000u; pos -= 4)
+        {
             word = *(uint32_t *)&row[pos];
             word_hash = pos ^ word;
             tmp = __ROL__(crc32Ret, 4);
@@ -349,9 +264,7 @@ TxUtil::RiceCRC32(const uint8* src, int width, int height, int size, int rowStri
     return crc32Ret;
 }
 
-bool
-TxUtil::RiceCRC32_CI4(const uint8* src, int width, int height, int size, int rowStride,
-    uint32* crc32, uint32* cimax)
+bool TxUtil::RiceCRC32_CI4(const uint8* src, int width, int height, int size, int rowStride, uint32* crc32, uint32* cimax)
 {
     const uint8_t *row;
     uint32_t crc32Ret;
@@ -367,10 +280,13 @@ TxUtil::RiceCRC32_CI4(const uint8* src, int width, int height, int size, int row
     crc32Ret = 0;
     cimaxRet = 0;
 
-    for (cur_height = height - 1; cur_height >= 0; cur_height--) {
-        for (pos = bytes_per_width - 4; pos < 0x80000000u; pos -= 4) {
+    for (cur_height = height - 1; cur_height >= 0; cur_height--)
+    {
+        for (pos = bytes_per_width - 4; pos < 0x80000000u; pos -= 4)
+        {
             word = *(uint32_t *)&row[pos];
-            if (cimaxRet != 15) {
+            if (cimaxRet != 15)
+            {
                 if ((word & 0xF) >= cimaxRet)
                     cimaxRet = word & 0xF;
                 if ((uint32_t)((uint8_t)word >> 4) >= cimaxRet)
@@ -400,9 +316,7 @@ TxUtil::RiceCRC32_CI4(const uint8* src, int width, int height, int size, int row
     return 1;
 }
 
-bool
-TxUtil::RiceCRC32_CI8(const uint8* src, int width, int height, int size, int rowStride,
-    uint32* crc32, uint32* cimax)
+bool TxUtil::RiceCRC32_CI8(const uint8* src, int width, int height, int size, int rowStride, uint32* crc32, uint32* cimax)
 {
     const uint8_t *row;
     uint32_t crc32Ret;
@@ -418,10 +332,13 @@ TxUtil::RiceCRC32_CI8(const uint8* src, int width, int height, int size, int row
     crc32Ret = 0;
     cimaxRet = 0;
 
-    for (cur_height = height - 1; cur_height >= 0; cur_height--) {
-        for (pos = bytes_per_width - 4; pos < 0x80000000u; pos -= 4) {
+    for (cur_height = height - 1; cur_height >= 0; cur_height--)
+    {
+        for (pos = bytes_per_width - 4; pos < 0x80000000u; pos -= 4)
+        {
             word = *(uint32_t *)&row[pos];
-            if (cimaxRet != 255) {
+            if (cimaxRet != 255)
+            {
                 if ((uint8_t)word >= cimaxRet)
                     cimaxRet = (uint8_t)word;
                 if ((uint32_t)((uint16_t)word >> 8) >= cimaxRet)
@@ -443,8 +360,7 @@ TxUtil::RiceCRC32_CI8(const uint8* src, int width, int height, int size, int row
     return 1;
 }
 
-int
-TxUtil::log2(int num)
+int TxUtil::log2(int num)
 {
 #if defined(__GNUC__)
     return __builtin_ctz(num);
@@ -476,20 +392,17 @@ TxUtil::log2(int num)
 #endif
 }
 
-int
-TxUtil::grLodLog2(int w, int h)
+int TxUtil::grLodLog2(int w, int h)
 {
     return (w >= h ? log2(w) : log2(h));
 }
 
-int
-TxUtil::grAspectRatioLog2(int w, int h)
+int TxUtil::grAspectRatioLog2(int w, int h)
 {
     return (w >= h ? log2(w / h) : -log2(h / w));
 }
 
-int
-TxUtil::getNumberofProcessors()
+int TxUtil::getNumberofProcessors()
 {
     int numcore = 1, ret;
 
@@ -532,17 +445,19 @@ TxMemBuf::~TxMemBuf()
     shutdown();
 }
 
-bool
-TxMemBuf::init(int maxwidth, int maxheight)
+bool TxMemBuf::init(int maxwidth, int maxheight)
 {
     int i;
-    for (i = 0; i < 2; i++) {
-        if (!_tex[i]) {
+    for (i = 0; i < 2; i++)
+    {
+        if (!_tex[i])
+        {
             _tex[i] = (uint8 *)malloc(maxwidth * maxheight * 4);
             _size[i] = maxwidth * maxheight * 4;
         }
 
-        if (!_tex[i]) {
+        if (!_tex[i])
+        {
             shutdown();
             return 0;
         }
@@ -550,8 +465,7 @@ TxMemBuf::init(int maxwidth, int maxheight)
     return 1;
 }
 
-void
-TxMemBuf::shutdown()
+void TxMemBuf::shutdown()
 {
     int i;
     for (i = 0; i < 2; i++) {
@@ -561,14 +475,12 @@ TxMemBuf::shutdown()
     }
 }
 
-uint8*
-TxMemBuf::get(unsigned int num)
+uint8* TxMemBuf::get(unsigned int num)
 {
     return ((num < 2) ? _tex[num] : NULL);
 }
 
-uint32
-TxMemBuf::size_of(unsigned int num)
+uint32 TxMemBuf::size_of(unsigned int num)
 {
     return ((num < 2) ? _size[num] : 0);
 }

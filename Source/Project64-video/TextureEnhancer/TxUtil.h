@@ -21,7 +21,6 @@
 #include "TxInternal.h"
 #include <string>
 
-#ifndef DXTN_DLL
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -35,7 +34,6 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#endif /* DXTN_DLL */
 
 typedef void(*dxtCompressTexFuncExt)(int srccomps, int width,
     int height, const void *srcPixData,
@@ -49,9 +47,6 @@ typedef int(*fxtCompressTexFuncExt)(int width, int height, int comps,
 class TxLoadLib
 {
 private:
-#ifdef DXTN_DLL
-    HMODULE _dxtnlib;
-#endif
     fxtCompressTexFuncExt _tx_compress_fxt1;
     dxtCompressTexFuncExt _tx_compress_dxtn;
     TxLoadLib();
