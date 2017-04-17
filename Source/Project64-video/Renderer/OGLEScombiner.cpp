@@ -11,13 +11,6 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
-
-#ifdef _WIN32
-#include <windows.h>
-#else // _WIN32
-#include <string.h>
-#include <stdlib.h>
-#endif // _WIN32
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
