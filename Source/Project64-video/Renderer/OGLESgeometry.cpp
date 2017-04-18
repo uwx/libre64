@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "glitchmain.h"
-#include <Project64-video/winlnxdefs.h>
 #include <Project64-video/rdp.h>
 #include <Project64-video/trace.h>
 
