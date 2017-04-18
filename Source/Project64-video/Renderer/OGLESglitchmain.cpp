@@ -116,34 +116,6 @@ void display_warning(const char *text, ...)
     }
 }
 
-#ifdef _WIN32
-void display_error()
-{
-    LPVOID lpMsgBuf;
-    if (!FormatMessage(
-        FORMAT_MESSAGE_ALLOCATE_BUFFER |
-        FORMAT_MESSAGE_FROM_SYSTEM |
-        FORMAT_MESSAGE_IGNORE_INSERTS,
-        NULL,
-        GetLastError(),
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-        (LPTSTR)&lpMsgBuf,
-        0,
-        NULL))
-    {
-        // Handle the error.
-        return;
-    }
-    // Process any inserts in lpMsgBuf.
-    // ...
-    // Display the string.
-    MessageBox(NULL, (LPCTSTR)lpMsgBuf, "Error", MB_OK | MB_ICONINFORMATION);
-
-    // Free the buffer.
-    LocalFree(lpMsgBuf);
-}
-#endif // _WIN32
-
 void gfxClipWindow(uint32_t minx, uint32_t miny, uint32_t maxx, uint32_t maxy)
 {
     WriteTrace(TraceGlitch, TraceDebug, "minx = %d, miny: %d maxy: %d", minx, miny, maxy);
@@ -317,8 +289,8 @@ bool gfxSstWinClose(void)
             glDeleteTextures(1, &(fbs[i].texid));
             glDeleteFramebuffers(1, &(fbs[i].fbid));
             glDeleteRenderbuffers(1, &(fbs[i].zbid));
+        }
     }
-}
 #endif
     nb_fb = 0;
 
@@ -459,7 +431,7 @@ void gfxTextureBufferExt(gfxChipID_t tmu, uint32_t startAddress, gfxLOD_t lodmin
             glViewport(0, g_viewport_offset, g_width, g_height);
 
         glScissor(0, g_viewport_offset, g_width, g_height);
-    }
+        }
     else {
         if (!render_to_texture) //initialization
         {
@@ -925,7 +897,7 @@ void gfxBufferSwap(uint32_t swap_interval)
     {
         fbs[i].buff_clear = 1;
     }
-    }
+}
 
 bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode, gfxOriginLocation_t origin, bool pixelPipeline, gfxLfbInfo_t *info)
 {

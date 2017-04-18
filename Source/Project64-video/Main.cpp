@@ -801,11 +801,12 @@ void CALL MoveScreen(int xpos, int ypos)
 
 void CALL PluginLoaded(void)
 {
+    SetupTrace();
     if (g_settings == NULL)
     {
         g_settings = new CSettings;
     }
-    SetupTrace();
+    StartTrace();
 
     WriteTrace(TraceInterface, TraceDebug, "Start");
     WriteTrace(TraceInterface, TraceDebug, "Done");

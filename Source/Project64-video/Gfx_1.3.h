@@ -17,7 +17,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include <stddef.h>		// offsetof
-//#include <Common/MemTest.h>
+#include <Common/MemTest.h>
 #include "rdp.h"
 #include "Config.h"
 #include "Settings.h"
