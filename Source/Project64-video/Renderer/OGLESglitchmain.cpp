@@ -16,7 +16,6 @@
 
 #ifdef _WIN32
 #include <windows.h>
-#include <commctrl.h>
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
 #include <angle/src/libEGL/libEGL.h>
@@ -149,7 +148,8 @@ void gfxClipWindow(uint32_t minx, uint32_t miny, uint32_t maxx, uint32_t maxy)
 {
     WriteTrace(TraceGlitch, TraceDebug, "minx = %d, miny: %d maxy: %d", minx, miny, maxy);
 
-    if (use_fbo && render_to_texture) {
+    if (use_fbo && render_to_texture)
+    {
         if (int(minx) < 0) minx = 0;
         if (int(miny) < 0) miny = 0;
         if (maxx < minx) maxx = minx;
@@ -159,7 +159,8 @@ void gfxClipWindow(uint32_t minx, uint32_t miny, uint32_t maxx, uint32_t maxy)
         return;
     }
 
-    if (!use_fbo) {
+    if (!use_fbo)
+    {
         int th = g_height;
         if (th > screen_height)
             th = screen_height;
@@ -175,7 +176,8 @@ void gfxClipWindow(uint32_t minx, uint32_t miny, uint32_t maxx, uint32_t maxy)
         glScissor(minx, miny + g_viewport_offset, maxx - minx, maxy - miny);
         //printf("gl scissor %d %d %d %d\n", minx, miny, maxx, maxy);
     }
-    else {
+    else
+    {
         glScissor(minx, (g_viewport_offset)+g_height - maxy, maxx - minx, maxy - miny);
     }
     glEnable(GL_SCISSOR_TEST);
@@ -315,8 +317,8 @@ bool gfxSstWinClose(void)
             glDeleteTextures(1, &(fbs[i].texid));
             glDeleteFramebuffers(1, &(fbs[i].fbid));
             glDeleteRenderbuffers(1, &(fbs[i].zbid));
-        }
     }
+}
 #endif
     nb_fb = 0;
 
@@ -923,7 +925,7 @@ void gfxBufferSwap(uint32_t swap_interval)
     {
         fbs[i].buff_clear = 1;
     }
-}
+    }
 
 bool gfxLfbLock(gfxLock_t type, gfxBuffer_t buffer, gfxLfbWriteMode_t writeMode, gfxOriginLocation_t origin, bool pixelPipeline, gfxLfbInfo_t *info)
 {
