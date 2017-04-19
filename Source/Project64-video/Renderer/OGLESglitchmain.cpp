@@ -135,7 +135,9 @@ void gfxClipWindow(uint32_t minx, uint32_t miny, uint32_t maxx, uint32_t maxy)
     {
         int th = g_height;
         if (th > screen_height)
+        {
             th = screen_height;
+        }
         maxy = th - maxy;
         miny = th - miny;
         uint32_t tmp = maxy; maxy = miny; miny = tmp;
@@ -431,7 +433,7 @@ void gfxTextureBufferExt(gfxChipID_t tmu, uint32_t startAddress, gfxLOD_t lodmin
             glViewport(0, g_viewport_offset, g_width, g_height);
 
         glScissor(0, g_viewport_offset, g_width, g_height);
-        }
+    }
     else {
         if (!render_to_texture) //initialization
         {
