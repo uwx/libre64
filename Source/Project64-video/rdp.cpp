@@ -729,6 +729,65 @@ void GoToFullScreen()
     }
 }
 
+void PreProcessDList(void)
+{
+    no_dlist = false;
+    update_screen_count = 0;
+    ChangeSize();
+
+    // Switch to fullscreen?
+    if (to_fullscreen)
+    {
+        GoToFullScreen();
+    }
+
+    //* Set states *//
+    if (g_settings->swapmode() != CSettings::SwapMode_Old)
+    {
+        SwapOK = TRUE;
+    }
+    rdp.updatescreen = 1;
+
+    rdp.tri_n = 0;  // 0 triangles so far this frame
+    rdp.debug_n = 0;
+    rdp.model_i = 0; // 0 matrices so far in stack
+    //stack_size can be less then 32! Important for Silicon Vally. Thanks Orkin!
+    rdp.model_stack_size = minval(32, (*(uint32_t*)(gfx.DMEM + 0x0FE4)) >> 6);
+    if (rdp.model_stack_size == 0)
+    {
+        rdp.model_stack_size = 32;
+    }
+
+    rdp.Persp_en = TRUE;
+    rdp.fb_drawn = rdp.fb_drawn_front = FALSE;
+    rdp.update = 0x7FFFFFFF;  // All but clear cache
+    rdp.geom_mode = 0;
+    rdp.acmp = 0;
+    rdp.maincimg[1] = rdp.maincimg[0];
+    rdp.skip_drawing = FALSE;
+    rdp.s2dex_tex_loaded = FALSE;
+    rdp.bg_image_height = 0xFFFF;
+    fbreads_front = fbreads_back = 0;
+    rdp.fog_multiplier = rdp.fog_offset = 0;
+    rdp.zsrc = 0;
+
+    if (rdp.vi_org_reg != *gfx.VI_ORIGIN_REG)
+    {
+        rdp.tlut_mode = 0; //is it correct?
+    }
+    rdp.scissor_set = FALSE;
+    ucode5_texshiftaddr = ucode5_texshiftcount = 0;
+    cpu_fb_write = FALSE;
+    cpu_fb_read_called = FALSE;
+    cpu_fb_write_called = FALSE;
+    cpu_fb_ignore = FALSE;
+    d_ul_x = 0xffff;
+    d_ul_y = 0xffff;
+    d_lr_x = 0;
+    d_lr_y = 0;
+    depth_buffer_fog = TRUE;
+}
+
 /******************************************************************
 Function: ProcessDList
 Purpose:  This function is called when there is a Dlist to be
@@ -754,9 +813,6 @@ EXPORT void CALL ProcessDList(void)
 #ifdef _WIN32
     CGuard guard(*g_ProcessDListCS);
 #endif
-    no_dlist = false;
-    update_screen_count = 0;
-    ChangeSize();
 
     WriteTrace(TraceGlide64, TraceDebug, "ProcessDList");
 
@@ -785,59 +841,17 @@ EXPORT void CALL ProcessDList(void)
         return;
     }
 
-    // Switch to fullscreen?
-    if (to_fullscreen)
-    {
-        GoToFullScreen();
-    }
-
-    //* Set states *//
-    if (g_settings->swapmode() != CSettings::SwapMode_Old)
-    {
-        SwapOK = TRUE;
-    }
-    rdp.updatescreen = 1;
-
-    rdp.tri_n = 0;  // 0 triangles so far this frame
-    rdp.debug_n = 0;
-
-    rdp.model_i = 0; // 0 matrices so far in stack
-    //stack_size can be less then 32! Important for Silicon Vally. Thanks Orkin!
-    rdp.model_stack_size = minval(32, (*(uint32_t*)(gfx.DMEM + 0x0FE4)) >> 6);
-    if (rdp.model_stack_size == 0)
-        rdp.model_stack_size = 32;
-    rdp.Persp_en = TRUE;
-    rdp.fb_drawn = rdp.fb_drawn_front = FALSE;
-    rdp.update = 0x7FFFFFFF;  // All but clear cache
-    rdp.geom_mode = 0;
-    rdp.acmp = 0;
-    rdp.maincimg[1] = rdp.maincimg[0];
-    rdp.skip_drawing = FALSE;
-    rdp.s2dex_tex_loaded = FALSE;
-    rdp.bg_image_height = 0xFFFF;
-    fbreads_front = fbreads_back = 0;
-    rdp.fog_multiplier = rdp.fog_offset = 0;
-    rdp.zsrc = 0;
-    if (rdp.vi_org_reg != *gfx.VI_ORIGIN_REG)
-        rdp.tlut_mode = 0; //is it correct?
-    rdp.scissor_set = FALSE;
-    ucode5_texshiftaddr = ucode5_texshiftcount = 0;
-    cpu_fb_write = FALSE;
-    cpu_fb_read_called = FALSE;
-    cpu_fb_write_called = FALSE;
-    cpu_fb_ignore = FALSE;
-    d_ul_x = 0xffff;
-    d_ul_y = 0xffff;
-    d_lr_x = 0;
-    d_lr_y = 0;
-    depth_buffer_fog = TRUE;
+    PreProcessDList();
 
     //analize possible frame buffer usage
     if (g_settings->fb_emulation_enabled())
+    {
         DetectFrameBufferUsage();
+    }
     if (!g_settings->hacks(CSettings::hack_Lego) || rdp.num_of_ci > 1)
+    {
         rdp.last_bg = 0;
-    //* End of set states *//
+    }
 
     // Get the start of the display list and the length of it
     uint32_t dlist_start = *(uint32_t*)(gfx.DMEM + 0xFF0);
@@ -846,10 +860,14 @@ EXPORT void CALL ProcessDList(void)
 
     // Do nothing if dlist is empty
     if (dlist_start == 0)
+    {
         return;
+    }
 
     if (cpu_fb_write == TRUE)
+    {
         DrawPartFrameBufferToScreen();
+    }
     if (g_settings->hacks(CSettings::hack_Tonic) && dlist_length < 16)
     {
         rdp_fullsync();
@@ -4233,54 +4251,7 @@ void CALL ProcessRDPList(void)
 #endif
     WriteTrace(TraceGlide64, TraceDebug, "-");
 
-    no_dlist = false;
-    update_screen_count = 0;
-    ChangeSize();
-
-    // Switch to fullscreen?
-    if (to_fullscreen)
-        GoToFullScreen();
-
-    //* Set states *//
-    if (g_settings->swapmode() != CSettings::SwapMode_Old)
-    {
-        SwapOK = TRUE;
-    }
-    rdp.updatescreen = 1;
-
-    rdp.tri_n = 0;  // 0 triangles so far this frame
-    rdp.debug_n = 0;
-
-    rdp.model_i = 0; // 0 matrices so far in stack
-    //stack_size can be less then 32! Important for Silicon Vally. Thanks Orkin!
-    rdp.model_stack_size = minval(32, (*(uint32_t*)(gfx.DMEM + 0x0FE4)) >> 6);
-    if (rdp.model_stack_size == 0)
-        rdp.model_stack_size = 32;
-    rdp.Persp_en = TRUE;
-    rdp.fb_drawn = rdp.fb_drawn_front = FALSE;
-    rdp.update = 0x7FFFFFFF;  // All but clear cache
-    rdp.geom_mode = 0;
-    rdp.acmp = 0;
-    rdp.maincimg[1] = rdp.maincimg[0];
-    rdp.skip_drawing = FALSE;
-    rdp.s2dex_tex_loaded = FALSE;
-    rdp.bg_image_height = 0xFFFF;
-    fbreads_front = fbreads_back = 0;
-    rdp.fog_multiplier = rdp.fog_offset = 0;
-    rdp.zsrc = 0;
-    if (rdp.vi_org_reg != *gfx.VI_ORIGIN_REG)
-        rdp.tlut_mode = 0; //is it correct?
-    rdp.scissor_set = FALSE;
-    ucode5_texshiftaddr = ucode5_texshiftcount = 0;
-    cpu_fb_write = FALSE;
-    cpu_fb_read_called = FALSE;
-    cpu_fb_write_called = FALSE;
-    cpu_fb_ignore = FALSE;
-    d_ul_x = 0xffff;
-    d_ul_y = 0xffff;
-    d_lr_x = 0;
-    d_lr_y = 0;
-    depth_buffer_fog = TRUE;
+    PreProcessDList();
 
     const uint32_t length = dp_end - dp_current;
 
