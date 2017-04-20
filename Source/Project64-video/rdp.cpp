@@ -729,6 +729,18 @@ void GoToFullScreen()
     }
 }
 
+uint32_t fbreads_front = 0;
+uint32_t fbreads_back = 0;
+int cpu_fb_read_called = FALSE;
+int cpu_fb_write_called = FALSE;
+int cpu_fb_write = FALSE;
+int cpu_fb_ignore = FALSE;
+int CI_SET = TRUE;
+uint32_t ucode5_texshiftaddr = 0;
+uint32_t ucode5_texshiftcount = 0;
+uint16_t ucode5_texshift = 0;
+int depth_buffer_fog;
+
 void PreProcessDList(void)
 {
     no_dlist = false;
@@ -796,17 +808,6 @@ input:    none
 output:   none
 *******************************************************************/
 void DetectFrameBufferUsage();
-uint32_t fbreads_front = 0;
-uint32_t fbreads_back = 0;
-int cpu_fb_read_called = FALSE;
-int cpu_fb_write_called = FALSE;
-int cpu_fb_write = FALSE;
-int cpu_fb_ignore = FALSE;
-int CI_SET = TRUE;
-uint32_t ucode5_texshiftaddr = 0;
-uint32_t ucode5_texshiftcount = 0;
-uint16_t ucode5_texshift = 0;
-int depth_buffer_fog;
 
 EXPORT void CALL ProcessDList(void)
 {
