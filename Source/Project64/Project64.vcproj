@@ -151,6 +151,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Patreon.cpp"
+				>
+			</File>
+			<File
 				RelativePath="stdafx.cpp"
 				>
 				<FileConfiguration
@@ -215,6 +219,10 @@
 				</File>
 				<File
 					RelativePath=".\UserInterface\NotificationClass.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\UserInterface\PatreonEmail.cpp"
 					>
 				</File>
 				<File

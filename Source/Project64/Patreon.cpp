@@ -1,13 +1,12 @@
 #include "stdafx.h"
 #include "UserInterface/PatreonEmail.h"
 
-#include <regex>
-
 bool ValidPatreonEmail (void)
 {
     std::string email = UISettingsLoadStringVal(SupportWindows_PatreonEmail);
-    const std::regex pattern("(\\w+)@(\\w+)(\\.(\\w+))+");
-    bool valid = std::regex_match(email, pattern);
+	std::string::iterator b=email.begin(), e=email.end();
+
+	bool valid = (b=std::find(b, e, '@')) != e && std::find(b, e, '.') != e;
     return valid;
 }
 
