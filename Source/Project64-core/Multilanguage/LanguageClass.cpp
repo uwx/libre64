@@ -113,6 +113,8 @@ void CLanguage::LoadDefaultStrings(void)
     DEF_STR(MENU_ABOUT_PJ64, "&About Project64");
     DEF_STR(MENU_FORUM, "Support &Forum");
     DEF_STR(MENU_HOMEPAGE, "&Homepage");
+    DEF_STR(MENU_PARTREON_PAGE, "Support Project64 @ Patreon");
+    DEF_STR(MENU_PARTREON_EMAIL, "Patreon &Email Address");
 
     //Current Save Slot menu
     DEF_STR(MENU_SLOT_DEFAULT, "Default");
@@ -442,8 +444,8 @@ void CLanguage::LoadDefaultStrings(void)
     /*********************************************************************************
     * Support Window                                                                 *
     *********************************************************************************/
-    DEF_STR(MSG_SUPPORT_TITLE, "Support Project64");
-    DEF_STR(MSG_SUPPORT_INFO, "Project64 is a software package designed to emulate a Nintendo64 video game system on a Microsoft Windows based PC. This allows you to play real N64 software in much the same way as it would be on the original hardware system.\n\nIf you like Project64 and have gotten some value out of it then please support project64 as either a thank you, or your desire to see it continually improved.\n\nIf you have supported project64:");
+    DEF_STR(MSG_SUPPORT_TITLE, "Projec64 needs your help");
+    DEF_STR(MSG_SUPPORT_INFO, "Developing a fully functional emulator is a massive time consuming project. With making a donation you can show your appreciation for this effort and at the same time support future development.\n\nClick Support Project64 button below to view our patreon page.\n\nIf you are a Patreon already then click below to enter your email address to validate it and Project64 will stop prompting you for support.");
     DEF_STR(MSG_SUPPORT_ENTER_CODE, "Enter notification code");
     DEF_STR(MSG_SUPPORT_PROJECT64, "Support Project64");
     DEF_STR(MSG_SUPPORT_CONTINUE, "Continue");
@@ -454,6 +456,10 @@ void CLanguage::LoadDefaultStrings(void)
     DEF_STR(MSG_SUPPORT_ENTER_CODE_DESC, "Please enter the code in the email");
     DEF_STR(MSG_SUPPORT_OK, "OK");
     DEF_STR(MSG_SUPPORT_CANCEL, "Cancel");
+    DEF_STR(MSG_SUPPORT_ENTER_CODE_INFO, "If you have already supported Project64 and have a notification code, then click \"enter notification code\"");
+    DEF_STR(MSG_SUPPORT_PATREON_EMAIL_TITLE, "Enter Patreon Email address");
+    DEF_STR(MSG_SUPPORT_PATREON_EMAIL_DESC, "Enter the email address you used on Patreon to support Project64 with");
+    DEF_STR(MSG_SUPPORT_ENTER_PATREON_EMAIL, "Please Enter a valid patreon email address");
 
     /*********************************************************************************
     * Messages                                                                       *

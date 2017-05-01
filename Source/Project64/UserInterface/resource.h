@@ -249,6 +249,8 @@
 #define IDC_ENTER_CODE                  1102
 #define IDC_DESCRIPTION                 1102
 #define IDC_DIR_FRAME3                  1103
+#define IDC_ENTER_PATREON               1103
+#define IDC_INFO_NOTIFICATION           1104
 #define IDC_DIR_FRAME4                  1104
 #define IDC_DIR_FRAME5                  1105
 #define IDC_MAXROMS_TXT                 1111

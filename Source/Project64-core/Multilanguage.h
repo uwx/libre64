@@ -106,6 +106,8 @@ enum LanguageStringID
     MENU_ABOUT_PJ64 = 182,
     MENU_FORUM = 183,
     MENU_HOMEPAGE = 184,
+    MENU_PARTREON_PAGE = 185,
+    MENU_PARTREON_EMAIL = 186,
 
     //Current Save Slot menu
     MENU_SLOT_DEFAULT = 190,
@@ -486,6 +488,10 @@ enum LanguageStringID
     MSG_SUPPORT_ENTER_CODE_DESC = 1209,
     MSG_SUPPORT_OK = 1210,
     MSG_SUPPORT_CANCEL = 1211,
+    MSG_SUPPORT_ENTER_CODE_INFO = 1212,
+    MSG_SUPPORT_PATREON_EMAIL_TITLE = 1213,
+    MSG_SUPPORT_PATREON_EMAIL_DESC = 1214,
+    MSG_SUPPORT_ENTER_PATREON_EMAIL = 1215,
 
     /*********************************************************************************
     * Messages                                                                       *
@@ -535,7 +541,7 @@ enum LanguageStringID
     MSG_DEL_TITLE = 2042,
     MSG_CHEAT_NAME_IN_USE = 2043,
     MSG_MAX_CHEATS = 2044,
-    MSG_PLUGIN_INIT = 2045,	
+    MSG_PLUGIN_INIT = 2045,
     MSG_NO_SHORTCUT_SEL = 2046,
     MSG_NO_MENUITEM_SEL = 2047,
     MSG_MENUITEM_ASSIGNED = 2048,

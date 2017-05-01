@@ -64,6 +64,7 @@ void RegisterUISettings (void)
     g_Settings->AddHandler((SettingID)(FirstUISettings + File_RecentGameFileIndex), new CSettingTypeApplicationIndex("Recent File", "Recent Rom", Default_None));
 
     g_Settings->AddHandler((SettingID)(FirstUISettings + SupportWindows_RunCount), new CSettingTypeApplication("Support Project64", "Run Count", (uint32_t)0));
+    g_Settings->AddHandler((SettingID)(FirstUISettings + SupportWindows_PatreonEmail), new CSettingTypeApplication("Support Project64", "Patreon Email", ""));
 }
 
 void UISettingsSaveBool(UISettingID Type, bool Value)

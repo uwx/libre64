@@ -1,4 +1,3 @@
-
 // Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
@@ -40,12 +39,12 @@ END
 
 2 TEXTINCLUDE 
 BEGIN
-	"#include ""WinResrc.h""\r\n"
-	"\r\n"
-	"#ifdef IDC_STATIC\r\n"
-	"#undef IDC_STATIC\r\n"
-	"#endif\r\n"
-	"#define IDC_STATIC              (-1)\r\n"
+    "#include ""WinResrc.h""\r\n"
+    "\r\n"
+    "#ifdef IDC_STATIC\r\n"
+    "#undef IDC_STATIC\r\n"
+    "#endif\r\n"
+    "#define IDC_STATIC              (-1)\r\n"
     "\0"
 END
 
@@ -641,16 +640,18 @@ BEGIN
     EDITTEXT        IDC_NOTES_PLUGIN,80,62,132,30,ES_AUTOHSCROLL
 END
 
-IDD_Support_Project64 DIALOGEX 0, 0, 233, 207
+IDD_Support_Project64 DIALOGEX 0, 0, 233, 237
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Support Project64"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     CONTROL         IDB_ABOUT_LOGO,IDC_STATIC,"Static",SS_BITMAP,0,0,233,74
-    DEFPUSHBUTTON   "Support Project64",ID_SUPPORT_PJ64,19,186,71,14
-    PUSHBUTTON      "Continue",IDCANCEL,139,186,71,14
-    LTEXT           "Project64 is a software package",IDC_INFO,7,76,213,79
+    DEFPUSHBUTTON   "Support Project64",ID_SUPPORT_PJ64,19,216,71,14
+    PUSHBUTTON      "Continue",IDCANCEL,139,216,71,14
+    LTEXT           "Project64 is a software package",IDC_INFO,12,81,213,43
     LTEXT           "Enter notification code",IDC_ENTER_CODE,8,164,213,8
+    LTEXT           "Please enter notifiation code",IDC_INFO_NOTIFICATION,7,143,213,17
+    LTEXT           "Enter patreon email",IDC_ENTER_PATREON,7,132,213,8
 END
 
 IDD_Support_EnterCode DIALOGEX 0, 0, 161, 68

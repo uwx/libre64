@@ -51,6 +51,7 @@
     <ClCompile Include="N64System\Debugger\Debugger-TLB.cpp" />
     <ClCompile Include="N64System\Debugger\Debugger-ViewMemory.cpp" />
     <ClCompile Include="N64System\Debugger\Debugger.cpp" />
+    <ClCompile Include="Patreon.cpp" />
     <ClCompile Include="Plugins\PluginList.cpp" />
     <ClCompile Include="Settings\GuiSettings.cpp" />
     <ClCompile Include="Settings\NotificationSettings.cpp" />
@@ -65,6 +66,7 @@
     <ClCompile Include="UserInterface\MenuClass.cpp" />
     <ClCompile Include="UserInterface\MenuShortCuts.cpp" />
     <ClCompile Include="UserInterface\NotificationClass.cpp" />
+    <ClCompile Include="UserInterface\PatreonEmail.cpp" />
     <ClCompile Include="UserInterface\RomBrowserClass.cpp" />
     <ClCompile Include="UserInterface\RomInformationClass.cpp" />
     <ClCompile Include="UserInterface\SettingsConfig.cpp" />
@@ -94,6 +96,7 @@
     <ClInclude Include="N64System\Debugger\Debugger-ViewMemory.h" />
     <ClInclude Include="N64System\Debugger\debugger.h" />
     <ClInclude Include="N64System\Debugger\DebuggerUI.h" />
+    <ClInclude Include="Patreon.h" />
     <ClInclude Include="Settings\GuiSettings.h" />
     <ClInclude Include="Settings\NotificationSettings.h" />
     <ClInclude Include="Settings\UISettings.h" />
@@ -107,6 +110,7 @@
     <ClInclude Include="UserInterface\MenuClass.h" />
     <ClInclude Include="UserInterface\MenuShortCuts.h" />
     <ClInclude Include="UserInterface\NotificationClass.h" />
+    <ClInclude Include="UserInterface\PatreonEmail.h" />
     <ClInclude Include="UserInterface\resource.h" />
     <ClInclude Include="UserInterface\RomBrowser.h" />
     <ClInclude Include="UserInterface\RomInformationClass.h" />

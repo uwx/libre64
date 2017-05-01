@@ -76,6 +76,8 @@
 #182#  "&About Project64"
 #183# "Support &Forum"
 #184# "&Homepage"
+#185# "Support Project64 @ Patreon"
+#186# "Patreon &Email Address"
 
 //Current Save Slot menu
 #190#  "Default"
@@ -443,8 +445,8 @@
 /*********************************************************************************
 * Support Window                                                                 *
 *********************************************************************************/
-#1200#  "Support Project64"
-#1201#  "Project64 is a software package designed to emulate a Nintendo64 video game system on a Microsoft Windows based PC. This allows you to play real N64 software in much the same way as it would be on the original hardware system.\n\nIf you like Project64 and have gotten some value out of it then please support project64 as either a thank you, or your desire to see it continually improved.\n\nIf you have supported project64:"
+#1200#  "Projec64 needs your help"
+#1201#  "Developing a fully functional emulator is a massive time consuming project. With making a donation you can show your appreciation for this effort and at the same time support future development.\n\nClick Support Project64 button below to view our patreon page.\n\nIf you are a Patreon already then click below to enter your email address to validate it and Project64 will stop prompting you for support."
 #1202#  "Enter notification code"
 #1203#  "Support Project64"
 #1204#  "Continue"
@@ -455,6 +457,10 @@
 #1209#  "Please enter the code in the email"
 #1210#  "OK"
 #1211#  "Cancel"
+#1212#  "If you have already supported Project64 and have a notification code, then click enter notification code"
+#1213#  "Enter Patreon Email address"
+#1214#  "Enter the email address you used on Patreon to support Project64 with"
+#1215#  "Please Enter a valid patreon email address"
 
 /*********************************************************************************
 * Messages                                                                       *

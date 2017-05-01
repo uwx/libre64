@@ -61,6 +61,7 @@ enum UISettingID
 
     //Support Window
     SupportWindows_RunCount,
+    SupportWindows_PatreonEmail,
 };
 
 void RegisterUISettings (void);

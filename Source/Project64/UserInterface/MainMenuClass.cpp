@@ -1,14 +1,15 @@
 #include "stdafx.h"
 #include "RomInformationClass.h"
 #include <Project64-core/N64System/N64DiskClass.h>
+#include <Project64/Patreon.h>
 
 #include <windows.h>
 #include <commdlg.h>
 
 CMainMenu::CMainMenu(CMainGui * hMainWindow) :
-CBaseMenu(),
-m_ResetAccelerators(true),
-m_Gui(hMainWindow)
+    CBaseMenu(),
+    m_ResetAccelerators(true),
+    m_Gui(hMainWindow)
 {
     ResetMenu();
 
@@ -524,6 +525,8 @@ bool CMainMenu::ProcessMessage(HWND hWnd, DWORD /*FromAccelerator*/, DWORD MenuI
     case ID_HELP_HOMEPAGE: ShellExecute(NULL, "open", "http://www.pj64-emu.com", NULL, NULL, SW_SHOWMAXIMIZED); break;
     case ID_HELP_ABOUT: m_Gui->AboutBox(); break;
     case ID_HELP_ABOUTSETTINGFILES: m_Gui->AboutIniBox(); break;
+    case ID_PARTREON_PAGE: OpenPatreonPage(); break;
+    case ID_PARTREON_EMAIL: ChangePatreonEmail(hWnd); break;
     default:
         if (MenuID >= ID_RECENT_ROM_START && MenuID < ID_RECENT_ROM_END)
         {
@@ -1205,6 +1208,9 @@ void CMainMenu::FillOutMenu(HMENU hMenu)
     ****************/
     MenuItemList HelpMenu;
 
+    HelpMenu.push_back(MENU_ITEM(ID_PARTREON_PAGE, MENU_PARTREON_PAGE));
+    HelpMenu.push_back(MENU_ITEM(ID_PARTREON_EMAIL, MENU_PARTREON_EMAIL));
+    HelpMenu.push_back(MENU_ITEM(SPLITER));
     HelpMenu.push_back(MENU_ITEM(ID_HELP_SUPPORTFORUM, MENU_FORUM));
     HelpMenu.push_back(MENU_ITEM(ID_HELP_HOMEPAGE, MENU_HOMEPAGE));
     HelpMenu.push_back(MENU_ITEM(SPLITER));
