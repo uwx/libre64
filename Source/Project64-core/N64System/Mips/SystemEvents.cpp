@@ -14,9 +14,9 @@
 #include <Project64-core/N64System/N64Class.h>
 
 CSystemEvents::CSystemEvents(CN64System * System, CPlugins * Plugins) :
-m_System(System),
-m_Plugins(Plugins),
-m_bDoSomething(false)
+    m_System(System),
+    m_Plugins(Plugins),
+    m_bDoSomething(false)
 {
 }
 
@@ -206,6 +206,14 @@ void CSystemEvents::ExecuteEvents()
             {
                 g_Settings->SaveBool(GameRunning_CPU_Paused, true);
                 g_Settings->SaveDword(GameRunning_CPU_PausedType, PauseType_Cheats);
+                bPause = true;
+            }
+            break;
+        case SysEvent_PauseCPU_Enhancement:
+            if (!g_Settings->LoadBool(GameRunning_CPU_Paused))
+            {
+                g_Settings->SaveBool(GameRunning_CPU_Paused, true);
+                g_Settings->SaveDword(GameRunning_CPU_PausedType, PauseType_Enhancement);
                 bPause = true;
             }
             break;

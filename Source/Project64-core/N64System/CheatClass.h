@@ -22,6 +22,7 @@ public:
     enum
     {
         MaxCheats = 50000,
+        MaxEnhancements = 50000,
         MaxGSEntries = 100,
     };
 

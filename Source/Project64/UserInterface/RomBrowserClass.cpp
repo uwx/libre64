@@ -731,15 +731,15 @@ void CRomBrowser::RomList_GetDispInfo(uint32_t pnmh)
         }
         else if (pRomInfo->CicChip == CIC_NUS_8303)
         {
-            swprintf(lpdi->item.pszText, lpdi->item.cchTextMax / sizeof(wchar_t), L"CIC-NUS-8303", pRomInfo->CicChip);
+            swprintf(lpdi->item.pszText, lpdi->item.cchTextMax / sizeof(wchar_t), L"CIC-NUS-8303");
         }
         else if (pRomInfo->CicChip == CIC_NUS_5167)
         {
-            swprintf(lpdi->item.pszText, lpdi->item.cchTextMax / sizeof(wchar_t), L"CIC-NUS-5167", pRomInfo->CicChip);
+            swprintf(lpdi->item.pszText, lpdi->item.cchTextMax / sizeof(wchar_t), L"CIC-NUS-5167");
         }
         else if (pRomInfo->CicChip == CIC_NUS_DDUS)
         {
-            swprintf(lpdi->item.pszText, lpdi->item.cchTextMax / sizeof(wchar_t), L"CIC-NUS-????", pRomInfo->CicChip);
+            swprintf(lpdi->item.pszText, lpdi->item.cchTextMax / sizeof(wchar_t), L"CIC-NUS-????");
         }
         else
         {
@@ -827,9 +827,11 @@ void CRomBrowser::RomList_PopupMenu(uint32_t /*pnmh*/)
     MenuSetText(hPopupMenu, 7, wGS(POPUP_GFX_PLUGIN).c_str(), NULL);
     MenuSetText(hPopupMenu, 9, wGS(POPUP_SETTINGS).c_str(), NULL);
     MenuSetText(hPopupMenu, 10, wGS(POPUP_CHEATS).c_str(), NULL);
+    MenuSetText(hPopupMenu, 11, wGS(POPUP_ENHANCEMENT).c_str(), NULL);
 
     if (m_SelectedRom.size() == 0)
     {
+        DeleteMenu(hPopupMenu, 11, MF_BYPOSITION);
         DeleteMenu(hPopupMenu, 10, MF_BYPOSITION);
         DeleteMenu(hPopupMenu, 9, MF_BYPOSITION);
         DeleteMenu(hPopupMenu, 8, MF_BYPOSITION);
@@ -844,6 +846,7 @@ void CRomBrowser::RomList_PopupMenu(uint32_t /*pnmh*/)
     {
         bool inBasicMode = g_Settings->LoadDword(UserInterface_BasicMode) != 0;
         bool CheatsRemembered = g_Settings->LoadDword(Setting_RememberCheats) != 0;
+        if (inBasicMode) { DeleteMenu(hPopupMenu, 11, MF_BYPOSITION); }
         if (!CheatsRemembered) { DeleteMenu(hPopupMenu, 10, MF_BYPOSITION); }
         if (inBasicMode) { DeleteMenu(hPopupMenu, 9, MF_BYPOSITION); }
         if (inBasicMode && !CheatsRemembered) { DeleteMenu(hPopupMenu, 8, MF_BYPOSITION); }
@@ -1012,7 +1015,7 @@ void CRomBrowser::FixRomListWindow(void)
     int32_t Width = UISettingsLoadDword(RomBrowser_Width);
     int32_t Height = UISettingsLoadDword(RomBrowser_Height);
 
-    if (Width < 200)  { Width = 200; }
+    if (Width < 200) { Width = 200; }
     if (Height < 200) { Height = 200; }
 
     RECT rcClient;

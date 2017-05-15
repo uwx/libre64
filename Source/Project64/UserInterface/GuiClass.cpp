@@ -10,6 +10,7 @@
 ****************************************************************************/
 #include "stdafx.h"
 #include "RomInformationClass.h"
+#include "EnhancementUI.h"
 
 #include <commctrl.h>
 #include <Project64-core/Settings/SettingType/SettingsType-Application.h>
@@ -1025,6 +1026,7 @@ LRESULT CALLBACK CMainGui::MainGui_Proc(HWND hWnd, DWORD uMsg, DWORD wParam, DWO
                 break;
             case ID_POPUPMENU_EDITSETTINGS:
             case ID_POPUPMENU_EDITCHEATS:
+            case ID_POPUPMENU_ENHANCEMENT:
                 {
                     CN64Rom Rom;
                     Rom.LoadN64Image(_this->CurrentedSelectedRom(), true);
@@ -1045,6 +1047,11 @@ LRESULT CALLBACK CMainGui::MainGui_Proc(HWND hWnd, DWORD uMsg, DWORD wParam, DWO
                         {
                             g_cheatUI = NULL;
                         }
+                    }
+
+                    if (LOWORD(wParam) == ID_POPUPMENU_ENHANCEMENT)
+                    {
+                        CEnhancementUI().Display(hWnd);
                     }
 
                     if (g_Rom)

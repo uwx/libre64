@@ -46,6 +46,9 @@
 #define IDD_Settings_GameRecompiler     162
 #define IDD_Settings_GamePlugin         163
 #define IDD_Settings_GameStatus         164
+#define IDD_Enhancements_Select         165
+#define IDD_Enhancements_List           166
+#define IDD_Enhancements_Add            167
 #define IDC_MENU_ITEM_TEXT              1000
 #define IDC_CLOSE_BUTTON                1001
 #define IDC_LIST2                       1003
@@ -250,7 +253,13 @@
 #define IDC_DESCRIPTION                 1102
 #define IDC_DIR_FRAME3                  1103
 #define IDC_DIR_FRAME4                  1104
+#define IDC_ENHANCEMENTSFRAME           1104
+#define IDC_ADDENHANCEMENTSFRAME        1104
 #define IDC_DIR_FRAME5                  1105
+#define IDC_ENHANCEMENT_CODES           1105
+#define IDC_ENHANCEMENT_OPTIONS         1106
+#define IDC_ENHANCEMENTNOTES            1107
+#define IDC_NEWENHANCEMENT              1108
 #define IDC_MAXROMS_TXT                 1111
 #define IDC_ROMSEL_TEXT2                1112
 #define IDC_MAXROMDIR_TXT               1113
@@ -349,14 +358,15 @@
 #define ID_POPUP_ADDNEWCHEAT            40161
 #define ID_POPUP_EDIT                   40162
 #define ID_POPUP_DELETE                 40163
+#define ID_POPUPMENU_ENHANCEMENT        40164
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        152
-#define _APS_NEXT_COMMAND_VALUE         40009
-#define _APS_NEXT_CONTROL_VALUE         1104
+#define _APS_NEXT_RESOURCE_VALUE        153
+#define _APS_NEXT_COMMAND_VALUE         40165
+#define _APS_NEXT_CONTROL_VALUE         1109
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

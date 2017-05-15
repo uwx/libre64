@@ -35,6 +35,8 @@ enum SettingID
     SupportFile_Glide64RDBDefault,
     SupportFile_Cheats,
     SupportFile_CheatsDefault,
+    SupportFile_Enhancements,
+    SupportFile_EnhancementsDefault,
     SupportFile_Notes,
     SupportFile_NotesDefault,
     SupportFile_ExtInfo,
@@ -296,6 +298,15 @@ enum SettingID
     Cheat_Options,
     Cheat_Range,
     Cheat_RangeNotes,
+
+    //Enhancement
+    Enhancement_Entry,
+    Enhancement_Active,
+    Enhancement_Extension,
+    Enhancement_Notes,
+    Enhancement_Options,
+    Enhancement_Range,
+    Enhancement_RangeNotes,
 
     FirstUISettings, LastUISettings = FirstUISettings + MaxPluginSetting,
     FirstRSPDefaultSet, LastRSPDefaultSet = FirstRSPDefaultSet + MaxPluginSetting,

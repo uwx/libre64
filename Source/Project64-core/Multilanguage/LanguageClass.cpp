@@ -135,6 +135,7 @@ void CLanguage::LoadDefaultStrings(void)
     DEF_STR(POPUP_CHEATS, "Edit Cheats");
     DEF_STR(POPUP_GFX_PLUGIN, "Graphics Plugin");
     DEF_STR(POPUP_PLAYDISK, "Play Game with Disk");
+    DEF_STR(POPUP_ENHANCEMENT, "Select Enhancement");
 
     //Alternate Name to save Slot
     DEF_STR(SAVE_SLOT_DEFAULT, "Save Slot - Default");
@@ -431,7 +432,9 @@ void CLanguage::LoadDefaultStrings(void)
     DEF_STR(CHEAT_EDIT, "Edit");
     DEF_STR(CHEAT_DELETE, "Delete");
 
-    // short-cut editor
+    /*********************************************************************************
+    * short cut editor                                                               *
+    *********************************************************************************/
     DEF_STR(STR_SHORTCUT_RESET_TITLE, "Reset short-cuts");
     DEF_STR(STR_SHORTCUT_RESET_TEXT, "Are you sure you want to reset the short-cuts?\n\nThis action cannot be undone.");
     DEF_STR(STR_SHORTCUT_FILEMENU, "File Menu");
@@ -454,6 +457,46 @@ void CLanguage::LoadDefaultStrings(void)
     DEF_STR(MSG_SUPPORT_ENTER_CODE_DESC, "Please enter the code in the email");
     DEF_STR(MSG_SUPPORT_OK, "OK");
     DEF_STR(MSG_SUPPORT_CANCEL, "Cancel");
+
+    /*********************************************************************************
+    * Enhancements                                                                   *
+    *********************************************************************************/
+    //Enhancement List
+    DEF_STR(ENHANCEMENT_TITLE, "Enhancements");
+    DEF_STR(ENHANCEMENT_ADDNEW, "Add New Enhancement...");
+    DEF_STR(ENHANCEMENT_LIST_FRAME, "Enhancements:");
+    DEF_STR(ENHANCEMENT_NOTES_FRAME, " Notes: ");
+    DEF_STR(ENHANCEMENT_MARK_NONE, "Unmark All");
+
+    //Add Enhancement
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_FRAME, "Add Enhancement");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_NAME, "Name:");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_CODE, "Code:");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_INSERT, "Insert");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_CLEAR, "Clear");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_NOTES, " Enhancement Notes: ");
+    DEF_STR(ENHANCEMENT_ADD_TO_DB, "Add to DB");
+
+    //Digital Value
+    DEF_STR(ENHANCEMENT_QUANTITY_TITLE, "Quantity Digit");
+    DEF_STR(ENHANCEMENT_CHOOSE_VALUE, "Please choose a value for:");
+    DEF_STR(ENHANCEMENT_VALUE, "&Value");
+    DEF_STR(ENHANCEMENT_FROM, "from");
+    DEF_STR(ENHANCEMENT_TO, "to");
+    DEF_STR(ENHANCEMENT_NOTES, "&Notes:");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_ADD, "Add Enhancement");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_NEW, "New Enhancement");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_CODEDES, "<address> <value>");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_OPT, "Options:");
+    DEF_STR(ENHANCEMENT_ADDENHANCEMENT_OPTDES, "<value> <label>");
+
+    //Edit Enhancement
+    DEF_STR(ENHANCEMENT_EDITENHANCEMENT_WINDOW, "Edit Enhancement");
+    DEF_STR(ENHANCEMENT_EDITENHANCEMENT_UPDATE, "Update Enhancement");
+    DEF_STR(ENHANCEMENT_CHANGED_MSG, "Enhancement has been changed.\n\nDo you want to update?");
+    DEF_STR(ENHANCEMENT_CHANGED_TITLE, "Enhancement updated");
+
+    //Enhancement Popup Menu
 
     /*********************************************************************************
     * Messages                                                                       *

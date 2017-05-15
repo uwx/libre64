@@ -128,6 +128,7 @@ enum LanguageStringID
     POPUP_CHEATS = 213,
     POPUP_GFX_PLUGIN = 214,
     POPUP_PLAYDISK = 215,
+    POPUP_ENHANCEMENT = 216,
 
     //selecting save slot
     SAVE_SLOT_DEFAULT = 220,
@@ -463,14 +464,16 @@ enum LanguageStringID
     CHEAT_EDIT = 1041,
     CHEAT_DELETE = 1042,
 
-    // short cut editor
+    /*********************************************************************************
+    * short cut editor                                                               *
+    *********************************************************************************/
     STR_SHORTCUT_RESET_TITLE = 1100,
     STR_SHORTCUT_RESET_TEXT = 1101,
     STR_SHORTCUT_FILEMENU = 1102,
     STR_SHORTCUT_SYSTEMMENU = 1103,
     STR_SHORTCUT_OPTIONS = 1104,
     STR_SHORTCUT_SAVESLOT = 1105,
-
+    
     /*********************************************************************************
     * Support Window                                                                       *
     *********************************************************************************/
@@ -486,6 +489,45 @@ enum LanguageStringID
     MSG_SUPPORT_ENTER_CODE_DESC = 1209,
     MSG_SUPPORT_OK = 1210,
     MSG_SUPPORT_CANCEL = 1211,
+
+    /*********************************************************************************
+    * Enhancements                                                                         *
+    *********************************************************************************/
+    ENHANCEMENT_TITLE = 1300,
+    ENHANCEMENT_ADDNEW = 1301,
+    ENHANCEMENT_LIST_FRAME = 1302,
+    ENHANCEMENT_NOTES_FRAME = 1303,
+    ENHANCEMENT_NAME_IN_USE = 1304,
+    ENHANCEMENT_MAX_USED = 1305,
+    ENHANCEMENT_MARK_NONE = 1306,
+
+    //Add Enhancement
+    ENHANCEMENT_ADDENHANCEMENT_FRAME = 1320,
+    ENHANCEMENT_ADDENHANCEMENT_NAME = 1321,
+    ENHANCEMENT_ADDENHANCEMENT_CODE = 1322,
+    ENHANCEMENT_ADDENHANCEMENT_INSERT = 1323,
+    ENHANCEMENT_ADDENHANCEMENT_CLEAR = 1324,
+    ENHANCEMENT_ADDENHANCEMENT_NOTES = 1325,
+    ENHANCEMENT_ADD_TO_DB = 1326,
+   
+    //Edit Cheat
+    ENHANCEMENT_EDITENHANCEMENT_WINDOW = 1340,
+    ENHANCEMENT_EDITENHANCEMENT_UPDATE = 1341,
+    ENHANCEMENT_CHANGED_MSG = 1342,
+    ENHANCEMENT_CHANGED_TITLE = 1343,
+    
+    //Digital Value
+    ENHANCEMENT_QUANTITY_TITLE = 1360,
+    ENHANCEMENT_CHOOSE_VALUE = 1361,
+    ENHANCEMENT_VALUE = 1362,
+    ENHANCEMENT_FROM = 1363,
+    ENHANCEMENT_TO = 1364,
+    ENHANCEMENT_NOTES = 1365,
+    ENHANCEMENT_ADDENHANCEMENT_ADD = 1366,
+    ENHANCEMENT_ADDENHANCEMENT_NEW = 1367,
+    ENHANCEMENT_ADDENHANCEMENT_CODEDES = 1368,
+    ENHANCEMENT_ADDENHANCEMENT_OPT = 1369,
+    ENHANCEMENT_ADDENHANCEMENT_OPTDES = 1370,
 
     /*********************************************************************************
     * Messages                                                                       *
