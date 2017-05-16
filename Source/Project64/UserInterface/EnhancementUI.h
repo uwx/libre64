@@ -58,7 +58,7 @@ private:
     std::string m_EditCode;
     std::string m_EditOptions;
     std::string m_EditNotes;
-    int m_EditEnhancement;
+    int32_t m_EditEnhancement;
     CEnhancementList & m_SelectList;
 };
 

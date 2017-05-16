@@ -671,7 +671,9 @@ void CCheatAdd::OnAdd(UINT /*uNotifyCode*/, int /*nID*/, CWindow /*wndCtl*/)
             if (m_EditCheat < 0)
             {
                 m_EditCheat = i;
+                found = true;
             }
+            break;
         }
         else if (_stricmp(CheatName.c_str(), NewCheatName.c_str()) == 0)
         {
@@ -679,8 +681,6 @@ void CCheatAdd::OnAdd(UINT /*uNotifyCode*/, int /*nID*/, CWindow /*wndCtl*/)
             GetDlgItem(IDC_CODE_NAME).SetFocus();
             return;
         }
-        found = true;
-        break;
     }
     if (m_EditCheat < 0 && found)
     {

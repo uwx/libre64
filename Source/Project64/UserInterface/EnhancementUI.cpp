@@ -381,7 +381,9 @@ void CEnhancementAdd::OnAdd(UINT /*uNotifyCode*/, int /*nIDv*/, CWindow /*wndCtl
             if (m_EditEnhancement < 0)
             {
                 m_EditEnhancement = i;
+                found = true;
             }
+            break;
         }
         else if (_stricmp(EnhancementName.c_str(), NewEnhancementName.c_str()) == 0)
         {
@@ -389,8 +391,6 @@ void CEnhancementAdd::OnAdd(UINT /*uNotifyCode*/, int /*nIDv*/, CWindow /*wndCtl
             GetDlgItem(IDC_CODE_NAME).SetFocus();
             return;
         }
-        found = true;
-        break;
     }
     if (m_EditEnhancement < 0 && found)
     {
