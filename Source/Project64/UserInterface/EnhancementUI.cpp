@@ -163,7 +163,8 @@ void CEnhancementUI::OnState(UINT /*Code*/, int /*id*/, HWND /*ctl*/)
 }
 
 CEnhancementAdd::CEnhancementAdd(CEnhancementList & ListSection) :
-    m_SelectList(ListSection)
+    m_SelectList(ListSection),
+    m_EditEnhancement(-1)
 {
 }
 

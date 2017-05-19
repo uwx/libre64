@@ -453,7 +453,8 @@ void CCheatsUI::OnState(UINT /*Code*/, int /*id*/, HWND /*ctl*/)
 }
 
 CCheatAdd::CCheatAdd(CCheatList & ListSection) :
-    m_SelectList(ListSection)
+    m_SelectList(ListSection),
+    m_EditCheat(-1)
 {
 }
 
