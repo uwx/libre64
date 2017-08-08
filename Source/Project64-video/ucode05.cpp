@@ -11,6 +11,7 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
+#include <Project64-video/Renderer/Renderer.h>
 #include <Project64-video/rdp.h>
 #include <Project64-video/Gfx_1.3.h>
 #include <Project64-video/trace.h>
@@ -19,7 +20,6 @@
 #include "3dmath.h"
 #include "ucode00.h"
 #include "util.h"
-#include <Project64-video/Renderer/OGLESgeometry.h>
 
 int cur_mtx = 0;
 int billboarding = 0;

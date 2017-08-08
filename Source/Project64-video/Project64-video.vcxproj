@@ -40,9 +40,9 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)\Source\3rdParty\angle\include;$(Root)Source/Glitch64/inc;inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>__MSC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GL_GLEXT_PROTOTYPES;__MSC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Platform)'=='x64'">NO_ASM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">GL_GLEXT_PROTOTYPES;RDP_LOGGING;RDP_ERROR_LOG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">RDP_LOGGING;RDP_ERROR_LOG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader />
     </ClCompile>
     <Link>
@@ -53,11 +53,8 @@
     <ClInclude Include="Gfx_1.3.h" />
     <ClInclude Include="Renderer\EGLWindow.h" />
     <ClInclude Include="Renderer\glitchmain.h" />
-    <ClInclude Include="Renderer\OGLEScombiner.h" />
-    <ClInclude Include="Renderer\OGLESgeometry.h" />
-    <ClInclude Include="Renderer\OGLESglitchmain.h" />
-    <ClInclude Include="Renderer\OGLEStextures.h" />
     <ClInclude Include="Renderer\OGLESwrappers.h" />
+    <ClInclude Include="Renderer\Renderer.h" />
     <ClInclude Include="Renderer\types.h" />
     <ClInclude Include="ScreenResolution.h" />
     <ClInclude Include="Settings.h" />

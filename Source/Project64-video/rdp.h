@@ -14,7 +14,7 @@
 #pragma once
 
 #include <Common/stdtypes.h>
-#include <Project64-video/Renderer/OGLEStextures.h>
+#include <Project64-video/Renderer/Renderer.h>
 
 extern char out_buf[2048];
 

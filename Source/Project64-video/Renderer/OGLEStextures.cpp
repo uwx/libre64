@@ -19,7 +19,7 @@
 #include "glitchmain.h"
 #include <stdio.h>
 #include <Project64-video/trace.h>
-#include <Project64-video/Renderer/OGLEStextures.h>
+#include <Project64-video/Renderer/Renderer.h>
 
 /* Napalm extensions to GrTextureFormat_t */
 

@@ -11,13 +11,11 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
+#include <Project64-video/Renderer/Renderer.h>
 #include "Gfx_1.3.h"
 #include "FBtoScreen.h"
 #include "TexCache.h"
 #include <Project64-video/trace.h>
-#include <Project64-video/Renderer/OGLEScombiner.h>
-#include <Project64-video/Renderer/OGLEStextures.h>
-#include <Project64-video/Renderer/OGLESgeometry.h>
 
 static gfxChipID_t SetupFBtoScreenCombiner(uint32_t texture_size, uint32_t opaque)
 {

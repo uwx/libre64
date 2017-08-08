@@ -11,6 +11,7 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
+#include <Project64-video/Renderer/Renderer.h>
 #include <string.h>
 #include <Common/StdString.h>
 #include "Gfx_1.3.h"
@@ -33,10 +34,6 @@
 #include "DepthBufferRender.h"
 #include "trace.h"
 #include "ScreenResolution.h"
-#include <Project64-video/Renderer/OGLEScombiner.h>
-#include <Project64-video/Renderer/OGLEStextures.h>
-#include <Project64-video/Renderer/OGLESglitchmain.h>
-#include <Project64-video/Renderer/OGLESgeometry.h>
 
 #ifdef _WIN32
 #include <commctrl.h>

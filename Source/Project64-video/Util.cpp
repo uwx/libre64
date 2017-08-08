@@ -11,6 +11,7 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
+#include <Project64-video/Renderer/Renderer.h>
 #include <math.h>
 #include <string.h>
 
@@ -22,10 +23,6 @@
 #include "TexCache.h"
 #include "DepthBufferRender.h"
 #include <Project64-video/trace.h>
-#include <Project64-video/Renderer/OGLEScombiner.h>
-#include <Project64-video/Renderer/OGLEStextures.h>
-#include <Project64-video/Renderer/OGLESglitchmain.h>
-#include <Project64-video/Renderer/OGLESgeometry.h>
 
 VERTEX *vtx_list1[32];  // vertex indexing
 VERTEX *vtx_list2[32];

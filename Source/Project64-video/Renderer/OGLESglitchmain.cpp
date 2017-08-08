@@ -11,6 +11,7 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
+#include <Project64-video/Renderer/Renderer.h>
 
 #define SAVE_CBUFFER
 
@@ -35,8 +36,6 @@
 #include "glitchmain.h"
 #include <Project64-video/trace.h>
 #include <Project64-video/Settings.h>
-#include <Project64-video/Renderer/OGLEStextures.h>
-#include <Project64-video/Renderer/OGLESgeometry.h>
 
 int screen_width, screen_height;
 

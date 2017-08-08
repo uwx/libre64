@@ -11,6 +11,7 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
+#include <Project64-video/Renderer/Renderer.h>
 #include "Gfx_1.3.h"
 
 #include "TexCache.h"
@@ -18,9 +19,6 @@
 #include "Util.h"
 #include <Common/Util.h>
 #include <Project64-video/trace.h>
-#include <Project64-video/Renderer/glitchmain.h>
-#include <Project64-video/Renderer/OGLEScombiner.h>
-#include <Project64-video/Renderer/OGLEStextures.h>
 
 void LoadTex(int id, gfxChipID_t tmu);
 

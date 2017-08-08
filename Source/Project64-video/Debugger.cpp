@@ -11,14 +11,13 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
+#include <Project64-video/Renderer/Renderer.h>
 #include <stdarg.h>
 #include <string.h>
 
 #include "Gfx_1.3.h"
 #include "Util.h"
 #include "Debugger.h"
-
-#include <Project64-video/Renderer/OGLESgeometry.h>
 
 #define SX(x) ((x)*rdp.scale_1024)
 #define SY(x) ((x)*rdp.scale_768)

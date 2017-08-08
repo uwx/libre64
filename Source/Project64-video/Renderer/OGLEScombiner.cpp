@@ -11,6 +11,7 @@
 * version 2 of the License, or (at your option) any later version.         *
 *                                                                          *
 ****************************************************************************/
+#include <Project64-video/Renderer/Renderer.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,7 +20,6 @@
 #include <Project64-video/Settings.h>
 #include <Project64-video/Gfx_1.3.h>
 #include <vector>
-#include <Project64-video/Renderer/OGLEScombiner.h>
 
 void vbo_draw();
 
