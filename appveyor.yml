@@ -1,4 +1,3 @@
-version: {build}
 image: Visual Studio 2015
 configuration:
 - Debug
