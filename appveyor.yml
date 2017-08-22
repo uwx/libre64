@@ -8,3 +8,8 @@ platform:
 build:
   project: Project64.sln
   verbosity: minimal
+artifacts:
+- path: bin/**
+  name: first
+- path: obj/**
+  name: seocnd
