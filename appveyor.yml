@@ -11,5 +11,9 @@ build:
 artifacts:
 - path: bin/**
   name: first
-- path: obj/**
-  name: seocnd
+- path: bin/*/**
+  name: firsta
+- path: bin/Release/**
+  name: afirsta
+- path: bin/Debug/**
+  name: pepesilvia
