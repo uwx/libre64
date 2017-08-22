@@ -1,0 +1,11 @@
+version: {build}
+image: Visual Studio 2015
+configuration:
+- Debug
+- Release
+platform:
+- x86
+- x64
+build:
+  project: Project64.sln
+  verbosity: minimal
