@@ -8,10 +8,29 @@ platform:
 build:
   project: Project64.sln
   verbosity: minimal
+  
+after_build:
+- cmd: after_build.cmd
+
 artifacts:
+- path: Libre64.zip
+  name: Libre64
 - path: Bin
+  name: Debug_Bin_Dir
 - path: build
+  name: Debug_Build_Dir
 - path: Config
-- path: ipch
+  name: Debug_Config_Dir
 - path: Plugin
+  name: Debug_Plugin_Dir
 - path: Plugin64
+  name: Debug_Plugin64_Dir
+
+#deploy:
+#    # Deploy to GitHub Releases
+#  - provider: GitHub
+#    artifact: /Libre64.zip/           # upload all NuGet packages to release assets
+#    draft: false
+#    prerelease: true
+#    on:
+#      branch: master                # release from master branch only
